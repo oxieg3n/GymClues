@@ -43,9 +43,10 @@ class RegressionTests {
       execSQL("INSERT INTO SetLog(date,exerciseId,setNo,reps,weight,units,notes) VALUES(1,'ex_leg_press',1,10,100,'lb','')")
       execSQL("INSERT INTO CustomWorkout(name,exerciseIdsCsv) VALUES('Old one','ex_leg_press,ex_chest_press')")
       close() }
-    val db = helper.runMigrationsAndValidate("mig.db", 3, true, MIGRATION_1_2, MIGRATION_2_3)
+    val db = helper.runMigrationsAndValidate("mig.db", 4, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
     db.query("SELECT COUNT(*) FROM SetLog").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM workout_items").use { it.moveToFirst(); assertEquals(2, it.getInt(0)) }
+    db.query("SELECT COUNT(*) FROM rest_days").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM program_assignments").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.close()
   }
@@ -164,6 +165,37 @@ class ProgramTests {
     val e = app.dao.customExercises(app.session.userId).first().single()
     assertEquals(Visibility.PRIVATE, e.visibility); assertEquals(SyncState.PENDING, e.syncState)
     assertTrue(app.dao.outbox().any { it.entityType == "exercise" && it.entityId == e.id })
+  }
+
+  @Test fun restDaysShiftTheProgram() {
+    val ps = AppContainer(ctx).programs.programs
+    val a = listOf(ProgramAssignmentEntity(programId = "B1", startDate = "2026-10-12", ownerId = "u"))   // Mon: Back, Tue Chest, Wed Legs, Thu Shoulders, Fri Arms
+    fun rd(w: Int, s: String, e: String = "") = RestDayEntity(ownerId = "u", weekday = w, startDate = s, endDate = e)
+    fun on(rules: List<RestDayEntity>, d: String) = scheduledDay(ps, a, java.time.LocalDate.parse(d), RestRules(rules))
+    // one-off rest on Tue 13th: Chest slides to Wed, everything after moves a day
+    val one = listOf(rd(0, "2026-10-13", "2026-10-14"))
+    assertTrue(on(one, "2026-10-13")!!.userRest)
+    assertEquals("Chest & Abs", on(one, "2026-10-14")!!.day.session)
+    assertEquals("Back", on(one, "2026-10-12")!!.day.session)
+    // every Friday off from the start: Arms is pushed to Saturday, Friday shows rest
+    val fri = listOf(rd(5, "2026-10-12"))
+    assertTrue(on(fri, "2026-10-16")!!.userRest); assertEquals("Arms", on(fri, "2026-10-17")!!.day.session)
+    // a weekly rule that ended keeps earlier dates unchanged
+    val ended = listOf(rd(5, "2026-10-12", "2026-10-16"))
+    assertEquals("Arms", on(ended, "2026-10-16")!!.day.session)
+  }
+
+  @Test fun restDayRepositoryRules() = runBlocking {
+    val app = AppContainer(ctx); val today = java.time.LocalDate.now()
+    app.programs.addRestDate(today); app.programs.addRestDate(today)   // duplicate is ignored
+    assertEquals(1, app.dao.restDaysOnce(app.session.userId).size)
+    assertTrue(RestRules(app.dao.restDaysOnce(app.session.userId)).isRest(today))
+    app.programs.removeRestDate(today)
+    assertFalse(RestRules(app.dao.restDaysOnce(app.session.userId).filter { !it.deleted }).isRest(today))
+    for (d in 1..6) assertTrue(app.programs.setWeekly(d, true))
+    assertFalse(app.programs.setWeekly(7, true))                        // cannot block every day
+    assertTrue(app.programs.setWeekly(1, false))
+    assertTrue(app.programs.setWeekly(7, true))
   }
 
   @Test fun programDayWorkoutRunsWithUnmatchedExercisesAndLogsOnlyWorkingSets() {

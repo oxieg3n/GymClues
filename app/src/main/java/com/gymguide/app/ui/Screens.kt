@@ -48,6 +48,7 @@ val SPLIT_HELP = mapOf(
     }
     StreakPanel(stats)
     CalendarCard(app, stats, go)
+    RestDayButton(app, go)
     Button({ go("styles") }, Modifier.fillMaxWidth().height(60.dp), shape = MaterialTheme.shapes.medium) {
       Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text("Start a workout", style = MaterialTheme.typography.titleMedium) }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {

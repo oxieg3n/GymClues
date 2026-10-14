@@ -21,3 +21,9 @@ val SCHEMA_V3_CREATE = listOf(
   "CREATE TABLE IF NOT EXISTS `custom_exercises` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `equipmentIds` TEXT NOT NULL, `primaryMuscles` TEXT NOT NULL, `movement` TEXT NOT NULL, `steps` TEXT NOT NULL, `safety` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `visibility` TEXT NOT NULL, `status` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `syncState` TEXT NOT NULL, `deleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
   "CREATE INDEX IF NOT EXISTS `index_custom_exercises_ownerId` ON `custom_exercises` (`ownerId`)"
 )
+
+/** CREATE statements for tables added in db v4 (from schemas/4.json). */
+val SCHEMA_V4_CREATE = listOf(
+  "CREATE TABLE IF NOT EXISTS `rest_days` (`id` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `weekday` INTEGER NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `syncState` TEXT NOT NULL, `deleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+  "CREATE INDEX IF NOT EXISTS `index_rest_days_ownerId` ON `rest_days` (`ownerId`)"
+)

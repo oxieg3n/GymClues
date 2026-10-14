@@ -34,6 +34,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 /** Home calendar: Today and Tomorrow with their assigned sessions, plus Week/Month pages. */
 @Composable fun CalendarCard(app: AppContainer, stats: WorkoutStats, go: (String) -> Unit) {
   val assignments by app.programs.assignments().collectAsState(emptyList())
+  val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val cs = MaterialTheme.colorScheme
   Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer, border = BorderStroke(1.dp, cs.outlineVariant)) {
     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -45,14 +46,14 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
       }
       Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         listOf("Today" to stats.today, "Tomorrow" to stats.today.plusDays(1)).forEach { (label, date) ->
-          DayCard(app, label, date, scheduledDay(app.programs.programs, assignments, date), date in stats.doneDays, go, Modifier.weight(1f))
+          DayCard(label, date, scheduledDay(app.programs.programs, assignments, date, rest), rest.isRest(date), date in stats.doneDays, go, Modifier.weight(1f))
         }
       }
     }
   }
 }
 
-@Composable private fun DayCard(app: AppContainer, label: String, date: LocalDate, a: AssignedDay?, done: Boolean, go: (String) -> Unit, modifier: Modifier) {
+@Composable private fun DayCard(label: String, date: LocalDate, a: AssignedDay?, restDay: Boolean, done: Boolean, go: (String) -> Unit, modifier: Modifier) {
   val cs = MaterialTheme.colorScheme
   Surface(modifier.heightIn(min = 148.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh,
     border = if (label == "Today") BorderStroke(1.5.dp, cs.primary) else null) {
@@ -65,6 +66,8 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
       Muted(date.format(dayFmt))
       Spacer(Modifier.weight(1f))
       when {
+        a != null && a.userRest -> { Text("Your rest day", style = MaterialTheme.typography.titleMedium); Muted("${a.program.name} shifts back a day") }
+        a == null && restDay -> Text("Your rest day", style = MaterialTheme.typography.titleMedium)
         a == null -> { Text("No program", style = MaterialTheme.typography.bodyMedium)
           TextButton({ go("programs") }, contentPadding = PaddingValues(0.dp)) { Text("Choose a program") } }
         !a.day.training -> { Text("Rest day", style = MaterialTheme.typography.titleMedium); Muted(a.program.name) }
@@ -86,15 +89,17 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
   }
 }
 
-@Composable private fun useCalendarData(app: AppContainer): Pair<Set<LocalDate>, List<ProgramAssignmentEntity>> {
+private data class CalData(val done: Set<LocalDate>, val assignments: List<ProgramAssignmentEntity>, val rest: RestRules)
+@Composable private fun useCalendarData(app: AppContainer): CalData {
   val logs by app.workouts.history().collectAsState(emptyList())
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val stats = remember(logs) { workoutStats(logs.map { it.date }) }
-  return stats.doneDays to assignments
+  val rest by app.programs.restRules().collectAsState(RestRules.NONE)
+  return CalData(stats.doneDays, assignments, rest)
 }
 
 @Composable fun WeekCalendar(app: AppContainer, go: (String) -> Unit) {
-  val (done, assignments) = useCalendarData(app)
+  val (done, assignments, rest) = useCalendarData(app)
   var offset by rememberSaveable { mutableIntStateOf(0) }
   val today = LocalDate.now()
   val start = today.with(TemporalAdjusters.previousOrSame(WeekFields.of(Locale.getDefault()).firstDayOfWeek)).plusWeeks(offset.toLong())
@@ -106,7 +111,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
       IconButton({ offset++ }) { Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, "Next week") }
     }
     (0L..6L).map { start.plusDays(it) }.forEach { d ->
-      val a = scheduledDay(app.programs.programs, assignments, d)
+      val a = scheduledDay(app.programs.programs, assignments, d, rest)
       val cs = MaterialTheme.colorScheme
       Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainer,
         border = if (d == today) BorderStroke(1.5.dp, cs.primary) else null) {
@@ -118,6 +123,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
           }
           Box(Modifier.weight(1f)) {
             when {
+              a != null && a.userRest || a == null && rest.isRest(d) -> Text("Your rest day", color = MaterialTheme.colorScheme.error)
               a == null -> Muted(if (assignments.isEmpty()) "No program assigned" else "Outside program dates")
               !a.day.training -> Muted("Rest day")
               else -> SessionLink(a, go)
@@ -131,7 +137,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 }
 
 @Composable fun MonthCalendar(app: AppContainer, go: (String) -> Unit) {
-  val (done, assignments) = useCalendarData(app)
+  val (done, assignments, rest) = useCalendarData(app)
   var offset by rememberSaveable { mutableIntStateOf(0) }
   var picked by rememberSaveable { mutableStateOf<String?>(null) }
   val today = LocalDate.now()
@@ -153,7 +159,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
       Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
         (week + List(7 - week.size) { null }).forEach { d ->
           if (d == null) { Spacer(Modifier.weight(1f).height(64.dp)); return@forEach }
-          val a = scheduledDay(app.programs.programs, assignments, d)
+          val a = scheduledDay(app.programs.programs, assignments, d, rest)
           val sel = picked == d.toString()
           Surface(onClick = { picked = d.toString() }, modifier = Modifier.weight(1f).height(64.dp), shape = MaterialTheme.shapes.small,
             color = if (sel) cs.primary.copy(alpha = 0.2f) else cs.surfaceContainer,
@@ -163,8 +169,8 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
                 Text("${d.dayOfMonth}", style = MaterialTheme.typography.labelLarge, color = if (d == today) cs.primary else cs.onSurface)
                 if (d in done) Icon(Icons.Filled.Check, "Worked out", Modifier.size(14.dp).padding(start = 2.dp), tint = cs.primary)
               }
-              if (a != null) Text(if (a.day.training) a.day.session else "Rest", fontSize = 10.sp, lineHeight = 11.sp, maxLines = 2, overflow = TextOverflow.Ellipsis,
-                color = if (a.day.training) cs.primary else cs.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+              if (a != null || rest.isRest(d)) Text(if (a?.userRest == true || a == null) "Off" else if (a.day.training) a.day.session else "Rest", fontSize = 10.sp, lineHeight = 11.sp, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                color = if (a?.userRest == true || a == null) cs.error else if (a.day.training) cs.primary else cs.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
             }
           }
         }
@@ -172,11 +178,12 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
     }
     val sel = picked?.let(LocalDate::parse)
     if (sel != null) {
-      val a = scheduledDay(app.programs.programs, assignments, sel)
+      val a = scheduledDay(app.programs.programs, assignments, sel, rest)
       Surface(Modifier.fillMaxWidth().padding(top = 8.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Text(sel.format(dayFmt) + if (sel in done) "  (worked out)" else "", style = MaterialTheme.typography.titleMedium)
           when {
+            a != null && a.userRest || a == null && rest.isRest(sel) -> Text("Your rest day", color = cs.error)
             a == null -> Muted(if (assignments.isEmpty()) "No program assigned." else "Outside program dates.")
             !a.day.training -> Muted("Rest day (${a.program.name})")
             else -> SessionLink(a, go)

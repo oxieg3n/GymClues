@@ -72,6 +72,7 @@ object Routes {
       composable("program/{id}") { ProgramDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("pday/{id}?date={date}", listOf(navArgument("date") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         ProgramDayScreen(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("date"), nav) }
+      composable("restdays") { RestDaysScreen(app) }
       composable("week") { WeekCalendar(app, nav::navigate) }
       composable("month") { MonthCalendar(app, nav::navigate) }
       composable("myex") { MyExercises(app, nav) }

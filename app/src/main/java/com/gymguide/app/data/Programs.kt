@@ -3,9 +3,9 @@ package com.gymguide.app.data
 import android.content.Context
 import androidx.room.withTransaction
 import kotlinx.serialization.Serializable
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 
 @Serializable data class ProgramLibrary(val programs: List<WorkoutProgram>)
 @Serializable data class WorkoutProgram(val id: String, val name: String, val split: String, val author: String,
@@ -15,15 +15,29 @@ import java.time.temporal.ChronoUnit
 @Serializable data class ProgramDay(val day: Int, val session: String, val training: Boolean, val items: List<Prescription>)
 @Serializable data class Prescription(val phase: String, val exercise: String, val sets: String, val reps: String,
   val repsNote: String, val rest: String, val restSec: Int, val setCount: Int, val notes: String, val substitution: String)
-data class AssignedDay(val program: WorkoutProgram, val day: ProgramDay, val date: LocalDate)
+data class AssignedDay(val program: WorkoutProgram, val day: ProgramDay, val date: LocalDate, val userRest: Boolean = false)
+private val REST = ProgramDay(0, "Rest day", false, emptyList())
 
-/** Date-only arithmetic handles DST and the powerbuilding program's 8-day cycle. */
-fun scheduledDay(programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>, date: LocalDate): AssignedDay? {
+/** The user's days off. */
+class RestRules(private val rules: List<RestDayEntity> = emptyList()) {
+  fun isRest(d: LocalDate): Boolean { val s = d.toString()
+    return rules.any { !it.deleted && s >= it.startDate && (it.endDate.isBlank() || s < it.endDate) && (it.weekday == 0 || it.weekday == d.dayOfWeek.value) } }
+  companion object { val NONE = RestRules() }
+}
+
+/**
+ * Cycle day = number of non-rest days since the start date, mod cycle length, so a user rest day pushes the whole
+ * program back one day instead of skipping a session. Date-only arithmetic handles DST and the 8-day P3 cycle.
+ */
+fun scheduledDay(programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>, date: LocalDate,
+                 rest: RestRules = RestRules.NONE): AssignedDay? {
   val a = assignments.filter { !it.deleted && it.startDate <= date.toString() &&
     (it.endDate.isBlank() || date.toString() < it.endDate) }.maxByOrNull { it.startDate } ?: return null
   val p = programs.firstOrNull { it.id == a.programId } ?: return null
-  val offset = ChronoUnit.DAYS.between(LocalDate.parse(a.startDate), date)
-  val day = p.days.firstOrNull { it.day == (offset % p.cycleLength).toInt() + 1 } ?: return null
+  if (rest.isRest(date)) return AssignedDay(p, REST, date, userRest = true)
+  var idx = 0; var d = LocalDate.parse(a.startDate)
+  while (d.isBefore(date)) { if (!rest.isRest(d)) idx++; d = d.plusDays(1) }
+  val day = p.days.firstOrNull { it.day == idx % p.cycleLength + 1 } ?: return null
   return AssignedDay(p, day, date)
 }
 
@@ -63,4 +77,33 @@ class ProgramRepository(ctx: Context, private val db: GymDb, private val session
       dao.enqueue(OutboxEntity(entityType = "program_assignment", entityId = old.id, op = "update"))
     }
   }
+
+  // ---- rest days ----
+  fun restRules() = dao.restDays(session.userId).map { RestRules(it) }
+  fun restDays() = dao.restDays(session.userId)
+  private suspend fun active(): List<RestDayEntity> { val t = LocalDate.now().toString()
+    return dao.restDaysOnce(session.userId).filter { !it.deleted && (it.endDate.isBlank() || it.endDate > t) } }
+  private suspend fun save(r: RestDayEntity, op: String) { dao.upsertRestDay(r.copy(updatedAt = now(), syncState = SyncState.PENDING))
+    dao.enqueue(OutboxEntity(entityType = "rest_day", entityId = r.id, op = op)) }
+  private suspend fun end(r: RestDayEntity) { val t = LocalDate.now().toString()
+    save(if (r.startDate >= t) r.copy(deleted = true) else r.copy(endDate = t), "update") }
+
+  /** Repeat every [weekday] (1 = Monday ... 7 = Sunday). Refuses to block all seven days. */
+  suspend fun setWeekly(weekday: Int, on: Boolean): Boolean = db.withTransaction {
+    val cur = active().filter { it.weekday != 0 }
+    val mine = cur.filter { it.weekday == weekday }
+    if (!on) { mine.forEach { end(it) }; return@withTransaction true }
+    if (mine.isNotEmpty()) return@withTransaction true
+    if (cur.map { it.weekday }.toSet().size >= 6) return@withTransaction false
+    save(RestDayEntity(ownerId = session.userId, weekday = weekday, startDate = LocalDate.now().toString()), "create"); true
+  }
+  /** A single rest day (today or later). */
+  suspend fun addRestDate(date: LocalDate) = db.withTransaction {
+    require(!date.isBefore(LocalDate.now()))
+    if (active().none { it.weekday == 0 && it.startDate == date.toString() })
+      save(RestDayEntity(ownerId = session.userId, weekday = 0, startDate = date.toString(), endDate = date.plusDays(1).toString()), "create")
+  }
+  suspend fun removeRestDate(date: LocalDate) = db.withTransaction {
+    dao.restDaysOnce(session.userId).filter { !it.deleted && it.weekday == 0 && it.startDate == date.toString() }
+      .forEach { save(it.copy(deleted = true), "update") } }
 }

@@ -63,6 +63,14 @@ class Converters {
   val ownerId: String, val visibility: String = Visibility.PRIVATE,
   val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
 
+/**
+ * A day the user cannot train. weekday 1-7 (Mon-Sun) = repeats weekly, 0 = a single date. Applies to dates in [startDate, endDate);
+ * removing a rule ends it today instead of rewriting history. Programs skip these days (see scheduledDay).
+ */
+@Entity(tableName = "rest_days", indices = [Index("ownerId")]) data class RestDayEntity(
+  @PrimaryKey val id: String = newId(), val ownerId: String, val weekday: Int, val startDate: String, val endDate: String = "",
+  val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
+
 /** An exercise a user added. Private until the user shares it; merged into the catalog on this device. */
 @Entity(tableName = "custom_exercises", indices = [Index("ownerId")]) data class CustomExerciseEntity(
   @PrimaryKey val id: String = "ex_u_" + newId(), val name: String, val equipmentIds: List<String> = emptyList(),
@@ -121,6 +129,9 @@ class Converters {
   @Query("SELECT * FROM custom_exercises WHERE deleted = 0 AND ownerId = :owner ORDER BY name") fun customExercises(owner: String): Flow<List<CustomExerciseEntity>>
   @Query("SELECT * FROM custom_exercises WHERE id = :id") suspend fun customExercise(id: String): CustomExerciseEntity?
   @Upsert suspend fun upsertCustomExercise(e: CustomExerciseEntity)
+  @Query("SELECT * FROM rest_days WHERE deleted = 0 AND ownerId = :owner ORDER BY startDate") fun restDays(owner: String): Flow<List<RestDayEntity>>
+  @Query("SELECT * FROM rest_days WHERE ownerId = :owner") suspend fun restDaysOnce(owner: String): List<RestDayEntity>
+  @Upsert suspend fun upsertRestDay(r: RestDayEntity)
 
   // users / admin
   @Query("SELECT * FROM users ORDER BY displayName") fun users(): Flow<List<UserEntity>>
@@ -139,14 +150,14 @@ class Converters {
 
 @Database(entities = [Unavailable::class, SetLog::class, WorkoutEntity::class, WorkoutItemEntity::class,
   GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
-  ProgramAssignmentEntity::class, CustomExerciseEntity::class],
-  version = 3, exportSchema = true)
+  ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class],
+  version = 4, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).build().also { i = it } } }
 }
 
 /** v1 -> v3 app (db 1 -> 2): keeps workout history and any old CustomWorkout rows. */
@@ -178,4 +189,9 @@ const val LOCAL_OWNER_PLACEHOLDER = "__local__"
 /** db 2 -> 3: program assignments and user-added exercises. */
 val MIGRATION_2_3 = object : Migration(2, 3) {
   override fun migrate(db: SupportSQLiteDatabase) { SCHEMA_V3_CREATE.forEach { db.execSQL(it) } }
+}
+
+/** db 3 -> 4: user rest days. */
+val MIGRATION_3_4 = object : Migration(3, 4) {
+  override fun migrate(db: SupportSQLiteDatabase) { SCHEMA_V4_CREATE.forEach { db.execSQL(it) } }
 }
