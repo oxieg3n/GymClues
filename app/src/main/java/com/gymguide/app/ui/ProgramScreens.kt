@@ -26,23 +26,59 @@ private val longFmt = java.time.format.DateTimeFormatter.ofPattern("EEEE, MMM d"
 private fun current(list: List<ProgramAssignmentEntity>): ProgramAssignmentEntity? { val t = LocalDate.now().toString()
   return list.filter { !it.deleted && (it.endDate.isBlank() || it.endDate > t) }.maxByOrNull { it.startDate } }
 
-@Composable fun ProgramsScreen(app: AppContainer, nav: NavHostController) {
+private val TYPE_INFO = mapOf(
+  "BRO" to ("Bro split" to "One or two muscle groups per day, once a week."),
+  "PPL" to ("Push / Pull / Legs" to "Pushing, pulling and leg days, usually six days a week."),
+  "Upper/Lower" to ("Upper / Lower" to "Alternate upper-body and lower-body days, four days a week."),
+  "Full Body" to ("Full body" to "Train everything each session, three days a week."),
+  "Arnold" to ("Arnold split" to "Chest and back, shoulders and arms, legs, repeated."),
+  "Torso/Limbs" to ("Torso / Limbs" to "Torso days and arm-and-leg days, four days a week."),
+  "Push/Pull + Legs Hybrid" to ("PPL + Upper/Lower hybrid" to "A mix of push/pull/legs and upper/lower days."))
+private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
+
+/** Step 1: choose a program type. */
+@Composable fun ProgramTypesScreen(app: AppContainer, nav: NavHostController) {
+  val assignments by app.programs.assignments().collectAsState(emptyList())
+  val cur = current(assignments); val scope = rememberCoroutineScope()
+  val groups = app.programs.programs.groupBy { it.split }
+  LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+    item { Text("Workout programs", style = MaterialTheme.typography.headlineSmall)
+      Muted("Choose a type of program, then pick one. Its sessions appear on your home calendar.") }
+    items(groups.keys.toList(), key = { it }) { split ->
+      val list = groups.getValue(split); val mine = list.any { it.id == cur?.programId }
+      Surface({ nav.navigate(Routes.programType(split)) }, shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
+        border = BorderStroke(if (mine) 1.5.dp else 1.dp, if (mine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant)) {
+        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(typeName(split), style = MaterialTheme.typography.titleLarge)
+            Muted(TYPE_INFO[split]?.second ?: "")
+            Muted("${list.size} programs" + if (mine) " · includes your current program" else "")
+          }
+          Icon(Icons.Filled.ChevronRight, null)
+        }
+      }
+    }
+    if (cur != null) item { TextButton({ scope.launch { app.programs.stop() } }, Modifier.fillMaxWidth()) { Text("Stop current program") } }
+  }
+}
+
+/** Step 2: the programs of one type. */
+@Composable fun ProgramsScreen(app: AppContainer, nav: NavHostController, split: String) {
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val cur = current(assignments)
   val scope = rememberCoroutineScope()
   var assigning by remember { mutableStateOf<WorkoutProgram?>(null) }
   assigning?.let { AssignDialog(it, { assigning = null }) { start -> scope.launch { app.programs.assign(it.id, start) }; assigning = null } }
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
-    item { Text("Workout programs", style = MaterialTheme.typography.headlineSmall)
+    item { Text(typeName(split), style = MaterialTheme.typography.headlineSmall)
       Muted("Pick one program at a time. Its sessions appear on your home calendar.") }
-    items(app.programs.programs, key = { it.id }) { p ->
+    items(app.programs.programs.filter { it.split == split }, key = { it.id }) { p ->
       val mine = cur?.programId == p.id
       Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
         border = BorderStroke(if (mine) 1.5.dp else 1.dp, if (mine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically) {
             Text(p.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-            AssistChip({}, label = { Text(p.split) })
           }
           Muted("${p.author} · ${p.level} · ${p.duration}")
           if (mine) Text(if (cur!!.startDate > LocalDate.now().toString()) "Assigned. Starts ${LocalDate.parse(cur.startDate).format(longFmt)}" else "Your current program",

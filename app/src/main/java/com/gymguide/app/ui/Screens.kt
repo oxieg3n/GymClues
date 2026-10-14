@@ -61,7 +61,7 @@ val SPLIT_HELP = mapOf(
       HomeTile(Icons.Filled.Insights, "Progress", "Your tracker", Modifier.weight(1f)) { go("tracker") }
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-      HomeTile(Icons.Filled.EventRepeat, "Programs", "Bro splits and PPL", Modifier.weight(1f)) { go("programs") }
+      HomeTile(Icons.Filled.EventRepeat, "Programs", "Bro, PPL, Upper/Lower and more", Modifier.weight(1f)) { go("programs") }
       HomeTile(Icons.Filled.AddCircleOutline, "My exercises", "Add your own", Modifier.weight(1f)) { go("myex") }
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {

@@ -125,7 +125,7 @@ class ProgramTests {
 
   @Test fun assetsLoadAndKeepOriginalPrescriptions() {
     val app = AppContainer(ctx); val ps = app.programs.programs
-    assertEquals(21, ps.size); assertTrue(ps.all { it.description.length > 200 })
+    assertEquals(21, ps.size); assertEquals(7, ps.groupBy { it.split }.size); assertTrue(ps.all { it.description.length > 200 })
     val p3 = ps.first { it.id == "P3" }
     assertEquals(8, p3.cycleLength); assertEquals(8, p3.days.size)
     val bench = p3.days[0].items.first { it.exercise == "Flat barbell bench press" }

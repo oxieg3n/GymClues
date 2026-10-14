@@ -21,6 +21,7 @@ object Routes {
   fun runCustom(id: String) = "run/custom/${Uri.encode(id)}"
   fun builder(id: String? = null) = "builder" + (id?.let { "?id=${Uri.encode(it)}" } ?: "")
   fun runProgram(planId: String) = "run/program/${Uri.encode(planId)}"
+  fun programType(split: String) = "programs/${Uri.encode(split)}"
   fun program(id: String) = "program/${Uri.encode(id)}"
   fun programDay(planId: String, date: String?) = "pday/${Uri.encode(planId)}" + (date?.let { "?date=$it" } ?: "")
   fun addExercise(id: String? = null) = "addex" + (id?.let { "?id=${Uri.encode(it)}" } ?: "")
@@ -68,7 +69,8 @@ object Routes {
       composable("gym/{id}") { GymDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("gym/{id}/add?edit={edit}", listOf(navArgument("edit") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         AddGymEquipment(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("edit")) { nav.popBackStack() } }
-      composable("programs") { ProgramsScreen(app, nav) }
+      composable("programs") { ProgramTypesScreen(app, nav) }
+      composable("programs/{split}") { ProgramsScreen(app, nav, it.arguments?.getString("split").orEmpty()) }
       composable("program/{id}") { ProgramDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("pday/{id}?date={date}", listOf(navArgument("date") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         ProgramDayScreen(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("date"), nav) }
