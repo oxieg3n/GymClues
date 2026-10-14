@@ -24,7 +24,7 @@ android {
   buildFeatures { compose = true; buildConfig = true }
   compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
   kotlinOptions { jvmTarget = "17" }
-  testOptions { unitTests.isIncludeAndroidResources = true }
+  testOptions { unitTests.isIncludeAndroidResources = true; unitTests.all { it.systemProperty("robolectric.pixelCopyRenderMode", "hardware") } }
   sourceSets["debug"].assets.srcDirs(files("$projectDir/schemas"))  // debug-only: lets the migration test read Room schemas
 }
 ksp { arg("room.schemaLocation", "$projectDir/schemas") }

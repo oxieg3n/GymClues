@@ -34,7 +34,7 @@ object Routes {
   LaunchedEffect(Unit) { app.session.ensureUser(); app.workouts.adoptMigrated() }
   Scaffold(
     topBar = {
-      TopAppBar(
+      if (route != "home") TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
         title = { Text("GymCue") },
         navigationIcon = {
           if (route != null && route != "home") {

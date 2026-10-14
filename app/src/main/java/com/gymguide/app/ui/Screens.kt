@@ -32,28 +32,48 @@ val SPLIT_HELP = mapOf(
 @Composable fun Home(app: AppContainer, go: (String) -> Unit) {
   val activeGymId by app.gyms.activeGymId.collectAsState()
   val gym by remember(activeGymId) { app.gyms.gymFlow(activeGymId) }.collectAsState(null)
-  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-    horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-    NowPlayingBar()
-    Image(painterResource(R.drawable.gymcue_logo), contentDescription = "GymCue logo", modifier = Modifier.size(112.dp))
-    Text("GYMCUE", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-    Text("Find the machine. Set it up. Go.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Card(Modifier.fillMaxWidth().clickable { go(gym?.let { Routes.gym(it.id) } ?: "gyms") }) {
-      Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-        Icon(Icons.Filled.Place, null, tint = MaterialTheme.colorScheme.primary); Spacer(Modifier.width(10.dp))
-        Column(Modifier.weight(1f)) {
-          Text(gym?.name ?: "No gym selected", fontWeight = FontWeight.Bold)
-          Muted(gym?.address?.ifBlank { null } ?: "Find gyms near you to train at")
-        }
-        TextButton({ go("gyms") }) { Text(if (gym == null) "Find" else "Change") }
-      }
+  val logs by app.workouts.history().collectAsState(emptyList())
+  val stats = remember(logs) { workoutStats(logs.map { it.date }) }
+  val cs = MaterialTheme.colorScheme
+  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
+    verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+      Image(painterResource(R.drawable.gymcue_logo), contentDescription = null, modifier = Modifier.size(40.dp))
+      Spacer(Modifier.width(10.dp))
+      Text("GymCue", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
+      AssistChip(onClick = { go(gym?.let { Routes.gym(it.id) } ?: "gyms") },
+        label = { Text(gym?.name ?: "Pick your gym", maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+          modifier = Modifier.widthIn(max = 150.dp)) },
+        leadingIcon = { Icon(Icons.Filled.Place, null, Modifier.size(16.dp), tint = cs.primary) })
     }
-    listOf("Find an exercise by muscle" to "muscles", "Workouts" to "styles", "Find gyms nearby" to "gyms",
-      "My gym's equipment" to "equipment", "Workout Tracker" to "tracker").forEach { (l, r) ->
-      Button({ go(r) }, Modifier.fillMaxWidth().height(56.dp)) { Text(l) } }
-    TextButton({ go("admin") }) { Icon(Icons.Filled.AdminPanelSettings, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Admin") }
+    StreakPanel(stats)
+    Button({ go("styles") }, Modifier.fillMaxWidth().height(60.dp), shape = MaterialTheme.shapes.medium) {
+      Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text("Start a workout", style = MaterialTheme.typography.titleMedium) }
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+      HomeTile(Icons.Filled.FitnessCenter, "Exercises", "Browse by muscle", Modifier.weight(1f)) { go("muscles") }
+      HomeTile(Icons.Filled.Insights, "Progress", "Your tracker", Modifier.weight(1f)) { go("tracker") }
+    }
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+      HomeTile(Icons.Filled.TravelExplore, "Find gyms", "Near you", Modifier.weight(1f)) { go("gyms") }
+      HomeTile(Icons.Filled.Tune, "Equipment", "What your gym has", Modifier.weight(1f)) { go("equipment") }
+    }
+    NowPlayingBar()
+    TextButton({ go("admin") }, Modifier.align(Alignment.CenterHorizontally)) {
+      Icon(Icons.Filled.AdminPanelSettings, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Admin") }
   }
 }
+
+@Composable private fun HomeTile(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, sub: String,
+                                 modifier: Modifier, onClick: () -> Unit) =
+  Surface(onClick = onClick, modifier = modifier.heightIn(min = 104.dp), shape = MaterialTheme.shapes.medium,
+    color = MaterialTheme.colorScheme.surfaceContainerHigh) {
+    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+      Icon(icon, null, tint = MaterialTheme.colorScheme.primary)
+      Spacer(Modifier.height(6.dp))
+      Text(title, style = MaterialTheme.typography.titleMedium)
+      Muted(sub)
+    }
+  }
 
 @Composable fun ListScreen(title: String, items: List<String>, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
   item { Text(title, style = MaterialTheme.typography.titleLarge) }

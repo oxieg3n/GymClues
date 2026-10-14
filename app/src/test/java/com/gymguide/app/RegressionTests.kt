@@ -95,3 +95,23 @@ class RegressionTests {
     assertNull(youtubeId("https://planetfitness.com/some-page"))
   }
 }
+
+@RunWith(RobolectricTestRunner::class) @Config(sdk = [34])
+class WorkoutStatsTest {
+  private val z = java.time.ZoneId.of("America/New_York")
+  private fun at(d: java.time.LocalDate) = d.atTime(12, 0).atZone(z).toInstant().toEpochMilli()
+  @Test fun countsAndStreak() {
+    val today = java.time.LocalDate.of(2026, 10, 14) // Wednesday
+    val logs = listOf(today, today, today.minusDays(1), today.minusWeeks(1), today.minusWeeks(2), today.minusMonths(2), today.minusYears(1)).map(::at)
+    val s = workoutStats(logs, today, z, java.time.DayOfWeek.SUNDAY)
+    assertEquals(2, s.week); assertEquals(3, s.month); assertEquals(5, s.year); assertEquals(3, s.weekStreak)
+    assertEquals(java.time.LocalDate.of(2026, 10, 11), s.weekDays.first())
+    assertTrue(today in s.doneDays)
+  }
+  @Test fun streakSurvivesUntilWeekEnds() {
+    val today = java.time.LocalDate.of(2026, 10, 14)
+    val s = workoutStats(listOf(at(today.minusWeeks(1))), today, z, java.time.DayOfWeek.SUNDAY)
+    assertEquals(1, s.weekStreak); assertEquals(0, s.week)
+    assertEquals(0, workoutStats(emptyList(), today, z).weekStreak)
+  }
+}
