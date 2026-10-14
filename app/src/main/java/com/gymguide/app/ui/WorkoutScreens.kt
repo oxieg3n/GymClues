@@ -60,7 +60,7 @@ const val MIN_SETS = 1
 class SetRow { var weight by mutableStateOf(""); var reps by mutableStateOf(""); var done by mutableStateOf(false); var logged = false }
 
 /** One exercise inside today's session. Editing the session never changes the saved workout/template. */
-class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps: String, val restSec: Int, sets: Int) {
+class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps: String, val restSec: Int, sets: Int, val item: TemplateItem? = null) {
   val uid = newId()
   val sets = mutableStateListOf<SetRow>().apply { repeat(sets.coerceIn(MIN_SETS, MAX_SETS)) { add(SetRow()) } }
 }
@@ -74,11 +74,13 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   val gymId by app.gyms.activeGymId.collectAsState()
   LaunchedEffect(kind, planId) {
     if (!loaded) {
-      plan = app.workouts.plan(kind, planId)
+      plan = if (kind == "program") app.programs.plan(planId) else app.workouts.plan(kind, planId)
       plan?.items?.forEach { item ->
-        val base = repo.exercise(item.exerciseId) ?: return@forEach      // skip ids that no longer exist
+        val base = repo.exercise(item.exerciseId)
+        if (base == null) { if (item.originalName.isNotBlank()) session += SessionExercise(item.exerciseId, null, item.reps, item.restSec, item.sets, item)
+          return@forEach }                                                  // skip ids that no longer exist
         val ex = if (repo.usable(base, off)) base else repo.alternatives(base, off).firstOrNull() ?: base
-        session += SessionExercise(ex.id, if (ex.id != base.id) base.id else null, item.reps, item.restSec, item.sets)
+        session += SessionExercise(ex.id, if (ex.id != base.id) base.id else null, item.reps, item.restSec, item.sets, item.takeIf { it.originalName.isNotBlank() })
       }
       loaded = true
     }
@@ -95,14 +97,14 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   var picking by remember { mutableStateOf(false) }
   var saveAs by remember { mutableStateOf(false) }
 
-  fun log(se: SessionExercise, idx: Int, row: SetRow) { if (row.logged) return; row.logged = true
+  fun log(se: SessionExercise, idx: Int, row: SetRow) { if (row.logged || se.item?.phase == "Warm-up") return; row.logged = true
     scope.launch { app.workouts.logSet(SetLog(date = now(), exerciseId = se.exerciseId, setNo = idx + 1,
       reps = row.reps.toIntOrNull() ?: 0, weight = row.weight.toDoubleOrNull() ?: 0.0, sessionId = sessionId, gymId = gymId)) } }
 
   if (showDone) AlertDialog(onDismissRequest = {}, confirmButton = { TextButton({ onDone() }) { Text("Done") } },
     title = { Text("Workout saved") }, text = { Text("Nice work — your sets are in the Workout Tracker.") })
   if (picking) ExercisePickerSheet(repo, repo.suggestionsFor(session.map { it.exerciseId }, off), session.map { it.exerciseId }.toSet(),
-    onDismiss = { picking = false }) { picked ->
+    onDismiss = { picking = false }, onCreate = { picking = false; nav.navigate(Routes.addExercise()) }) { picked ->
     picked.forEach { session += SessionExercise(it.id, null, "10-12", 90, 3) }; picking = false }
   if (saveAs) NameDialog("Save as custom workout", p.name + " (my version)", { saveAs = false }) { name ->
     scope.launch { app.workouts.saveCustom(null, name, session.map { TemplateItem(it.exerciseId, it.sets.size, it.reps, it.restSec) })
@@ -113,6 +115,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       contentPadding = PaddingValues(top = 8.dp, bottom = 96.dp)) {
       item { NowPlayingBar() }
       item { Text(p.name, style = MaterialTheme.typography.headlineSmall)
+        if (p.description.isNotBlank()) Muted(p.description)
         if (rest > 0) Text("Rest: ${rest}s", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
       if (session.isEmpty()) item { Card { Column(Modifier.padding(16.dp)) {
         Text("No exercises in this workout.", fontWeight = FontWeight.Bold); Muted("Tap \"Add exercise\" below to build today's session.") } } }
@@ -120,14 +123,20 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
         val ex = repo.exercise(se.exerciseId)
         Card { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f).clickable { nav.navigate(Routes.exercise(se.exerciseId)) }) {
-              Text((ex?.name ?: se.exerciseId) + (se.swappedFrom?.let { " (swap for ${repo.exercise(it)?.name ?: it})" } ?: ""), fontWeight = FontWeight.Bold)
-              Muted("Target: ${se.sets.size} sets × ${se.reps} reps · rest ${se.restSec}s")
+            Column(Modifier.weight(1f).clickable(enabled = ex != null) { nav.navigate(Routes.exercise(se.exerciseId)) }) {
+              val it0 = se.item
+              if (it0?.phase == "Warm-up") SectionTitle("Warm-up")
+              Text((it0?.originalName?.ifBlank { null } ?: ex?.name ?: repo.displayName(se.exerciseId)) + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""), fontWeight = FontWeight.Bold)
+              Muted(if (it0 == null) "Target: ${se.sets.size} sets × ${se.reps} reps · rest ${se.restSec}s"
+                else "Prescribed: ${it0.setsText.ifBlank { "${it0.sets}" }} sets × ${it0.reps}" + (if (it0.restText.isNotBlank() && it0.restText != "Not specified") " · rest ${it0.restText}" else ""))
+              if (it0 != null && it0.repsNote.isNotBlank() && it0.repsNote != "Per set") Muted(it0.repsNote)
+              if (it0 != null && it0.notes.isNotBlank()) Muted(it0.notes)
+              if (it0 != null && it0.substitution.isNotBlank() && !it0.substitution.startsWith("Original")) Muted("Optional gym swap, not the original: ${it0.substitution}")
             }
-            RemoveCircleButton("Remove ${ex?.name ?: "exercise"}") {
+            RemoveCircleButton("Remove ${ex?.name ?: repo.displayName(se.exerciseId)}") {
               val removed = session.removeAt(index)
               scope.launch {
-                val r = snackbar.showSnackbar("Removed ${ex?.name ?: "exercise"}", actionLabel = "Undo", duration = SnackbarDuration.Short)
+                val r = snackbar.showSnackbar("Removed ${ex?.name ?: repo.displayName(se.exerciseId)}", actionLabel = "Undo", duration = SnackbarDuration.Short)
                 if (r == SnackbarResult.ActionPerformed) session.add(index.coerceAtMost(session.size), removed)
               }
             }
@@ -152,7 +161,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       }
       item { OutlinedButton({ picking = true }, Modifier.fillMaxWidth().height(52.dp)) {
         Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercise") } }
-      item { TextButton({ saveAs = true }, Modifier.fillMaxWidth(), enabled = session.isNotEmpty()) { Text("Save as custom workout") } }
+      if (kind != "program") item { TextButton({ saveAs = true }, Modifier.fillMaxWidth(), enabled = session.isNotEmpty()) { Text("Save as custom workout") } }
       item { Button({
         session.forEach { se -> se.sets.forEachIndexed { i, row -> if (!row.done && (row.weight.isNotBlank() || row.reps.isNotBlank())) log(se, i, row) } }
         showDone = true
@@ -175,7 +184,7 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
   val key = newId(); var sets by mutableIntStateOf(sets); var reps by mutableStateOf(reps); var rest by mutableStateOf(rest.toString())
 }
 
-@Composable fun WorkoutBuilder(app: AppContainer, editId: String?, off: Set<String>, onSaved: () -> Unit) {
+@Composable fun WorkoutBuilder(app: AppContainer, editId: String?, off: Set<String>, onCreate: () -> Unit, onSaved: () -> Unit) {
   val repo = app.catalog
   var name by rememberSaveable { mutableStateOf("") }
   val items = remember { mutableStateListOf<BuilderItem>() }
@@ -187,7 +196,7 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
     app.workouts.customItems(editId).forEach { items += BuilderItem(it.exerciseId, it.sets, it.reps, it.restSec) }
     loaded = true } }
 
-  if (picking) ExercisePickerSheet(repo, null, items.map { it.exerciseId }.toSet(), { picking = false }) { picked ->
+  if (picking) ExercisePickerSheet(repo, null, items.map { it.exerciseId }.toSet(), { picking = false }, { picking = false; onCreate() }) { picked ->
     picked.forEach { items += BuilderItem(it.id, 3, "10-12", 90) }; picking = false }
 
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
@@ -198,7 +207,7 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
       val ex = repo.exercise(it.exerciseId)
       Card { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-          Column(Modifier.weight(1f)) { Text("${i + 1}. ${ex?.name ?: it.exerciseId}", fontWeight = FontWeight.Bold)
+          Column(Modifier.weight(1f)) { Text("${i + 1}. ${ex?.name ?: repo.displayName(it.exerciseId)}", fontWeight = FontWeight.Bold)
             Muted(ex?.primaryMuscles?.joinToString() ?: "Unknown exercise") }
           IconButton({ if (i > 0) items.add(i - 1, items.removeAt(i)) }, enabled = i > 0) { Icon(Icons.Filled.KeyboardArrowUp, "Move up") }
           IconButton({ if (i < items.lastIndex) items.add(i + 1, items.removeAt(i)) }, enabled = i < items.lastIndex) { Icon(Icons.Filled.KeyboardArrowDown, "Move down") }

@@ -1,0 +1,3115 @@
+{
+ "programs": [
+  {
+   "id": "B1",
+   "name": "Muscle & Strength M-F Body Part Split",
+   "split": "BRO",
+   "author": "Josh England",
+   "level": "Intermediate",
+   "duration": "10 weeks",
+   "schedule": "Back / Chest & Abs / Legs / Shoulders & Abs / Arms / Rest / Rest",
+   "progression": "Increase weight when possible; source comments clarify increasing once all sets reach the top of the range.",
+   "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+   "sourceUrl": "https://www.muscleandstrength.com/workouts/m-f-workout-routine",
+   "description": "Five body-part days (Back, Chest and Abs, Legs, Shoulders and Abs, Arms) followed by two rest days. Each muscle group is hit hard once a week with 3-5 sets per exercise and short rests of 30-45 seconds, so sessions are dense. It starts most days with a heavy 6-rep lift before moving to 8-15 rep work. Versus PPL, each muscle gets one big session a week instead of two. Versus the other bro splits, it has the shortest rests and a high exercise count per day.",
+   "cycleLength": 7,
+   "days": [
+    {
+     "day": 1,
+     "session": "Back",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Deadlift",
+       "sets": "4",
+       "reps": "6",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lat pulldown",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell row",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hammer Strength machine row",
+       "sets": "4",
+       "reps": "10",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Available machine row or chest-supported dumbbell row"
+      },
+      {
+       "phase": "Working",
+       "exercise": "One-arm cable row",
+       "sets": "3",
+       "reps": "12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Straight-arm cable pulldown",
+       "sets": "2",
+       "reps": "15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 2,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Chest & Abs",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Incline bench press",
+       "sets": "4",
+       "reps": "6",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Decline bench press",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine bench press",
+       "sets": "3",
+       "reps": "6-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine fly",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Push-up",
+       "sets": "3",
+       "reps": "Failure",
+       "repsNote": "As many reps as possible / source failure target; not a numeric rep count",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine crunch",
+       "sets": "3",
+       "reps": "15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hanging leg raise",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Machine crunch or cable crunch (optional preference adaptation)"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Legs",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell back squat",
+       "sets": "5",
+       "reps": "6",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Romanian deadlift",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Dumbbell or Smith RDL if no free barbell"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg curl",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Walking lunge",
+       "sets": "3",
+       "reps": "15 each leg",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Smith machine calf raise",
+       "sets": "4",
+       "reps": "20",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Smith or supported dumbbell calf raise if no dedicated machine"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Shoulders & Abs",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Military press",
+       "sets": "4",
+       "reps": "6",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Reverse machine fly",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine shoulder press",
+       "sets": "3",
+       "reps": "6-10",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell shrug",
+       "sets": "4",
+       "reps": "15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Dumbbell shrug"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Decline sit-up",
+       "sets": "3",
+       "reps": "15",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Machine crunch or cable crunch (optional preference adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell rollout",
+       "sets": "3",
+       "reps": "12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Cable Pallof press (optional; different core task, not equivalent)"
+      }
+     ]
+    },
+    {
+     "day": 5,
+     "session": "Arms",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "EZ-bar curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "EZ-bar skullcrusher",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Spider curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps dip",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Assisted dip machine; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Cable hammer curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Cable overhead triceps extension",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "30-45 sec between sets; 60-90 sec between exercises (source prescription).",
+       "restSec": 30,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    },
+    {
+     "day": 7,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Increase weight when possible; source comments clarify increasing once all sets reach the top of the range."
+    },
+    {
+     "topic": "Rest",
+     "text": "30-45 sec between sets; 60-90 sec between exercises (source prescription)."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Back / Chest & Abs / Legs / Shoulders & Abs / Arms / Rest / Rest"
+    }
+   ]
+  },
+  {
+   "id": "B2",
+   "name": "Outlift Perfect Bro Split",
+   "split": "BRO",
+   "author": "Shane Duquette",
+   "level": "Intermediate",
+   "duration": "No fixed duration",
+   "schedule": "Chest / Back / Shoulders / Legs / Arms / Rest / Rest",
+   "progression": "Add weight when rep targets are met; otherwise aim for more total reps than the previous workout.",
+   "rest": "2 min compounds; 1 min isolation.",
+   "sourceUrl": "https://outlift.com/the-perfect-bro-split-workout-routine/",
+   "description": "A five-day bro split in the order Chest, Back, Shoulders, Legs, Arms, then two rest days. Each day has four or five exercises, built around one heavy compound lift plus a few isolation moves. Rests are longer (about 2 minutes on compounds, 1 minute on isolation) and several sets are taken to AMRAP or near failure. Versus the Muscle & Strength split, it has fewer exercises per day and longer rests. Versus the Fitness Phantom split, it assumes more training experience. Progress by adding weight once your rep targets are met.",
+   "cycleLength": 7,
+   "days": [
+    {
+     "day": 1,
+     "session": "Chest",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Bench press",
+       "sets": "3-4",
+       "reps": "6-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Bodyweight dip",
+       "sets": "3",
+       "reps": "AMRAP",
+       "repsNote": "As many reps as possible / source failure target; not a numeric rep count",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Assisted dip machine; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead triceps extension",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Back",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Romanian deadlift",
+       "sets": "2",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 2,
+       "notes": "",
+       "substitution": "Dumbbell or Smith RDL if no free barbell"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Pull-up or pulldown",
+       "sets": "3",
+       "reps": "AMRAP",
+       "repsNote": "As many reps as possible / source failure target; not a numeric rep count",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Choose one; source table gives AMRAP for both alternatives.",
+       "substitution": "Assisted pull-up or pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "One-arm row",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhand cable row",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Biceps curl",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Shoulders",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Overhead press",
+       "sets": "4-5",
+       "reps": "6-10",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Push-up",
+       "sets": "3",
+       "reps": "AMRAP",
+       "repsNote": "As many reps as possible / source failure target; not a numeric rep count",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Rear-delt fly",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Legs",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "High-bar squat",
+       "sets": "3-4",
+       "reps": "6-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lying leg curl",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Calf raise",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Cable crunch",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Listed in source table; prose frames abs as optional if energy remains.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 5,
+     "session": "Arms",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell curl",
+       "sets": "3-5",
+       "reps": "6-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "EZ-bar, cable or dumbbell curl if no suitable bar"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Close-grip bench press",
+       "sets": "3-5",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Skullcrusher",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hammer curl",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min compounds; 1 min isolation.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    },
+    {
+     "day": 7,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Add weight when rep targets are met; otherwise aim for more total reps than the previous workout."
+    },
+    {
+     "topic": "Rest",
+     "text": "2 min compounds; 1 min isolation."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Chest / Back / Shoulders / Legs / Arms / Rest / Rest"
+    },
+    {
+     "topic": "Effort",
+     "text": "Source recommends 0-1 reps in reserve and permits isolation failure. This is original guidance, not individualized clearance."
+    }
+   ]
+  },
+  {
+   "id": "B3",
+   "name": "Fitness Phantom Beginner Bro Split",
+   "split": "BRO",
+   "author": "Murshid Akram",
+   "level": "Beginner-labelled; source FAQ recommends experience or fewer sets",
+   "duration": "8-12 weeks",
+   "schedule": "Chest / Legs / Back / Shoulders / Arms / Rest / Rest (two rest days placement is editorial)",
+   "progression": "Add small increments of 2.5-5 lb weekly or once all prescribed reps are completed with good form.",
+   "rest": "Exercise-specific, provided in workout rows.",
+   "sourceUrl": "https://thefitnessphantom.com/5-day-bro-split-routine-with-pdf",
+   "description": "A five-day split of Chest, Legs, Back, Shoulders and Arms with two rest days, written for newer lifters. It adds explicit warm-up blocks before most sessions and leans on Smith machine, machine and dumbbell lifts with higher reps (12-20) and descending rep ladders such as 15, 12, 10, 10. Versus the other two bro splits, reps are higher and there is more guided warm-up. The source suggests adding 2.5-5 lb weekly or whenever you finish every prescribed rep with good form. Arm day has no warm-up in the source.",
+   "cycleLength": 7,
+   "days": [
+    {
+     "day": 1,
+     "session": "Chest",
+     "training": true,
+     "items": [
+      {
+       "phase": "Warm-up",
+       "exercise": "Child pose to cobra",
+       "sets": "Not specified",
+       "reps": "5-6",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Banded shoulder pass-through",
+       "sets": "2",
+       "reps": "10",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Banded pull-apart",
+       "sets": "2",
+       "reps": "10",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Smith bench press (no added weight)",
+       "sets": "1",
+       "reps": "20",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Smith flat bench press",
+       "sets": "4",
+       "reps": "15, 12, 10, 10",
+       "repsNote": "Sequence across sets",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline dumbbell bench press",
+       "sets": "4",
+       "reps": "15, 12, 10, 8",
+       "repsNote": "Sequence across sets",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Pec deck fly",
+       "sets": "4",
+       "reps": "15, 12, 10, 10",
+       "repsNote": "Sequence across sets",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Assisted bar dip",
+       "sets": "3",
+       "reps": "AMRAP",
+       "repsNote": "As many reps as possible / source failure target; not a numeric rep count",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Assisted dip machine; load scheme changes"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Legs",
+     "training": true,
+     "items": [
+      {
+       "phase": "Warm-up",
+       "exercise": "Leg swing",
+       "sets": "2",
+       "reps": "10/side",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Standing hamstring stretch",
+       "sets": "3",
+       "reps": "10-sec hold/leg",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 3,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Bodyweight deep squat",
+       "sets": "2",
+       "reps": "15",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Side lunge stretch",
+       "sets": "1",
+       "reps": "10/side",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Standing unilateral leg curl",
+       "sets": "1",
+       "reps": "15/leg",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Seated leg extension",
+       "sets": "1",
+       "reps": "20",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets. Source says little/no rest between warm-up exercises.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell box squat",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "1-2 min",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine leg press",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "2-3 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated leg curl",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "1-2 min",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell step-up",
+       "sets": "2",
+       "reps": "10/leg",
+       "repsNote": "Per set",
+       "rest": "45 sec",
+       "restSec": 45,
+       "setCount": 2,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Smith reverse lunge",
+       "sets": "2",
+       "reps": "10/leg",
+       "repsNote": "Per set",
+       "rest": "90 sec",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Machine calf raise",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "1-2 min",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith or supported dumbbell calf raise if no dedicated machine"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Back",
+     "training": true,
+     "items": [
+      {
+       "phase": "Warm-up",
+       "exercise": "Low lunge arch",
+       "sets": "Not specified",
+       "reps": "5/side with 10-sec pauses",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "World’s greatest stretch",
+       "sets": "Not specified",
+       "reps": "5/side with 5-sec hold",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Upper-body foam rolling (optional)",
+       "sets": "Not specified",
+       "reps": "2-3 min",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Inverted row",
+       "sets": "2",
+       "reps": "10-15",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Pull-up (self or assisted)",
+       "sets": "3",
+       "reps": "6-12",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 3,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lat pulldown (pronated grip)",
+       "sets": "2",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 2,
+       "notes": "Source says prone grip; interpreted as pronated (overhand).",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lat pulldown (neutral grip)",
+       "sets": "2",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 2,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated cable row",
+       "sets": "4",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "One-arm dumbbell row",
+       "sets": "3",
+       "reps": "12/side",
+       "repsNote": "Per set",
+       "rest": "1 min",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Bodyweight low-back extension",
+       "sets": "3",
+       "reps": "10-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Shoulders",
+     "training": true,
+     "items": [
+      {
+       "phase": "Warm-up",
+       "exercise": "Child pose with reach",
+       "sets": "Not specified",
+       "reps": "3 with 10-sec stretch",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Banded shoulder pass-through",
+       "sets": "2",
+       "reps": "10",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Resistance-band pull-apart",
+       "sets": "2",
+       "reps": "10",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Shoulder external rotation",
+       "sets": "2",
+       "reps": "10/side",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Shoulder internal rotation",
+       "sets": "2",
+       "reps": "10/side",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 2,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Warm-up",
+       "exercise": "Seated FDL dumbbell raise",
+       "sets": "Not specified",
+       "reps": "6-8; source does not define FDL",
+       "repsNote": "Warm-up, not working volume",
+       "rest": "Not specified",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Source labels block ~10 min. Warm-up prescriptions preserved separately from work sets.",
+       "substitution": "Original warm-up; not required equipment adaptation"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Smith overhead press",
+       "sets": "4",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell lateral raise",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Rear-delt machine fly",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Shoulder shrug",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "1 min",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 5,
+     "session": "Arms",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Chin-up",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "1 min after superset",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Superset: chin-up + bar dip; 3 rounds of 8-12 each.",
+       "substitution": "Assisted chin-up or underhand pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Bar dip",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "1 min after superset",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Superset: chin-up + bar dip; 3 rounds of 8-12 each.",
+       "substitution": "Assisted dip machine; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps pushdown",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "90 sec",
+       "restSec": 90,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead triceps extension",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "90 sec",
+       "restSec": 90,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell biceps curl",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "EZ-bar, cable or dumbbell curl if no suitable bar"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Preacher curl",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hammer curl",
+       "sets": "3",
+       "reps": "12-15",
+       "repsNote": "Per set",
+       "rest": "2 min",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    },
+    {
+     "day": 7,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Add small increments of 2.5-5 lb weekly or once all prescribed reps are completed with good form."
+    },
+    {
+     "topic": "Rest",
+     "text": "Exercise-specific, provided in workout rows."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Chest / Legs / Back / Shoulders / Arms / Rest / Rest (two rest days placement is editorial)"
+    }
+   ]
+  },
+  {
+   "id": "P1",
+   "name": "Metallicadpa / Reddit PPL",
+   "split": "PPL",
+   "author": "u/metallicadpa",
+   "level": "Novice able to progress session to session; six-day commitment",
+   "duration": "Until linear progression stalls",
+   "schedule": "Pull A / Push A / Legs A / Pull B / Push B / Legs B / Rest",
+   "progression": "Main lifts: +5 lb per session for bench, OHP, row and squat; +10 lb for deadlift. Accessories: add reps, then weight at top of range. After 3 true failures on a lift, reduce load 10%.",
+   "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+   "sourceUrl": "https://www.reddit.com/r/Fitness/comments/37ylk5/a_linear_progression_based_ppl_program_for/",
+   "description": "A six-day Push/Pull/Legs routine (Pull A, Push A, Legs A, Pull B, Push B, Legs B, then one rest day) built on linear progression. Each day opens with one heavy barbell lift for 5 reps, with a final AMRAP set on bench, squat, row, overhead press and deadlift, followed by 8-12 rep accessories. You aim to add weight every session, so it suits true novices. Versus the other two PPL programs, it has the most frequent load jumps and AMRAP finishing sets. Versus the bro splits, each muscle is trained twice a week.",
+   "cycleLength": 7,
+   "days": [
+    {
+     "day": 1,
+     "session": "Pull A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Deadlift",
+       "sets": "1",
+       "reps": "5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 1,
+       "notes": "",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Pulldown or pull-up or chin-up",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Choose ONE alternative, not all.",
+       "substitution": "Assisted chin-up or underhand pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated cable row or chest-supported row",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Choose ONE alternative, not all.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Face pull",
+       "sets": "5",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hammer curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Push A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Bench press",
+       "sets": "4 + 1",
+       "reps": "4 sets of 5; final set 5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline dumbbell press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps pushdown",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset A: pushdown + lateral raise; 3 rounds.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise (superset 1)",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset A: pushdown + lateral raise; 3 rounds.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead triceps extension",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset B: overhead extension + lateral raise; 3 rounds. Six lateral-raise sets total per push day.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise (superset 2)",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset B: overhead extension + lateral raise; 3 rounds. Six lateral-raise sets total per push day.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Legs A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Squat",
+       "sets": "2 + 1",
+       "reps": "5, 5, 5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Romanian deadlift",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Dumbbell or Smith RDL if no free barbell"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg curl",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Calf raise",
+       "sets": "5",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Pull B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell row",
+       "sets": "4 + 1",
+       "reps": "4 sets of 5; final set 5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Chest-supported dumbbell row (changes main lift; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Pulldown or pull-up or chin-up",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Choose ONE alternative, not all.",
+       "substitution": "Assisted chin-up or underhand pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated cable row or chest-supported row",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Choose ONE alternative, not all.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Face pull",
+       "sets": "5",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hammer curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell curl",
+       "sets": "4",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 4,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 5,
+     "session": "Push B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Overhead press",
+       "sets": "4 + 1",
+       "reps": "4 sets of 5; final set 5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Bench press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline dumbbell press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps pushdown",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset A: pushdown + lateral raise; 3 rounds.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise (superset 1)",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset A: pushdown + lateral raise; 3 rounds.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead triceps extension",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset B: overhead extension + lateral raise; 3 rounds. Six lateral-raise sets total per push day.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lateral raise (superset 2)",
+       "sets": "3",
+       "reps": "15-20",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "Superset B: overhead extension + lateral raise; 3 rounds. Six lateral-raise sets total per push day.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Legs B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Squat",
+       "sets": "2 + 1",
+       "reps": "5, 5, 5+",
+       "repsNote": "Straight sets followed by one AMRAP set; 5+ means at least 5, good form only",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Romanian deadlift",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Dumbbell or Smith RDL if no free barbell"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg curl",
+       "sets": "3",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 3,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Calf raise",
+       "sets": "5",
+       "reps": "8-12",
+       "repsNote": "Per set",
+       "rest": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed.",
+       "restSec": 180,
+       "setCount": 5,
+       "notes": "",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 7,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Main lifts: +5 lb per session for bench, OHP, row and squat; +10 lb for deadlift. Accessories: add reps, then weight at top of range. After 3 true failures on a lift, reduce load 10%."
+    },
+    {
+     "topic": "Rest",
+     "text": "Main lift 3-5 min; subsequent exercises 1-3 min. Rest as needed."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Pull A / Push A / Legs A / Pull B / Push B / Legs B / Rest"
+    },
+    {
+     "topic": "Warm-up",
+     "text": "Progressive practice sets for main lift, tailored to working weight. No universal load assigned."
+    },
+    {
+     "topic": "Optional core",
+     "text": "Original suggests a few sets of weighted planks / ab wheel / hanging leg raises on deadlift and squat days, without exact dosage. Not invented as mandatory rows. Machine/cable replacements are preference adaptations."
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Coolcicada PPL (Lift Vault version)",
+   "split": "PPL",
+   "author": "Coolcicada; documented by Kyle Risley",
+   "level": "Late beginner / intermediate with recovery capacity for six days",
+   "duration": "Indefinite; source suggests at least 12 weeks before major changes",
+   "schedule": "Push / Pull / Legs / Push / Pull / Legs / Rest",
+   "progression": "Lift Vault version: add weight after completing targets; compounds approximately +5 lb; accessories increase after all sets reach top of range. Other implementations differ; use this version consistently.",
+   "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+   "sourceUrl": "https://liftvault.com/programs/strength/coolcicada-ppl-spreadsheet/",
+   "description": "A six-day Push/Pull/Legs cycle (Push 1, Pull 1, Legs 1, Push 2, Pull 2, Legs 2, then rest) using the Lift Vault version of the Coolcicada routine. Main lifts are 3 sets of 5 (squat 4 sets of 5-6) and accessories are 8-12 reps, with no AMRAP sets or total-rep goals, so it is simpler than the other two PPL programs. Both halves of the week repeat the same sessions. Add about 5 lb to compounds after hitting your targets. It fits late beginners and intermediates who can recover from six days a week. Other versions of this routine differ, so stay with this one.",
+   "cycleLength": 7,
+   "days": [
+    {
+     "day": 1,
+     "session": "Push 1",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Bench press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline bench press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell side lateral raise",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps pushdown",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead dumbbell extension",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Shrug",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Pull 1",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Deadlift (optional)",
+       "sets": "1",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 1,
+       "notes": "Lift Vault documented version; repeated session has identical prescription. Deadlift is optional in original.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell row",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Chest-supported dumbbell row (changes main lift; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lat pulldown",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated row",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Face pull",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell biceps curl",
+       "sets": "4",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "EZ-bar, cable or dumbbell curl if no suitable bar"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Alternating biceps curl",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Legs 1",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Squat",
+       "sets": "4",
+       "reps": "5-6",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg extension",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hamstring curl",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing calf raise",
+       "sets": "5",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 5,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or supported dumbbell calf raise if no dedicated machine"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Push 2",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Bench press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline bench press",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell side lateral raise",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Triceps pushdown",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Overhead dumbbell extension",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Shrug",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 5,
+     "session": "Pull 2",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Deadlift (optional)",
+       "sets": "1",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 1,
+       "notes": "Lift Vault documented version; repeated session has identical prescription. Deadlift is optional in original.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell row",
+       "sets": "3",
+       "reps": "5",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Chest-supported dumbbell row (changes main lift; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Lat pulldown",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated row",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Face pull",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell biceps curl",
+       "sets": "4",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "EZ-bar, cable or dumbbell curl if no suitable bar"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Alternating biceps curl",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Legs 2",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Squat",
+       "sets": "4",
+       "reps": "5-6",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 4,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "8-10",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg extension",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hamstring curl",
+       "sets": "3",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 3,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing calf raise",
+       "sets": "5",
+       "reps": "10-12",
+       "repsNote": "Per set",
+       "rest": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only.",
+       "restSec": 120,
+       "setCount": 5,
+       "notes": "Lift Vault documented version; repeated session has identical prescription.",
+       "substitution": "Smith or supported dumbbell calf raise if no dedicated machine"
+      }
+     ]
+    },
+    {
+     "day": 7,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Lift Vault version: add weight after completing targets; compounds approximately +5 lb; accessories increase after all sets reach top of range. Other implementations differ; use this version consistently."
+    },
+    {
+     "topic": "Rest",
+     "text": "Lift Vault overview does not specify rest. Liftosaur quotes original as 2-5 min, 2 min minimum; supplemental reference only."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Push / Pull / Legs / Push / Pull / Legs / Rest"
+    },
+    {
+     "topic": "Variant conflicts",
+     "text": "Liftosaur implementation differs from selected Lift Vault version in curls, squat reps and progression. Original forum inaccessible; workbook explicitly identifies documented version."
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "name": "Muscle & Strength PPL Powerbuilding",
+   "split": "PPL",
+   "author": "Nick Ludlow",
+   "level": "Intermediate / advanced; high volume and short-rest work",
+   "duration": "12 weeks",
+   "schedule": "Push A / Pull A / Legs A / Rest / Push B / Pull B / Legs B / Rest (8-day intermediate cycle)",
+   "progression": "Main lift: target 15 total reps over 5 sets. Exceed by 0-3 reps: +2.5-5 lb next time; exceed by 4+: +5-10 lb. Back-off load is 20% lower. Accessories use rest-pause / total-rep targets.",
+   "rest": "Exercise-specific; 2-3 min between exercises.",
+   "sourceUrl": "https://www.muscleandstrength.com/workouts/6-day-powerbuilding-split-meal-plan",
+   "description": "A high-volume powerbuilding Push/Pull/Legs plan on an 8-day cycle (Push A, Pull A, Legs A, rest, Push B, Pull B, Legs B, rest), so you train six times in eight days, not six times every calendar week. Each day has a main lift for 5 sets with a 15 total-rep goal, a lighter AMQRAP back-off set, then short-rest accessory work with total-rep goals (such as 50 across 5 sets). Rep targets are totals across sets, not per set. It is the most demanding option here and suits intermediate and advanced lifters.",
+   "cycleLength": 8,
+   "days": [
+    {
+     "day": 1,
+     "session": "Push A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Flat barbell bench press",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Flat barbell bench press - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated behind-the-neck press",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method. Original exercise preserved for fidelity; optional front-of-body press listed separately.",
+       "substitution": "Machine shoulder press or front-of-body dumbbell press (optional adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Weighted or bodyweight triceps dip",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Assisted dip machine; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing cable crossover",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated triceps extension (DB, rope or EZ-bar)",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated dumbbell lateral raise",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 2,
+     "session": "Pull A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell conventional deadlift",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell conventional deadlift - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Weighted or bodyweight chin-up",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Assisted chin-up or underhand pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Chest-supported row",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Shrug (dumbbell, barbell or trap bar)",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing barbell curl",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "EZ-bar, cable or dumbbell curl if no suitable bar"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing cable reverse fly",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 3,
+     "session": "Legs A",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell back squat",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell back squat - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Smith squat if no free-bar rack (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell good morning",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Dumbbell RDL (changes exercise; do not automatically duplicate other hinge work)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg press",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Reverse hyperextension",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "45-degree back extension if available (not mechanically identical)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Leg curl (seated or lying)",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Calf raise (seated or standing)",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 4,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    },
+    {
+     "day": 5,
+     "session": "Push B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Standing overhead press",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing overhead press - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Machine or dumbbell shoulder press (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline bench press (dumbbell or barbell)",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Close-grip bench press",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Smith or dumbbell bench press; match bench angle (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated machine fly",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing triceps pushdown",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Standing cable lateral raise",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 6,
+     "session": "Pull B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell snatch-grip deadlift",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell snatch-grip deadlift - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Dumbbell RDL (changes lift and progression; not equivalent)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell row",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Chest-supported dumbbell row (changes main lift; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Weighted or bodyweight pull-up",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Assisted pull-up or pulldown; load scheme changes"
+      },
+      {
+       "phase": "Working",
+       "exercise": "One-arm row (dumbbell or barbell)",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method. Source does not explicitly define whether total is per side; clarify before logging.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Incline dumbbell curl",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated machine reverse fly",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      }
+     ]
+    },
+    {
+     "day": 7,
+     "session": "Legs B",
+     "training": true,
+     "items": [
+      {
+       "phase": "Working",
+       "exercise": "Barbell front squat",
+       "sets": "5",
+       "reps": "15",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "90-120 sec",
+       "restSec": 90,
+       "setCount": 5,
+       "notes": "Main-lift rep-goal method.",
+       "substitution": "Dumbbell goblet squat (different loading; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell front squat - back-off",
+       "sets": "1",
+       "reps": "AMQRAP",
+       "repsNote": "One back-off set: as many QUALITY reps as possible",
+       "rest": "N/A",
+       "restSec": 90,
+       "setCount": 1,
+       "notes": "Use 20% less weight than preceding working sets; AMQRAP ends before form deteriorates.",
+       "substitution": "Dumbbell goblet squat (different loading; adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell Romanian deadlift",
+       "sets": "3",
+       "reps": "25",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Dumbbell or Smith RDL if no free barbell"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Barbell hip thrust",
+       "sets": "3",
+       "reps": "30",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "60 sec",
+       "restSec": 60,
+       "setCount": 3,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Smith hip thrust (adaptation)"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Dumbbell lunge",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method. Source does not explicitly define whether total is per side; clarify before logging.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Seated leg extension",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "30 sec",
+       "restSec": 30,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Original option if equipment is available"
+      },
+      {
+       "phase": "Working",
+       "exercise": "Hanging leg raise",
+       "sets": "5",
+       "reps": "50",
+       "repsNote": "TOTAL across listed sets, NOT reps per set",
+       "rest": "15 sec",
+       "restSec": 15,
+       "setCount": 5,
+       "notes": "Accessory rows after back-off use source rest-pause/bulldozer method.",
+       "substitution": "Machine crunch or cable crunch (optional preference adaptation)"
+      }
+     ]
+    },
+    {
+     "day": 8,
+     "session": "Rest",
+     "training": false,
+     "items": []
+    }
+   ],
+   "notes": [
+    {
+     "topic": "Progression",
+     "text": "Main lift: target 15 total reps over 5 sets. Exceed by 0-3 reps: +2.5-5 lb next time; exceed by 4+: +5-10 lb. Back-off load is 20% lower. Accessories use rest-pause / total-rep targets."
+    },
+    {
+     "topic": "Rest",
+     "text": "Exercise-specific; 2-3 min between exercises."
+    },
+    {
+     "topic": "Schedule",
+     "text": "Push A / Pull A / Legs A / Rest / Push B / Pull B / Legs B / Rest (8-day intermediate cycle)"
+    },
+    {
+     "topic": "Main-lift load",
+     "text": "Source suggests starting with a 5-6RM load for 15 total reps over 5 sets. Track actual reps across sets, not a forced identical rep count."
+    },
+    {
+     "topic": "Accessory method",
+     "text": "Short-rest rest-pause/bulldozer sets; accumulate total goal across listed sets. Do not read 50 as per-set repetitions."
+    }
+   ]
+  }
+ ]
+}

@@ -34,6 +34,7 @@ import coil.compose.AsyncImage
 import com.gymguide.app.data.CatalogRepository
 import com.gymguide.app.data.Exercise
 import com.gymguide.app.media.MediaRemote
+import com.gymguide.app.media.MusicApp
 import com.gymguide.app.media.NowPlaying
 
 /** Square, rounded-corner, green-bordered +/- button used for adding/removing sets. */
@@ -69,12 +70,14 @@ import com.gymguide.app.media.NowPlaying
   }
 }
 
-/** Compact "notification-style" player for Spotify. */
+/** Compact "notification-style" player for the user's chosen music app. */
 @Composable fun NowPlayingBar(modifier: Modifier = Modifier) {
   val ctx = LocalContext.current
   val remote = remember { MediaRemote(ctx.applicationContext) }
   var state by remember { mutableStateOf<NowPlaying?>(null) }
   var access by remember { mutableStateOf(remote.hasAccess()) }
+  var app by remember { mutableStateOf(remote.selected) }
+  var menu by remember { mutableStateOf(false) }
   val lifecycle = LocalLifecycleOwner.current.lifecycle
   DisposableEffect(lifecycle) {
     val obs = LifecycleEventObserver { _, ev ->
@@ -84,8 +87,19 @@ import com.gymguide.app.media.NowPlaying
     lifecycle.addObserver(obs); remote.start { state = it }
     onDispose { lifecycle.removeObserver(obs); remote.stop() }
   }
-  Card(modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
-    Row(Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
+  Card(modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)) {
+    Column(Modifier.padding(10.dp)) {
+    Box {
+      AssistChip(onClick = { menu = true }, label = { Text(app.label) },
+        leadingIcon = { Icon(Icons.Filled.MusicNote, null, Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary) },
+        trailingIcon = { Icon(Icons.Filled.ArrowDropDown, "Choose music app", Modifier.size(18.dp)) })
+      DropdownMenu(menu, { menu = false }) {
+        MusicApp.values().forEach { m -> val ok = remote.installed(m)
+          DropdownMenuItem(text = { Text(m.label + if (ok) "" else " (not installed)") }, enabled = ok,
+            trailingIcon = { if (m == app) Icon(Icons.Filled.Check, null, tint = MaterialTheme.colorScheme.primary) },
+            onClick = { remote.select(m); app = m; menu = false }) } }
+    }
+    Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
       val s = state
       val art = s?.art
       if (art != null) Image(art.asImageBitmap(), null, Modifier.size(48.dp).clip(RoundedCornerShape(6.dp)), contentScale = ContentScale.Crop)
@@ -95,9 +109,9 @@ import com.gymguide.app.media.NowPlaying
       Column(Modifier.weight(1f)) {
         when {
           !access -> { Text("Music controls", fontWeight = FontWeight.Bold)
-            Text("Tap Connect to control Spotify here", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            Text("Tap Connect to control ${app.label} here", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
           s == null || s.title.isBlank() -> { Text("Nothing playing", fontWeight = FontWeight.Bold)
-            Text(if (remote.spotifyInstalled()) "Press play or open Spotify" else "Spotify not installed", style = MaterialTheme.typography.bodySmall,
+            Text(if (remote.installed()) "Press play to open ${app.label}" else "${app.label} is not installed", style = MaterialTheme.typography.bodySmall,
               color = MaterialTheme.colorScheme.onSurfaceVariant) }
           else -> { Text(s.title, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(listOf(s.artist, s.album).filter { it.isNotBlank() }.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
@@ -110,8 +124,9 @@ import com.gymguide.app.media.NowPlaying
         FilledIconButton({ remote.playPause() }) { Icon(if (state?.playing == true) Icons.Filled.Pause else Icons.Filled.PlayArrow,
           if (state?.playing == true) "Pause" else "Play") }
         IconButton({ remote.next() }) { Icon(Icons.Filled.SkipNext, "Next") }
-        if (state?.title.isNullOrBlank() && remote.spotifyInstalled()) IconButton({ remote.openSpotify() }) { Icon(Icons.Filled.OpenInNew, "Open Spotify") }
+        if (state?.title.isNullOrBlank() && remote.installed()) IconButton({ remote.open() }) { Icon(Icons.Filled.OpenInNew, "Open ${app.label}") }
       }
+    }
     }
   }
 }
@@ -119,12 +134,12 @@ import com.gymguide.app.media.NowPlaying
 /** Exercise picker sheet: suggestions that fit the workout, or the entire database. Supports multi-select. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable fun ExercisePickerSheet(catalog: CatalogRepository, suggested: List<Exercise>?, exclude: Set<String>,
-                                    onDismiss: () -> Unit, onPick: (List<Exercise>) -> Unit) {
+                                    onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, onPick: (List<Exercise>) -> Unit) {
   var showAll by remember { mutableStateOf(suggested == null) }
   var query by remember { mutableStateOf("") }
   var muscle by remember { mutableStateOf<String?>(null) }
   val picked = remember { mutableStateListOf<String>() }
-  val base = if (showAll || suggested == null) catalog.content.exercises else suggested
+  val base = if (showAll || suggested == null) catalog.exercises else suggested
   val list = base.filter { it.id !in exclude && (muscle == null || muscle in it.primaryMuscles) &&
     (query.isBlank() || it.name.contains(query, true) || it.primaryMuscles.any { m -> m.contains(query, true) }) }
   ModalBottomSheet(onDismissRequest = onDismiss) {
@@ -141,6 +156,7 @@ import com.gymguide.app.media.NowPlaying
       }
       LazyColumn(Modifier.weight(1f)) {
         if (list.isEmpty()) item { Text("No matching exercises.", Modifier.padding(vertical = 12.dp)) }
+        if (onCreate != null) item { TextButton(onCreate) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Not listed? Add your own exercise") } }
         items(list, key = { it.id }) { e -> val on = e.id in picked
           ListItem(headlineContent = { Text(e.name) },
             supportingContent = { Text("${e.primaryMuscles.joinToString()} · ${e.movement} · ${e.difficulty}") },

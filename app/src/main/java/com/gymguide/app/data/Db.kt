@@ -57,6 +57,19 @@ class Converters {
   val status: String = ReviewStatus.SUBMITTED, val reviewNote: String = "", val submittedBy: String,
   val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
 
+/** A program the user follows. Cycle day = days since startDate mod cycle length; a newer assignment replaces the old one from its start date. */
+@Entity(tableName = "program_assignments", indices = [Index("ownerId")]) data class ProgramAssignmentEntity(
+  @PrimaryKey val id: String = newId(), val programId: String, val startDate: String, val endDate: String = "",
+  val ownerId: String, val visibility: String = Visibility.PRIVATE,
+  val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
+
+/** An exercise a user added. Private until the user shares it; merged into the catalog on this device. */
+@Entity(tableName = "custom_exercises", indices = [Index("ownerId")]) data class CustomExerciseEntity(
+  @PrimaryKey val id: String = "ex_u_" + newId(), val name: String, val equipmentIds: List<String> = emptyList(),
+  val primaryMuscles: List<String> = emptyList(), val movement: String = "", val steps: List<String> = emptyList(),
+  val safety: String = "", val ownerId: String, val visibility: String = Visibility.PRIVATE, val status: String = ReviewStatus.DRAFT,
+  val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
+
 @Entity(tableName = "users") data class UserEntity(
   @PrimaryKey val id: String = newId(), val displayName: String, val email: String = "",
   val role: String = Roles.USER, val status: String = AccountStatus.ACTIVE,
@@ -101,6 +114,14 @@ class Converters {
   @Query("SELECT * FROM gym_equipment WHERE id = :id") suspend fun gymEquipmentItem(id: String): GymEquipmentEntity?
   @Upsert suspend fun upsertGymEquipment(e: GymEquipmentEntity)
 
+  // program assignments + user-added exercises
+  @Query("SELECT * FROM program_assignments WHERE deleted = 0 AND ownerId = :owner ORDER BY startDate") fun assignments(owner: String): Flow<List<ProgramAssignmentEntity>>
+  @Query("SELECT * FROM program_assignments WHERE ownerId = :owner") suspend fun assignmentsOnce(owner: String): List<ProgramAssignmentEntity>
+  @Upsert suspend fun upsertAssignment(a: ProgramAssignmentEntity)
+  @Query("SELECT * FROM custom_exercises WHERE deleted = 0 AND ownerId = :owner ORDER BY name") fun customExercises(owner: String): Flow<List<CustomExerciseEntity>>
+  @Query("SELECT * FROM custom_exercises WHERE id = :id") suspend fun customExercise(id: String): CustomExerciseEntity?
+  @Upsert suspend fun upsertCustomExercise(e: CustomExerciseEntity)
+
   // users / admin
   @Query("SELECT * FROM users ORDER BY displayName") fun users(): Flow<List<UserEntity>>
   @Query("SELECT * FROM users WHERE id = :id") suspend fun user(id: String): UserEntity?
@@ -117,14 +138,15 @@ class Converters {
 }
 
 @Database(entities = [Unavailable::class, SetLog::class, WorkoutEntity::class, WorkoutItemEntity::class,
-  GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class],
-  version = 2, exportSchema = true)
+  GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
+  ProgramAssignmentEntity::class, CustomExerciseEntity::class],
+  version = 3, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3).build().also { i = it } } }
 }
 
 /** v1 -> v3 app (db 1 -> 2): keeps workout history and any old CustomWorkout rows. */
@@ -152,3 +174,8 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
   }
 }
 const val LOCAL_OWNER_PLACEHOLDER = "__local__"
+
+/** db 2 -> 3: program assignments and user-added exercises. */
+val MIGRATION_2_3 = object : Migration(2, 3) {
+  override fun migrate(db: SupportSQLiteDatabase) { SCHEMA_V3_CREATE.forEach { db.execSQL(it) } }
+}

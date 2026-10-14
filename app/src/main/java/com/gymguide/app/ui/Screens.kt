@@ -47,11 +47,16 @@ val SPLIT_HELP = mapOf(
         leadingIcon = { Icon(Icons.Filled.Place, null, Modifier.size(16.dp), tint = cs.primary) })
     }
     StreakPanel(stats)
+    CalendarCard(app, stats, go)
     Button({ go("styles") }, Modifier.fillMaxWidth().height(60.dp), shape = MaterialTheme.shapes.medium) {
       Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text("Start a workout", style = MaterialTheme.typography.titleMedium) }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
       HomeTile(Icons.Filled.FitnessCenter, "Exercises", "Browse by muscle", Modifier.weight(1f)) { go("muscles") }
       HomeTile(Icons.Filled.Insights, "Progress", "Your tracker", Modifier.weight(1f)) { go("tracker") }
+    }
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+      HomeTile(Icons.Filled.EventRepeat, "Programs", "Bro splits and PPL", Modifier.weight(1f)) { go("programs") }
+      HomeTile(Icons.Filled.AddCircleOutline, "My exercises", "Add your own", Modifier.weight(1f)) { go("myex") }
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
       HomeTile(Icons.Filled.TravelExplore, "Find gyms", "Near you", Modifier.weight(1f)) { go("gyms") }
@@ -75,8 +80,9 @@ val SPLIT_HELP = mapOf(
     }
   }
 
-@Composable fun ListScreen(title: String, items: List<String>, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
+@Composable fun ListScreen(title: String, items: List<String>, onAdd: () -> Unit, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
   item { Text(title, style = MaterialTheme.typography.titleLarge) }
+  item { TextButton(onAdd, contentPadding = PaddingValues(0.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add your own exercise") } }
   if (items.isEmpty()) item { Text("No content yet.") }
   items(items) { ListItem(headlineContent = { Text(it) }, modifier = Modifier.clickable { click(it) }) }
 }
@@ -97,6 +103,8 @@ val SPLIT_HELP = mapOf(
     item { EquipmentLinks(repo, e) { nav.navigate(Routes.equipment(it, e.id)) } }
     item { e.equipmentIds.mapNotNull(repo::equipment).filter { it.alternateNames.isNotEmpty() }.forEach { q ->
       Muted("${q.name} is also called: ${q.alternateNames.joinToString()}") } }
+    if (e.target.isNotBlank()) item { Text("Targets: ${e.target}") }
+    if (e.why.isNotBlank()) item { Muted(e.why) }
     item { Text("Works: ${e.primaryMuscles.joinToString()}" + if (e.secondaryMuscles.isNotEmpty()) " (also ${e.secondaryMuscles.joinToString()})" else "") }
     section("Setup", e.setup); section("How to do it", e.steps); section("Common mistakes", e.mistakes)
     if (e.breathing.isNotBlank()) item { Text("Breathing: ${e.breathing}") }
@@ -201,10 +209,10 @@ private fun dayKey(t: Long): Long {
           Text("Exercise:  ")
           Box {
             var menuOpen by remember { mutableStateOf(false) }
-            OutlinedButton({ menuOpen = true }) { Text(app.catalog.exercise(sel)?.name ?: sel) }
+            OutlinedButton({ menuOpen = true }) { Text(app.catalog.displayName(sel)) }
             DropdownMenu(menuOpen, { menuOpen = false }) {
               stats.exerciseIds.forEach { id ->
-                DropdownMenuItem(text = { Text(app.catalog.exercise(id)?.name ?: id) }, onClick = { selected = id; menuOpen = false }) }
+                DropdownMenuItem(text = { Text(app.catalog.displayName(id)) }, onClick = { selected = id; menuOpen = false }) }
             }
           }
         }
@@ -212,7 +220,7 @@ private fun dayKey(t: Long): Long {
       item {
         val series = logs.filter { it.exerciseId == sel }.groupBy { dayKey(it.date) }.toSortedMap()
           .map { (d, sets) -> d to (sets.maxOfOrNull { it.weight } ?: 0.0).toFloat() }
-        ProgressChart(app.catalog.exercise(sel)?.name ?: sel, series) { v -> "%.0f lb".format(v) }
+        ProgressChart(app.catalog.displayName(sel), series) { v -> "%.0f lb".format(v) }
       }
       item { Text("Workouts by day", style = MaterialTheme.typography.titleMedium) }
       stats.byDay.forEach { (d, sets) ->
@@ -220,7 +228,7 @@ private fun dayKey(t: Long): Long {
           Text(dayFmt.format(java.util.Date(d)), fontWeight = FontWeight.Bold)
           Muted("${sets.size} sets · ${volStr(sets.sumOf { it.weight * it.reps })} total volume")
           sets.groupBy { it.exerciseId }.forEach { (ex, ss) ->
-            Text("${app.catalog.exercise(ex)?.name ?: ex}: ${ss.size} sets, best ${"%.0f lb".format(ss.maxOfOrNull { it.weight } ?: 0.0)}",
+            Text("${app.catalog.displayName(ex)}: ${ss.size} sets, best ${"%.0f lb".format(ss.maxOfOrNull { it.weight } ?: 0.0)}",
               style = MaterialTheme.typography.bodySmall)
           }
         } } }

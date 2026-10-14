@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import com.gymguide.app.data.*
 import com.gymguide.app.ui.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import androidx.navigation.compose.NavHost
@@ -42,9 +43,10 @@ class RegressionTests {
       execSQL("INSERT INTO SetLog(date,exerciseId,setNo,reps,weight,units,notes) VALUES(1,'ex_leg_press',1,10,100,'lb','')")
       execSQL("INSERT INTO CustomWorkout(name,exerciseIdsCsv) VALUES('Old one','ex_leg_press,ex_chest_press')")
       close() }
-    val db = helper.runMigrationsAndValidate("mig.db", 2, true, MIGRATION_1_2)
+    val db = helper.runMigrationsAndValidate("mig.db", 3, true, MIGRATION_1_2, MIGRATION_2_3)
     db.query("SELECT COUNT(*) FROM SetLog").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM workout_items").use { it.moveToFirst(); assertEquals(2, it.getInt(0)) }
+    db.query("SELECT COUNT(*) FROM program_assignments").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.close()
   }
 
@@ -100,18 +102,76 @@ class RegressionTests {
 class WorkoutStatsTest {
   private val z = java.time.ZoneId.of("America/New_York")
   private fun at(d: java.time.LocalDate) = d.atTime(12, 0).atZone(z).toInstant().toEpochMilli()
-  @Test fun countsAndStreak() {
-    val today = java.time.LocalDate.of(2026, 10, 14) // Wednesday
-    val logs = listOf(today, today, today.minusDays(1), today.minusWeeks(1), today.minusWeeks(2), today.minusMonths(2), today.minusYears(1)).map(::at)
+  private val today = java.time.LocalDate.of(2026, 10, 14) // Wednesday
+  @Test fun countsAndDayStreak() {
+    val logs = listOf(today, today, today.minusDays(1), today.minusDays(2), today.minusDays(4), today.minusMonths(2), today.minusYears(1)).map(::at)
     val s = workoutStats(logs, today, z, java.time.DayOfWeek.SUNDAY)
-    assertEquals(2, s.week); assertEquals(3, s.month); assertEquals(5, s.year); assertEquals(3, s.weekStreak)
-    assertEquals(java.time.LocalDate.of(2026, 10, 11), s.weekDays.first())
+    assertEquals(3, s.streak)               // today, yesterday, day before; gap on day 3 ends it
+    assertEquals(3, s.week); assertEquals(4, s.month); assertEquals(5, s.year)
     assertTrue(today in s.doneDays)
   }
-  @Test fun streakSurvivesUntilWeekEnds() {
-    val today = java.time.LocalDate.of(2026, 10, 14)
-    val s = workoutStats(listOf(at(today.minusWeeks(1))), today, z, java.time.DayOfWeek.SUNDAY)
-    assertEquals(1, s.weekStreak); assertEquals(0, s.week)
-    assertEquals(0, workoutStats(emptyList(), today, z).weekStreak)
+  @Test fun streakSurvivesUntilDayEnds() {
+    assertEquals(2, workoutStats(listOf(today.minusDays(1), today.minusDays(2)).map(::at), today, z).streak)
+    assertEquals(0, workoutStats(listOf(today.minusDays(2)).map(::at), today, z).streak)
+    assertEquals(0, workoutStats(emptyList(), today, z).streak)
+  }
+}
+
+@RunWith(RobolectricTestRunner::class) @Config(sdk = [34])
+class ProgramTests {
+  private val ctx: Context get() = ApplicationProvider.getApplicationContext()
+  @get:Rule val compose = createComposeRule()
+
+  @Test fun assetsLoadAndKeepOriginalPrescriptions() {
+    val app = AppContainer(ctx); val ps = app.programs.programs
+    assertEquals(6, ps.size); assertTrue(ps.all { it.description.length > 200 })
+    val p3 = ps.first { it.id == "P3" }
+    assertEquals(8, p3.cycleLength); assertEquals(8, p3.days.size)
+    val bench = p3.days[0].items.first { it.exercise == "Flat barbell bench press" }
+    assertEquals("5", bench.sets); assertEquals("15", bench.reps); assertTrue(bench.repsNote.startsWith("TOTAL"))
+    assertEquals(218, ps.sumOf { p -> p.days.sumOf { it.items.size } })
+    assertTrue(app.catalog.exercises.size >= 100 && app.catalog.exercise("ex_x_cable_curl") != null)
+    assertTrue(app.catalog.exercises.all { e -> e.equipmentIds.all { app.catalog.equipment(it) != null } })
+  }
+
+  @Test fun scheduleUsesCycleLengthAndNewestAssignment() {
+    val ps = AppContainer(ctx).programs.programs
+    val a = ProgramAssignmentEntity(programId = "P3", startDate = "2026-10-14", ownerId = "u")
+    fun day(d: String) = scheduledDay(ps, listOf(a), java.time.LocalDate.parse(d))?.day
+    assertEquals("Push A", day("2026-10-14")!!.session)
+    assertFalse(day("2026-10-17")!!.training)               // cycle day 4 = rest
+    assertEquals("Push B", day("2026-10-18")!!.session)     // day 5
+    assertEquals("Push A", day("2026-10-22")!!.session)     // wraps after 8 days
+    assertNull(day("2026-10-13"))                           // before start
+    val b = ProgramAssignmentEntity(programId = "B1", startDate = "2026-10-20", ownerId = "u")
+    assertEquals("P3", scheduledDay(ps, listOf(a.copy(endDate = "2026-10-20"), b), java.time.LocalDate.parse("2026-10-19"))!!.program.id)
+    assertEquals("Back", scheduledDay(ps, listOf(a.copy(endDate = "2026-10-20"), b), java.time.LocalDate.parse("2026-10-20"))!!.day.session)
+  }
+
+  @Test fun assignPersistsAndReplacesOldProgram() = runBlocking {
+    val app = AppContainer(ctx)
+    app.programs.assign("B1", java.time.LocalDate.now()); app.programs.assign("P1", java.time.LocalDate.now().plusDays(1))
+    val l = app.dao.assignmentsOnce(app.session.userId)
+    assertEquals(2, l.size); assertEquals(java.time.LocalDate.now().plusDays(1).toString(), l.first { it.programId == "B1" }.endDate)
+    assertTrue(app.dao.outbox().count { it.entityType == "program_assignment" } >= 3)
+  }
+
+  @Test fun userExerciseSavesValidatesAndJoinsCatalog() = runBlocking {
+    val app = AppContainer(ctx)
+    assertNotNull(app.exercises.save(null, " ", listOf("Chest"), emptyList(), "", emptyList(), ""))
+    assertNotNull(app.exercises.save(null, "Cable curl", listOf("Biceps"), emptyList(), "", emptyList(), ""))   // duplicate of library
+    assertNull(app.exercises.save(null, "Zottman curl", listOf("Biceps"), listOf("eq_dumbbells"), "Pull", listOf("Curl up", "Rotate"), ""))
+    val e = app.dao.customExercises(app.session.userId).first().single()
+    assertEquals(Visibility.PRIVATE, e.visibility); assertEquals(SyncState.PENDING, e.syncState)
+    assertTrue(app.dao.outbox().any { it.entityType == "exercise" && it.entityId == e.id })
+  }
+
+  @Test fun programDayWorkoutRunsWithUnmatchedExercisesAndLogsOnlyWorkingSets() {
+    val app = AppContainer(ctx)
+    compose.setContent { val nav = androidx.navigation.compose.rememberNavController()
+      NavHost(nav, "w") { composable("w") { ActiveWorkout(app, "program", "B3_1", emptySet(), nav) {} } } }
+    compose.waitForIdle()
+    compose.onNodeWithText("Warm-up", substring = true).assertExists()
+    compose.onNodeWithText("Child pose to cobra").assertExists()
   }
 }

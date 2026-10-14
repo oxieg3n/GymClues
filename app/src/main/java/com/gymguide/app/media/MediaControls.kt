@@ -19,15 +19,25 @@ import androidx.core.app.NotificationManagerCompat
  */
 class MediaListenerService : NotificationListenerService()
 
+/** Music apps GymCue can control (any app that publishes an Android media session). */
+enum class MusicApp(val label: String, val pkg: String) {
+  SPOTIFY("Spotify", "com.spotify.music"), APPLE("Apple Music", "com.apple.android.music"),
+  YOUTUBE("YouTube Music", "com.google.android.apps.youtube.music"), TIDAL("Tidal", "com.aspiro.tidal"),
+  AMAZON("Amazon Music", "com.amazon.mp3")
+}
+
 data class NowPlaying(val title: String = "", val artist: String = "", val album: String = "",
                       val art: Bitmap? = null, val playing: Boolean = false, val app: String = "")
 
 /**
- * Controls Spotify (or whatever is playing) without leaving GymCue.
- * Uses Android MediaSession APIs, so no Spotify developer account/SDK is required.
+ * Controls the music app the user picked without leaving GymCue.
+ * Uses Android MediaSession APIs, so no per-service developer account/SDK is required.
  */
 class MediaRemote(private val ctx: Context) {
-  companion object { const val SPOTIFY = "com.spotify.music" }
+  private val prefs = ctx.getSharedPreferences("music", Context.MODE_PRIVATE)
+  var selected: MusicApp = MusicApp.values().firstOrNull { it.name == prefs.getString("app", null) } ?: MusicApp.SPOTIFY
+    private set
+  fun select(app: MusicApp) { prefs.edit().putString("app", app.name).apply(); selected = app; pick(); emit() }
   private val msm = ctx.getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
   private val component = ComponentName(ctx, MediaListenerService::class.java)
   private var controller: MediaController? = null
@@ -35,8 +45,8 @@ class MediaRemote(private val ctx: Context) {
 
   fun hasAccess() = NotificationManagerCompat.getEnabledListenerPackages(ctx).contains(ctx.packageName)
   fun openAccessSettings() = ctx.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-  fun spotifyInstalled() = ctx.packageManager.getLaunchIntentForPackage(SPOTIFY) != null
-  fun openSpotify() { ctx.packageManager.getLaunchIntentForPackage(SPOTIFY)?.let { ctx.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }
+  fun installed(app: MusicApp = selected) = ctx.packageManager.getLaunchIntentForPackage(app.pkg) != null
+  fun open() { ctx.packageManager.getLaunchIntentForPackage(selected.pkg)?.let { ctx.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }
 
   private val cb = object : MediaController.Callback() {
     override fun onMetadataChanged(metadata: MediaMetadata?) = emit()
@@ -58,13 +68,13 @@ class MediaRemote(private val ctx: Context) {
 
   private fun pick() {
     val list = runCatching { msm.getActiveSessions(component) }.getOrDefault(emptyList())
-    val next = list.firstOrNull { it.packageName == SPOTIFY } ?: list.firstOrNull()
+    val next = list.firstOrNull { it.packageName == selected.pkg }
     if (next?.sessionToken != controller?.sessionToken) {
       controller?.unregisterCallback(cb); controller = next; next?.registerCallback(cb)
     }
   }
   private fun emit() {
-    val c = controller ?: return onChange?.invoke(NowPlaying()) ?: Unit
+    val c = controller ?: return onChange?.invoke(NowPlaying(app = selected.label)) ?: Unit
     val m = c.metadata
     onChange?.invoke(NowPlaying(
       title = m?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: m?.getString(MediaMetadata.METADATA_KEY_DISPLAY_TITLE) ?: "",
@@ -72,14 +82,14 @@ class MediaRemote(private val ctx: Context) {
       album = m?.getString(MediaMetadata.METADATA_KEY_ALBUM) ?: "",
       art = m?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART) ?: m?.getBitmap(MediaMetadata.METADATA_KEY_ART),
       playing = c.playbackState?.state == PlaybackState.STATE_PLAYING,
-      app = if (c.packageName == SPOTIFY) "Spotify" else c.packageName))
+      app = selected.label))
   }
 
   fun playPause() { val c = controller
-    if (c == null) { mediaKey(KeyEvent.KEYCODE_MEDIA_PLAY); return }
+    if (c == null) { if (installed()) open() else mediaKey(KeyEvent.KEYCODE_MEDIA_PLAY); return }
     if (c.playbackState?.state == PlaybackState.STATE_PLAYING) c.transportControls.pause() else c.transportControls.play() }
-  fun next() { controller?.transportControls?.skipToNext() ?: mediaKey(KeyEvent.KEYCODE_MEDIA_NEXT) }
-  fun previous() { controller?.transportControls?.skipToPrevious() ?: mediaKey(KeyEvent.KEYCODE_MEDIA_PREVIOUS) }
+  fun next() { controller?.transportControls?.skipToNext() }
+  fun previous() { controller?.transportControls?.skipToPrevious() }
 
   /** Fallback when no session is visible yet (e.g. access not granted): send a hardware media key. */
   private fun mediaKey(code: Int) {

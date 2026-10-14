@@ -7,6 +7,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlinx.serialization.json.Json
 
 /*
@@ -16,17 +23,29 @@ import kotlinx.serialization.json.Json
  */
 
 /** Read-only exercise/equipment/template catalog. Future: refreshed from the server, cached locally. */
-class CatalogRepository(ctx: Context) {
+class CatalogRepository(private val ctx: Context) {
+  private val json = Json { ignoreUnknownKeys = true }
+  private fun read(name: String) = ctx.assets.open(name).bufferedReader().use { it.readText() }
   val content: Content = runCatching {
-    Json { ignoreUnknownKeys = true }.decodeFromString<Content>(ctx.assets.open("content.json").bufferedReader().readText())
+    val base = json.decodeFromString<Content>(read("content.json"))
+    val lib = runCatching { json.decodeFromString<Content>(read("library.json")) }
+      .getOrDefault(Content(emptyList(), emptyList(), emptyList()))
+    base.copy(equipment = base.equipment + lib.equipment, exercises = base.exercises + lib.exercises)
   }.getOrElse { Content(emptyList(), emptyList(), emptyList()) }
-  fun exercise(id: String) = content.exercises.firstOrNull { it.id == id }
+  /** Exercises this user added (observable, so lists update the moment one is saved). */
+  var custom by mutableStateOf<List<Exercise>>(emptyList())
+  val exercises: List<Exercise> get() = content.exercises + custom
+  /** Display names for ids that are not catalog exercises (program lifts without a catalog match). */
+  val aliases = HashMap<String, String>()
+  fun displayName(id: String) = exercise(id)?.name ?: aliases[id] ?: id
+  fun byName(name: String): Exercise? { val n = norm(name); return if (n.isBlank()) null else exercises.firstOrNull { norm(it.name) == n } }
+  fun exercise(id: String) = exercises.firstOrNull { it.id == id }
   fun equipment(id: String) = content.equipment.firstOrNull { it.id == id }
   fun template(id: String) = content.templates.firstOrNull { it.id == id }
-  val muscles get() = content.exercises.flatMap { it.primaryMuscles }.distinct().sorted()
+  val muscles get() = exercises.flatMap { it.primaryMuscles }.distinct().sorted()
   fun usable(e: Exercise, off: Set<String>) = e.equipmentIds.none { it in off }
   fun alternatives(e: Exercise, off: Set<String>) = e.alternativeIds.mapNotNull(::exercise).filter { usable(it, off) }
-  fun exercisesUsing(equipmentId: String) = content.exercises.filter { equipmentId in it.equipmentIds }
+  fun exercisesUsing(equipmentId: String) = exercises.filter { equipmentId in it.equipmentIds }
   fun setupFor(exerciseId: String?, equipmentId: String) =
     exerciseId?.let(::exercise)?.equipmentSetup?.firstOrNull { it.equipmentId == equipmentId }
 
@@ -35,7 +54,7 @@ class CatalogRepository(ctx: Context) {
     val inPlan = exerciseIds.mapNotNull(::exercise)
     val muscles = inPlan.flatMap { it.primaryMuscles }.toSet()
     val moves = inPlan.map { it.movement }.toSet()
-    return content.exercises.filter { it.id !in exerciseIds && usable(it, off) &&
+    return exercises.filter { it.id !in exerciseIds && usable(it, off) &&
       (inPlan.isEmpty() || it.primaryMuscles.any(muscles::contains) || it.movement in moves) }
   }
 
@@ -45,6 +64,29 @@ class CatalogRepository(ctx: Context) {
     return content.equipment.firstOrNull { norm(it.name) == n || it.alternateNames.any { a -> norm(a) == n } }
   }
   private fun norm(s: String) = s.lowercase().replace(Regex("[^a-z0-9]"), "")
+}
+
+/** Exercises users add themselves. Saved as private, queued for future sync, and merged into the catalog on this device. */
+class ExerciseRepository(private val dao: GymDao, private val catalog: CatalogRepository, private val session: UserSession) {
+  private fun norm(s: String) = s.lowercase().replace(Regex("[^a-z0-9]"), "")
+  fun attach(scope: CoroutineScope) { scope.launch { dao.customExercises(session.userId).collect { l -> catalog.custom = l.map {
+    Exercise(it.id, it.name, it.equipmentIds, it.primaryMuscles, movement = it.movement.ifBlank { "Custom" }, steps = it.steps, safety = it.safety) } } } }
+  fun mine() = dao.customExercises(session.userId)
+  /** Returns an error message, or null when saved. */
+  suspend fun save(id: String?, name: String, muscles: List<String>, equipmentIds: List<String>, movement: String, steps: List<String>, safety: String): String? {
+    val n = name.trim()
+    if (n.isEmpty()) return "Enter a name."
+    if (muscles.isEmpty()) return "Pick at least one muscle."
+    if (catalog.exercises.any { norm(it.name) == norm(n) && it.id != id }) return "An exercise with this name already exists."
+    val old = id?.let { dao.customExercise(it) }
+    val e = (old ?: CustomExerciseEntity(name = n, ownerId = session.userId)).copy(name = n, primaryMuscles = muscles, equipmentIds = equipmentIds,
+      movement = movement, steps = steps.filter { it.isNotBlank() }, safety = safety.trim(), updatedAt = now(), syncState = SyncState.PENDING)
+    dao.upsertCustomExercise(e); dao.enqueue(OutboxEntity(entityType = "exercise", entityId = e.id, op = if (old == null) "create" else "update"))
+    return null
+  }
+  suspend fun delete(id: String) { dao.customExercise(id)?.let {
+    dao.upsertCustomExercise(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING))
+    dao.enqueue(OutboxEntity(entityType = "exercise", entityId = id, op = "delete")) } }
 }
 
 /** Who is using the app. Local device user today; replaced by real sign-in (server account id) later. */
@@ -181,6 +223,10 @@ class AppContainer(ctx: Context) {
   val remote: SyncBackend = SyncBackend.create()
   val enrichment: EnrichmentService = EnrichmentService.create(catalog)
   val workouts = WorkoutRepository(dao, catalog, session)
+  val exercises = ExerciseRepository(dao, catalog, session)
+  val programs = ProgramRepository(ctx, db, session, catalog)
+  private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+  init { exercises.attach(scope) }
   val gyms = GymRepository(ctx, dao, catalog, session, enrichment)
   val admin = AdminRepository(dao, session, catalog)
   val adminAuth = com.gymguide.app.auth.AdminAuth(ctx)

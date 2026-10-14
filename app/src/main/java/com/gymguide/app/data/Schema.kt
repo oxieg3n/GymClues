@@ -13,3 +13,11 @@ val SCHEMA_V2_CREATE = listOf(
   "CREATE TABLE IF NOT EXISTS `audit_log` (`id` TEXT NOT NULL, `actorId` TEXT NOT NULL, `action` TEXT NOT NULL, `targetType` TEXT NOT NULL, `targetId` TEXT NOT NULL, `detail` TEXT NOT NULL, `at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
   "CREATE TABLE IF NOT EXISTS `outbox` (`id` TEXT NOT NULL, `entityType` TEXT NOT NULL, `entityId` TEXT NOT NULL, `op` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, PRIMARY KEY(`id`))"
 )
+
+/** Generated from app/schemas/.../3.json (Room export) -- CREATE statements for tables added in db v3. */
+val SCHEMA_V3_CREATE = listOf(
+  "CREATE TABLE IF NOT EXISTS `program_assignments` (`id` TEXT NOT NULL, `programId` TEXT NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `visibility` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `syncState` TEXT NOT NULL, `deleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+  "CREATE INDEX IF NOT EXISTS `index_program_assignments_ownerId` ON `program_assignments` (`ownerId`)",
+  "CREATE TABLE IF NOT EXISTS `custom_exercises` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `equipmentIds` TEXT NOT NULL, `primaryMuscles` TEXT NOT NULL, `movement` TEXT NOT NULL, `steps` TEXT NOT NULL, `safety` TEXT NOT NULL, `ownerId` TEXT NOT NULL, `visibility` TEXT NOT NULL, `status` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `syncState` TEXT NOT NULL, `deleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+  "CREATE INDEX IF NOT EXISTS `index_custom_exercises_ownerId` ON `custom_exercises` (`ownerId`)"
+)

@@ -20,6 +20,10 @@ object Routes {
   fun runTemplate(id: String) = "run/template/${Uri.encode(id)}"
   fun runCustom(id: String) = "run/custom/${Uri.encode(id)}"
   fun builder(id: String? = null) = "builder" + (id?.let { "?id=${Uri.encode(it)}" } ?: "")
+  fun runProgram(planId: String) = "run/program/${Uri.encode(planId)}"
+  fun program(id: String) = "program/${Uri.encode(id)}"
+  fun programDay(planId: String, date: String?) = "pday/${Uri.encode(planId)}" + (date?.let { "?date=$it" } ?: "")
+  fun addExercise(id: String? = null) = "addex" + (id?.let { "?id=${Uri.encode(it)}" } ?: "")
   fun gym(id: String) = "gym/${Uri.encode(id)}"
   fun addEquipment(gymId: String, editId: String? = null) = "gym/${Uri.encode(gymId)}/add" + (editId?.let { "?edit=${Uri.encode(it)}" } ?: "")
 }
@@ -46,9 +50,9 @@ object Routes {
   ) { pad ->
     NavHost(nav, "home", Modifier.padding(pad)) {
       composable("home") { Home(app, nav::navigate) }
-      composable("muscles") { ListScreen("Choose a muscle group", app.catalog.muscles) { nav.navigate(Routes.list(it)) } }
+      composable("muscles") { ListScreen("Choose a muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
       composable("list/{m}") { val m = it.arguments?.getString("m").orEmpty()
-        ExerciseList(app.catalog.content.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }) { id -> nav.navigate(Routes.exercise(id)) } }
+        ExerciseList(app.catalog.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }) { id -> nav.navigate(Routes.exercise(id)) } }
       composable("ex/{id}") { val e = app.catalog.exercise(it.arguments?.getString("id").orEmpty())
         if (e == null) NotFound("Exercise not found.") else ExerciseDetail(app, e, offIds, nav) }
       composable("equip/{id}?ex={ex}", listOf(navArgument("ex") { type = NavType.StringType; nullable = true; defaultValue = null })) {
@@ -57,13 +61,22 @@ object Routes {
       composable("run/{kind}/{id}") { ActiveWorkout(app, it.arguments?.getString("kind").orEmpty(), it.arguments?.getString("id").orEmpty(), offIds, nav) {
         nav.popBackStack("home", false) } }
       composable("builder?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
-        WorkoutBuilder(app, it.arguments?.getString("id"), offIds) { nav.popBackStack() } }
+        WorkoutBuilder(app, it.arguments?.getString("id"), offIds, { nav.navigate(Routes.addExercise()) }) { nav.popBackStack() } }
       composable("equipment") { EquipmentScreen(app, offIds) }
       composable("tracker") { Tracker(app) }
       composable("gyms") { GymSearch(app, nav) }
       composable("gym/{id}") { GymDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("gym/{id}/add?edit={edit}", listOf(navArgument("edit") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         AddGymEquipment(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("edit")) { nav.popBackStack() } }
+      composable("programs") { ProgramsScreen(app, nav) }
+      composable("program/{id}") { ProgramDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
+      composable("pday/{id}?date={date}", listOf(navArgument("date") { type = NavType.StringType; nullable = true; defaultValue = null })) {
+        ProgramDayScreen(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("date"), nav) }
+      composable("week") { WeekCalendar(app, nav::navigate) }
+      composable("month") { MonthCalendar(app, nav::navigate) }
+      composable("myex") { MyExercises(app, nav) }
+      composable("addex?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
+        AddExercise(app, it.arguments?.getString("id")) { nav.popBackStack() } }
       composable("admin") { AdminHome(app, nav) }
     }
   }
