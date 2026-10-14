@@ -102,8 +102,9 @@ import com.gymguide.app.media.NowPlaying
     Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
       val s = state
       val art = s?.art
-      if (art != null) Image(art.asImageBitmap(), null, Modifier.size(48.dp).clip(RoundedCornerShape(6.dp)), contentScale = ContentScale.Crop)
-      else Box(Modifier.size(48.dp).clip(RoundedCornerShape(6.dp)), contentAlignment = Alignment.Center) {
+      val openApp = Modifier.size(48.dp).clip(RoundedCornerShape(6.dp)).clickable(enabled = remote.installed(), onClickLabel = "Open ${app.label}") { remote.openPlaying() }
+      if (art != null) Image(art.asImageBitmap(), "Open ${app.label}", openApp, contentScale = ContentScale.Crop)
+      else Box(openApp, contentAlignment = Alignment.Center) {
         Icon(Icons.Filled.MusicNote, null, tint = MaterialTheme.colorScheme.primary) }
       Spacer(Modifier.width(10.dp))
       Column(Modifier.weight(1f)) {

@@ -46,6 +46,11 @@ class MediaRemote(private val ctx: Context) {
   fun hasAccess() = NotificationManagerCompat.getEnabledListenerPackages(ctx).contains(ctx.packageName)
   fun openAccessSettings() = ctx.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
   fun installed(app: MusicApp = selected) = ctx.packageManager.getLaunchIntentForPackage(app.pkg) != null
+  /** Opens the app that owns the active session (its own now-playing screen when offered), else the selected app. */
+  fun openPlaying() {
+    try { controller?.sessionActivity?.let { it.send(); return } } catch (e: android.app.PendingIntent.CanceledException) { }
+    open()
+  }
   fun open() { ctx.packageManager.getLaunchIntentForPackage(selected.pkg)?.let { ctx.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }
 
   private val cb = object : MediaController.Callback() {

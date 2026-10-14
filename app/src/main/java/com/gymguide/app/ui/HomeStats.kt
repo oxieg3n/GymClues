@@ -1,5 +1,7 @@
 package com.gymguide.app.ui
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.draw.clip
+import com.gymguide.app.data.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalFireDepartment
@@ -35,7 +37,8 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
     streak = streak, doneDays = days, today = today)
 }
 
-@Composable fun StreakPanel(s: WorkoutStats, modifier: Modifier = Modifier) {
+/** [program] = the streak counts program training days, not gym days. */
+@Composable fun StreakPanel(s: WorkoutStats, program: Boolean = false, modifier: Modifier = Modifier) {
   val cs = MaterialTheme.colorScheme
   Surface(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer,
     border = BorderStroke(1.dp, if (s.streak > 0) cs.primary.copy(alpha = 0.35f) else cs.outlineVariant)) {
@@ -47,7 +50,8 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
           Text("day streak", style = MaterialTheme.typography.titleMedium)
-          Text(when { s.streak == 0 -> "Log a workout to start one"
+          Text(when { program -> if (s.streak == 0) "Finish a program session to start one" else "Program days in a row. Rest days don't break it"
+            s.streak == 0 -> "Log a workout to start one"
             s.today !in s.doneDays -> "Train today to keep it going"; else -> "Today counts. Keep it up" },
             style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
         }
@@ -62,4 +66,21 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
 @Composable private fun Tally(label: String, n: Int, modifier: Modifier) = Column(modifier) {
   Text("$n", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onSurface)
   Text(label, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+@Composable fun ProgramProgressCard(p: ProgramProgress, onNewProgram: () -> Unit) {
+  val cs = MaterialTheme.colorScheme
+  Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer,
+    border = BorderStroke(1.dp, if (p.complete) cs.primary else cs.outlineVariant)) {
+    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(if (p.complete) "Program complete" else "Program completed", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+        Text("${p.pct}%", style = MaterialTheme.typography.titleLarge, color = cs.primary)
+      }
+      LinearProgressIndicator(progress = { p.pct / 100f }, Modifier.fillMaxWidth().height(8.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp)),
+        color = cs.primary, trackColor = cs.surfaceContainerHighest)
+      Text("${p.done} of ${p.total} sessions in ${p.program.name}", style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
+      if (p.complete) Button(onNewProgram, Modifier.fillMaxWidth()) { Text("Start a new program") }
+    }
+  }
 }

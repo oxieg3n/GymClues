@@ -125,14 +125,37 @@ class ProgramTests {
 
   @Test fun assetsLoadAndKeepOriginalPrescriptions() {
     val app = AppContainer(ctx); val ps = app.programs.programs
-    assertEquals(6, ps.size); assertTrue(ps.all { it.description.length > 200 })
+    assertEquals(21, ps.size); assertTrue(ps.all { it.description.length > 200 })
     val p3 = ps.first { it.id == "P3" }
     assertEquals(8, p3.cycleLength); assertEquals(8, p3.days.size)
     val bench = p3.days[0].items.first { it.exercise == "Flat barbell bench press" }
     assertEquals("5", bench.sets); assertEquals("15", bench.reps); assertTrue(bench.repsNote.startsWith("TOTAL"))
-    assertEquals(218, ps.sumOf { p -> p.days.sumOf { it.items.size } })
+    assertEquals(675, ps.sumOf { p -> p.days.sumOf { it.items.size } })
     assertTrue(app.catalog.exercises.size >= 100 && app.catalog.exercise("ex_x_cable_curl") != null)
     assertTrue(app.catalog.exercises.all { e -> e.equipmentIds.all { app.catalog.equipment(it) != null } })
+  }
+
+  private fun days(vararg n: Int) = n.map { java.time.LocalDate.of(2026, 10, it) }.toSet()
+  private val a = listOf(ProgramAssignmentEntity(programId = "B1", startDate = "2026-10-05", ownerId = "u"))   // Mon Back, Tue Chest, Wed Legs, Thu Shoulders, Fri Arms, Sat/Sun rest
+  private val today = java.time.LocalDate.of(2026, 10, 14)
+
+  @Test fun programStreakSkipsRestAndCountsTrainingDays() {
+    val ps = AppContainer(ctx).programs.programs
+    fun st(done: Set<java.time.LocalDate>, rest: RestRules = RestRules.NONE) = programStreak(done, ps, a, rest, today)
+    assertEquals(7, st(days(5, 6, 7, 8, 9, 12, 13)))                    // weekend (cycle rest) does not break it; today not logged yet
+    assertEquals(8, st(days(5, 6, 7, 8, 9, 12, 13, 14)))                // today counts once logged
+    assertEquals(4, st(days(5, 6, 8, 9, 12, 13)))                       // missed Wed the 7th: streak is 13, 12, 9, 8
+    val off = RestRules(listOf(RestDayEntity(ownerId = "u", weekday = 0, startDate = "2026-10-13", endDate = "2026-10-14")))
+    assertEquals(6, st(days(5, 6, 7, 8, 9, 12), off))                   // user rest day on the 13th is skipped, not a miss
+    assertNull(programStreak(days(13), ps, emptyList(), RestRules.NONE, today))   // no program: caller falls back to gym days
+  }
+
+  @Test fun programProgressCountsScheduledSessions() {
+    val ps = AppContainer(ctx).programs.programs
+    val p = programProgress(days(5, 6, 7, 8, 9, 12, 13, 11), ps, a, RestRules.NONE, today)!!   // the 11th is a rest day: not counted
+    assertEquals(7, p.done); assertEquals(50, p.total); assertEquals(14, p.pct); assertFalse(p.complete)
+    assertTrue(ProgramProgress(ps[0], 50, 50).complete); assertEquals(100, ProgramProgress(ps[0], 60, 50).pct)
+    assertNull(programProgress(emptySet(), ps, emptyList(), RestRules.NONE, today))
   }
 
   @Test fun scheduleUsesCycleLengthAndNewestAssignment() {

@@ -10,13 +10,49 @@ import java.time.LocalDate
 @Serializable data class ProgramLibrary(val programs: List<WorkoutProgram>)
 @Serializable data class WorkoutProgram(val id: String, val name: String, val split: String, val author: String,
   val level: String, val duration: String, val description: String, val schedule: String, val progression: String,
-  val rest: String, val sourceUrl: String, val cycleLength: Int, val days: List<ProgramDay>, val notes: List<ProgramNote>)
+  val rest: String, val sourceUrl: String, val cycleLength: Int, val days: List<ProgramDay>, val notes: List<ProgramNote>,
+  val totalWeeks: Int = 12)   // upper bound of the published duration; 12 when the source gives no fixed length
 @Serializable data class ProgramNote(val topic: String, val text: String)
 @Serializable data class ProgramDay(val day: Int, val session: String, val training: Boolean, val items: List<Prescription>)
 @Serializable data class Prescription(val phase: String, val exercise: String, val sets: String, val reps: String,
   val repsNote: String, val rest: String, val restSec: Int, val setCount: Int, val notes: String, val substitution: String)
 data class AssignedDay(val program: WorkoutProgram, val day: ProgramDay, val date: LocalDate, val userRest: Boolean = false)
 private val REST = ProgramDay(0, "Rest day", false, emptyList())
+
+fun assignmentOn(assignments: List<ProgramAssignmentEntity>, date: LocalDate) = assignments.filter { !it.deleted &&
+  it.startDate <= date.toString() && (it.endDate.isBlank() || date.toString() < it.endDate) }.maxByOrNull { it.startDate }
+
+/**
+ * Streak while a program is assigned: consecutive scheduled training days with a logged workout, counted back from today.
+ * Cycle rest days and the user's own rest days are skipped, so they never break it; a missed training day does.
+ * Today only counts once logged and never breaks the streak. Returns null when no program is active today.
+ */
+fun programStreak(done: Set<LocalDate>, programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>,
+                  rest: RestRules, today: LocalDate): Int? {
+  if (assignmentOn(assignments, today) == null) return null
+  var n = 0; var d = today
+  while (true) {
+    val a = scheduledDay(programs, assignments, d, rest) ?: break
+    if (a.day.training && !a.userRest) { if (d in done) n++ else if (d != today) break }
+    d = d.minusDays(1)
+  }
+  return n
+}
+
+/** Completed scheduled training days vs. the program's total (training days per cycle x weeks, scaled to the cycle length). */
+data class ProgramProgress(val program: WorkoutProgram, val done: Int, val total: Int) {
+  val pct get() = if (total == 0) 0 else minOf(100, done * 100 / total)
+  val complete get() = done >= total
+}
+fun programProgress(done: Set<LocalDate>, programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>,
+                    rest: RestRules, today: LocalDate): ProgramProgress? {
+  val a = assignmentOn(assignments, today) ?: return null
+  val p = programs.firstOrNull { it.id == a.programId } ?: return null
+  val total = maxOf(1, Math.round(p.days.count { it.training } * p.totalWeeks * 7.0 / p.cycleLength).toInt())
+  var n = 0; var d = LocalDate.parse(a.startDate)
+  while (!d.isAfter(today)) { if (d in done && scheduledDay(programs, assignments, d, rest)?.let { it.day.training && !it.userRest } == true) n++; d = d.plusDays(1) }
+  return ProgramProgress(p, n, total)
+}
 
 /** The user's days off. */
 class RestRules(private val rules: List<RestDayEntity> = emptyList()) {
@@ -31,8 +67,7 @@ class RestRules(private val rules: List<RestDayEntity> = emptyList()) {
  */
 fun scheduledDay(programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>, date: LocalDate,
                  rest: RestRules = RestRules.NONE): AssignedDay? {
-  val a = assignments.filter { !it.deleted && it.startDate <= date.toString() &&
-    (it.endDate.isBlank() || date.toString() < it.endDate) }.maxByOrNull { it.startDate } ?: return null
+  val a = assignmentOn(assignments, date) ?: return null
   val p = programs.firstOrNull { it.id == a.programId } ?: return null
   if (rest.isRest(date)) return AssignedDay(p, REST, date, userRest = true)
   var idx = 0; var d = LocalDate.parse(a.startDate)

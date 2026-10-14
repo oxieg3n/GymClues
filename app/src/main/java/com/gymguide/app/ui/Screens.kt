@@ -46,7 +46,12 @@ val SPLIT_HELP = mapOf(
           modifier = Modifier.widthIn(max = 150.dp)) },
         leadingIcon = { Icon(Icons.Filled.Place, null, Modifier.size(16.dp), tint = cs.primary) })
     }
-    StreakPanel(stats)
+    val assignments by app.programs.assignments().collectAsState(emptyList())
+    val rest by app.programs.restRules().collectAsState(RestRules.NONE)
+    val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+    val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+    StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null)
+    progress?.let { ProgramProgressCard(it) { go("programs") } }
     CalendarCard(app, stats, go)
     RestDayButton(app, go)
     Button({ go("styles") }, Modifier.fillMaxWidth().height(60.dp), shape = MaterialTheme.shapes.medium) {
