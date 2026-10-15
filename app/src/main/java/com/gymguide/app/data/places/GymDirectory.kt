@@ -28,6 +28,7 @@ interface GymDirectory {
 }
 
 private val json = Json { ignoreUnknownKeys = true }
+private val OVERPASS = listOf("https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter")
 private const val UA = "GymCue/3.0 (Android; gym finder)"
 
 private suspend fun http(url: String, body: String? = null, headers: Map<String, String> = emptyMap()): String = withContext(Dispatchers.IO) {
@@ -52,8 +53,10 @@ class OsmDirectory : GymDirectory {
   override suspend fun nearby(lat: Double, lng: Double, radiusM: Int): List<PlaceResult> {
     val q = "[out:json][timeout:25];(nwr[\"leisure\"=\"fitness_centre\"](around:$radiusM,$lat,$lng);" +
       "nwr[\"amenity\"=\"gym\"](around:$radiusM,$lat,$lng););out center tags 60;"
-    val res = http("https://overpass-api.de/api/interpreter", "data=" + URLEncoder.encode(q, "UTF-8"),
-      mapOf("Content-Type" to "application/x-www-form-urlencoded"))
+    val form = mapOf("Content-Type" to "application/x-www-form-urlencoded")
+    // Public Overpass servers often return 502/504 when busy: try each mirror, then fall back to a bounded Nominatim search.
+    val res = OVERPASS.firstNotNullOfOrNull { runCatching { http(it, "data=" + URLEncoder.encode(q, "UTF-8"), form) }.getOrNull() }
+      ?: return nominatimNearby(lat, lng, radiusM)
     return json.parseToJsonElement(res).jsonObject["elements"]?.jsonArray.orEmpty().mapNotNull { el ->
       val o = el.jsonObject; val tags = o["tags"]?.jsonObject ?: return@mapNotNull null
       val name = tags["name"].str().ifBlank { tags["brand"].str() }.ifBlank { return@mapNotNull null }
@@ -64,8 +67,14 @@ class OsmDirectory : GymDirectory {
       dist(lat, lng, PlaceResult("osm", "${o["type"].str()}/${o["id"].str()}", name, addr, la, lo))
     }.sortedBy { it.distanceM ?: 0f }
   }
-  override suspend fun search(query: String, lat: Double?, lng: Double?): List<PlaceResult> {
-    val url = "https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=0&limit=25&q=" + URLEncoder.encode(query, "UTF-8")
+  private suspend fun nominatimNearby(lat: Double, lng: Double, radiusM: Int): List<PlaceResult> {
+    val dLat = radiusM / 111_000.0; val dLng = dLat / Math.cos(Math.toRadians(lat))
+    val box = "${lng - dLng},${lat + dLat},${lng + dLng},${lat - dLat}"
+    return search("gym", lat, lng, "&bounded=1&viewbox=$box").sortedBy { it.distanceM ?: 0f }
+  }
+  override suspend fun search(query: String, lat: Double?, lng: Double?) = search(query, lat, lng, "")
+  private suspend fun search(query: String, lat: Double?, lng: Double?, extra: String): List<PlaceResult> {
+    val url = "https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=0&limit=25$extra&q=" + URLEncoder.encode(query, "UTF-8")
     return json.parseToJsonElement(http(url)).jsonArray.mapNotNull { el ->
       val o = el.jsonObject
       val name = o["name"].str().ifBlank { o["display_name"].str().substringBefore(",") }
