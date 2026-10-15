@@ -8,6 +8,7 @@ plugins {
 
 // Optional secrets live in local.properties (never commit it):
 //   PLACES_API_KEY=...   -> enables Google Places gym search (falls back to OpenStreetMap when blank)
+//   STORE_FILE=C:/path/gymcue.jks  STORE_PASSWORD=...  KEY_ALIAS=...  KEY_PASSWORD=...  -> signs the release build
 //   API_BASE_URL=...     -> future GymCue sync server (blank = offline/local only)
 val localProps = Properties().apply {
   val f = rootProject.file("local.properties"); if (f.exists()) f.inputStream().use { load(it) }
@@ -15,12 +16,15 @@ val localProps = Properties().apply {
 fun prop(name: String) = (localProps.getProperty(name) ?: "").replace("\"", "")
 
 android {
-  namespace = "com.gymguide.app"; compileSdk = 34
+  namespace = "com.gymcue.app"; compileSdk = 34
   defaultConfig {
-    applicationId = "com.gymguide.app"; minSdk = 26; targetSdk = 34; versionCode = 11; versionName = "3.8.1"
+    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 12; versionName = "3.9"
     buildConfigField("String", "PLACES_API_KEY", "\"${prop("PLACES_API_KEY")}\"")
     buildConfigField("String", "API_BASE_URL", "\"${prop("API_BASE_URL")}\"")
   }
+  signingConfigs { create("release") { if (prop("STORE_FILE").isNotBlank()) {
+    storeFile = file(prop("STORE_FILE")); storePassword = prop("STORE_PASSWORD"); keyAlias = prop("KEY_ALIAS"); keyPassword = prop("KEY_PASSWORD") } } }
+  buildTypes { release { if (prop("STORE_FILE").isNotBlank()) signingConfig = signingConfigs.getByName("release") } }
   buildFeatures { compose = true; buildConfig = true }
   compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
   kotlinOptions { jvmTarget = "17" }

@@ -1,9 +1,9 @@
-"""Convert GymGuide_Content.xlsx -> app/src/main/assets/content.json
-Usage: python tools/build_content.py GymGuide_Content.xlsx"""
+"""Convert GymCue_Content.xlsx -> app/src/main/assets/content.json
+Usage: python tools/build_content.py GymCue_Content.xlsx"""
 import sys, json, openpyxl
 L = lambda v: [x.strip() for x in str(v or "").replace("\n", ";").split(";") if x.strip()]
 S = lambda v: str(v).strip() if v is not None else ""
-wb = openpyxl.load_workbook(sys.argv[1] if len(sys.argv) > 1 else "GymGuide_Content.xlsx", data_only=True)
+wb = openpyxl.load_workbook(sys.argv[1] if len(sys.argv) > 1 else "GymCue_Content.xlsx", data_only=True)
 def rows(name):
     if name not in wb.sheetnames: return []
     ws = wb[name]; hdr = [c.value for c in ws[1]]
