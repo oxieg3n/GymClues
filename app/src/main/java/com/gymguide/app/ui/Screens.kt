@@ -36,8 +36,11 @@ val SPLIT_HELP = mapOf(
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+  BoxWithConstraints(Modifier.fillMaxSize()) {
+  val avail = maxHeight
   Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-   Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+   // Cards scroll if they need more than the screen minus the two buttons; the buttons share all remaining height equally.
+   Column(Modifier.heightIn(max = avail - 24.dp - 12.dp - 132.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
     Box(Modifier.tourTarget("progress")) {
       if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
       else Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
@@ -54,7 +57,13 @@ val SPLIT_HELP = mapOf(
     Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null) }
     Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
    }
-    Box(Modifier.tourTarget("rest")) { RestDayButton(app, go) }
+    Column(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+      Box(Modifier.weight(1f).fillMaxWidth().tourTarget("start")) {
+        Button({ go("styles") }, Modifier.fillMaxSize(), shape = MaterialTheme.shapes.medium) {
+          Text("+ Start A Workout +", style = MaterialTheme.typography.titleLarge) } }
+      Box(Modifier.weight(1f).fillMaxWidth().tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxSize()) }
+    }
+  }
   }
 }
 

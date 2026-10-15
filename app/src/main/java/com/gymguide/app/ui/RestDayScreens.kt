@@ -18,12 +18,12 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 /** Wide, short red button under the home calendar. */
-@Composable fun RestDayButton(app: AppContainer, go: (String) -> Unit) {
+@Composable fun RestDayButton(app: AppContainer, go: (String) -> Unit, modifier: Modifier = Modifier.fillMaxWidth().height(70.dp)) {
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val scope = rememberCoroutineScope()
   var open by remember { mutableStateOf(false) }
   val today = LocalDate.now(); val isRest = rest.isRest(today)
-  Button({ open = true }, Modifier.fillMaxWidth().height(70.dp), shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 16.dp),
+  Button({ open = true }, modifier, shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 16.dp),
     colors = ButtonDefaults.buttonColors(containerColor = androidx.compose.ui.graphics.Color(0xFFD32F2F), contentColor = androidx.compose.ui.graphics.Color.White)) {
     Icon(Icons.Filled.Bedtime, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text(if (isRest) "Rest Day (today is off)" else "Rest Day") }
   if (open) AlertDialog(onDismissRequest = { open = false }, title = { Text("Rest day") },

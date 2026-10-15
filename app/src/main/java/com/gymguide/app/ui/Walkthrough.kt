@@ -33,6 +33,7 @@ internal val tourSteps = listOf(
   "progress" to "See how much of your assigned program you have completed. At 100%, you can start a new program.",
   "streak" to "Your streak counts completed program days. Scheduled rest days and your own rest days do not break it.",
   "schedule" to "See today and tomorrow, then tap a session to open and start it. Week and Month show the wider schedule.",
+  "start" to "Tap + Start A Workout + to start a custom workout or pick a ready-made one.",
   "rest" to "Take today off or plan future rest days. Your program shifts so no session is skipped."
 )
 internal class TourState(initial: Int) {
