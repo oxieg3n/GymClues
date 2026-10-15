@@ -1,12 +1,13 @@
 package com.gymcue.app.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.core.content.FileProvider
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,23 +50,16 @@ fun milestoneShareText(m: Int, program: String) = when (m) {
   else -> "$m% of $program complete. #GymCue"
 }
 
-private fun send(ctx: Context, text: String, pkg: String?): Boolean {
-  val i = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
-  if (pkg == null) { ctx.startActivity(Intent.createChooser(i, "Share workout").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); return true }
-  return runCatching { ctx.startActivity(i.setPackage(pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }.isSuccess
+/** Shares the card image. [pkg] targets one app; null opens the Android share sheet. Returns false if that app is missing. */
+private fun send(ctx: Context, card: ShareCard, pkg: String?): Boolean {
+  val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", saveShareCard(ctx, card))
+  val i = Intent(Intent.ACTION_SEND).setType("image/png").putExtra(Intent.EXTRA_STREAM, uri).putExtra(Intent.EXTRA_TEXT, card.caption)
+    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+  if (pkg == null) { ctx.startActivity(Intent.createChooser(i, "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)); return true }
+  return runCatching { ctx.startActivity(i.setPackage(pkg)) }.isSuccess
 }
-
-fun shareToX(ctx: Context, text: String) {
-  if (!send(ctx, text, "com.twitter.android"))
-    ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://x.com/intent/post?text=" + Uri.encode(text))).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-}
-
-/** Facebook ignores pre-filled text from other apps, so the text is also copied for pasting. */
-fun shareToFacebook(ctx: Context, text: String) {
-  (ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("GymCue", text))
-  Toast.makeText(ctx, "Text copied. Paste it into your Facebook post.", Toast.LENGTH_LONG).show()
-  if (!send(ctx, text, "com.facebook.katana")) send(ctx, text, null)
-}
+fun shareToX(ctx: Context, card: ShareCard) { if (!send(ctx, card, "com.twitter.android")) send(ctx, card, null) }
+fun shareToFacebook(ctx: Context, card: ShareCard) { if (!send(ctx, card, "com.facebook.katana")) send(ctx, card, null) }
 
 private enum class Kind(val label: String) { DAY("Today's workout"), WEEK("Weekly summary"), MILESTONE("Program milestone") }
 
@@ -85,24 +79,28 @@ private enum class Kind(val label: String) { DAY("Today's workout"), WEEK("Weekl
   val isNew = milestone != null && prefs.getInt("ms_$assignmentId", -1) < milestone
   val kinds = Kind.values().filter { it != Kind.MILESTONE || progress != null }
   var kind by remember { mutableStateOf(if (isNew && milestone != 0) Kind.MILESTONE else Kind.DAY) }
-  val generated = when (kind) {
-    Kind.DAY -> dailyShareText(logs.filter { it.sessionId == sessionId }) { app.catalog.displayName(it) }
-    Kind.WEEK -> weeklyShareText(logs, today, streak)
-    Kind.MILESTONE -> milestoneShareText(milestone ?: 0, progress?.program?.name.orEmpty())
+  val card = when (kind) {
+    Kind.DAY -> logs.filter { it.sessionId == sessionId }.let { ses ->
+      ShareCard("Workout complete", "${ses.size} sets", "${ses.map { it.exerciseId }.distinct().size} exercises, ${lb(ses.sumOf { it.weight * it.reps })} lifted",
+        dailyShareText(ses) { app.catalog.displayName(it) }) }
+    Kind.WEEK -> weeklyShareText(logs, today, streak).let { t ->
+      ShareCard("This week", t.substringAfter("My week: ").substringBefore(",").uppercase().let { it }, t.substringAfter(", ").removeSuffix(" #GymCue").removeSuffix("."), t) }
+    Kind.MILESTONE -> ShareCard(if (milestone == 0) "New program" else "Program milestone", when (milestone) { 0 -> "Started"; 100 -> "100%"; else -> "$milestone%" },
+      progress?.program?.name.orEmpty(), milestoneShareText(milestone ?: 0, progress?.program?.name.orEmpty()))
   }
-  var text by remember(kind, generated) { mutableStateOf(generated) }
+  val preview = remember(card) { renderShareCard(ctx, card).asImageBitmap() }
   fun shared() { if (kind == Kind.MILESTONE && milestone != null) prefs.edit().putInt("ms_$assignmentId", milestone).apply(); onDismiss() }
   AlertDialog(onDismissRequest = onDismiss, title = { Text("Share your workout") },
     text = { Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
       kinds.forEach { k -> Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         RadioButton(kind == k, { kind = k })
         Text(k.label + if (k == Kind.MILESTONE && isNew) " (new)" else "", Modifier.weight(1f)) } }
-      OutlinedTextField(text, { text = it }, Modifier.fillMaxWidth(), label = { Text("What will be posted") }, minLines = 3)
+      Image(preview, null, Modifier.fillMaxWidth().heightIn(max = 300.dp).clip(MaterialTheme.shapes.medium), contentScale = ContentScale.Fit)
       Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button({ shareToFacebook(ctx, text); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Facebook") }
-        Button({ shareToX(ctx, text); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("X") }
+        Button({ shareToFacebook(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Facebook") }
+        Button({ shareToX(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("X") }
       }
-      OutlinedButton({ send(ctx, text, null); shared() }, Modifier.fillMaxWidth()) { Text("Other apps") }
+      OutlinedButton({ send(ctx, card, null); shared() }, Modifier.fillMaxWidth()) { Text("Other apps") }
     } },
     confirmButton = {}, dismissButton = { TextButton(onDismiss) { Text("Not now") } })
 }

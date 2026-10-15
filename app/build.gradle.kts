@@ -18,7 +18,7 @@ fun prop(name: String) = (localProps.getProperty(name) ?: "").replace("\"", "")
 android {
   namespace = "com.gymcue.app"; compileSdk = 34
   defaultConfig {
-    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 12; versionName = "3.9"
+    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 13; versionName = "3.10"
     buildConfigField("String", "PLACES_API_KEY", "\"${prop("PLACES_API_KEY")}\"")
     buildConfigField("String", "API_BASE_URL", "\"${prop("API_BASE_URL")}\"")
   }
@@ -28,7 +28,7 @@ android {
   buildFeatures { compose = true; buildConfig = true }
   compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
   kotlinOptions { jvmTarget = "17" }
-  testOptions { unitTests.isIncludeAndroidResources = true; unitTests.all { it.systemProperty("robolectric.pixelCopyRenderMode", "hardware") } }
+  testOptions { unitTests.isIncludeAndroidResources = true; unitTests.all { it.systemProperty("robolectric.pixelCopyRenderMode", "hardware"); System.getenv("SHARE_OUT")?.let { d -> it.systemProperty("shareOut", d) } } }
   sourceSets["debug"].assets.srcDirs(files("$projectDir/schemas"))  // debug-only: lets the migration test read Room schemas
 }
 ksp { arg("room.schemaLocation", "$projectDir/schemas") }
