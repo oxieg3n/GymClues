@@ -226,7 +226,7 @@ class ProgramTests {
     compose.setContent { val nav = androidx.navigation.compose.rememberNavController()
       NavHost(nav, "w") { composable("w") { ActiveWorkout(app, "program", "B3_1", emptySet(), nav) {} } } }
     compose.waitForIdle()
-    compose.onNodeWithText("Warm-up", substring = true).assertExists()
+    compose.onAllNodesWithText("Warm-up", substring = true)[0].assertExists()   // several warm-up rows now fit on screen
     compose.onNodeWithText("Child pose to cobra").assertExists()
   }
 }

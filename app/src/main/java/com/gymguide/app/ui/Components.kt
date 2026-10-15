@@ -87,47 +87,30 @@ import com.gymguide.app.media.NowPlaying
     lifecycle.addObserver(obs); remote.start { state = it }
     onDispose { lifecycle.removeObserver(obs); remote.stop() }
   }
-  Card(modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)) {
-    Column(Modifier.padding(10.dp)) {
-    Box {
-      AssistChip(onClick = { menu = true }, label = { Text(app.label) },
-        leadingIcon = { Icon(Icons.Filled.MusicNote, null, Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary) },
-        trailingIcon = { Icon(Icons.Filled.ArrowDropDown, "Choose music app", Modifier.size(18.dp)) })
-      DropdownMenu(menu, { menu = false }) {
-        MusicApp.values().forEach { m -> val ok = remote.installed(m)
-          DropdownMenuItem(text = { Text(m.label + if (ok) "" else " (not installed)") }, enabled = ok,
-            trailingIcon = { if (m == app) Icon(Icons.Filled.Check, null, tint = MaterialTheme.colorScheme.primary) },
-            onClick = { remote.select(m); app = m; menu = false }) } }
-    }
-    Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-      val s = state
-      val art = s?.art
-      val openApp = Modifier.size(48.dp).clip(RoundedCornerShape(6.dp)).clickable(enabled = remote.installed(), onClickLabel = "Open ${app.label}") { remote.openPlaying() }
-      if (art != null) Image(art.asImageBitmap(), "Open ${app.label}", openApp, contentScale = ContentScale.Crop)
-      else Box(openApp, contentAlignment = Alignment.Center) {
-        Icon(Icons.Filled.MusicNote, null, tint = MaterialTheme.colorScheme.primary) }
-      Spacer(Modifier.width(10.dp))
-      Column(Modifier.weight(1f)) {
-        when {
-          !access -> { Text("Music controls", fontWeight = FontWeight.Bold)
-            Text("Tap Connect to control ${app.label} here", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-          s == null || s.title.isBlank() -> { Text("Nothing playing", fontWeight = FontWeight.Bold)
-            Text(if (remote.installed()) "Press play to open ${app.label}" else "${app.label} is not installed", style = MaterialTheme.typography.bodySmall,
-              color = MaterialTheme.colorScheme.onSurfaceVariant) }
-          else -> { Text(s.title, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(listOf(s.artist, s.album).filter { it.isNotBlank() }.joinToString(" · "), style = MaterialTheme.typography.bodySmall,
-              maxLines = 1, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+  Surface(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer) {
+    Row(Modifier.padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+      Box {
+        IconButton({ menu = true }, Modifier.size(40.dp)) { Icon(Icons.Filled.MusicNote, "Choose music app: ${app.label}", Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary) }
+        DropdownMenu(menu, { menu = false }) {
+          MusicApp.values().forEach { m -> val ok = remote.installed(m)
+            DropdownMenuItem(text = { Text(m.label + if (ok) "" else " (not installed)") }, enabled = ok,
+              trailingIcon = { if (m == app) Icon(Icons.Filled.Check, null) },
+              onClick = { remote.select(m); app = m; menu = false }) }
         }
       }
-      if (!access) TextButton({ remote.openAccessSettings() }) { Text("Connect") }
-      else {
-        IconButton({ remote.previous() }) { Icon(Icons.Filled.SkipPrevious, "Previous") }
-        FilledIconButton({ remote.playPause() }) { Icon(if (state?.playing == true) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-          if (state?.playing == true) "Pause" else "Play") }
-        IconButton({ remote.next() }) { Icon(Icons.Filled.SkipNext, "Next") }
-        if (state?.title.isNullOrBlank() && remote.installed()) IconButton({ remote.open() }) { Icon(Icons.Filled.OpenInNew, "Open ${app.label}") }
+      Column(Modifier.weight(1f).clickable { remote.openPlaying() }) {
+        Text(state?.title?.ifBlank { null } ?: if (access) "Nothing playing" else "Music controls", style = MaterialTheme.typography.bodyMedium,
+          maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(state?.artist?.ifBlank { null } ?: app.label, style = MaterialTheme.typography.bodySmall,
+          maxLines = 1, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
       }
-    }
+      if (!access) TextButton({ remote.openAccessSettings() }, contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Connect") }
+      else {
+        IconButton({ remote.previous() }, Modifier.size(40.dp)) { Icon(Icons.Filled.SkipPrevious, "Previous", Modifier.size(20.dp)) }
+        IconButton({ remote.playPause() }, Modifier.size(40.dp)) { Icon(if (state?.playing == true) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+          if (state?.playing == true) "Pause" else "Play", Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary) }
+        IconButton({ remote.next() }, Modifier.size(40.dp)) { Icon(Icons.Filled.SkipNext, "Next", Modifier.size(20.dp)) }
+      }
     }
   }
 }

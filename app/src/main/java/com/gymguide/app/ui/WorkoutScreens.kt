@@ -35,7 +35,6 @@ const val MIN_SETS = 1
     dismissButton = { TextButton({ confirmDelete = null }) { Text("Cancel") } }) }
 
   LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-    item { NowPlayingBar(Modifier.padding(bottom = 8.dp)) }
     item { Row(verticalAlignment = Alignment.CenterVertically) {
       Text("Custom Workouts", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
       FilledTonalButton({ nav.navigate(Routes.builder()) }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Create") } } }
@@ -101,8 +100,11 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
     scope.launch { app.workouts.logSet(SetLog(date = now(), exerciseId = se.exerciseId, setNo = idx + 1,
       reps = row.reps.toIntOrNull() ?: 0, weight = row.weight.toDoubleOrNull() ?: 0.0, sessionId = sessionId, gymId = gymId)) } }
 
-  if (showDone) AlertDialog(onDismissRequest = {}, confirmButton = { TextButton({ onDone() }) { Text("Done") } },
-    title = { Text("Workout saved") }, text = { Text("Nice work — your sets are in the Workout Tracker.") })
+  var sharing by remember { mutableStateOf(false) }
+  if (showDone && !sharing) AlertDialog(onDismissRequest = {}, confirmButton = { TextButton({ onDone() }) { Text("Done") } },
+    dismissButton = { TextButton({ sharing = true }) { Text("Share") } },
+    title = { Text("Workout saved") }, text = { Text("Nice work. Your sets are in the Workout Tracker.") })
+  if (showDone && sharing) ShareDialog(app, sessionId) { sharing = false }
   if (picking) ExercisePickerSheet(repo, repo.suggestionsFor(session.map { it.exerciseId }, off), session.map { it.exerciseId }.toSet(),
     onDismiss = { picking = false }, onCreate = { picking = false; nav.navigate(Routes.addExercise()) }) { picked ->
     picked.forEach { session += SessionExercise(it.id, null, "10-12", 90, 3) }; picking = false }
@@ -113,7 +115,6 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   Box(Modifier.fillMaxSize()) {
     LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
       contentPadding = PaddingValues(top = 8.dp, bottom = 96.dp)) {
-      item { NowPlayingBar() }
       item { Text(p.name, style = MaterialTheme.typography.headlineSmall)
         if (p.description.isNotBlank()) Muted(p.description)
         if (rest > 0) Text("Rest: ${rest}s", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }

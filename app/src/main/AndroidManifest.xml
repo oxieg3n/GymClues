@@ -13,6 +13,8 @@
     <package android:name="com.google.android.apps.youtube.music" />
     <package android:name="com.aspiro.tidal" />
     <package android:name="com.amazon.mp3" />
+    <package android:name="com.facebook.katana" />
+    <package android:name="com.twitter.android" />
     <intent><action android:name="android.media.action.IMAGE_CAPTURE" /></intent>
   </queries>
 

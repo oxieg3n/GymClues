@@ -30,61 +30,33 @@ val SPLIT_HELP = mapOf(
   "Body-Part Split (Bro Split)" to "One or two muscle groups per day, e.g. Chest Day.")
 
 @Composable fun Home(app: AppContainer, go: (String) -> Unit) {
-  val activeGymId by app.gyms.activeGymId.collectAsState()
-  val gym by remember(activeGymId) { app.gyms.gymFlow(activeGymId) }.collectAsState(null)
   val logs by app.workouts.history().collectAsState(emptyList())
   val stats = remember(logs) { workoutStats(logs.map { it.date }) }
-  val cs = MaterialTheme.colorScheme
-  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
-    verticalArrangement = Arrangement.spacedBy(16.dp)) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-      Image(painterResource(R.drawable.gymcue_logo), contentDescription = null, modifier = Modifier.size(40.dp))
-      Spacer(Modifier.width(10.dp))
-      Text("GymCue", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-      AssistChip(onClick = { go(gym?.let { Routes.gym(it.id) } ?: "gyms") },
-        label = { Text(gym?.name ?: "Pick your gym", maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-          modifier = Modifier.widthIn(max = 150.dp)) },
-        leadingIcon = { Icon(Icons.Filled.Place, null, Modifier.size(16.dp), tint = cs.primary) })
+  val assignments by app.programs.assignments().collectAsState(emptyList())
+  val rest by app.programs.restRules().collectAsState(RestRules.NONE)
+  val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+  val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+  Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+   Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Box(Modifier.tourTarget("progress")) {
+      if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
+      else Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+        Column(Modifier.padding(16.dp)) {
+          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("Program completed", style = MaterialTheme.typography.titleMedium)
+            Text("0%", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
+          }
+          TextButton({ go("programs") }) { Text("Pick a program to start tracking") }
+        }
+      }
     }
-    val assignments by app.programs.assignments().collectAsState(emptyList())
-    val rest by app.programs.restRules().collectAsState(RestRules.NONE)
-    val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
-    val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
-    StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null)
-    progress?.let { ProgramProgressCard(it) { go("programs") } }
-    CalendarCard(app, stats, go)
-    RestDayButton(app, go)
-    Button({ go("styles") }, Modifier.fillMaxWidth().height(60.dp), shape = MaterialTheme.shapes.medium) {
-      Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text("Start a workout", style = MaterialTheme.typography.titleMedium) }
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-      HomeTile(Icons.Filled.FitnessCenter, "Exercises", "Browse by muscle", Modifier.weight(1f)) { go("muscles") }
-      HomeTile(Icons.Filled.Insights, "Progress", "Your tracker", Modifier.weight(1f)) { go("tracker") }
-    }
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-      HomeTile(Icons.Filled.EventRepeat, "Programs", "Bro, PPL, Upper/Lower and more", Modifier.weight(1f)) { go("programs") }
-      HomeTile(Icons.Filled.AddCircleOutline, "My exercises", "Add your own", Modifier.weight(1f)) { go("myex") }
-    }
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-      HomeTile(Icons.Filled.TravelExplore, "Find gyms", "Near you", Modifier.weight(1f)) { go("gyms") }
-      HomeTile(Icons.Filled.Tune, "Equipment", "What your gym has", Modifier.weight(1f)) { go("equipment") }
-    }
-    NowPlayingBar()
-    TextButton({ go("admin") }, Modifier.align(Alignment.CenterHorizontally)) {
-      Icon(Icons.Filled.AdminPanelSettings, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text("Admin") }
+    Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null) }
+    Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
+   }
+    Box(Modifier.tourTarget("rest")) { RestDayButton(app, go) }
   }
 }
-
-@Composable private fun HomeTile(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, sub: String,
-                                 modifier: Modifier, onClick: () -> Unit) =
-  Surface(onClick = onClick, modifier = modifier.heightIn(min = 104.dp), shape = MaterialTheme.shapes.medium,
-    color = MaterialTheme.colorScheme.surfaceContainerHigh) {
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-      Icon(icon, null, tint = MaterialTheme.colorScheme.primary)
-      Spacer(Modifier.height(6.dp))
-      Text(title, style = MaterialTheme.typography.titleMedium)
-      Muted(sub)
-    }
-  }
 
 @Composable fun ListScreen(title: String, items: List<String>, onAdd: () -> Unit, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
   item { Text(title, style = MaterialTheme.typography.titleLarge) }

@@ -70,7 +70,7 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
     if (r.values.any { it }) runNearby() else error = "Location permission denied. You can still search by gym name or city." }
 
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
-    item { Text("Find gyms", style = MaterialTheme.typography.headlineSmall)
+    item { Text("Find a Gym", style = MaterialTheme.typography.headlineSmall)
       Muted("Pick the gym you train at, or add one so you can upload its equipment.") }
     item { Button({ if (hasLocation(ctx)) runNearby() else perm.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
       Modifier.fillMaxWidth().height(52.dp), enabled = !loading) { Icon(Icons.Filled.MyLocation, null); Spacer(Modifier.width(8.dp)); Text("Search near me") } }

@@ -1,8 +1,11 @@
 package com.gymguide.app.ui
 import android.net.Uri
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -36,20 +39,22 @@ object Routes {
   val route = backStackEntry?.destination?.route
   val off by app.dao.unavailable().collectAsState(emptyList())
   val offIds = off.map { it.equipmentId }.toSet()
+  val prefs = LocalContext.current.getSharedPreferences("ui", android.content.Context.MODE_PRIVATE)
+  val tour = remember { TourState(if (prefs.getBoolean("tourDone", false)) -1 else 0) }
+  var menuOpen by remember { mutableStateOf(false) }
   LaunchedEffect(Unit) { app.session.ensureUser(); app.workouts.adoptMigrated() }
-  Scaffold(
-    topBar = {
-      if (route != "home") TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
-        title = { Text("GymCue") },
-        navigationIcon = {
-          if (route != null && route != "home") {
-            IconButton(onClick = { nav.popBackStack() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") }
-          }
-        }
-      )
-    }
-  ) { pad ->
-    NavHost(nav, "home", Modifier.padding(pad)) {
+  LaunchedEffect(tour.step) { if (tour.step < 0) prefs.edit().putBoolean("tourDone", true).apply() }
+  val touring = tour.step >= 0 && route == "home"
+  val menuVisible = if (touring) tour.target == "menu" else menuOpen
+  CompositionLocalProvider(LocalTour provides tour.takeIf { touring }) {
+  Scaffold { pad ->
+    BoxWithConstraints(Modifier.fillMaxSize().padding(pad)) {
+      val headerHeight = maxOf(maxHeight / 6, 96.dp)   // header + music controls: one sixth of the screen on every page
+      Column(Modifier.fillMaxSize()) {
+        AppHeader(app, showBack = route != null && route != "home", onBack = { nav.popBackStack() },
+          openMenu = { menuOpen = !menuOpen }, go = { menuOpen = false; nav.navigate(it) }, modifier = Modifier.fillMaxWidth().height(headerHeight))
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+          NavHost(nav, "home") {
       composable("home") { Home(app, nav::navigate) }
       composable("muscles") { ListScreen("Choose a muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
       composable("list/{m}") { val m = it.arguments?.getString("m").orEmpty()
@@ -81,7 +86,16 @@ object Routes {
       composable("addex?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         AddExercise(app, it.arguments?.getString("id")) { nav.popBackStack() } }
       composable("admin") { AdminHome(app, nav) }
+          }
+          if (menuVisible) {
+            Box(Modifier.fillMaxSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menuOpen = false })
+            AppMenu(app, { menuOpen = false; nav.navigate(it) }, Modifier.align(Alignment.TopEnd).padding(end = 12.dp, top = 2.dp))
+          }
+        }
+      }
+      if (touring) Walkthrough(tour) { tour.next() }
     }
+  }
   }
 }
 
