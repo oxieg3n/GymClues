@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -101,9 +102,13 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       reps = row.reps.toIntOrNull() ?: 0, weight = row.weight.toDoubleOrNull() ?: 0.0, sessionId = sessionId, gymId = gymId)) } }
 
   var sharing by remember { mutableStateOf(false) }
-  if (showDone && !sharing) AlertDialog(onDismissRequest = {}, confirmButton = { TextButton({ onDone() }) { Text("Done") } },
-    dismissButton = { TextButton({ sharing = true }) { Text("Share") } },
-    title = { Text("Workout saved") }, text = { Text("Nice work. Your sets are in the Workout Tracker.") })
+  if (showDone && !sharing) AlertDialog(onDismissRequest = {}, confirmButton = {},
+    title = { Text("Workout Completed, Congratulations!", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
+    text = { Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+      Button({ sharing = true }, Modifier.fillMaxWidth().height(64.dp), shape = MaterialTheme.shapes.medium) {
+        Text("Share Your Milestone?", style = MaterialTheme.typography.titleMedium) }
+      TextButton({ onDone() }) { Text("Done", style = MaterialTheme.typography.bodyMedium) }
+    } })
   if (showDone && sharing) ShareDialog(app, sessionId) { sharing = false }
   if (picking) ExercisePickerSheet(repo, repo.suggestionsFor(session.map { it.exerciseId }, off), session.map { it.exerciseId }.toSet(),
     onDismiss = { picking = false }, onCreate = { picking = false; nav.navigate(Routes.addExercise()) }) { picked ->

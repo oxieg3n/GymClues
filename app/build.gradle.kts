@@ -18,7 +18,7 @@ fun prop(name: String) = (localProps.getProperty(name) ?: "").replace("\"", "")
 android {
   namespace = "com.gymcue.app"; compileSdk = 34
   defaultConfig {
-    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 13; versionName = "3.10"
+    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 14; versionName = "3.11"
     buildConfigField("String", "PLACES_API_KEY", "\"${prop("PLACES_API_KEY")}\"")
     buildConfigField("String", "API_BASE_URL", "\"${prop("API_BASE_URL")}\"")
   }
