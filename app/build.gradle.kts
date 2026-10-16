@@ -8,17 +8,17 @@ plugins {
 
 // Optional secrets live in local.properties (never commit it):
 //   PLACES_API_KEY=...   -> enables Google Places gym search (falls back to OpenStreetMap when blank)
-//   STORE_FILE=C:/path/gymcue.jks  STORE_PASSWORD=...  KEY_ALIAS=...  KEY_PASSWORD=...  -> signs the release build
-//   API_BASE_URL=...     -> future GymCue sync server (blank = offline/local only)
+//   STORE_FILE=C:/path/gymclues.jks  STORE_PASSWORD=...  KEY_ALIAS=...  KEY_PASSWORD=...  -> signs the release build
+//   API_BASE_URL=...     -> future GymClues sync server (blank = offline/local only)
 val localProps = Properties().apply {
   val f = rootProject.file("local.properties"); if (f.exists()) f.inputStream().use { load(it) }
 }
 fun prop(name: String) = (localProps.getProperty(name) ?: "").replace("\"", "")
 
 android {
-  namespace = "com.gymcue.app"; compileSdk = 34
+  namespace = "com.gymclues.app"; compileSdk = 34
   defaultConfig {
-    applicationId = "com.gymcue.app"; minSdk = 26; targetSdk = 34; versionCode = 14; versionName = "3.11"
+    applicationId = "com.gymclues.app"; minSdk = 26; targetSdk = 34; versionCode = 15; versionName = "4.0"
     buildConfigField("String", "PLACES_API_KEY", "\"${prop("PLACES_API_KEY")}\"")
     buildConfigField("String", "API_BASE_URL", "\"${prop("API_BASE_URL")}\"")
   }

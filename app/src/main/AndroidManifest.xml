@@ -18,7 +18,7 @@
     <intent><action android:name="android.media.action.IMAGE_CAPTURE" /></intent>
   </queries>
 
-  <application android:label="GymCue" android:icon="@mipmap/ic_launcher"
+  <application android:label="GymClues" android:icon="@mipmap/ic_launcher"
     android:theme="@android:style/Theme.Material.NoActionBar">
     <activity android:name=".MainActivity" android:exported="true"
       android:windowSoftInputMode="adjustResize">
@@ -31,9 +31,9 @@
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
     </provider>
 
-    <!-- Lets GymCue read your music app's now-playing info and send play/pause/skip (user must grant access) -->
+    <!-- Lets GymClues read your music app's now-playing info and send play/pause/skip (user must grant access) -->
     <service android:name=".media.MediaListenerService" android:exported="false"
-      android:label="GymCue music controls"
+      android:label="GymClues music controls"
       android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
       <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>
     </service>
