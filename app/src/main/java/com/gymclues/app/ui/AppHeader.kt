@@ -37,11 +37,11 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
           Text(gym?.name ?: "Pick your gym", maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelLarge)
         }
       }
-      Surface(openMenu, Modifier.width(156.dp).fillMaxHeight().tourTarget("logo").semantics { contentDescription = "GymClues menu" },
+      Surface(openMenu, Modifier.fillMaxHeight().tourTarget("logo").semantics { contentDescription = "GymClues menu" },
         shape = MaterialTheme.shapes.small, color = cs.background, border = BorderStroke(1.dp, cs.primary.copy(alpha = .6f))) {
         Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
           Image(painterResource(R.drawable.gymclues_logo), null, Modifier.size(28.dp))
-          Text("GymClues", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f), maxLines = 1)
+          Text("GymClues", style = MaterialTheme.typography.titleLarge, maxLines = 1, softWrap = false)
           Icon(Icons.Filled.ExpandMore, null, Modifier.size(18.dp), tint = cs.primary)
         }
       }
