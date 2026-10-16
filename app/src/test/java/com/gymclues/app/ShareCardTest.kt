@@ -16,7 +16,10 @@ class ShareCardTest {
   private val cards = listOf(
     ShareCard("Program milestone", "25%", "Muscle & Strength M-F Body Part Split", "c"),
     ShareCard("New program", "Started", "Push Pull Legs, 6 days a week, the very long program name that wraps", "c"),
-    ShareCard("This week", "4 WORKOUTS", "22 sets, 12,300 lb lifted, 9-day streak", "c"))
+    ShareCard("9-day streak", "12,300 lb", "moved in 22 sets", "c"),
+    ShareCard("Workout complete", "Back day", "", "c", listOf("Lat Pulldown" to "120 lb x 10 (3 sets)", "Seated Cable Row" to "100 lb x 12, 110 lb x 10, 110 lb x 8",
+      "Barbell Row" to "95 lb x 10 (2 sets)", "Face Pull" to "40 lb x 15 (3 sets)", "Bicep Curl" to "30 lb x 12 (3 sets)")),
+    ShareCard("Workout complete", "Full body, week four of twelve", "", "c", (1..14).map { "Exercise number $it" to "135 lb x 10, 135 lb x 10, 140 lb x 8, 140 lb x 8, 145 lb x 6" }))
   @Test fun cardIsRenderedAtFullSizeAndSavedAsPng() {
     cards.forEachIndexed { i, c ->
       val f = saveShareCard(ctx, c)

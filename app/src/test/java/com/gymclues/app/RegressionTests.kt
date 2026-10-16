@@ -24,16 +24,32 @@ class RegressionTests {
   @get:Rule val compose = createComposeRule()
   private val ctx: Context get() = ApplicationProvider.getApplicationContext()
 
-  /** Reproduces the v2 crash: Tracker open with no data, then the first set is logged. */
-  @Test fun trackerSurvivesFirstLoggedSet() {
+  /** Completed Sessions starts empty, only lists workouts the user finished, and survives sets for exercises missing from the catalog. */
+  @Test fun completedSessionsListsOnlyFinishedWorkouts() {
     val app = AppContainer(ctx)
-    compose.setContent { Tracker(app) }
-    compose.onNodeWithText("No workouts logged yet.").assertExists()
-    runBlocking { app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0)) }
-    compose.waitUntil(10_000) { compose.onAllNodesWithText("Workout Tracker").fetchSemanticsNodes().isNotEmpty() }
-    runBlocking { app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_deleted_from_catalog", setNo = 1, reps = 5, weight = 50.0)) }
-    compose.waitUntil(10_000) { compose.onAllNodesWithText("Ex_deleted_from_catalog", substring = true, ignoreCase = true).fetchSemanticsNodes().isNotEmpty() }
-    compose.onNodeWithText("Workout Tracker").assertExists()
+    compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); CompletedSessions(app, nav) }
+    compose.onNodeWithText("No completed sessions yet").assertExists()
+    runBlocking {
+      app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s1"))
+      app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_deleted_from_catalog", setNo = 1, reps = 5, weight = 50.0, sessionId = "s1"))
+      app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 8, weight = 90.0, sessionId = "unfinished"))
+      app.workouts.completeSession("s1", "Leg day", "") }
+    compose.waitUntil(10_000) { compose.onAllNodesWithText("Leg day").fetchSemanticsNodes().isNotEmpty() }
+    compose.onNodeWithText("2 exercises, 2 sets").assertExists()
+    compose.onNodeWithText("No completed sessions yet").assertDoesNotExist()
+  }
+
+  /** The detail page shows each set with weight and reps and offers Share. */
+  @Test fun sessionDetailShowsSetsAndShare() {
+    val app = AppContainer(ctx)
+    runBlocking {
+      app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s2"))
+      app.workouts.completeSession("s2", "Push day", "") }
+    compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); SessionDetail(app, "s2", nav) }
+    compose.waitUntil(10_000) { compose.onAllNodesWithText("Push day").fetchSemanticsNodes().isNotEmpty() }
+    compose.waitUntil(10_000) { compose.onAllNodesWithText("Set 1: 100 lb x 10").fetchSemanticsNodes().isNotEmpty() }
+    compose.onNodeWithText("Share").performClick()
+    compose.onNodeWithText("Share your workout").assertExists()
   }
 
   /** v1 database (with history + an old custom workout) upgrades to v2 without losing data. */
@@ -43,9 +59,10 @@ class RegressionTests {
       execSQL("INSERT INTO SetLog(date,exerciseId,setNo,reps,weight,units,notes) VALUES(1,'ex_leg_press',1,10,100,'lb','')")
       execSQL("INSERT INTO CustomWorkout(name,exerciseIdsCsv) VALUES('Old one','ex_leg_press,ex_chest_press')")
       close() }
-    val db = helper.runMigrationsAndValidate("mig.db", 4, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+    val db = helper.runMigrationsAndValidate("mig.db", 5, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
     db.query("SELECT COUNT(*) FROM SetLog").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM workout_items").use { it.moveToFirst(); assertEquals(2, it.getInt(0)) }
+    db.query("SELECT COUNT(*) FROM completed_sessions").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM rest_days").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM program_assignments").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
     db.close()

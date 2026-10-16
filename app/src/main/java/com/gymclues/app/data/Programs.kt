@@ -28,15 +28,19 @@ fun assignmentOn(assignments: List<ProgramAssignmentEntity>, date: LocalDate) = 
  * Today only counts once logged and never breaks the streak. Returns null when no program is active today.
  */
 fun programStreak(done: Set<LocalDate>, programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>,
-                  rest: RestRules, today: LocalDate): Int? {
+                  rest: RestRules, today: LocalDate): Int? = programStreakDays(done, programs, assignments, rest, today)?.size
+
+/** The completed training days that make up the current program streak (null when no program is active today). */
+fun programStreakDays(done: Set<LocalDate>, programs: List<WorkoutProgram>, assignments: List<ProgramAssignmentEntity>,
+                      rest: RestRules, today: LocalDate): Set<LocalDate>? {
   if (assignmentOn(assignments, today) == null) return null
-  var n = 0; var d = today
+  val days = HashSet<LocalDate>(); var d = today
   while (true) {
     val a = scheduledDay(programs, assignments, d, rest) ?: break
-    if (a.day.training && !a.userRest) { if (d in done) n++ else if (d != today) break }
+    if (a.day.training && !a.userRest) { if (d in done) days.add(d) else if (d != today) break }
     d = d.minusDays(1)
   }
-  return n
+  return days
 }
 
 /** Completed scheduled training days vs. the program's total (training days per cycle x weeks, scaled to the cycle length). */

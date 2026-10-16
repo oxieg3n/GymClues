@@ -126,6 +126,10 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
 
   suspend fun logSet(s: SetLog) = dao.log(s)
   fun history() = dao.history()
+  fun sessions() = dao.sessions(session.userId)
+  /** Saves a finished workout under Completed Sessions. Safe to call twice for the same session. */
+  suspend fun completeSession(id: String, name: String, gymId: String) =
+    dao.upsertSession(CompletedSessionEntity(id = id, ownerId = session.userId, name = name.ifBlank { "Workout" }, gymId = gymId))
 }
 
 class GymRepository(private val ctx: Context, private val dao: GymDao, private val catalog: CatalogRepository,

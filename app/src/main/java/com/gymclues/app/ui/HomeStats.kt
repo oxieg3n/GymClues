@@ -20,7 +20,7 @@ import java.util.Locale
 
 /** A "workout" = a calendar day with at least one logged set. Streak = consecutive days with a workout. */
 data class WorkoutStats(val week: Int, val month: Int, val year: Int, val streak: Int,
-                        val doneDays: Set<LocalDate>, val today: LocalDate)
+                        val doneDays: Set<LocalDate>, val today: LocalDate, val streakDays: Set<LocalDate> = emptySet())
 
 fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone: ZoneId = ZoneId.systemDefault(),
                  firstDay: DayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek): WorkoutStats {
@@ -28,13 +28,13 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
   val weekStart = today.with(TemporalAdjusters.previousOrSame(firstDay))
   // Today not logged yet does not break the streak; it only breaks once a full day has passed without a workout.
   var d = if (today in days) today else today.minusDays(1)
-  var streak = 0
-  while (d in days) { streak++; d = d.minusDays(1) }
+  var streak = 0; val streakDays = HashSet<LocalDate>()
+  while (d in days) { streak++; streakDays.add(d); d = d.minusDays(1) }
   return WorkoutStats(
     week = days.count { !it.isBefore(weekStart) && !it.isAfter(today) },
     month = days.count { it.year == today.year && it.month == today.month },
     year = days.count { it.year == today.year },
-    streak = streak, doneDays = days, today = today)
+    streak = streak, doneDays = days, today = today, streakDays = streakDays)
 }
 
 /** [program] = the streak counts program training days, not gym days. */

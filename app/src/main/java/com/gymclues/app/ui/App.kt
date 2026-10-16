@@ -17,6 +17,7 @@ import com.gymclues.app.data.AppContainer
 
 /** Route helpers so every screen builds URLs the same way (and encodes user text safely). */
 object Routes {
+  fun session(id: String) = "session/${Uri.encode(id)}"
   fun list(m: String) = "list/${Uri.encode(m)}"
   fun exercise(id: String) = "ex/${Uri.encode(id)}"
   fun equipment(id: String, exerciseId: String? = null) = "equip/${Uri.encode(id)}" + (exerciseId?.let { "?ex=${Uri.encode(it)}" } ?: "")
@@ -69,7 +70,8 @@ object Routes {
       composable("builder?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         WorkoutBuilder(app, it.arguments?.getString("id"), offIds, { nav.navigate(Routes.addExercise()) }) { nav.popBackStack() } }
       composable("equipment") { EquipmentScreen(app, offIds) }
-      composable("tracker") { Tracker(app) }
+      composable("sessions") { CompletedSessions(app, nav) }
+      composable("session/{id}") { SessionDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("gyms") { GymSearch(app, nav) }
       composable("gym/{id}") { GymDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("gym/{id}/add?edit={edit}", listOf(navArgument("edit") { type = NavType.StringType; nullable = true; defaultValue = null })) {

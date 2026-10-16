@@ -31,7 +31,7 @@ const val MIN_SETS = 1
   val scope = rememberCoroutineScope()
   var confirmDelete by remember { mutableStateOf<WorkoutEntity?>(null) }
   confirmDelete?.let { w -> AlertDialog(onDismissRequest = { confirmDelete = null },
-    title = { Text("Delete \"${w.name}\"?") }, text = { Text("Your logged sets stay in the Workout Tracker.") },
+    title = { Text("Delete \"${w.name}\"?") }, text = { Text("Your completed sessions are not affected.") },
     confirmButton = { TextButton({ scope.launch { app.workouts.deleteCustom(w.id) }; confirmDelete = null }) { Text("Delete") } },
     dismissButton = { TextButton({ confirmDelete = null }) { Text("Cancel") } }) }
 
@@ -105,9 +105,9 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   if (showDone && !sharing) AlertDialog(onDismissRequest = {}, confirmButton = {},
     title = { Text("Workout Completed, Congratulations!", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
     text = { Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-      Button({ sharing = true }, Modifier.fillMaxWidth().height(64.dp), shape = MaterialTheme.shapes.medium) {
+      Button({ scope.launch { app.workouts.completeSession(sessionId, p.name, gymId); sharing = true } }, Modifier.fillMaxWidth().height(64.dp), shape = MaterialTheme.shapes.medium) {
         Text("Share Your Milestone?", style = MaterialTheme.typography.titleMedium) }
-      TextButton({ onDone() }) { Text("Done", style = MaterialTheme.typography.bodyMedium) }
+      TextButton({ scope.launch { app.workouts.completeSession(sessionId, p.name, gymId); onDone() } }) { Text("Done", style = MaterialTheme.typography.bodyMedium) }
     } })
   if (showDone && sharing) ShareDialog(app, sessionId) { sharing = false }
   if (picking) ExercisePickerSheet(repo, repo.suggestionsFor(session.map { it.exerciseId }, off), session.map { it.exerciseId }.toSet(),

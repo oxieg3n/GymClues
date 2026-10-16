@@ -28,21 +28,21 @@ fun milestoneFor(pct: Int): Int = listOf(100, 50, 25, 10).firstOrNull { pct >= i
 private fun lb(v: Double) = "%,d lb".format(Locale.US, Math.round(v))
 private fun sets(n: Int) = "$n set${if (n == 1) "" else "s"}"
 
+/** Caption sent with the workout card (X uses it). The card itself lists every set. */
 fun dailyShareText(session: List<SetLog>, name: (String) -> String): String {
   if (session.isEmpty()) return "Finished a workout with GymClues. #GymClues"
   val ex = session.map { it.exerciseId }.distinct()
-  val top = ex.take(3).joinToString(", ") { name(it) } + if (ex.size > 3) " and more" else ""
-  return "Workout done: ${ex.size} exercise${if (ex.size == 1) "" else "s"}, ${sets(session.size)}, ${lb(session.sumOf { it.weight * it.reps })} lifted ($top). #GymClues"
+  return "Workout complete: " + ex.take(3).joinToString(", ") { name(it) } + (if (ex.size > 3) " and more" else "") + ". #GymClues"
 }
 
-fun weeklyShareText(logs: List<SetLog>, today: LocalDate, streak: Int, zone: ZoneId = ZoneId.systemDefault(),
-                    firstDay: java.time.DayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek): String {
-  val start = today.with(TemporalAdjusters.previousOrSame(firstDay))
-  val week = logs.filter { val d = Instant.ofEpochMilli(it.date).atZone(zone).toLocalDate(); !d.isBefore(start) && !d.isAfter(today) }
-  val days = week.map { Instant.ofEpochMilli(it.date).atZone(zone).toLocalDate() }.distinct().size
-  return "My week: $days workout${if (days == 1) "" else "s"}, ${sets(week.size)}, ${lb(week.sumOf { it.weight * it.reps })} lifted" +
-    (if (streak > 0) ", $streak-day streak" else "") + ". #GymClues"
+/** Sets and total weight moved on the given days (a streak). Individual exercises are not included. */
+fun streakTotals(logs: List<SetLog>, days: Set<LocalDate>, zone: ZoneId = ZoneId.systemDefault()): Pair<Int, Double> {
+  val inStreak = logs.filter { Instant.ofEpochMilli(it.date).atZone(zone).toLocalDate() in days }
+  return inStreak.size to inStreak.sumOf { it.weight * it.reps }
 }
+
+fun streakShareText(days: Int, sets: Int, volume: Double) =
+  "$days-day streak: ${sets(sets)}, ${lb(volume)} moved. #GymClues"
 
 fun milestoneShareText(m: Int, program: String) = when (m) {
   0 -> "Starting $program today. #GymClues"
@@ -61,7 +61,7 @@ private fun send(ctx: Context, card: ShareCard, pkg: String?): Boolean {
 fun shareToX(ctx: Context, card: ShareCard) { if (!send(ctx, card, "com.twitter.android")) send(ctx, card, null) }
 fun shareToFacebook(ctx: Context, card: ShareCard) { if (!send(ctx, card, "com.facebook.katana")) send(ctx, card, null) }
 
-private enum class Kind(val label: String) { DAY("Today's workout"), WEEK("Weekly summary"), MILESTONE("Program milestone") }
+private enum class Kind(val label: String) { DAY("This workout"), STREAK("Workout streak"), MILESTONE("Program milestone") }
 
 /** Shown after a workout. The user picks what to share, edits the text, then picks Facebook, X or any other app. */
 @Composable fun ShareDialog(app: AppContainer, sessionId: String, onDismiss: () -> Unit) {
@@ -71,7 +71,8 @@ private enum class Kind(val label: String) { DAY("Today's workout"), WEEK("Weekl
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val today = LocalDate.now()
   val stats = remember(logs) { workoutStats(logs.map { it.date }, today) }
-  val streak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, today) ?: stats.streak }
+  val streakDays = remember(stats, assignments, rest) { programStreakDays(stats.doneDays, app.programs.programs, assignments, rest, today) ?: stats.streakDays }
+  val sessions by app.workouts.sessions().collectAsState(emptyList())
   val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, today) }
   val assignmentId = assignmentOn(assignments, today)?.id
   val prefs = remember { ctx.getSharedPreferences("ui", Context.MODE_PRIVATE) }
@@ -80,11 +81,12 @@ private enum class Kind(val label: String) { DAY("Today's workout"), WEEK("Weekl
   val kinds = Kind.values().filter { it != Kind.MILESTONE || progress != null }
   var kind by remember { mutableStateOf(if (isNew && milestone != 0) Kind.MILESTONE else Kind.DAY) }
   val card = when (kind) {
-    Kind.DAY -> logs.filter { it.sessionId == sessionId }.let { ses ->
-      ShareCard("Workout complete", "${ses.size} sets", "${ses.map { it.exerciseId }.distinct().size} exercises, ${lb(ses.sumOf { it.weight * it.reps })} lifted",
-        dailyShareText(ses) { app.catalog.displayName(it) }) }
-    Kind.WEEK -> weeklyShareText(logs, today, streak).let { t ->
-      ShareCard("This week", t.substringAfter("My week: ").substringBefore(",").uppercase().let { it }, t.substringAfter(", ").removeSuffix(" #GymClues").removeSuffix("."), t) }
+    Kind.DAY -> logs.filter { it.sessionId == sessionId }.sortedBy { it.id }.let { ses ->
+      val byEx = ses.groupBy { it.exerciseId }
+      ShareCard("Workout complete", sessions.firstOrNull { it.id == sessionId }?.name ?: "Workout", "",
+        dailyShareText(ses) { app.catalog.displayName(it) }, byEx.map { (ex, ss) -> app.catalog.displayName(ex) to setsSummary(ss) }) }
+    Kind.STREAK -> streakTotals(logs, streakDays).let { (n, v) ->
+      ShareCard("${streakDays.size}-day streak", lb(v), "moved in ${sets(n)}", streakShareText(streakDays.size, n, v)) }
     Kind.MILESTONE -> ShareCard(if (milestone == 0) "New program" else "Program milestone", when (milestone) { 0 -> "Started"; 100 -> "100%"; else -> "$milestone%" },
       progress?.program?.name.orEmpty(), milestoneShareText(milestone ?: 0, progress?.program?.name.orEmpty()))
   }
