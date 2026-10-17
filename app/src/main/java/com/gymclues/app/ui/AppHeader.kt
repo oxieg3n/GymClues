@@ -55,6 +55,7 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
   val current = menuProgram(assignments)
   val active = current?.let { c -> app.programs.programs.firstOrNull { it.id == c.programId } }
   val entries = listOf(
+    Triple("Start A Workout", "styles", null),
     Triple("Completed Sessions", "sessions", null),
     if (active == null) Triple("Pick a Program", "programs", null) else Triple("Active Program", Routes.program(active.id), active.name),
     Triple("Exercises", "muscles", null), Triple("Equipment", "equipment", null), Triple("My Exercises", "myex", null), Triple("Admin", "admin", null))

@@ -24,7 +24,7 @@ class ShellTest {
   }
   @Test fun homeHasOnlyRequestedSectionsAndHeaderPersists() {
     launch(true)
-    compose.onNodeWithText("+ Start A Workout +").assertExists()
+    compose.onNodeWithText("+ Start A Workout +").assertDoesNotExist()
     compose.onNodeWithText("Program completed").assertExists()
     compose.onNodeWithContentDescription("GymClues menu").performClick()
     compose.onNodeWithText("Completed Sessions").performClick()
@@ -34,7 +34,8 @@ class ShellTest {
   }
   @Test fun startWorkoutOpensCustomWorkouts() {
     launch(true)
-    compose.onNodeWithText("+ Start A Workout +").performClick()
+    compose.onNodeWithContentDescription("GymClues menu").performClick()
+    compose.onNodeWithText("Start A Workout").performClick()
     compose.onNodeWithText("Custom Workouts").assertExists()
   }
   @Test fun tutorialOpensRealMenuAndFinishesOnce() {
@@ -43,7 +44,7 @@ class ShellTest {
     compose.onNodeWithContentDescription("GymClues menu").performClick()
     compose.onNodeWithText("Completed Sessions").assertExists()
     compose.onNodeWithText("Equipment").assertExists()
-    repeat(7) { compose.onNodeWithText("Tap here to continue").performClick() }
+    repeat(6) { compose.onNodeWithText("Tap here to continue").performClick() }
     compose.onNodeWithText("Tap here to continue").assertDoesNotExist()
     assertTrue(ctx.getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("tourDone", false))
   }

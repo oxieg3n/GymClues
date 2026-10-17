@@ -39,7 +39,7 @@ val SPLIT_HELP = mapOf(
   BoxWithConstraints(Modifier.fillMaxSize()) {
   val avail = maxHeight
   Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-   // Cards scroll if they need more than the screen minus the two buttons; the buttons share all remaining height equally.
+   // Cards scroll if they need more than the screen minus the space reserved for the buttons; Rest Day takes the lower half of what remains.
    Column(Modifier.heightIn(max = avail - 24.dp - 12.dp - 132.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
     Box(Modifier.tourTarget("progress")) {
       if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
@@ -58,9 +58,7 @@ val SPLIT_HELP = mapOf(
     Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
    }
     Column(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-      Box(Modifier.weight(1f).fillMaxWidth().tourTarget("start")) {
-        Button({ go("styles") }, Modifier.fillMaxSize(), shape = MaterialTheme.shapes.medium) {
-          Text("+ Start A Workout +", style = MaterialTheme.typography.titleLarge) } }
+      Spacer(Modifier.weight(1f))   // where Start A Workout used to be; keeps Rest Day the same size
       Box(Modifier.weight(1f).fillMaxWidth().tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxSize()) }
     }
   }

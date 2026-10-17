@@ -28,12 +28,11 @@ import kotlin.math.roundToInt
 internal val tourSteps = listOf(
   "gym" to "Find a gym or change your gym here. This always opens Find a Gym, even after you choose one.",
   "logo" to "Tap GymClues to open the menu. It holds the sections that are no longer on the main screen.",
-  "menu" to "This is the real GymClues menu. Open your completed sessions, program, exercise and equipment lists, or the admin login here.",
+  "menu" to "This is the real GymClues menu. Start a workout, or open your completed sessions, program, exercise and equipment lists, or the admin login here.",
   "media" to "Control your music here on any page. Tap the music note to change apps, or the song to open your music app.",
   "progress" to "See how much of your assigned program you have completed. At 100%, you can start a new program.",
   "streak" to "Your streak counts completed program days. Scheduled rest days and your own rest days do not break it.",
   "schedule" to "See today and tomorrow, then tap a session to open and start it. Week and Month show the wider schedule.",
-  "start" to "Tap + Start A Workout + to start a custom workout or pick a ready-made one.",
   "rest" to "Take today off or plan future rest days. Your program shifts so no session is skipped."
 )
 internal class TourState(initial: Int) {
