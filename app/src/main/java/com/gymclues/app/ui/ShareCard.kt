@@ -75,14 +75,14 @@ private fun drawRows(c: Canvas, rows: List<Pair<String, String>>, w: Float, h: F
     val np = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { textSize = size * k; color = Color.WHITE; typeface = Typeface.create("sans-serif-condensed", Typeface.BOLD) }
     val dp = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { textSize = size * .86f * k; color = GREEN; typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL) }
     StaticLayout.Builder.obtain(n, 0, n.length, np, width).setMaxLines(1).setEllipsize(android.text.TextUtils.TruncateAt.END).build() to
-      StaticLayout.Builder.obtain(d, 0, d.length, dp, width).setMaxLines(3).setEllipsize(android.text.TextUtils.TruncateAt.END).build() }
-  fun height(ls: List<Pair<StaticLayout, StaticLayout>>, gap: Float) = ls.sumOf { (a, b) -> (a.height + b.height + gap).toDouble() }.toFloat()
+      (if (d.isEmpty()) null else StaticLayout.Builder.obtain(d, 0, d.length, dp, width).setMaxLines(3).setEllipsize(android.text.TextUtils.TruncateAt.END).build()) }
+  fun height(ls: List<Pair<StaticLayout, StaticLayout?>>, gap: Float) = ls.sumOf { (a, b) -> (a.height + (b?.height ?: 0) + gap).toDouble() }.toFloat()
   for (keep in rows.size downTo 1) {
     val shown = rows.take(keep) + (if (keep < rows.size) listOf("+${rows.size - keep} more exercises" to "") else emptyList())
-    for (size in 44 downTo 32 step 2) {
+    for (size in 60 downTo 36 step 2) {
       val ls = layouts(size.toFloat(), shown); val gap = size * .6f * k
-      if (height(ls, gap) <= bottom - top || (keep == 1 && size == 32)) { var y = top
-        ls.forEach { (a, b) -> c.save(); c.translate(w * .08f, y); a.draw(c); c.translate(0f, a.height.toFloat()); b.draw(c); c.restore(); y += a.height + b.height + gap }
+      if (height(ls, gap) <= bottom - top || (keep == 1 && size == 36)) { var y = top
+        ls.forEach { (a, b) -> c.save(); c.translate(w * .08f, y); a.draw(c); c.translate(0f, a.height.toFloat()); b?.draw(c); c.restore(); y += a.height + (b?.height ?: 0) + gap }
         return }
     }
   }

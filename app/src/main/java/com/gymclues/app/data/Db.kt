@@ -138,6 +138,10 @@ class Converters {
   @Query("SELECT * FROM rest_days WHERE ownerId = :owner") suspend fun restDaysOnce(owner: String): List<RestDayEntity>
   @Upsert suspend fun upsertRestDay(r: RestDayEntity)
   @Upsert suspend fun upsertSession(s: CompletedSessionEntity)
+  @Query("SELECT * FROM completed_sessions WHERE id = :id") suspend fun session(id: String): CompletedSessionEntity?
+  @Update suspend fun updateSet(s: SetLog)
+  @Query("DELETE FROM SetLog WHERE id = :id") suspend fun deleteSet(id: Long)
+  @Query("DELETE FROM SetLog WHERE sessionId = :sessionId") suspend fun deleteSets(sessionId: String)
   @Query("SELECT * FROM completed_sessions WHERE deleted = 0 AND ownerId = :owner ORDER BY completedAt DESC") fun sessions(owner: String): Flow<List<CompletedSessionEntity>>
 
   // users / admin

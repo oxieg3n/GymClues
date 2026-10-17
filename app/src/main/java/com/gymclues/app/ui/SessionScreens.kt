@@ -7,14 +7,18 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.gymclues.app.data.*
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -51,23 +55,64 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
   }
 }
 
-/** One finished workout: every set with weight and reps, plus the share button. */
+/** One finished workout: every set with weight and reps, plus share, edit and delete. */
 @Composable fun SessionDetail(app: AppContainer, id: String, nav: NavHostController) {
   val sessions by app.workouts.sessions().collectAsState(emptyList())
   val logs by app.workouts.history().collectAsState(emptyList())
+  val scope = rememberCoroutineScope()
   var sharing by remember { mutableStateOf(false) }
+  var editing by remember { mutableStateOf(false) }
+  var confirmDelete by remember { mutableStateOf(false) }
+  var deleted by remember { mutableStateOf(false) }
   val s = sessions.firstOrNull { it.id == id }
-  if (s == null) { NotFound("This session no longer exists."); return }
-  val byExercise = remember(logs, id) { sessionSets(logs, id).groupBy { it.exerciseId } }
+  if (s == null) { if (!deleted) NotFound("This session no longer exists."); return }
+  val sets = remember(logs, id) { sessionSets(logs, id) }
+  var name by remember(editing) { mutableStateOf(s.name) }
+  val drafts = remember(editing) { mutableStateMapOf<Long, Pair<String, String>>() }
   LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-    item { Text(s.name, style = MaterialTheme.typography.headlineSmall); Muted(dateLabel(s.completedAt)) }
-    item { Button({ sharing = true }, Modifier.fillMaxWidth().height(56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") } }
-    items(byExercise.entries.toList(), key = { it.key }) { (ex, sets) ->
+    item {
+      if (editing) OutlinedTextField(name, { name = it }, Modifier.fillMaxWidth(), label = { Text("Workout name") }, singleLine = true)
+      else { Text(s.name, style = MaterialTheme.typography.headlineSmall); Muted(dateLabel(s.completedAt)) }
+    }
+    item {
+      if (editing) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Button({ scope.launch {
+          app.workouts.renameSession(id, name)
+          sets.forEach { st -> drafts[st.id]?.let { (w, r) ->
+            app.workouts.updateSet(st.copy(weight = w.toDoubleOrNull() ?: st.weight, reps = r.toIntOrNull() ?: st.reps)) } }
+          editing = false } }, Modifier.weight(1f).height(52.dp)) { Text("Save changes") }
+        OutlinedButton({ editing = false }, Modifier.weight(1f).height(52.dp)) { Text("Cancel") }
+      } else Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Button({ sharing = true }, Modifier.fillMaxWidth().height(56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+          OutlinedButton({ editing = true }, Modifier.weight(1f)) { Text("Edit") }
+          OutlinedButton({ confirmDelete = true }, Modifier.weight(1f)) { Text("Delete") }
+        }
+      }
+    }
+    items(sets.groupBy { it.exerciseId }.entries.toList(), key = { it.key }) { (ex, exSets) ->
       Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(app.catalog.displayName(ex), fontWeight = FontWeight.Bold)
-        sets.forEachIndexed { i, set -> Text("Set ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium) }
+        exSets.forEachIndexed { i, set ->
+          if (!editing) Text("Set ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
+          else {
+            val (w, r) = drafts[set.id] ?: (setLabel1(set.weight) to set.reps.toString())
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+              Text("Set ${i + 1}", Modifier.width(48.dp))
+              OutlinedTextField(w, { drafts[set.id] = it to r }, Modifier.weight(1f), label = { Text(set.units) }, singleLine = true)
+              OutlinedTextField(r, { drafts[set.id] = w to it }, Modifier.weight(1f), label = { Text("Reps") }, singleLine = true)
+              IconButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Icon(Icons.Filled.Delete, "Delete set ${i + 1}") }
+            }
+          }
+        }
       } }
     }
   }
   if (sharing) ShareDialog(app, id) { sharing = false }
+  if (confirmDelete) AlertDialog({ confirmDelete = false },
+    title = { Text("Delete \"${s.name}\"?") }, text = { Text("Its sets are removed and streaks and totals update.") },
+    confirmButton = { TextButton({ confirmDelete = false; deleted = true; scope.launch { app.workouts.deleteSession(id); nav.popBackStack() } }) { Text("Delete") } },
+    dismissButton = { TextButton({ confirmDelete = false }) { Text("Cancel") } })
 }
+
+private fun setLabel1(w: Double) = if (w % 1.0 == 0.0) w.toLong().toString() else w.toString()

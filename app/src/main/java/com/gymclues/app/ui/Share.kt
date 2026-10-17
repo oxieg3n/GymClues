@@ -84,7 +84,7 @@ private enum class Kind(val label: String) { DAY("This workout"), STREAK("Workou
     Kind.DAY -> logs.filter { it.sessionId == sessionId }.sortedBy { it.id }.let { ses ->
       val byEx = ses.groupBy { it.exerciseId }
       ShareCard("Workout complete", sessions.firstOrNull { it.id == sessionId }?.name ?: "Workout", "",
-        dailyShareText(ses) { app.catalog.displayName(it) }, byEx.map { (ex, ss) -> app.catalog.displayName(ex) to setsSummary(ss) }) }
+        dailyShareText(ses) { app.catalog.displayName(it) }, byEx.keys.map { app.catalog.displayName(it) to "" }) }
     Kind.STREAK -> streakTotals(logs, streakDays).let { (n, v) ->
       ShareCard("${streakDays.size}-day streak", lb(v), "moved in ${sets(n)}", streakShareText(streakDays.size, n, v)) }
     Kind.MILESTONE -> ShareCard(if (milestone == 0) "New program" else "Program milestone", when (milestone) { 0 -> "Started"; 100 -> "100%"; else -> "$milestone%" },

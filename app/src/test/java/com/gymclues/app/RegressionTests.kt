@@ -68,6 +68,32 @@ class RegressionTests {
     db.close()
   }
 
+  /** Sessions can be renamed, their sets edited, and deleted (sets go too). */
+  @Test fun sessionEditAndDelete() = runBlocking {
+    val app = AppContainer(ctx); val w = app.workouts
+    w.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s3"))
+    w.completeSession("s3", "Old name", "")
+    w.renameSession("s3", "New name")
+    val set = w.history().first().single { it.sessionId == "s3" }
+    w.updateSet(set.copy(weight = 120.0, reps = 8))
+    assertEquals("New name", w.sessions().first().single { it.id == "s3" }.name)
+    assertEquals("120 lb x 8", setLabel(w.history().first().single { it.sessionId == "s3" }))
+    w.deleteSession("s3")
+    assertTrue(w.sessions().first().none { it.id == "s3" })
+    assertTrue(w.history().first().none { it.sessionId == "s3" })
+  }
+
+  /** Edit mode on the detail page shows the save control. */
+  @Test fun sessionDetailEditMode() {
+    val app = AppContainer(ctx)
+    runBlocking { app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s4"))
+      app.workouts.completeSession("s4", "Pull day", "") }
+    compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); SessionDetail(app, "s4", nav) }
+    compose.waitUntil(10_000) { compose.onAllNodesWithText("Edit").fetchSemanticsNodes().isNotEmpty() }
+    compose.onNodeWithText("Edit").performClick()
+    compose.onNodeWithText("Save changes").assertExists()
+  }
+
   /** Removing every exercise and the minimum-set rule never crash the active workout. */
   @Test fun activeWorkoutRemoveAllAndMinimumSets() {
     val app = AppContainer(ctx)

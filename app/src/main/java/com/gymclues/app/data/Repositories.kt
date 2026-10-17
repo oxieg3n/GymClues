@@ -128,6 +128,13 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
   fun history() = dao.history()
   fun sessions() = dao.sessions(session.userId)
   /** Saves a finished workout under Completed Sessions. Safe to call twice for the same session. */
+  suspend fun renameSession(id: String, name: String) { dao.session(id)?.let {
+    dao.upsertSession(it.copy(name = name.trim().ifBlank { it.name }, updatedAt = now(), syncState = SyncState.PENDING)) } }
+  suspend fun updateSet(s: SetLog) = dao.updateSet(s)
+  suspend fun deleteSet(id: Long) = dao.deleteSet(id)
+  /** Hides the session and removes its sets so streaks and totals update. */
+  suspend fun deleteSession(id: String) { dao.session(id)?.let {
+    dao.upsertSession(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING)); dao.deleteSets(id) } }
   suspend fun completeSession(id: String, name: String, gymId: String) =
     dao.upsertSession(CompletedSessionEntity(id = id, ownerId = session.userId, name = name.ifBlank { "Workout" }, gymId = gymId))
 }
