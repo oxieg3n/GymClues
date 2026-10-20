@@ -1,0 +1,2213 @@
+{
+ "equipment": [
+  {
+   "id": "eq_x_cable",
+   "name": "Cable Station",
+   "category": "Cable",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_barbell",
+   "name": "Barbell and Rack",
+   "category": "Free weight",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_ez_bar",
+   "name": "EZ Bar",
+   "category": "Free weight",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_trap_bar",
+   "name": "Trap Bar",
+   "category": "Free weight",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_45_degree_extension_bench",
+   "name": "45-Degree Extension Bench",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_abdominal_crunch_machine",
+   "name": "Abdominal Crunch Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_assisted_dip_machine",
+   "name": "Assisted Dip Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_assisted_pull_up_machine",
+   "name": "Assisted Pull-Up Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_hack_squat_machine",
+   "name": "Hack Squat Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_hip_abduction_machine",
+   "name": "Hip Abduction Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_hip_adduction_machine",
+   "name": "Hip Adduction Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_incline_chest_press_machine",
+   "name": "Incline Chest Press Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_lateral_raise_machine",
+   "name": "Lateral Raise Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_leg_extension_machine",
+   "name": "Leg Extension Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_lumbar_extension_machine",
+   "name": "Lumbar Extension Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_lying_leg_curl_machine",
+   "name": "Lying Leg Curl Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_pec_deck_machine",
+   "name": "Pec Deck Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_preacher_curl_machine",
+   "name": "Preacher Curl Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_seated_calf_raise_machine",
+   "name": "Seated Calf Raise Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_seated_leg_curl_machine",
+   "name": "Seated Leg Curl Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_seated_row_machine",
+   "name": "Seated Row Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_shoulder_press_machine",
+   "name": "Shoulder Press Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_standing_calf_raise_machine",
+   "name": "Standing Calf Raise Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_torso_rotation_machine",
+   "name": "Torso Rotation Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  },
+  {
+   "id": "eq_x_triceps_extension_machine",
+   "name": "Triceps Extension Machine",
+   "category": "Selectorized",
+   "notes": "Added from the exercise library import."
+  }
+ ],
+ "exercises": [
+  {
+   "id": "ex_x_cable_curl",
+   "name": "Cable curl",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep elbows near your sides; avoid torso swing."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Stable setup and easy load increments",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_preacher_curl",
+   "name": "Machine preacher curl",
+   "equipmentIds": [
+    "eq_x_preacher_curl_machine"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align elbows with the machine pivot; do not force lockout."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Supported upper arms reduce momentum",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_incline_dumbbell_curl",
+   "name": "Incline dumbbell curl",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep upper arms still and lower under control."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Adds a shoulder-extended curl position",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_ez_bar_curl",
+   "name": "EZ-bar curl",
+   "equipmentIds": [
+    "eq_x_ez_bar"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep wrists aligned and avoid leaning back."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii; brachialis",
+   "why": "Convenient bilateral loading with angled grip",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_preacher_curl",
+   "name": "Dumbbell preacher curl",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep the upper arm on the pad; use a comfortable range."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Supported unilateral option",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_behind_body_cable_curl",
+   "name": "Behind-body cable curl",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep the upper arm slightly behind you; do not pull the shoulder forward."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Cable curl with the shoulder extended",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_standing_dumbbell_curl",
+   "name": "Standing dumbbell curl",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Turn palms upward and avoid swinging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Accessible and allows each arm to work independently",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_hammer_curl",
+   "name": "Hammer curl",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep thumbs up and elbows still."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Brachialis; brachioradialis; biceps",
+   "why": "Adds neutral-grip elbow-flexor work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_concentration_curl",
+   "name": "Concentration curl",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Brace the upper arm against the inner thigh; avoid twisting."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Biceps brachii",
+   "why": "Simple supported single-arm isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_assisted_chin_up",
+   "name": "Assisted chin-up",
+   "equipmentIds": [
+    "eq_x_assisted_pull_up_machine"
+   ],
+   "primaryMuscles": [
+    "Biceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a palms-up grip; pull without kicking."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lats; biceps",
+   "why": "Adds biceps work through a compound pull",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_overhead_cable_triceps_extension",
+   "name": "Overhead cable triceps extension",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep ribs down and upper arms steady."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps; long-head emphasis",
+   "why": "Adds triceps work with the shoulder overhead",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_rope_pushdown",
+   "name": "Cable rope pushdown",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep elbows at your sides; straighten elbows without swinging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Stable, easy-to-adjust isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_triceps_extension",
+   "name": "Machine triceps extension",
+   "equipmentIds": [
+    "eq_x_triceps_extension_machine"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align elbow joints with the pivot; control the return."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Supported setup reduces balance demands",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_straight_bar_cable_pushdown",
+   "name": "Straight-bar cable pushdown",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep shoulders still and wrists aligned."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Simple bilateral loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_single_arm_cable_pushdown",
+   "name": "Single-arm cable pushdown",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep the elbow close to your side."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Independent loading and comfortable grip choice",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_close_grip_smith_bench_press",
+   "name": "Close-grip Smith bench press",
+   "equipmentIds": [
+    "eq_smith",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use roughly shoulder-width grip; keep forearms aligned."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps; chest; anterior deltoids",
+   "why": "Stable compound option for heavier triceps loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_lying_ez_bar_triceps_extension",
+   "name": "Lying EZ-bar triceps extension",
+   "equipmentIds": [
+    "eq_x_ez_bar",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Move through the elbows; lower carefully near the head."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Free-weight elbow-extension alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_overhead_dumbbell_extension",
+   "name": "Seated overhead dumbbell extension",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep elbows reasonably narrow and avoid arching the back."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps; long-head emphasis",
+   "why": "Overhead alternative when cables are busy",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_assisted_dip",
+   "name": "Assisted dip",
+   "equipmentIds": [
+    "eq_x_assisted_dip_machine"
+   ],
+   "primaryMuscles": [
+    "Triceps",
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a comfortable shoulder depth; avoid dropping into the bottom.",
+    "Use modest forward lean and pain-free shoulder depth."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps; chest",
+   "why": "Adjustable bodyweight pressing option",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_triceps_kickback",
+   "name": "Cable triceps kickback",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Triceps"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Fix the upper arm; extend the elbow without moving the shoulder."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Triceps",
+   "why": "Adds elbow extension with upper arm behind torso",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_hammer_curl",
+   "name": "Dumbbell hammer curl",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep thumbs up and avoid swinging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Brachioradialis; brachialis",
+   "why": "Accessible neutral-grip elbow-flexor exercise",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_ez_bar_reverse_curl",
+   "name": "EZ-bar reverse curl",
+   "equipmentIds": [
+    "eq_x_ez_bar"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep palms down and wrists straight."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Brachioradialis; wrist extensors stabilize",
+   "why": "Pronated-grip elbow-flexor loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_dumbbell_wrist_curl",
+   "name": "Seated dumbbell wrist curl",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Rest forearms on thighs; move only through the wrists."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Wrist flexors",
+   "why": "Simple supported wrist-flexion exercise",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_dumbbell_reverse_wrist_curl",
+   "name": "Seated dumbbell reverse wrist curl",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use light loads; rest forearms on thighs and lift knuckles."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Wrist extensors",
+   "why": "Balances wrist-flexion work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/29/wrist-curl-extension/"
+  },
+  {
+   "id": "ex_x_farmer_carry",
+   "name": "Farmer carry",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Stand tall; keep wrists neutral and walk under control."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Finger flexors; grip",
+   "why": "Grip loading with straightforward progression",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_heavy_dumbbell_hold",
+   "name": "Heavy dumbbell hold",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Hold at your sides without bending the wrists."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Finger flexors; grip",
+   "why": "Stationary alternative to carries",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_wrist_curl",
+   "name": "Cable wrist curl",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Support forearms and curl through a comfortable wrist range."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Wrist flexors",
+   "why": "Adjustable wrist-flexion resistance",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_reverse_wrist_curl",
+   "name": "Cable reverse wrist curl",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep forearms fixed; start with a light load."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Wrist extensors",
+   "why": "Adjustable wrist-extension resistance",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_forearm_pronation",
+   "name": "Dumbbell forearm pronation",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Support the forearm; slowly rotate palm downward with a short lever."
+   ],
+   "safety": "Use a very light load and short lever; do not force wrist/elbow rotation.",
+   "target": "Forearm pronators",
+   "why": "Adds rotation missing from curl-only lists",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_forearm_supination",
+   "name": "Dumbbell forearm supination",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Forearms"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Support the forearm; slowly rotate palm upward with a short lever."
+   ],
+   "safety": "Use a very light load and short lever; do not force wrist/elbow rotation.",
+   "target": "Forearm supinators; biceps assists",
+   "why": "Complements pronation for forearm rotation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_leg_press",
+   "name": "Leg press",
+   "equipmentIds": [
+    "eq_leg_press"
+   ],
+   "primaryMuscles": [
+    "Quads",
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep pelvis against the pad; use a depth you can control.",
+    "Use controlled hip flexion without rounding pelvis off the pad."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Quadriceps; glutes; adductors",
+   "why": "Stable multi-joint thigh loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_leg_curl",
+   "name": "Seated leg curl",
+   "equipmentIds": [
+    "eq_x_seated_leg_curl_machine"
+   ],
+   "primaryMuscles": [
+    "Hamstrings"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align knees with the pivot and keep hips down."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Hamstrings",
+   "why": "Direct knee-flexion work in a hip-flexed position",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_smith_squat",
+   "name": "Smith squat",
+   "equipmentIds": [
+    "eq_smith"
+   ],
+   "primaryMuscles": [
+    "Quads",
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Choose a stance that permits controlled depth and stable feet.",
+    "Use controlled, comfortable depth; keep whole feet planted."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Quadriceps; glutes; adductors",
+   "why": "Loadable squat with a guided bar path",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_romanian_deadlift",
+   "name": "Dumbbell Romanian deadlift",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Hamstrings",
+    "Glutes",
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Push hips back; keep weights close and spine steady.",
+    "Hinge at hips with soft knees; keep weights close.",
+    "Keep spine steady and weights close; stop before back rounds."
+   ],
+   "safety": "Equipment availability varies by gym. Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Hamstrings; glutes",
+   "why": "Adds hip-hinge work alongside knee-flexion exercises",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/317/romanian-deadlift/"
+  },
+  {
+   "id": "ex_x_leg_extension",
+   "name": "Leg extension",
+   "equipmentIds": [
+    "eq_x_leg_extension_machine"
+   ],
+   "primaryMuscles": [
+    "Quads"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align knees with the pivot; avoid kicking the weight."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Quadriceps",
+   "why": "Direct knee-extension work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_hack_squat",
+   "name": "Hack squat",
+   "equipmentIds": [
+    "eq_x_hack_squat_machine"
+   ],
+   "primaryMuscles": [
+    "Quads"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep back on the pad and knees tracking with toes."
+   ],
+   "safety": "Equipment availability varies by gym. Dedicated machine may be absent at your gym.",
+   "target": "Quadriceps; glutes",
+   "why": "Supported squat alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_split_squat",
+   "name": "Dumbbell split squat",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Quads",
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Lower vertically with front foot flat; use support if needed.",
+    "Use a comfortable stride; keep pelvis level."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Quadriceps; glutes; adductors",
+   "why": "Unilateral thigh loading with feet planted",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_lying_leg_curl",
+   "name": "Lying leg curl",
+   "equipmentIds": [
+    "eq_x_lying_leg_curl_machine"
+   ],
+   "primaryMuscles": [
+    "Hamstrings"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep hips against the pad and lower slowly."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Hamstrings",
+   "why": "Knee-flexion alternative to seated curls",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_reverse_lunge",
+   "name": "Dumbbell reverse lunge",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Quads"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Step back under control; keep the front foot planted."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Quadriceps; glutes; adductors",
+   "why": "Unilateral option with a backward step",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_hip_adduction_machine",
+   "name": "Hip adduction machine",
+   "equipmentIds": [
+    "eq_x_hip_adduction_machine"
+   ],
+   "primaryMuscles": [
+    "Quads"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a comfortable opening width; avoid forcing the stretch."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Hip adductors / inner thighs",
+   "why": "Includes inner-thigh work rather than only quads and hamstrings",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_smith_hip_thrust",
+   "name": "Smith hip thrust",
+   "equipmentIds": [
+    "eq_smith",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep ribs down; finish with hips extended, not back arched."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Gluteus maximus",
+   "why": "Stable, loadable hip-extension exercise",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_glute_kickback",
+   "name": "Cable glute kickback",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Move from the hip; do not arch the lower back."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Gluteus maximus",
+   "why": "Adjustable unilateral hip-extension isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_hip_abduction_machine",
+   "name": "Hip abduction machine",
+   "equipmentIds": [
+    "eq_x_hip_abduction_machine"
+   ],
+   "primaryMuscles": [
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep pelvis stable; open knees without bouncing."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Gluteus medius/minimus; upper glute max",
+   "why": "Adds lateral-hip work to hip-extension exercises",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_step_up",
+   "name": "Dumbbell step-up",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Drive through the top foot; minimize push-off from the trailing leg."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Gluteus maximus; quadriceps",
+   "why": "Unilateral exercise with scalable step height",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_pull_through",
+   "name": "Cable pull-through",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Glutes",
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Push hips back; stand tall without leaning backward.",
+    "Maintain a steady spine while hips move back and forward."
+   ],
+   "safety": "Equipment availability varies by gym. Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Gluteus maximus; hamstrings",
+   "why": "Cable hip-hinge alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_standing_cable_hip_abduction",
+   "name": "Standing cable hip abduction",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Glutes"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep pelvis level; move leg sideways without leaning."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Gluteus medius/minimus",
+   "why": "Unilateral lateral-hip alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_standing_calf_raise_machine",
+   "name": "Standing calf raise machine",
+   "equipmentIds": [
+    "eq_x_standing_calf_raise_machine"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep knees nearly straight; lower and lift heels without bouncing."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10. Dedicated machine may be absent at your gym.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Stable straight-knee plantar-flexion loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_seated_calf_raise_machine",
+   "name": "Seated calf raise machine",
+   "equipmentIds": [
+    "eq_x_seated_calf_raise_machine"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep knees bent; move through the ankles under control."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10. Dedicated machine may be absent at your gym.",
+   "target": "Soleus emphasis",
+   "why": "Adds bent-knee calf work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_leg_press_calf_raise",
+   "name": "Leg press calf raise",
+   "equipmentIds": [
+    "eq_leg_press"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep forefeet securely supported; do not unlock the sled unsafely."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10. Use only if the machine permits a secure calf-raise setup.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Loadable straight-knee alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_smith_standing_calf_raise",
+   "name": "Smith standing calf raise",
+   "equipmentIds": [
+    "eq_smith"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set safeties; use a stable platform and controlled heel travel."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Guided-bar alternative to a dedicated machine",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_supported_single_leg_dumbbell_calf_raise",
+   "name": "Supported single-leg dumbbell calf raise",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Hold support; move through the ankle without rocking."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Unilateral option with modest equipment",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_seated_dumbbell_calf_raise",
+   "name": "Seated dumbbell calf raise",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Place padded weights near the knees; lift heels slowly."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Soleus emphasis",
+   "why": "Bent-knee option without a dedicated machine",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_standing_dumbbell_calf_raise",
+   "name": "Standing dumbbell calf raise",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep balance stable; avoid knee pumping."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Simple bilateral free-weight option",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_single_leg_seated_dumbbell_calf_raise",
+   "name": "Single-leg seated dumbbell calf raise",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep knee bent and forefoot planted; control the descent."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Soleus emphasis",
+   "why": "Independent bent-knee loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_single_leg_leg_press_calf_raise",
+   "name": "Single-leg leg press calf raise",
+   "equipmentIds": [
+    "eq_leg_press"
+   ],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a light load; secure foot position and follow machine instructions."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10. Use only if the machine permits a secure calf-raise setup.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Unilateral machine progression",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_supported_bodyweight_calf_raise",
+   "name": "Supported bodyweight calf raise",
+   "equipmentIds": [],
+   "primaryMuscles": [
+    "Calves"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Legs",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use hand support; pause at the top and lower slowly."
+   ],
+   "safety": "Calf variations overlap; choose a straight-knee and a bent-knee option, not all 10.",
+   "target": "Gastrocnemius; soleus",
+   "why": "Accessible starter or fallback option",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises-wall/"
+  },
+  {
+   "id": "ex_x_seated_lumbar_extension_machine",
+   "name": "Seated lumbar extension machine",
+   "equipmentIds": [
+    "eq_x_lumbar_extension_machine"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set pads correctly; use a small comfortable range without jerking."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension. Dedicated machine may be absent at your gym.",
+   "target": "Lumbar erector spinae",
+   "why": "Most directly targeted option when the machine fixes the pelvis",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_45_degree_back_extension",
+   "name": "45-degree back extension",
+   "equipmentIds": [
+    "eq_x_45_degree_extension_bench"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Hinge at hips with a steady spine; stop at body alignment."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Erector spinae; glutes; hamstrings",
+   "why": "Scalable posterior-chain option",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_smith_romanian_deadlift",
+   "name": "Smith Romanian deadlift",
+   "equipmentIds": [
+    "eq_smith"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep bar close; adjust stance to the fixed path."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Erector spinae stabilize; glutes; hamstrings drive",
+   "why": "Guided-bar hip-hinge alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/317/romanian-deadlift/"
+  },
+  {
+   "id": "ex_x_barbell_romanian_deadlift",
+   "name": "Barbell Romanian deadlift",
+   "equipmentIds": [
+    "eq_x_barbell"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Push hips back with soft knees; avoid chasing floor depth."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Erector spinae stabilize; glutes; hamstrings drive",
+   "why": "Progressively loadable free-weight hinge",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/317/romanian-deadlift/"
+  },
+  {
+   "id": "ex_x_trap_bar_deadlift",
+   "name": "Trap-bar deadlift",
+   "equipmentIds": [
+    "eq_x_trap_bar"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Brace before lifting; stand up without leaning backward."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension. Trap bar may not be available at Planet Fitness.",
+   "target": "Erector spinae stabilize; glutes; quadriceps",
+   "why": "Alternative loaded pull when available",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_barbell_good_morning",
+   "name": "Barbell good morning",
+   "equipmentIds": [
+    "eq_x_barbell"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Start very light; brace and hinge without spinal rounding."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension. Advanced technique; optional, not a beginner default.",
+   "target": "Erector spinae stabilize; glutes; hamstrings drive",
+   "why": "Hip-hinge alternative for experienced lifters",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_suitcase_carry",
+   "name": "Suitcase carry",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Stay upright; avoid leaning toward or away from the weight."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Quadratus lumborum; obliques; erector spinae",
+   "why": "Adds asymmetric trunk-stability work",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_supported_single_leg_dumbbell_romanian_deadlift",
+   "name": "Supported single-leg dumbbell Romanian deadlift",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep hips square and spine steady; use support for balance."
+   ],
+   "safety": "Not a back-pain treatment. Many options train spinal bracing rather than dynamic lumbar extension.",
+   "target": "Erector spinae stabilize; glutes; hamstrings drive",
+   "why": "Light-load hinge with unilateral control",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/317/romanian-deadlift/"
+  },
+  {
+   "id": "ex_x_chest_supported_dumbbell_row",
+   "name": "Chest-supported dumbbell row",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep chest on bench and draw elbows back under control."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Rhomboids; middle traps; lats",
+   "why": "Supported row limits lower-back fatigue",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_cable_row",
+   "name": "Seated cable row",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep torso steady; pull without excessive backward lean."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Rhomboids; middle traps; lats",
+   "why": "Stable horizontal pulling with easy load changes",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_row",
+   "name": "Machine row",
+   "equipmentIds": [
+    "eq_x_seated_row_machine"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Adjust seat and chest pad; avoid shrugging every repetition."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Rhomboids; middle traps; lats",
+   "why": "Supported horizontal pull",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_lat_pulldown",
+   "name": "Lat pulldown",
+   "equipmentIds": [
+    "eq_lat_pulldown"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Pull toward upper chest; avoid behind-neck pulling."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lats; teres major; lower traps assist",
+   "why": "Adds vertical pulling to back coverage",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_assisted_pull_up",
+   "name": "Assisted pull-up",
+   "equipmentIds": [
+    "eq_x_assisted_pull_up_machine"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use assistance that allows controlled reps without swinging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lats; teres major; scapular muscles",
+   "why": "Scalable vertical bodyweight pull",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_reverse_pec_deck",
+   "name": "Reverse pec deck",
+   "equipmentIds": [
+    "eq_x_pec_deck_machine"
+   ],
+   "primaryMuscles": [
+    "Back",
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep chest supported; open arms without jerking.",
+    "Keep chest on pad and move arms without jerking."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Rear delts; rhomboids; middle traps",
+   "why": "Supported rear-shoulder and scapular work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_face_pull",
+   "name": "Cable face pull",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Back",
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Pull toward eye level; keep ribs down and load moderate.",
+    "Pull toward eye level with controlled shoulder rotation."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Rear delts; middle/lower traps; external rotators",
+   "why": "Combines upper-back and rear-shoulder work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_one_arm_dumbbell_row",
+   "name": "One-arm dumbbell row",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep torso stable; pull elbow back without twisting."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lats; rhomboids; middle traps",
+   "why": "Unilateral row with hand support",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_shrug",
+   "name": "Dumbbell shrug",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Lift shoulders straight upward; do not roll them."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Upper trapezius",
+   "why": "Includes upper-trap elevation work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_incline_dumbbell_y_raise",
+   "name": "Incline dumbbell Y-raise",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Back"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Pull",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use light weights; lift arms in a Y without arching the back."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lower trapezius; shoulder stabilizers",
+   "why": "Adds lower-trap-oriented upward-rotation work",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_lateral_raise",
+   "name": "Cable lateral raise",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Raise in a comfortable slightly forward plane; avoid shrugging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lateral deltoid",
+   "why": "Adjustable lateral-delt isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_shoulder_press",
+   "name": "Machine shoulder press",
+   "equipmentIds": [
+    "eq_x_shoulder_press_machine"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set seat for comfortable handles; avoid excessive back arch."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Anterior/lateral deltoids; triceps",
+   "why": "Stable overhead press with easy progression",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_dumbbell_lateral_raise",
+   "name": "Dumbbell lateral raise",
+   "equipmentIds": [
+    "eq_dumbbells"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use soft elbows; stop at a comfortable height without swinging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Lateral deltoid",
+   "why": "Simple lateral-delt alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_dumbbell_shoulder_press",
+   "name": "Seated dumbbell shoulder press",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a comfortable grip and keep ribs down."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Anterior/lateral deltoids; triceps",
+   "why": "Independent-arm overhead loading",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_rear_delt_fly",
+   "name": "Cable rear-delt fly",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep a slight elbow bend; open arms without torso rotation."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Posterior deltoid; middle traps",
+   "why": "Cable alternative for rear shoulders",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_lateral_raise",
+   "name": "Machine lateral raise",
+   "equipmentIds": [
+    "eq_x_lateral_raise_machine"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align seat/pads with machine instructions; avoid bouncing."
+   ],
+   "safety": "Equipment availability varies by gym. Dedicated machine may be absent at your gym.",
+   "target": "Lateral deltoid",
+   "why": "Supported shoulder-abduction isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_smith_overhead_press",
+   "name": "Smith overhead press",
+   "equipmentIds": [
+    "eq_smith",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set safeties and seat position; avoid behind-neck pressing."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Anterior/lateral deltoids; triceps",
+   "why": "Guided-bar overhead press alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_cable_front_raise",
+   "name": "Cable front raise",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Shoulders"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Raise forward without leaning back; often redundant with presses."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Anterior deltoid",
+   "why": "Optional anterior-delt isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_machine_chest_press",
+   "name": "Machine chest press",
+   "equipmentIds": [
+    "eq_chest_press"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set handles near mid-chest; keep shoulders comfortable against pad."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Pectoralis major; triceps; anterior deltoids",
+   "why": "Stable, progressively loadable pressing",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_incline_dumbbell_press",
+   "name": "Incline dumbbell press",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a moderate incline and controlled lowering."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Clavicular pectoralis emphasis; triceps",
+   "why": "Adds upper-chest-oriented pressing",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_flat_dumbbell_bench_press",
+   "name": "Flat dumbbell bench press",
+   "equipmentIds": [
+    "eq_dumbbells",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep wrists over elbows and shoulders stable."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Pectoralis major; triceps",
+   "why": "Independent-arm horizontal pressing",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_smith_flat_bench_press",
+   "name": "Smith flat bench press",
+   "equipmentIds": [
+    "eq_smith",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set safeties; position bench for a comfortable bar path."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Pectoralis major; triceps",
+   "why": "Guided-bar flat pressing alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_pec_deck_fly",
+   "name": "Pec deck fly",
+   "equipmentIds": [
+    "eq_x_pec_deck_machine"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Avoid forcing a deep shoulder stretch; bring arms together smoothly."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Pectoralis major",
+   "why": "Supported chest isolation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_standing_cable_chest_fly",
+   "name": "Standing cable chest fly",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep elbows slightly bent; bring arms together without rocking."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Pectoralis major",
+   "why": "Adjustable chest-adduction exercise",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_incline_machine_chest_press",
+   "name": "Incline machine chest press",
+   "equipmentIds": [
+    "eq_x_incline_chest_press_machine"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set seat for comfortable pressing; avoid shrugging."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Clavicular pectoralis emphasis; triceps",
+   "why": "Stable upper-chest press",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_smith_incline_bench_press",
+   "name": "Smith incline bench press",
+   "equipmentIds": [
+    "eq_smith",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Set safeties; use a moderate incline and comfortable depth."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Clavicular pectoralis emphasis; triceps",
+   "why": "Guided-bar incline alternative",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_low_to_high_cable_fly",
+   "name": "Low-to-high cable fly",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Chest"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Push",
+   "difficulty": "Beginner",
+   "steps": [
+    "Sweep hands upward and inward without leaning back."
+   ],
+   "safety": "Equipment availability varies by gym.",
+   "target": "Clavicular pectoralis emphasis",
+   "why": "Upward fly path for upper-chest variety",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/"
+  },
+  {
+   "id": "ex_x_seated_abdominal_crunch_machine",
+   "name": "Seated abdominal crunch machine",
+   "equipmentIds": [
+    "eq_x_abdominal_crunch_machine"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Curl ribs toward pelvis; avoid pulling only with the arms."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Rectus abdominis",
+   "why": "Supported, loadable abdominal flexion",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_kneeling_cable_crunch",
+   "name": "Kneeling cable crunch",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Round through the trunk gently; do not just hinge at the hips."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Rectus abdominis",
+   "why": "Straightforward load progression",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_standing_cable_pallof_press",
+   "name": "Standing cable Pallof press",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Stand side-on; press hands forward without rotating torso."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Obliques; deep trunk stabilizers",
+   "why": "Adds resistance to trunk rotation",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/332/standing-anti-rotation-press/"
+  },
+  {
+   "id": "ex_x_standing_cable_crunch",
+   "name": "Standing cable crunch",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Draw ribs toward pelvis rather than folding only at hips."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Rectus abdominis",
+   "why": "No floor work required",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/331/standing-crunch/"
+  },
+  {
+   "id": "ex_x_seated_cable_crunch",
+   "name": "Seated cable crunch",
+   "equipmentIds": [
+    "eq_x_cable",
+    "eq_adjustable_bench"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Keep hips steady and curl the rib cage toward pelvis."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Rectus abdominis",
+   "why": "Bench-supported cable alternative",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_high_to_low_cable_chop",
+   "name": "High-to-low cable chop",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Turn through hips and trunk together; avoid wrenching the low back."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Obliques; abdominal wall",
+   "why": "Adds controlled diagonal trunk work",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_low_to_high_cable_lift",
+   "name": "Low-to-high cable lift",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use light load and controlled hip/trunk rotation."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Obliques; abdominal wall",
+   "why": "Opposite diagonal to the cable chop",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_cable_side_bend",
+   "name": "Cable side bend",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Use a small comfortable range without rotating."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Obliques; quadratus lumborum",
+   "why": "Loadable lateral trunk movement",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_torso_rotation_machine",
+   "name": "Torso rotation machine",
+   "equipmentIds": [
+    "eq_x_torso_rotation_machine"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Align machine settings; keep range modest and avoid forcing end positions."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout. Skip if rotation causes back discomfort.",
+   "target": "Obliques",
+   "why": "Supported rotational option if comfortable",
+   "source": "https://exrx.net/Lists/ExList/WaistWt"
+  },
+  {
+   "id": "ex_x_cable_pallof_hold",
+   "name": "Cable Pallof hold",
+   "equipmentIds": [
+    "eq_x_cable"
+   ],
+   "primaryMuscles": [
+    "Core"
+   ],
+   "secondaryMuscles": [],
+   "movement": "Core",
+   "difficulty": "Beginner",
+   "steps": [
+    "Hold arms extended; breathe while keeping torso square."
+   ],
+   "safety": "All core entries use machines/cables. Variants overlap; this is a menu, not one workout.",
+   "target": "Obliques; deep trunk stabilizers",
+   "why": "Static anti-rotation alternative to press repetitions",
+   "source": "https://www.acefitness.org/resources/everyone/exercise-library/332/standing-anti-rotation-press/"
+  }
+ ]
+}
