@@ -32,7 +32,7 @@ jobs:
       - name: Upload website files
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./website
+          path: ./Website
 
       - name: Deploy to GitHub Pages
         id: deployment
