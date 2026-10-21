@@ -1,0 +1,4283 @@
+{
+  "muscles": {
+    "pecs": "Pectoralis major (chest)",
+    "upper_pecs": "Clavicular pectoralis major (upper chest)",
+    "front_delts": "Anterior deltoids (front shoulders)",
+    "side_delts": "Lateral deltoids (side shoulders)",
+    "rear_delts": "Posterior deltoids (rear shoulders)",
+    "biceps": "Biceps brachii",
+    "brachialis": "Brachialis",
+    "triceps": "Triceps brachii",
+    "forearm_flexors": "Forearm / finger flexors (grip)",
+    "forearm_extensors": "Forearm / wrist extensors",
+    "brachioradialis": "Brachioradialis (outer forearm)",
+    "rotator_cuff": "Rotator cuff (deep shoulder)",
+    "traps_upper": "Upper trapezius",
+    "traps_mid": "Middle trapezius",
+    "traps_lower": "Lower trapezius",
+    "rhomboids": "Rhomboids (beneath trapezius)",
+    "lats": "Latissimus dorsi (lats)",
+    "serratus": "Serratus anterior",
+    "abs": "Rectus abdominis (abs)",
+    "obliques": "Internal / external obliques",
+    "deep_core": "Transversus abdominis (deep core)",
+    "erectors": "Erector spinae (spinal extensors)",
+    "glutes": "Gluteus maximus",
+    "glute_med": "Gluteus medius / minimus (hip stabilizers)",
+    "hip_flexors": "Iliopsoas / hip flexors (deep)",
+    "adductors": "Hip adductors (inner thighs)",
+    "quads": "Quadriceps",
+    "hamstrings": "Hamstrings",
+    "calves": "Gastrocnemius (calf)",
+    "soleus": "Soleus (deep calf)",
+    "tibialis": "Tibialis anterior (front shin)"
+  },
+  "profiles": {
+    "bench": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts",
+        "triceps"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "traps_mid"
+      ],
+      "note": "Flat or floor press. The floor limits shoulder extension; dumbbells require more independent shoulder control.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/barbell-bench-press"
+    },
+    "incline": {
+      "primary": [
+        "upper_pecs"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts",
+        "triceps"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "traps_mid"
+      ],
+      "note": "An incline biases the clavicular (upper) chest. Shoulder contribution increases as the bench gets steeper.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "decline": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "triceps",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "traps_mid"
+      ],
+      "note": "Lower chest emphasis; the whole pectoralis major still contributes.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_press": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts",
+        "triceps"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "The machine or Smith track guides the load, reducing balance demands compared with free weights.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_incline": {
+      "primary": [
+        "upper_pecs"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts",
+        "triceps"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Inclined, supported machine press; upper chest emphasis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "close_press": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "traps_mid"
+      ],
+      "note": "Triceps emphasis. A JM press blends pressing and elbow extension; its chest contribution is smaller.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pushup": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts",
+        "triceps",
+        "serratus"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "obliques",
+        "glutes",
+        "rotator_cuff"
+      ],
+      "note": "The trunk stays braced as the arms press. Serratus anterior moves and controls the shoulder blades.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "close_pushup": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts",
+        "serratus"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "obliques",
+        "glutes",
+        "rotator_cuff"
+      ],
+      "note": "",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "dip": {
+      "primary": [
+        "triceps",
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "traps_lower",
+        "abs"
+      ],
+      "note": "More forward torso lean generally increases chest contribution. Assistance reduces the load, not the basic muscle pattern.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_dip": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Supported seated dip machine.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "fly": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "biceps"
+      ],
+      "note": "Biceps help hold the elbow angle; they are not the main mover. A floor fly limits the bottom range.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "cable_fly": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core",
+        "obliques"
+      ],
+      "note": "Standing cable fly or press-around. Torso bracing resists the cable's pull; cable height changes chest emphasis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "incline_fly": {
+      "primary": [
+        "upper_pecs"
+      ],
+      "assisting": [
+        "pecs",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "biceps"
+      ],
+      "note": "",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pec_deck": {
+      "primary": [
+        "pecs"
+      ],
+      "assisting": [
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Chest fly with the torso supported. Handle and elbow-pad designs have different stabilization demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pullover": {
+      "primary": [
+        "lats",
+        "pecs"
+      ],
+      "assisting": [
+        "triceps",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Shoulder extension involves both lats and chest. Rib position, elbow angle and range affect emphasis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "forearm_flexors",
+        "rotator_cuff"
+      ],
+      "note": "Unsupported bent-over row: spinal extensors and abdominal bracing hold the torso still.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "one_arm_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "obliques",
+        "deep_core",
+        "erectors",
+        "forearm_flexors",
+        "rotator_cuff"
+      ],
+      "note": "Single-arm row. Obliques resist torso rotation; hand or bench support reduces lower-back demand.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "supported_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Chest support reduces the need to hold a bent-over torso position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/seated-machine-row-close-grip"
+    },
+    "seated_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "forearm_flexors",
+        "rotator_cuff"
+      ],
+      "note": "Seated row without chest support. Keep the torso steady instead of rocking with the load.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "one_arm_cable_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "obliques",
+        "deep_core",
+        "erectors",
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Single-arm cable row: the trunk resists the cable's rotational pull.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "high_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids",
+        "rear_delts"
+      ],
+      "assisting": [
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Assumes a supported high-row machine. Elbow path changes the balance between lats and upper back.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "inverted_row": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rear_delts",
+        "biceps",
+        "brachialis"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "glutes",
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Bodyweight row; core and glutes hold the body in a straight line.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pulldown": {
+      "primary": [
+        "lats"
+      ],
+      "assisting": [
+        "biceps",
+        "brachialis",
+        "traps_lower",
+        "rhomboids",
+        "rear_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core",
+        "forearm_flexors"
+      ],
+      "note": "Vertical pull. Grip and elbow path change emphasis; forearm flexors maintain the grip.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "one_arm_pulldown": {
+      "primary": [
+        "lats"
+      ],
+      "assisting": [
+        "biceps",
+        "brachialis",
+        "traps_lower"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "obliques",
+        "deep_core",
+        "forearm_flexors"
+      ],
+      "note": "Single-arm pulldown; obliques help resist leaning and rotation.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pullup": {
+      "primary": [
+        "lats"
+      ],
+      "assisting": [
+        "biceps",
+        "brachialis",
+        "traps_lower",
+        "rhomboids",
+        "rear_delts"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Overhand pull-up. Assisted versions reduce load while preserving the basic pulling pattern.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/pull-up"
+    },
+    "chinup": {
+      "primary": [
+        "lats",
+        "biceps"
+      ],
+      "assisting": [
+        "brachialis",
+        "traps_lower",
+        "rhomboids"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Underhand grip gives the biceps a stronger role than in a typical overhand pull-up.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "straight_arm_pull": {
+      "primary": [
+        "lats"
+      ],
+      "assisting": [
+        "pecs",
+        "triceps",
+        "rear_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core",
+        "obliques"
+      ],
+      "note": "Shoulder extension with a nearly fixed elbow angle. Triceps assist shoulder extension and hold the elbow position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "overhead_press": {
+      "primary": [
+        "front_delts",
+        "side_delts"
+      ],
+      "assisting": [
+        "triceps",
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core",
+        "obliques",
+        "glutes"
+      ],
+      "note": "Standing strict press. The clean-and-press has an additional lower-body pull phase; see its separate option below.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "seated_press": {
+      "primary": [
+        "front_delts",
+        "side_delts"
+      ],
+      "assisting": [
+        "triceps",
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Seated press; back support reduces torso demands. Arnold presses add rotation. Behind-the-neck variations require suitable shoulder mobility.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_shoulder_press": {
+      "primary": [
+        "front_delts",
+        "side_delts"
+      ],
+      "assisting": [
+        "triceps",
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Guided overhead press. A supported torso and guided path reduce balance demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "lateral_raise": {
+      "primary": [
+        "side_delts"
+      ],
+      "assisting": [
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Raise out to the side. The supraspinatus (part of the rotator cuff) also assists the lift while stabilizing the shoulder.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "seated_raise": {
+      "primary": [
+        "side_delts"
+      ],
+      "assisting": [
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Seated lateral raise; sitting reduces whole-body balance demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "fdl_raise": {
+      "primary": [
+        "front_delts",
+        "side_delts",
+        "rear_delts"
+      ],
+      "assisting": [
+        "traps_upper",
+        "serratus"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "FDL is interpreted as a front / lateral / rear-delt raise sequence. Each phase emphasizes a different deltoid head.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "rear_fly": {
+      "primary": [
+        "rear_delts"
+      ],
+      "assisting": [
+        "traps_mid",
+        "rhomboids"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "erectors",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Rear-delt fly. Bent-over versions need spinal support; standing cable versions need torso bracing.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "reverse_deck": {
+      "primary": [
+        "rear_delts"
+      ],
+      "assisting": [
+        "traps_mid",
+        "rhomboids"
+      ],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Supported reverse fly; shoulder blades retract as the arms open.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "face_pull": {
+      "primary": [
+        "rear_delts",
+        "rotator_cuff"
+      ],
+      "assisting": [
+        "traps_mid",
+        "traps_lower",
+        "rhomboids"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "obliques"
+      ],
+      "note": "Assumes a face pull ending with external shoulder rotation. External rotators both move and stabilize the shoulder.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pull_apart": {
+      "primary": [
+        "rear_delts",
+        "traps_mid",
+        "rhomboids"
+      ],
+      "assisting": [
+        "rotator_cuff"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Warm-up activation, rather than a heavy working set.",
+      "kind": "activation",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "external_rotation": {
+      "primary": [
+        "rotator_cuff"
+      ],
+      "assisting": [
+        "rear_delts"
+      ],
+      "stabilizers": [
+        "traps_mid",
+        "rhomboids",
+        "abs"
+      ],
+      "note": "Infraspinatus and teres minor externally rotate the shoulder. The cuff is shown schematically.",
+      "kind": "activation",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "internal_rotation": {
+      "primary": [
+        "rotator_cuff"
+      ],
+      "assisting": [
+        "pecs",
+        "lats"
+      ],
+      "stabilizers": [
+        "traps_mid",
+        "rhomboids",
+        "abs"
+      ],
+      "note": "Subscapularis is the principal cuff internal rotator; assistance depends on arm position.",
+      "kind": "activation",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "upright_row": {
+      "primary": [
+        "side_delts",
+        "traps_upper"
+      ],
+      "assisting": [
+        "biceps",
+        "brachialis",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "abs",
+        "deep_core",
+        "forearm_flexors"
+      ],
+      "note": "",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "shrug": {
+      "primary": [
+        "traps_upper"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "erectors",
+        "abs",
+        "deep_core",
+        "forearm_flexors"
+      ],
+      "note": "Upper trapezius elevates the shoulder blades. Levator scapulae also assists but is not separately drawn.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "seated_shrug": {
+      "primary": [
+        "traps_upper"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Seated shrug; the seat reduces postural demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "curl": {
+      "primary": [
+        "biceps"
+      ],
+      "assisting": [
+        "brachialis"
+      ],
+      "stabilizers": [
+        "forearm_flexors",
+        "rotator_cuff",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Supinated elbow curl. Forearm muscles stabilize the wrist; the torso stays still.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "supported_curl": {
+      "primary": [
+        "biceps"
+      ],
+      "assisting": [
+        "brachialis"
+      ],
+      "stabilizers": [
+        "forearm_flexors",
+        "rotator_cuff"
+      ],
+      "note": "Seated, incline or upper-arm-supported curl. Shoulder position changes the biceps' working length.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "hammer_curl": {
+      "primary": [
+        "brachialis",
+        "brachioradialis"
+      ],
+      "assisting": [
+        "biceps"
+      ],
+      "stabilizers": [
+        "forearm_flexors",
+        "forearm_extensors",
+        "rotator_cuff",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Neutral grip emphasizes brachialis and brachioradialis. Forearm flexors and extensors hold the wrist position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "zottman": {
+      "primary": [
+        "biceps",
+        "brachialis",
+        "brachioradialis"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "forearm_flexors",
+        "forearm_extensors",
+        "rotator_cuff",
+        "abs"
+      ],
+      "note": "Supinated lifting phase and pronated lowering phase involve the biceps, brachialis and brachioradialis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "wrist_curl": {
+      "primary": [
+        "forearm_flexors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "forearm_extensors"
+      ],
+      "note": "Forearm supported; wrist flexion targets the wrist and finger flexor group.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "reverse_wrist": {
+      "primary": [
+        "forearm_extensors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "forearm_flexors"
+      ],
+      "note": "Forearm supported; wrist extension targets the forearm extensor group.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pushdown": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Cable elbow extension with the upper arms held still. Rope Extension is interpreted as a rope pushdown.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "overhead_extension": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "forearm_flexors",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Overhead elbow extension lengthens the triceps long head. Seated or supported versions reduce torso demand.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "skullcrusher": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Lying elbow extension; shoulder muscles hold the upper arms in position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_triceps": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Supported elbow-extension machine; upper-arm support reduces shoulder and torso demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "kickback": {
+      "primary": [
+        "triceps"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rear_delts",
+        "rotator_cuff",
+        "erectors",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Assumes a bent-over dumbbell kickback. Bench support reduces spinal stabilization demand.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "squat": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "glute_med",
+        "calves"
+      ],
+      "note": "Knee and hip extension. A plie stance increases adductor involvement; depth and stance alter emphasis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "front_squat": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "traps_upper",
+        "calves"
+      ],
+      "note": "Anterior loading increases the demand to keep the torso upright.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "machine_squat": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "calves"
+      ],
+      "note": "Guided squat. Hack and pendulum pads support the torso; a Smith squat still requires active trunk bracing.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "sissy_squat": {
+      "primary": [
+        "quads"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "glutes",
+        "calves"
+      ],
+      "note": "Knee-dominant squat with extended hips. Hand support reduces balance requirements.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "leg_press": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "calves"
+      ],
+      "note": "The back pad supports the torso. Foot placement and depth affect hip and knee contributions.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "lunge": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "obliques",
+        "erectors",
+        "calves"
+      ],
+      "note": "Split-stance or stepping leg exercise. Hip abductors help keep the pelvis level; both sides are shown for alternating sets.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "lateral_lunge": {
+      "primary": [
+        "quads",
+        "glutes",
+        "adductors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "obliques",
+        "calves"
+      ],
+      "note": "Sideways lunge; adductors lengthen and contribute to returning to the starting position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "smith_lunge": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "calves"
+      ],
+      "note": "Guided reverse lunge reduces free-weight balance demands.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "stepup": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "obliques",
+        "calves"
+      ],
+      "note": "Step-up on the working leg. Hip abductors stabilize the pelvis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "deadlift": {
+      "primary": [
+        "glutes",
+        "quads"
+      ],
+      "assisting": [
+        "hamstrings",
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "lats",
+        "traps_upper",
+        "forearm_flexors"
+      ],
+      "note": "Conventional floor pull. Spinal extensors brace rather than deliberately flexing and extending the back. Snatch grip increases upper-back demand.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/barbell-deadlift"
+    },
+    "rack_pull": {
+      "primary": [
+        "glutes"
+      ],
+      "assisting": [
+        "hamstrings",
+        "quads"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "lats",
+        "traps_upper",
+        "forearm_flexors"
+      ],
+      "note": "Raised starting position reduces range and usually reduces knee-extension demand relative to a floor deadlift.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "rdl": {
+      "primary": [
+        "hamstrings",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "lats",
+        "forearm_flexors"
+      ],
+      "note": "Hip hinge with relatively little knee movement. Spinal extensors hold the back position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift"
+    },
+    "single_rdl": {
+      "primary": [
+        "hamstrings",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "forearm_flexors",
+        "calves"
+      ],
+      "note": "Single-leg hinge adds pelvic and balance control; both sides are shown for alternating sets.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "good_morning": {
+      "primary": [
+        "hamstrings",
+        "glutes"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "traps_upper"
+      ],
+      "note": "Hip hinge with the load supported at the shoulders.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "hip_thrust": {
+      "primary": [
+        "glutes"
+      ],
+      "assisting": [
+        "hamstrings",
+        "adductors"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "obliques",
+        "glute_med",
+        "erectors"
+      ],
+      "note": "Hip extension with the upper back supported. Keep the trunk and pelvis controlled.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pullthrough": {
+      "primary": [
+        "glutes",
+        "hamstrings"
+      ],
+      "assisting": [
+        "adductors"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques"
+      ],
+      "note": "Cable-resisted hip hinge.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "back_extension": {
+      "primary": [
+        "erectors",
+        "glutes",
+        "hamstrings"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "glute_med"
+      ],
+      "note": "A hip-dominant extension emphasizes glutes and hamstrings; controlled spinal extension increases erector involvement. This map shows both common techniques.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "reverse_hyper": {
+      "primary": [
+        "glutes",
+        "hamstrings"
+      ],
+      "assisting": [
+        "erectors"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Legs move while the torso is supported.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "superman": {
+      "primary": [
+        "erectors",
+        "glutes"
+      ],
+      "assisting": [
+        "hamstrings",
+        "rear_delts",
+        "traps_lower"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Prone trunk and hip extension with arms raised; keep the range controlled.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "leg_curl": {
+      "primary": [
+        "hamstrings"
+      ],
+      "assisting": [
+        "calves"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Knee flexion. Gastrocnemius can assist; seated and lying variants change hamstring length.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "standing_leg_curl": {
+      "primary": [
+        "hamstrings"
+      ],
+      "assisting": [
+        "calves"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "glutes",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Single-leg knee flexion with the torso upright. The stance hip and core stabilize the pelvis.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "glute_ham": {
+      "primary": [
+        "hamstrings"
+      ],
+      "assisting": [
+        "glutes",
+        "calves"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Knee flexion with hip extension and trunk control.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "leg_extension": {
+      "primary": [
+        "quads"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Supported knee extension isolates the quadriceps.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "abduction": {
+      "primary": [
+        "glute_med"
+      ],
+      "assisting": [
+        "glutes"
+      ],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "Gluteus medius and minimus abduct the hip; tensor fasciae latae also assists but is not separately drawn.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "adduction": {
+      "primary": [
+        "adductors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "deep_core"
+      ],
+      "note": "The inner-thigh adductor group draws the thighs together.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "standing_calf": {
+      "primary": [
+        "calves",
+        "soleus"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "tibialis",
+        "glute_med",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Straight-knee calf raise emphasizes gastrocnemius with soleus contributing. Unspecified calf exercises assume a standing, straight-knee version.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "supported_calf": {
+      "primary": [
+        "calves",
+        "soleus"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "tibialis",
+        "abs",
+        "deep_core"
+      ],
+      "note": "Straight-knee calf press or guided raise. The equipment reduces balance demands compared with an unsupported standing raise.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "seated_calf": {
+      "primary": [
+        "soleus"
+      ],
+      "assisting": [
+        "calves"
+      ],
+      "stabilizers": [],
+      "note": "Bent knees shorten the gastrocnemius, shifting emphasis toward soleus.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "crunch": {
+      "primary": [
+        "abs"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "deep_core"
+      ],
+      "note": "Trunk flexion. Cable and machine versions add resistance; keep the hips relatively still.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "situp": {
+      "primary": [
+        "abs",
+        "hip_flexors"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "deep_core"
+      ],
+      "note": "A full sit-up involves both trunk flexion and hip flexion.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "leg_raise": {
+      "primary": [
+        "hip_flexors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "deep_core"
+      ],
+      "note": "Hip flexors raise the thighs. Abs resist the tendency for the lower back to arch; adding a pelvic curl gives the abs a moving role.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "reverse_crunch": {
+      "primary": [
+        "abs"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "deep_core",
+        "hip_flexors"
+      ],
+      "note": "Abs curl the pelvis toward the ribs. Hip flexors help hold the legs in position rather than swinging them.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "v_up": {
+      "primary": [
+        "abs",
+        "hip_flexors"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "deep_core"
+      ],
+      "note": "Combined trunk and hip flexion brings the torso and legs together.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "hanging_raise": {
+      "primary": [
+        "hip_flexors",
+        "abs"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "deep_core",
+        "lats",
+        "rotator_cuff",
+        "forearm_flexors"
+      ],
+      "note": "Abs posteriorly tilt the pelvis; hip flexors raise the thighs. Grip and shoulder muscles support the hang.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "bicycle": {
+      "primary": [
+        "abs",
+        "obliques"
+      ],
+      "assisting": [
+        "hip_flexors"
+      ],
+      "stabilizers": [
+        "deep_core"
+      ],
+      "note": "Trunk flexion and rotation with alternating hip flexion.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "plank": {
+      "primary": [
+        "abs",
+        "deep_core"
+      ],
+      "assisting": [
+        "obliques"
+      ],
+      "stabilizers": [
+        "serratus",
+        "rotator_cuff",
+        "glutes",
+        "quads",
+        "erectors"
+      ],
+      "note": "The target muscles work isometrically to resist spinal extension; targets need not move a joint.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library/plank"
+    },
+    "side_plank": {
+      "primary": [
+        "obliques",
+        "deep_core"
+      ],
+      "assisting": [
+        "glute_med"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "glutes",
+        "erectors"
+      ],
+      "note": "Lateral core stability. Quadratus lumborum also contributes but is not separately drawn; both sides are shown for alternating holds.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "hollow": {
+      "primary": [
+        "abs",
+        "deep_core"
+      ],
+      "assisting": [
+        "obliques",
+        "hip_flexors"
+      ],
+      "stabilizers": [
+        "quads"
+      ],
+      "note": "Isometric anti-extension hold; maintain a controlled pelvic position.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "rollout": {
+      "primary": [
+        "abs",
+        "deep_core"
+      ],
+      "assisting": [
+        "obliques",
+        "lats",
+        "pecs"
+      ],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus",
+        "glutes",
+        "triceps"
+      ],
+      "note": "Anti-extension core work as the arms reach overhead.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "jump_squat": {
+      "primary": [
+        "quads",
+        "glutes",
+        "calves"
+      ],
+      "assisting": [
+        "hamstrings",
+        "soleus"
+      ],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "erectors"
+      ],
+      "note": "Explosive squat and jump; the same muscle groups control the landing.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "deep_squat": {
+      "primary": [
+        "quads",
+        "glutes",
+        "adductors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "abs",
+        "deep_core",
+        "erectors",
+        "calves"
+      ],
+      "note": "Warm-up squat through a comfortable range.",
+      "kind": "activation",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "pass_through": {
+      "primary": [
+        "pecs",
+        "lats",
+        "front_delts"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "traps_mid",
+        "abs"
+      ],
+      "note": "Shoulder mobility: highlighted target regions are moved or lengthened, not necessarily strengthened. Use a wide, comfortable grip.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "child_cobra": {
+      "primary": [
+        "lats",
+        "erectors",
+        "abs",
+        "hip_flexors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff",
+        "serratus"
+      ],
+      "note": "Alternating positions lengthen different trunk regions. These are mobility targets, not simultaneous prime movers.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "child_reach": {
+      "primary": [
+        "lats",
+        "erectors",
+        "obliques"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "rotator_cuff"
+      ],
+      "note": "Reach forward or sideways to lengthen the back and side of the trunk.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "leg_swing": {
+      "primary": [
+        "hip_flexors",
+        "hamstrings",
+        "glutes",
+        "adductors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "calves"
+      ],
+      "note": "Dynamic hip mobility. Front-to-back and side-to-side swings move different regions; the stance leg stabilizes the pelvis.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "lunge_arch": {
+      "primary": [
+        "hip_flexors",
+        "abs"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "glutes",
+        "glute_med",
+        "deep_core"
+      ],
+      "note": "Mobility targets the front of the hip and trunk; avoid forcing lumbar extension.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "side_lunge_stretch": {
+      "primary": [
+        "adductors"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "quads",
+        "glutes",
+        "glute_med",
+        "deep_core"
+      ],
+      "note": "Inner-thigh stretch; the bent leg supports the position.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "hamstring_stretch": {
+      "primary": [
+        "hamstrings"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "glute_med",
+        "abs",
+        "deep_core",
+        "calves"
+      ],
+      "note": "Lengthen the hamstrings with a controlled hip hinge; hand support reduces balance demand.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "world_stretch": {
+      "primary": [
+        "hip_flexors",
+        "adductors",
+        "hamstrings",
+        "glutes",
+        "pecs"
+      ],
+      "assisting": [],
+      "stabilizers": [
+        "obliques",
+        "deep_core",
+        "rotator_cuff",
+        "serratus"
+      ],
+      "note": "Multi-position lunge and rotation sequence. Highlights show regions mobilized across the sequence, rather than simultaneous contraction.",
+      "kind": "mobility",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "foam_roll": {
+      "primary": [
+        "lats",
+        "traps_mid",
+        "rear_delts",
+        "pecs"
+      ],
+      "assisting": [],
+      "stabilizers": [],
+      "note": "Shown regions are possible soft-tissue targets, not working muscles. The program does not prescribe a specific rolling area or position.",
+      "kind": "recovery",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    },
+    "clean": {
+      "primary": [
+        "glutes",
+        "quads",
+        "traps_upper"
+      ],
+      "assisting": [
+        "hamstrings",
+        "calves",
+        "front_delts"
+      ],
+      "stabilizers": [
+        "erectors",
+        "abs",
+        "deep_core",
+        "obliques",
+        "forearm_flexors"
+      ],
+      "note": "Clean phase: hip and knee extension accelerate the bar, then the shoulders support the front-rack catch. The press phase has a different map.",
+      "kind": "strength",
+      "source": "https://www.nasm.org/resource-center/exercise-library"
+    }
+  },
+  "exercises": {
+    "alternating_dumbbell_curls": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_alternating_dumbbell_curls"
+      }
+    ],
+    "alternating_biceps_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_alternating_biceps_curl"
+      }
+    ],
+    "arnold_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_arnold_press"
+      }
+    ],
+    "assisted_bar_dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_assisted_bar_dip"
+      }
+    ],
+    "back_extension": [
+      {
+        "label": "",
+        "profile": "back_extension",
+        "image": "mm_back_extension"
+      }
+    ],
+    "back_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_back_squat"
+      }
+    ],
+    "banded_pull_apart": [
+      {
+        "label": "",
+        "profile": "pull_apart",
+        "image": "mm_banded_pull_apart"
+      }
+    ],
+    "banded_shoulder_pass_through": [
+      {
+        "label": "",
+        "profile": "pass_through",
+        "image": "mm_banded_shoulder_pass_through"
+      }
+    ],
+    "bar_dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_bar_dip"
+      }
+    ],
+    "barbell_bench_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_barbell_bench_press"
+      }
+    ],
+    "barbell_bent_over_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_barbell_bent_over_row"
+      }
+    ],
+    "barbell_bicep_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_barbell_bicep_curl"
+      }
+    ],
+    "barbell_clean_and_press": [
+      {
+        "label": "Clean phase",
+        "profile": "clean",
+        "image": "mm_barbell_clean_and_press_clean"
+      },
+      {
+        "label": "Press phase",
+        "profile": "overhead_press",
+        "image": "mm_barbell_clean_and_press_overhead_press"
+      }
+    ],
+    "barbell_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_barbell_curl"
+      }
+    ],
+    "barbell_incline_bench_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_barbell_incline_bench_press"
+      }
+    ],
+    "barbell_jm_press": [
+      {
+        "label": "",
+        "profile": "close_press",
+        "image": "mm_barbell_jm_press"
+      }
+    ],
+    "barbell_lunge": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_barbell_lunge"
+      }
+    ],
+    "barbell_romanian_deadlift": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_barbell_romanian_deadlift"
+      }
+    ],
+    "barbell_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_barbell_row"
+      }
+    ],
+    "barbell_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_barbell_squat"
+      }
+    ],
+    "barbell_upright_row": [
+      {
+        "label": "",
+        "profile": "upright_row",
+        "image": "mm_barbell_upright_row"
+      }
+    ],
+    "barbell_back_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_barbell_back_squat"
+      }
+    ],
+    "barbell_back_squat_back_off": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_barbell_back_squat_back_off"
+      }
+    ],
+    "barbell_biceps_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_barbell_biceps_curl"
+      }
+    ],
+    "barbell_conventional_deadlift": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_barbell_conventional_deadlift"
+      }
+    ],
+    "barbell_conventional_deadlift_back_off": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_barbell_conventional_deadlift_back_off"
+      }
+    ],
+    "barbell_front_squat": [
+      {
+        "label": "",
+        "profile": "front_squat",
+        "image": "mm_barbell_front_squat"
+      }
+    ],
+    "barbell_front_squat_back_off": [
+      {
+        "label": "",
+        "profile": "front_squat",
+        "image": "mm_barbell_front_squat_back_off"
+      }
+    ],
+    "barbell_good_morning": [
+      {
+        "label": "",
+        "profile": "good_morning",
+        "image": "mm_barbell_good_morning"
+      }
+    ],
+    "barbell_hip_thrust": [
+      {
+        "label": "",
+        "profile": "hip_thrust",
+        "image": "mm_barbell_hip_thrust"
+      }
+    ],
+    "barbell_rollout": [
+      {
+        "label": "",
+        "profile": "rollout",
+        "image": "mm_barbell_rollout"
+      }
+    ],
+    "barbell_shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_barbell_shrug"
+      }
+    ],
+    "barbell_snatch_grip_deadlift": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_barbell_snatch_grip_deadlift"
+      }
+    ],
+    "barbell_snatch_grip_deadlift_back_off": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_barbell_snatch_grip_deadlift_back_off"
+      }
+    ],
+    "bench_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_bench_press"
+      }
+    ],
+    "bent_over_dumbbell_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_bent_over_dumbbell_row"
+      }
+    ],
+    "bent_over_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_bent_over_row"
+      }
+    ],
+    "bent_over_barbell_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_bent_over_barbell_row"
+      }
+    ],
+    "bent_over_rear_lateral_raise": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_bent_over_rear_lateral_raise"
+      }
+    ],
+    "biceps_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_biceps_curl"
+      }
+    ],
+    "bicycle_crunches": [
+      {
+        "label": "",
+        "profile": "bicycle",
+        "image": "mm_bicycle_crunches"
+      }
+    ],
+    "bodyweight_squat_jumps": [
+      {
+        "label": "",
+        "profile": "jump_squat",
+        "image": "mm_bodyweight_squat_jumps"
+      }
+    ],
+    "bodyweight_deep_squat": [
+      {
+        "label": "",
+        "profile": "deep_squat",
+        "image": "mm_bodyweight_deep_squat"
+      }
+    ],
+    "bodyweight_dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_bodyweight_dip"
+      }
+    ],
+    "bodyweight_low_back_extension": [
+      {
+        "label": "",
+        "profile": "back_extension",
+        "image": "mm_bodyweight_low_back_extension"
+      }
+    ],
+    "bulgarian_split_squat": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_bulgarian_split_squat"
+      }
+    ],
+    "cable_bicep_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_cable_bicep_curl"
+      }
+    ],
+    "cable_crunch": [
+      {
+        "label": "",
+        "profile": "crunch",
+        "image": "mm_cable_crunch"
+      }
+    ],
+    "cable_curls": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_cable_curls"
+      }
+    ],
+    "cable_deltoid_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_cable_deltoid_raise"
+      }
+    ],
+    "cable_face_pulls": [
+      {
+        "label": "",
+        "profile": "face_pull",
+        "image": "mm_cable_face_pulls"
+      }
+    ],
+    "cable_incline_fly": [
+      {
+        "label": "",
+        "profile": "incline_fly",
+        "image": "mm_cable_incline_fly"
+      }
+    ],
+    "cable_lat_pulldown": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_cable_lat_pulldown"
+      }
+    ],
+    "cable_lat_pulldown_wide_grip": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_cable_lat_pulldown_wide_grip"
+      }
+    ],
+    "cable_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_cable_lateral_raise"
+      }
+    ],
+    "cable_one_arm_lat_pulldown": [
+      {
+        "label": "",
+        "profile": "one_arm_pulldown",
+        "image": "mm_cable_one_arm_lat_pulldown"
+      }
+    ],
+    "cable_one_arm_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_cable_one_arm_lateral_raise"
+      }
+    ],
+    "cable_one_arm_tricep_pushdown_reverse_grip": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_cable_one_arm_tricep_pushdown_reverse_grip"
+      }
+    ],
+    "cable_pull_through_with_rope": [
+      {
+        "label": "",
+        "profile": "pullthrough",
+        "image": "mm_cable_pull_through_with_rope"
+      }
+    ],
+    "cable_rear_delt_fly": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_cable_rear_delt_fly"
+      }
+    ],
+    "cable_rope_face_pull": [
+      {
+        "label": "",
+        "profile": "face_pull",
+        "image": "mm_cable_rope_face_pull"
+      }
+    ],
+    "cable_rope_hammer_curl": [
+      {
+        "label": "",
+        "profile": "hammer_curl",
+        "image": "mm_cable_rope_hammer_curl"
+      }
+    ],
+    "cable_rope_overhead_tricep_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_cable_rope_overhead_tricep_extension"
+      }
+    ],
+    "cable_seated_row": [
+      {
+        "label": "",
+        "profile": "seated_row",
+        "image": "mm_cable_seated_row"
+      }
+    ],
+    "cable_straight_arm_lat_pulldown": [
+      {
+        "label": "",
+        "profile": "straight_arm_pull",
+        "image": "mm_cable_straight_arm_lat_pulldown"
+      }
+    ],
+    "cable_tricep_extension": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_cable_tricep_extension"
+      }
+    ],
+    "cable_tricep_extensions": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_cable_tricep_extensions"
+      }
+    ],
+    "cable_tricep_pushdown_v_bar": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_cable_tricep_pushdown_v_bar"
+      }
+    ],
+    "cable_upright_row": [
+      {
+        "label": "",
+        "profile": "upright_row",
+        "image": "mm_cable_upright_row"
+      }
+    ],
+    "cable_hammer_curl": [
+      {
+        "label": "",
+        "profile": "hammer_curl",
+        "image": "mm_cable_hammer_curl"
+      }
+    ],
+    "cable_lateral_raise_lengthened_position": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_cable_lateral_raise_lengthened_position"
+      }
+    ],
+    "cable_overhead_triceps_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_cable_overhead_triceps_extension"
+      }
+    ],
+    "calf_exercise": [
+      {
+        "label": "",
+        "profile": "standing_calf",
+        "image": "mm_calf_exercise"
+      }
+    ],
+    "calf_press": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_calf_press"
+      }
+    ],
+    "calf_press_on_leg_press": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_calf_press_on_leg_press"
+      }
+    ],
+    "calf_raise": [
+      {
+        "label": "",
+        "profile": "standing_calf",
+        "image": "mm_calf_raise"
+      }
+    ],
+    "calf_raise_seated_or_standing": [
+      {
+        "label": "Seated",
+        "profile": "seated_calf",
+        "image": "mm_calf_raise_seated_or_standing_seated_calf"
+      },
+      {
+        "label": "Standing",
+        "profile": "standing_calf",
+        "image": "mm_calf_raise_seated_or_standing_standing_calf"
+      }
+    ],
+    "chest_supported_dumbbell_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_chest_supported_dumbbell_row"
+      }
+    ],
+    "chest_supported_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_chest_supported_row"
+      }
+    ],
+    "child_pose_to_cobra": [
+      {
+        "label": "",
+        "profile": "child_cobra",
+        "image": "mm_child_pose_to_cobra"
+      }
+    ],
+    "child_pose_with_reach": [
+      {
+        "label": "",
+        "profile": "child_reach",
+        "image": "mm_child_pose_with_reach"
+      }
+    ],
+    "chin_up": [
+      {
+        "label": "",
+        "profile": "chinup",
+        "image": "mm_chin_up"
+      }
+    ],
+    "chin_ups": [
+      {
+        "label": "",
+        "profile": "chinup",
+        "image": "mm_chin_ups"
+      }
+    ],
+    "close_grip_bench_press": [
+      {
+        "label": "",
+        "profile": "close_press",
+        "image": "mm_close_grip_bench_press"
+      }
+    ],
+    "close_grip_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "close_press",
+        "image": "mm_close_grip_dumbbell_press"
+      }
+    ],
+    "close_grip_push_up": [
+      {
+        "label": "",
+        "profile": "close_pushup",
+        "image": "mm_close_grip_push_up"
+      }
+    ],
+    "concentration_curls": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_concentration_curls"
+      }
+    ],
+    "costal_pec_press_around": [
+      {
+        "label": "",
+        "profile": "cable_fly",
+        "image": "mm_costal_pec_press_around"
+      }
+    ],
+    "crunch": [
+      {
+        "label": "",
+        "profile": "crunch",
+        "image": "mm_crunch"
+      }
+    ],
+    "crunches": [
+      {
+        "label": "",
+        "profile": "crunch",
+        "image": "mm_crunches"
+      }
+    ],
+    "deadlift": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_deadlift"
+      }
+    ],
+    "deadlift_optional": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_deadlift_optional"
+      }
+    ],
+    "decline_floor_press": [
+      {
+        "label": "",
+        "profile": "decline",
+        "image": "mm_decline_floor_press"
+      }
+    ],
+    "decline_bench_press": [
+      {
+        "label": "",
+        "profile": "decline",
+        "image": "mm_decline_bench_press"
+      }
+    ],
+    "decline_sit_up": [
+      {
+        "label": "",
+        "profile": "situp",
+        "image": "mm_decline_sit_up"
+      }
+    ],
+    "dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_dip"
+      }
+    ],
+    "dumbbell_bench": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_dumbbell_bench"
+      }
+    ],
+    "dumbbell_bench_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_dumbbell_bench_press"
+      }
+    ],
+    "dumbbell_bicep_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_dumbbell_bicep_curl"
+      }
+    ],
+    "dumbbell_chest_fly": [
+      {
+        "label": "",
+        "profile": "fly",
+        "image": "mm_dumbbell_chest_fly"
+      }
+    ],
+    "dumbbell_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_dumbbell_curl"
+      }
+    ],
+    "dumbbell_curls": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_dumbbell_curls"
+      }
+    ],
+    "dumbbell_deadlift": [
+      {
+        "label": "",
+        "profile": "deadlift",
+        "image": "mm_dumbbell_deadlift"
+      }
+    ],
+    "dumbbell_floor_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_dumbbell_floor_press"
+      }
+    ],
+    "dumbbell_flys": [
+      {
+        "label": "",
+        "profile": "fly",
+        "image": "mm_dumbbell_flys"
+      }
+    ],
+    "dumbbell_hammer_curl": [
+      {
+        "label": "",
+        "profile": "hammer_curl",
+        "image": "mm_dumbbell_hammer_curl"
+      }
+    ],
+    "dumbbell_hammer_curls": [
+      {
+        "label": "",
+        "profile": "hammer_curl",
+        "image": "mm_dumbbell_hammer_curls"
+      }
+    ],
+    "dumbbell_hamstring_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_dumbbell_hamstring_curl"
+      }
+    ],
+    "dumbbell_hip_thrust": [
+      {
+        "label": "",
+        "profile": "hip_thrust",
+        "image": "mm_dumbbell_hip_thrust"
+      }
+    ],
+    "dumbbell_incline_bench_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_dumbbell_incline_bench_row"
+      }
+    ],
+    "dumbbell_lateral_lunge": [
+      {
+        "label": "",
+        "profile": "lateral_lunge",
+        "image": "mm_dumbbell_lateral_lunge"
+      }
+    ],
+    "dumbbell_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_dumbbell_lateral_raise"
+      }
+    ],
+    "dumbbell_lunge": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_dumbbell_lunge"
+      }
+    ],
+    "dumbbell_military_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_dumbbell_military_press"
+      }
+    ],
+    "dumbbell_plie_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_dumbbell_plie_squat"
+      }
+    ],
+    "dumbbell_pullover": [
+      {
+        "label": "",
+        "profile": "pullover",
+        "image": "mm_dumbbell_pullover"
+      }
+    ],
+    "dumbbell_pullovers": [
+      {
+        "label": "",
+        "profile": "pullover",
+        "image": "mm_dumbbell_pullovers"
+      }
+    ],
+    "dumbbell_rear_delt_fly": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_dumbbell_rear_delt_fly"
+      }
+    ],
+    "dumbbell_rear_lunge": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_dumbbell_rear_lunge"
+      }
+    ],
+    "dumbbell_row": [
+      {
+        "label": "",
+        "profile": "one_arm_row",
+        "image": "mm_dumbbell_row"
+      }
+    ],
+    "dumbbell_seated_bicep_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_dumbbell_seated_bicep_curl"
+      }
+    ],
+    "dumbbell_seated_shoulder_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_dumbbell_seated_shoulder_press"
+      }
+    ],
+    "dumbbell_shoulder_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_dumbbell_shoulder_press"
+      }
+    ],
+    "dumbbell_shoulder_shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_dumbbell_shoulder_shrug"
+      }
+    ],
+    "dumbbell_shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_dumbbell_shrug"
+      }
+    ],
+    "dumbbell_shrugs": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_dumbbell_shrugs"
+      }
+    ],
+    "dumbbell_side_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_dumbbell_side_lateral_raise"
+      }
+    ],
+    "dumbbell_spider_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_dumbbell_spider_curl"
+      }
+    ],
+    "dumbbell_split_squat": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_dumbbell_split_squat"
+      }
+    ],
+    "dumbbell_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_dumbbell_squat"
+      }
+    ],
+    "dumbbell_standing_calf_raise": [
+      {
+        "label": "",
+        "profile": "standing_calf",
+        "image": "mm_dumbbell_standing_calf_raise"
+      }
+    ],
+    "dumbbell_step_up": [
+      {
+        "label": "",
+        "profile": "stepup",
+        "image": "mm_dumbbell_step_up"
+      }
+    ],
+    "dumbbell_stiff_leg_deadlift": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_dumbbell_stiff_leg_deadlift"
+      }
+    ],
+    "dumbbell_stiff_leg_deadlifts": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_dumbbell_stiff_leg_deadlifts"
+      }
+    ],
+    "dumbbell_stiff_legged_deadlift": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_dumbbell_stiff_legged_deadlift"
+      }
+    ],
+    "dumbbell_tricep_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_dumbbell_tricep_extension"
+      }
+    ],
+    "dumbbell_triceps_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_dumbbell_triceps_extension"
+      }
+    ],
+    "dumbbell_box_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_dumbbell_box_squat"
+      }
+    ],
+    "ez_bar_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_ez_bar_curl"
+      }
+    ],
+    "ez_bar_curls": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_ez_bar_curls"
+      }
+    ],
+    "ez_bar_seated_reverse_grip_french_press": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_ez_bar_seated_reverse_grip_french_press"
+      }
+    ],
+    "ez_bar_skullcrusher": [
+      {
+        "label": "",
+        "profile": "skullcrusher",
+        "image": "mm_ez_bar_skullcrusher"
+      }
+    ],
+    "face_pull": [
+      {
+        "label": "",
+        "profile": "face_pull",
+        "image": "mm_face_pull"
+      }
+    ],
+    "flat_barbell_bench_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_flat_barbell_bench_press"
+      }
+    ],
+    "flat_bench_dumbbell_flye": [
+      {
+        "label": "",
+        "profile": "fly",
+        "image": "mm_flat_bench_dumbbell_flye"
+      }
+    ],
+    "flat_barbell_bench_press_back_off": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_flat_barbell_bench_press_back_off"
+      }
+    ],
+    "floor_dumbbell_fly": [
+      {
+        "label": "",
+        "profile": "fly",
+        "image": "mm_floor_dumbbell_fly"
+      }
+    ],
+    "floor_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_floor_dumbbell_press"
+      }
+    ],
+    "front_squat": [
+      {
+        "label": "",
+        "profile": "front_squat",
+        "image": "mm_front_squat"
+      }
+    ],
+    "glute_ham_raise": [
+      {
+        "label": "",
+        "profile": "glute_ham",
+        "image": "mm_glute_ham_raise"
+      }
+    ],
+    "goblet_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_goblet_squat"
+      }
+    ],
+    "good_morning": [
+      {
+        "label": "",
+        "profile": "good_morning",
+        "image": "mm_good_morning"
+      }
+    ],
+    "good_mornings": [
+      {
+        "label": "",
+        "profile": "good_morning",
+        "image": "mm_good_mornings"
+      }
+    ],
+    "hack_squat": [
+      {
+        "label": "",
+        "profile": "machine_squat",
+        "image": "mm_hack_squat"
+      }
+    ],
+    "hammer_curl": [
+      {
+        "label": "",
+        "profile": "hammer_curl",
+        "image": "mm_hammer_curl"
+      }
+    ],
+    "hammer_strength_machine_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_hammer_strength_machine_row"
+      }
+    ],
+    "hamstring_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_hamstring_curl"
+      }
+    ],
+    "hanging_leg_raise": [
+      {
+        "label": "",
+        "profile": "hanging_raise",
+        "image": "mm_hanging_leg_raise"
+      }
+    ],
+    "hanging_leg_raises": [
+      {
+        "label": "",
+        "profile": "hanging_raise",
+        "image": "mm_hanging_leg_raises"
+      }
+    ],
+    "high_row": [
+      {
+        "label": "",
+        "profile": "high_row",
+        "image": "mm_high_row"
+      }
+    ],
+    "high_bar_squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_high_bar_squat"
+      }
+    ],
+    "hip_abduction_machine": [
+      {
+        "label": "",
+        "profile": "abduction",
+        "image": "mm_hip_abduction_machine"
+      }
+    ],
+    "hip_adduction_machine": [
+      {
+        "label": "",
+        "profile": "adduction",
+        "image": "mm_hip_adduction_machine"
+      }
+    ],
+    "hollow_hold": [
+      {
+        "label": "",
+        "profile": "hollow",
+        "image": "mm_hollow_hold"
+      }
+    ],
+    "hyperextension": [
+      {
+        "label": "",
+        "profile": "back_extension",
+        "image": "mm_hyperextension"
+      }
+    ],
+    "incline_barbell_bench_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_barbell_bench_press"
+      }
+    ],
+    "incline_bench_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_bench_press"
+      }
+    ],
+    "incline_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_incline_curl"
+      }
+    ],
+    "incline_dumbbell_bench_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_dumbbell_bench_press"
+      }
+    ],
+    "incline_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_dumbbell_press"
+      }
+    ],
+    "incline_bench_press_dumbbell_or_barbell": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_bench_press_dumbbell_or_barbell"
+      }
+    ],
+    "incline_dumbbell_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_incline_dumbbell_curl"
+      }
+    ],
+    "incline_press": [
+      {
+        "label": "",
+        "profile": "incline",
+        "image": "mm_incline_press"
+      }
+    ],
+    "inverted_row": [
+      {
+        "label": "",
+        "profile": "inverted_row",
+        "image": "mm_inverted_row"
+      }
+    ],
+    "lat_pull_down": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_lat_pull_down"
+      }
+    ],
+    "lat_pulldown": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_lat_pulldown"
+      }
+    ],
+    "lat_pulldown_neutral_grip": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_lat_pulldown_neutral_grip"
+      }
+    ],
+    "lat_pulldown_pronated_grip": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_lat_pulldown_pronated_grip"
+      }
+    ],
+    "lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_lateral_raise"
+      }
+    ],
+    "lateral_raises": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_lateral_raises"
+      }
+    ],
+    "lateral_raise_superset_1": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_lateral_raise_superset_1"
+      }
+    ],
+    "lateral_raise_superset_2": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_lateral_raise_superset_2"
+      }
+    ],
+    "leg_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_leg_curl"
+      }
+    ],
+    "leg_curls": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_leg_curls"
+      }
+    ],
+    "leg_extension": [
+      {
+        "label": "",
+        "profile": "leg_extension",
+        "image": "mm_leg_extension"
+      }
+    ],
+    "leg_extensions": [
+      {
+        "label": "",
+        "profile": "leg_extension",
+        "image": "mm_leg_extensions"
+      }
+    ],
+    "leg_press": [
+      {
+        "label": "",
+        "profile": "leg_press",
+        "image": "mm_leg_press"
+      }
+    ],
+    "leg_press_calf_raise": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_leg_press_calf_raise"
+      }
+    ],
+    "leg_curl_seated_or_lying": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_leg_curl_seated_or_lying"
+      }
+    ],
+    "leg_swing": [
+      {
+        "label": "",
+        "profile": "leg_swing",
+        "image": "mm_leg_swing"
+      }
+    ],
+    "leverage_machine_iso_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_leverage_machine_iso_row"
+      }
+    ],
+    "low_cable_fly_crossovers": [
+      {
+        "label": "",
+        "profile": "cable_fly",
+        "image": "mm_low_cable_fly_crossovers"
+      }
+    ],
+    "low_lunge_arch": [
+      {
+        "label": "",
+        "profile": "lunge_arch",
+        "image": "mm_low_lunge_arch"
+      }
+    ],
+    "lunge": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_lunge"
+      }
+    ],
+    "lying_dumbbell_extension": [
+      {
+        "label": "",
+        "profile": "skullcrusher",
+        "image": "mm_lying_dumbbell_extension"
+      }
+    ],
+    "lying_leg_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_lying_leg_curl"
+      }
+    ],
+    "lying_leg_raise": [
+      {
+        "label": "",
+        "profile": "leg_raise",
+        "image": "mm_lying_leg_raise"
+      }
+    ],
+    "machine_bicep_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_machine_bicep_curl"
+      }
+    ],
+    "machine_chest_press": [
+      {
+        "label": "",
+        "profile": "machine_press",
+        "image": "mm_machine_chest_press"
+      }
+    ],
+    "machine_fly": [
+      {
+        "label": "",
+        "profile": "pec_deck",
+        "image": "mm_machine_fly"
+      }
+    ],
+    "machine_hip_abduction": [
+      {
+        "label": "",
+        "profile": "abduction",
+        "image": "mm_machine_hip_abduction"
+      }
+    ],
+    "machine_incline_chest_press": [
+      {
+        "label": "",
+        "profile": "machine_incline",
+        "image": "mm_machine_incline_chest_press"
+      }
+    ],
+    "machine_lat_pulldown": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_machine_lat_pulldown"
+      }
+    ],
+    "machine_leg_curl_prone": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_machine_leg_curl_prone"
+      }
+    ],
+    "machine_leg_extension": [
+      {
+        "label": "",
+        "profile": "leg_extension",
+        "image": "mm_machine_leg_extension"
+      }
+    ],
+    "machine_leg_press": [
+      {
+        "label": "",
+        "profile": "leg_press",
+        "image": "mm_machine_leg_press"
+      }
+    ],
+    "machine_lying_leg_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_machine_lying_leg_curl"
+      }
+    ],
+    "machine_pec_deck": [
+      {
+        "label": "",
+        "profile": "pec_deck",
+        "image": "mm_machine_pec_deck"
+      }
+    ],
+    "machine_preacher_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_machine_preacher_curl"
+      }
+    ],
+    "machine_seated_leg_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_machine_seated_leg_curl"
+      }
+    ],
+    "machine_seated_shoulder_press": [
+      {
+        "label": "",
+        "profile": "machine_shoulder_press",
+        "image": "mm_machine_seated_shoulder_press"
+      }
+    ],
+    "machine_shoulder_press": [
+      {
+        "label": "",
+        "profile": "machine_shoulder_press",
+        "image": "mm_machine_shoulder_press"
+      }
+    ],
+    "machine_tricep_dip": [
+      {
+        "label": "",
+        "profile": "machine_dip",
+        "image": "mm_machine_tricep_dip"
+      }
+    ],
+    "machine_tricep_extension": [
+      {
+        "label": "",
+        "profile": "machine_triceps",
+        "image": "mm_machine_tricep_extension"
+      }
+    ],
+    "machine_bench_press": [
+      {
+        "label": "",
+        "profile": "machine_press",
+        "image": "mm_machine_bench_press"
+      }
+    ],
+    "machine_calf_raise": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_machine_calf_raise"
+      }
+    ],
+    "machine_crunch": [
+      {
+        "label": "",
+        "profile": "crunch",
+        "image": "mm_machine_crunch"
+      }
+    ],
+    "military_press": [
+      {
+        "label": "",
+        "profile": "overhead_press",
+        "image": "mm_military_press"
+      }
+    ],
+    "one_arm_dumbbell_row": [
+      {
+        "label": "",
+        "profile": "one_arm_row",
+        "image": "mm_one_arm_dumbbell_row"
+      }
+    ],
+    "one_arm_kickback": [
+      {
+        "label": "",
+        "profile": "kickback",
+        "image": "mm_one_arm_kickback"
+      }
+    ],
+    "one_arm_overhead_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_one_arm_overhead_extension"
+      }
+    ],
+    "one_arm_row": [
+      {
+        "label": "",
+        "profile": "one_arm_row",
+        "image": "mm_one_arm_row"
+      }
+    ],
+    "one_arm_upright_row": [
+      {
+        "label": "",
+        "profile": "upright_row",
+        "image": "mm_one_arm_upright_row"
+      }
+    ],
+    "one_arm_cable_row": [
+      {
+        "label": "",
+        "profile": "one_arm_cable_row",
+        "image": "mm_one_arm_cable_row"
+      }
+    ],
+    "one_arm_row_dumbbell_or_barbell": [
+      {
+        "label": "",
+        "profile": "one_arm_row",
+        "image": "mm_one_arm_row_dumbbell_or_barbell"
+      }
+    ],
+    "overhand_cable_row": [
+      {
+        "label": "",
+        "profile": "seated_row",
+        "image": "mm_overhand_cable_row"
+      }
+    ],
+    "overhead_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_overhead_extension"
+      }
+    ],
+    "overhead_press": [
+      {
+        "label": "",
+        "profile": "overhead_press",
+        "image": "mm_overhead_press"
+      }
+    ],
+    "overhead_triceps_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_overhead_triceps_extension"
+      }
+    ],
+    "overhead_dumbbell_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_overhead_dumbbell_extension"
+      }
+    ],
+    "pec_dec": [
+      {
+        "label": "",
+        "profile": "pec_deck",
+        "image": "mm_pec_dec"
+      }
+    ],
+    "pec_deck_fly": [
+      {
+        "label": "",
+        "profile": "pec_deck",
+        "image": "mm_pec_deck_fly"
+      }
+    ],
+    "pendulum_squat": [
+      {
+        "label": "",
+        "profile": "machine_squat",
+        "image": "mm_pendulum_squat"
+      }
+    ],
+    "plank": [
+      {
+        "label": "",
+        "profile": "plank",
+        "image": "mm_plank"
+      }
+    ],
+    "preacher_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_preacher_curl"
+      }
+    ],
+    "pull_up": [
+      {
+        "label": "",
+        "profile": "pullup",
+        "image": "mm_pull_up"
+      }
+    ],
+    "pull_ups_or_machine_rows": [
+      {
+        "label": "Pull-up",
+        "profile": "pullup",
+        "image": "mm_pull_ups_or_machine_rows_pullup"
+      },
+      {
+        "label": "Machine row",
+        "profile": "supported_row",
+        "image": "mm_pull_ups_or_machine_rows_supported_row"
+      }
+    ],
+    "pull_up_self_or_assisted": [
+      {
+        "label": "",
+        "profile": "pullup",
+        "image": "mm_pull_up_self_or_assisted"
+      }
+    ],
+    "pull_up_or_pulldown": [
+      {
+        "label": "Pull-up",
+        "profile": "pullup",
+        "image": "mm_pull_up_or_pulldown_pullup"
+      },
+      {
+        "label": "Pulldown",
+        "profile": "pulldown",
+        "image": "mm_pull_up_or_pulldown_pulldown"
+      }
+    ],
+    "pulldown": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_pulldown"
+      }
+    ],
+    "pulldown_or_pull_up_or_chin_up": [
+      {
+        "label": "Pulldown",
+        "profile": "pulldown",
+        "image": "mm_pulldown_or_pull_up_or_chin_up_pulldown"
+      },
+      {
+        "label": "Pull-up",
+        "profile": "pullup",
+        "image": "mm_pulldown_or_pull_up_or_chin_up_pullup"
+      },
+      {
+        "label": "Chin-up",
+        "profile": "chinup",
+        "image": "mm_pulldown_or_pull_up_or_chin_up_chinup"
+      }
+    ],
+    "pullup": [
+      {
+        "label": "",
+        "profile": "pullup",
+        "image": "mm_pullup"
+      }
+    ],
+    "push_up": [
+      {
+        "label": "",
+        "profile": "pushup",
+        "image": "mm_push_up"
+      }
+    ],
+    "rack_deadlifts": [
+      {
+        "label": "",
+        "profile": "rack_pull",
+        "image": "mm_rack_deadlifts"
+      }
+    ],
+    "rear_delt_reverse_fly": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_rear_delt_reverse_fly"
+      }
+    ],
+    "rear_delt_fly": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_rear_delt_fly"
+      }
+    ],
+    "rear_delt_machine_fly": [
+      {
+        "label": "",
+        "profile": "reverse_deck",
+        "image": "mm_rear_delt_machine_fly"
+      }
+    ],
+    "resistance_band_pull_apart": [
+      {
+        "label": "",
+        "profile": "pull_apart",
+        "image": "mm_resistance_band_pull_apart"
+      }
+    ],
+    "reverse_crunch": [
+      {
+        "label": "",
+        "profile": "reverse_crunch",
+        "image": "mm_reverse_crunch"
+      }
+    ],
+    "reverse_grip_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "bench",
+        "image": "mm_reverse_grip_dumbbell_press"
+      }
+    ],
+    "reverse_pec_dec": [
+      {
+        "label": "",
+        "profile": "reverse_deck",
+        "image": "mm_reverse_pec_dec"
+      }
+    ],
+    "reverse_wrist_curls": [
+      {
+        "label": "",
+        "profile": "reverse_wrist",
+        "image": "mm_reverse_wrist_curls"
+      }
+    ],
+    "reverse_hyperextension": [
+      {
+        "label": "",
+        "profile": "reverse_hyper",
+        "image": "mm_reverse_hyperextension"
+      }
+    ],
+    "reverse_machine_fly": [
+      {
+        "label": "",
+        "profile": "reverse_deck",
+        "image": "mm_reverse_machine_fly"
+      }
+    ],
+    "romanian_deadlift": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_romanian_deadlift"
+      }
+    ],
+    "rope_extension": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_rope_extension"
+      }
+    ],
+    "seated_barbell_overhead_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_seated_barbell_overhead_press"
+      }
+    ],
+    "seated_cable_row": [
+      {
+        "label": "",
+        "profile": "seated_row",
+        "image": "mm_seated_cable_row"
+      }
+    ],
+    "seated_calf_raise": [
+      {
+        "label": "",
+        "profile": "seated_calf",
+        "image": "mm_seated_calf_raise"
+      }
+    ],
+    "seated_dumbbell_calf_raise": [
+      {
+        "label": "",
+        "profile": "seated_calf",
+        "image": "mm_seated_dumbbell_calf_raise"
+      }
+    ],
+    "seated_dumbbell_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_seated_dumbbell_curl"
+      }
+    ],
+    "seated_dumbbell_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_seated_dumbbell_extension"
+      }
+    ],
+    "seated_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_seated_dumbbell_press"
+      }
+    ],
+    "seated_dumbbell_shrug": [
+      {
+        "label": "",
+        "profile": "seated_shrug",
+        "image": "mm_seated_dumbbell_shrug"
+      }
+    ],
+    "seated_fdl_dumbbell_raise": [
+      {
+        "label": "",
+        "profile": "fdl_raise",
+        "image": "mm_seated_fdl_dumbbell_raise"
+      }
+    ],
+    "seated_incline_dumbbell_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_seated_incline_dumbbell_curl"
+      }
+    ],
+    "seated_lateral_raise": [
+      {
+        "label": "",
+        "profile": "seated_raise",
+        "image": "mm_seated_lateral_raise"
+      }
+    ],
+    "seated_leg_curl": [
+      {
+        "label": "",
+        "profile": "leg_curl",
+        "image": "mm_seated_leg_curl"
+      }
+    ],
+    "seated_overhead_dumbbell_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_seated_overhead_dumbbell_press"
+      }
+    ],
+    "seated_behind_the_neck_press": [
+      {
+        "label": "",
+        "profile": "seated_press",
+        "image": "mm_seated_behind_the_neck_press"
+      }
+    ],
+    "seated_cable_row_or_chest_supported_row": [
+      {
+        "label": "Cable row",
+        "profile": "seated_row",
+        "image": "mm_seated_cable_row_or_chest_supported_row_seated_row"
+      },
+      {
+        "label": "Chest-supported",
+        "profile": "supported_row",
+        "image": "mm_seated_cable_row_or_chest_supported_row_supported_row"
+      }
+    ],
+    "seated_dumbbell_lateral_raise": [
+      {
+        "label": "",
+        "profile": "seated_raise",
+        "image": "mm_seated_dumbbell_lateral_raise"
+      }
+    ],
+    "seated_leg_extension": [
+      {
+        "label": "",
+        "profile": "leg_extension",
+        "image": "mm_seated_leg_extension"
+      }
+    ],
+    "seated_machine_fly": [
+      {
+        "label": "",
+        "profile": "pec_deck",
+        "image": "mm_seated_machine_fly"
+      }
+    ],
+    "seated_machine_reverse_fly": [
+      {
+        "label": "",
+        "profile": "reverse_deck",
+        "image": "mm_seated_machine_reverse_fly"
+      }
+    ],
+    "seated_row": [
+      {
+        "label": "",
+        "profile": "seated_row",
+        "image": "mm_seated_row"
+      }
+    ],
+    "seated_triceps_extension_db_rope_or_ez_bar": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_seated_triceps_extension_db_rope_or_ez_bar"
+      }
+    ],
+    "shoulder_press": [
+      {
+        "label": "",
+        "profile": "overhead_press",
+        "image": "mm_shoulder_press"
+      }
+    ],
+    "shoulder_external_rotation": [
+      {
+        "label": "",
+        "profile": "external_rotation",
+        "image": "mm_shoulder_external_rotation"
+      }
+    ],
+    "shoulder_internal_rotation": [
+      {
+        "label": "",
+        "profile": "internal_rotation",
+        "image": "mm_shoulder_internal_rotation"
+      }
+    ],
+    "shoulder_shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_shoulder_shrug"
+      }
+    ],
+    "shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_shrug"
+      }
+    ],
+    "shrug_dumbbell_barbell_or_trap_bar": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_shrug_dumbbell_barbell_or_trap_bar"
+      }
+    ],
+    "shrugs": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_shrugs"
+      }
+    ],
+    "side_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_side_lateral_raise"
+      }
+    ],
+    "side_plank": [
+      {
+        "label": "",
+        "profile": "side_plank",
+        "image": "mm_side_plank"
+      }
+    ],
+    "side_lunge_stretch": [
+      {
+        "label": "",
+        "profile": "side_lunge_stretch",
+        "image": "mm_side_lunge_stretch"
+      }
+    ],
+    "single_arm_dumbbell_shrug": [
+      {
+        "label": "",
+        "profile": "shrug",
+        "image": "mm_single_arm_dumbbell_shrug"
+      }
+    ],
+    "single_stiff_leg_deadlift": [
+      {
+        "label": "",
+        "profile": "single_rdl",
+        "image": "mm_single_stiff_leg_deadlift"
+      }
+    ],
+    "single_arm_cable_triceps_extension": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_single_arm_cable_triceps_extension"
+      }
+    ],
+    "single_arm_dumbbell_row": [
+      {
+        "label": "",
+        "profile": "one_arm_row",
+        "image": "mm_single_arm_dumbbell_row"
+      }
+    ],
+    "sissy_squat": [
+      {
+        "label": "",
+        "profile": "sissy_squat",
+        "image": "mm_sissy_squat"
+      }
+    ],
+    "skull_crushers": [
+      {
+        "label": "",
+        "profile": "skullcrusher",
+        "image": "mm_skull_crushers"
+      }
+    ],
+    "skullcrusher": [
+      {
+        "label": "",
+        "profile": "skullcrusher",
+        "image": "mm_skullcrusher"
+      }
+    ],
+    "skullcrushers": [
+      {
+        "label": "",
+        "profile": "skullcrusher",
+        "image": "mm_skullcrushers"
+      }
+    ],
+    "smith_machine_shoulder_press": [
+      {
+        "label": "",
+        "profile": "machine_shoulder_press",
+        "image": "mm_smith_machine_shoulder_press"
+      }
+    ],
+    "smith_machine_squat": [
+      {
+        "label": "",
+        "profile": "machine_squat",
+        "image": "mm_smith_machine_squat"
+      }
+    ],
+    "smith_standing_calf_raise": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_smith_standing_calf_raise"
+      }
+    ],
+    "smith_bench_press_no_added_weight": [
+      {
+        "label": "",
+        "profile": "machine_press",
+        "image": "mm_smith_bench_press_no_added_weight"
+      }
+    ],
+    "smith_flat_bench_press": [
+      {
+        "label": "",
+        "profile": "machine_press",
+        "image": "mm_smith_flat_bench_press"
+      }
+    ],
+    "smith_machine_calf_raise": [
+      {
+        "label": "",
+        "profile": "supported_calf",
+        "image": "mm_smith_machine_calf_raise"
+      }
+    ],
+    "smith_overhead_press": [
+      {
+        "label": "",
+        "profile": "machine_shoulder_press",
+        "image": "mm_smith_overhead_press"
+      }
+    ],
+    "smith_reverse_lunge": [
+      {
+        "label": "",
+        "profile": "smith_lunge",
+        "image": "mm_smith_reverse_lunge"
+      }
+    ],
+    "spider_curl": [
+      {
+        "label": "",
+        "profile": "supported_curl",
+        "image": "mm_spider_curl"
+      }
+    ],
+    "split_squat": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_split_squat"
+      }
+    ],
+    "squat": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_squat"
+      }
+    ],
+    "squats": [
+      {
+        "label": "",
+        "profile": "squat",
+        "image": "mm_squats"
+      }
+    ],
+    "standing_barbell_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_standing_barbell_curl"
+      }
+    ],
+    "standing_barbell_tricep_extension": [
+      {
+        "label": "",
+        "profile": "overhead_extension",
+        "image": "mm_standing_barbell_tricep_extension"
+      }
+    ],
+    "standing_calf_raise": [
+      {
+        "label": "",
+        "profile": "standing_calf",
+        "image": "mm_standing_calf_raise"
+      }
+    ],
+    "standing_dumbbell_calf_raise": [
+      {
+        "label": "",
+        "profile": "standing_calf",
+        "image": "mm_standing_dumbbell_calf_raise"
+      }
+    ],
+    "standing_dumbbell_curl": [
+      {
+        "label": "",
+        "profile": "curl",
+        "image": "mm_standing_dumbbell_curl"
+      }
+    ],
+    "standing_overhead_press": [
+      {
+        "label": "",
+        "profile": "overhead_press",
+        "image": "mm_standing_overhead_press"
+      }
+    ],
+    "standing_cable_crossover": [
+      {
+        "label": "",
+        "profile": "cable_fly",
+        "image": "mm_standing_cable_crossover"
+      }
+    ],
+    "standing_cable_lateral_raise": [
+      {
+        "label": "",
+        "profile": "lateral_raise",
+        "image": "mm_standing_cable_lateral_raise"
+      }
+    ],
+    "standing_cable_reverse_fly": [
+      {
+        "label": "",
+        "profile": "rear_fly",
+        "image": "mm_standing_cable_reverse_fly"
+      }
+    ],
+    "standing_hamstring_stretch": [
+      {
+        "label": "",
+        "profile": "hamstring_stretch",
+        "image": "mm_standing_hamstring_stretch"
+      }
+    ],
+    "standing_overhead_press_back_off": [
+      {
+        "label": "",
+        "profile": "overhead_press",
+        "image": "mm_standing_overhead_press_back_off"
+      }
+    ],
+    "standing_triceps_pushdown": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_standing_triceps_pushdown"
+      }
+    ],
+    "standing_unilateral_leg_curl": [
+      {
+        "label": "",
+        "profile": "standing_leg_curl",
+        "image": "mm_standing_unilateral_leg_curl"
+      }
+    ],
+    "stiff_leg_deadlift": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_stiff_leg_deadlift"
+      }
+    ],
+    "stiff_leg_deadlifts": [
+      {
+        "label": "",
+        "profile": "rdl",
+        "image": "mm_stiff_leg_deadlifts"
+      }
+    ],
+    "straight_arm_pressdown": [
+      {
+        "label": "",
+        "profile": "straight_arm_pull",
+        "image": "mm_straight_arm_pressdown"
+      }
+    ],
+    "straight_arm_cable_pulldown": [
+      {
+        "label": "",
+        "profile": "straight_arm_pull",
+        "image": "mm_straight_arm_cable_pulldown"
+      }
+    ],
+    "superman": [
+      {
+        "label": "",
+        "profile": "superman",
+        "image": "mm_superman"
+      }
+    ],
+    "t_bar_prone_row": [
+      {
+        "label": "",
+        "profile": "supported_row",
+        "image": "mm_t_bar_prone_row"
+      }
+    ],
+    "t_bar_row": [
+      {
+        "label": "",
+        "profile": "row",
+        "image": "mm_t_bar_row"
+      }
+    ],
+    "tricep_pushdown": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_tricep_pushdown"
+      }
+    ],
+    "triceps_kickbacks": [
+      {
+        "label": "",
+        "profile": "kickback",
+        "image": "mm_triceps_kickbacks"
+      }
+    ],
+    "triceps_pressdown": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_triceps_pressdown"
+      }
+    ],
+    "triceps_rope_pushdown": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_triceps_rope_pushdown"
+      }
+    ],
+    "triceps_dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_triceps_dip"
+      }
+    ],
+    "triceps_pushdown": [
+      {
+        "label": "",
+        "profile": "pushdown",
+        "image": "mm_triceps_pushdown"
+      }
+    ],
+    "upper_body_foam_rolling_optional": [
+      {
+        "label": "",
+        "profile": "foam_roll",
+        "image": "mm_upper_body_foam_rolling_optional"
+      }
+    ],
+    "upright_row": [
+      {
+        "label": "",
+        "profile": "upright_row",
+        "image": "mm_upright_row"
+      }
+    ],
+    "v_bar_lat_pull_down": [
+      {
+        "label": "",
+        "profile": "pulldown",
+        "image": "mm_v_bar_lat_pull_down"
+      }
+    ],
+    "v_ups": [
+      {
+        "label": "",
+        "profile": "v_up",
+        "image": "mm_v_ups"
+      }
+    ],
+    "walking_lunge": [
+      {
+        "label": "",
+        "profile": "lunge",
+        "image": "mm_walking_lunge"
+      }
+    ],
+    "weighted_crunch": [
+      {
+        "label": "",
+        "profile": "crunch",
+        "image": "mm_weighted_crunch"
+      }
+    ],
+    "weighted_or_bodyweight_chin_up": [
+      {
+        "label": "",
+        "profile": "chinup",
+        "image": "mm_weighted_or_bodyweight_chin_up"
+      }
+    ],
+    "weighted_or_bodyweight_pull_up": [
+      {
+        "label": "",
+        "profile": "pullup",
+        "image": "mm_weighted_or_bodyweight_pull_up"
+      }
+    ],
+    "weighted_or_bodyweight_triceps_dip": [
+      {
+        "label": "",
+        "profile": "dip",
+        "image": "mm_weighted_or_bodyweight_triceps_dip"
+      }
+    ],
+    "wide_grip_pull_ups": [
+      {
+        "label": "",
+        "profile": "pullup",
+        "image": "mm_wide_grip_pull_ups"
+      }
+    ],
+    "world_s_greatest_stretch": [
+      {
+        "label": "",
+        "profile": "world_stretch",
+        "image": "mm_world_s_greatest_stretch"
+      }
+    ],
+    "wrist_curls": [
+      {
+        "label": "",
+        "profile": "wrist_curl",
+        "image": "mm_wrist_curls"
+      }
+    ],
+    "zottman_curl": [
+      {
+        "label": "",
+        "profile": "zottman",
+        "image": "mm_zottman_curl"
+      }
+    ]
+  }
+}

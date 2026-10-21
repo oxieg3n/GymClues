@@ -127,12 +127,18 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
         Text("No exercises in this workout.", fontWeight = FontWeight.Bold); Muted("Tap \"Add exercise\" below to build today's session.") } } }
       itemsIndexed(session, key = { _, se -> se.uid }) { index, se ->
         val ex = repo.exercise(se.exerciseId)
+        val exerciseName = workoutMuscleMapName(se.item?.originalName,
+          ex?.name ?: repo.displayName(se.exerciseId), se.swappedFrom != null)
         Card { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f).clickable(enabled = ex != null) { nav.navigate(Routes.exercise(se.exerciseId)) }) {
               val it0 = se.item
               if (it0?.phase == "Warm-up") SectionTitle("Warm-up")
-              Text((it0?.originalName?.ifBlank { null } ?: ex?.name ?: repo.displayName(se.exerciseId)) + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""), fontWeight = FontWeight.Bold)
+              Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(exerciseName + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""),
+                  fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                MuscleMapButton(exerciseName)
+              }
               Muted(if (it0 == null) "Target: ${se.sets.size} sets × ${se.reps} reps · rest ${se.restSec}s"
                 else "Prescribed: ${it0.setsText.ifBlank { "${it0.sets}" }} sets × ${it0.reps}" + (if (it0.restText.isNotBlank() && it0.restText != "Not specified") " · rest ${it0.restText}" else ""))
               if (it0 != null && it0.repsNote.isNotBlank() && it0.repsNote != "Per set") Muted(it0.repsNote)

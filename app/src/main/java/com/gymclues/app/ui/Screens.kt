@@ -37,10 +37,9 @@ val SPLIT_HELP = mapOf(
   val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   BoxWithConstraints(Modifier.fillMaxSize()) {
-  val avail = maxHeight
-  Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-   // Cards scroll if they need more than the screen minus the space reserved for the buttons; Rest Day takes the lower half of what remains.
-   Column(Modifier.heightIn(max = avail - 24.dp - 12.dp - 132.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+  Column(Modifier.fillMaxSize()) {
+   // Cards fill the screen above Rest Day and scroll if needed.
+   Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
     Box(Modifier.tourTarget("progress")) {
       if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
       else Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
@@ -57,10 +56,8 @@ val SPLIT_HELP = mapOf(
     Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null) }
     Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
    }
-    Column(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-      Spacer(Modifier.weight(1f))   // where Start A Workout used to be; keeps Rest Day the same size
-      Box(Modifier.weight(1f).fillMaxWidth().tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxSize()) }
-    }
+    HorizontalDivider(color = MaterialTheme.colorScheme.outline)
+    Box(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp).tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().height(70.dp)) }
   }
   }
 }

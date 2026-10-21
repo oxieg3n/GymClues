@@ -149,7 +149,10 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
           item { SectionTitle(if (phase == "Warm-up") "Warm-up" else "Workout") }
           items(rows) { r -> Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer) {
             Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-              Text(r.exercise, fontWeight = FontWeight.Bold)
+              Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(r.exercise, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                MuscleMapButton(r.exercise)
+              }
               Text("${r.sets} sets × ${r.reps}", color = MaterialTheme.colorScheme.primary)
               if (r.repsNote.isNotBlank() && r.repsNote != "Per set") Muted(r.repsNote)
               if (r.rest.isNotBlank() && r.rest != "Not specified") Muted("Rest: ${r.rest}")

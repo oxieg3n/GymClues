@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymClues — Learn Equipment, Build Workouts, Track Strength Progress | Free Gym Companion App</title>
+    <meta name="description" content="Stop wasting time at the gym figuring out machines. GymClues gives you equipment guides, tailored strength-training workouts that adapt to your available equipment, and progress tracking. Download free today.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Branding */
+        :root {
+            --primary-green: #00ff88;
+            --secondary-green: #00cc6a;
+            --dark-bg: #1a1a1a;
+            --card-bg: #252525;
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, rgba(0,255,136,0.03) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(0,255,136,0.03) 25%, transparent 25%);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .logo {
+            width: auto;
+            height: auto;
+            margin: 0 auto 20px;
+            border-radius: 90%;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            box-shadow: 1px 4px 5px rgba(0,255,136,0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 20px;
+            color: var(--text-white);
+            line-height: 1.2;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: #000;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(0,255,136,0.4);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0,255,136,0.6);
+        }
+
+        /* Social Proof */
+        .social-proof {
+            background-color: var(--card-bg);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .social-proof h2 {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 20px;
+        }
+
+        .social-proof p {
+            color: var(--text-gray);
+            font-size: clamp(16px, 3vw, 18px);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px 30px;
+            background: var(--dark-bg);
+            border-radius: 12px;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-green);
+            line-height: 1;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 100px 0;
+            background-color: var(--dark-bg);
+        }
+
+        .problem h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .problem-intro {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            font-size: clamp(16px, 3vw, 18px);
+            color: var(--text-gray);
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .testimonial-quote {
+            font-size: clamp(15px, 2.5vw, 17px);
+            color: var(--text-white);
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .testimonial-situation {
+            font-size: 14px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, #152018 100%);
+        }
+
+        .solution h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,255,136,0.2);
+            border-color: var(--primary-green);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.2), rgba(0,204,106,0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+
+        .benefit-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .outcome {
+            font-size: 14px;
+            color: var(--primary-green);
+            padding: 10px 15px;
+            background: rgba(0,255,136,0.1);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: var(--card-bg);
+        }
+
+        .how-it-works h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: var(--dark-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            position: relative;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: var(--primary-green);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: #000;
+            font-size: 32px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .step-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .why-matters {
+            font-size: 14px;
+            color: var(--primary-green);
+            padding: 10px 15px;
+            background: rgba(0,255,136,0.1);
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background-color: var(--dark-bg);
+        }
+
+        .faq h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .faq-item:hover {
+            background: #2a2a2a;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #152018 0%, var(--dark-bg) 100%);
+        }
+
+        .features h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-item h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+
+        .feature-item p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a2820 100%);
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            color: var(--text-gray);
+            font-size: clamp(16px, 3vw, 20px);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .final-cta .hero-cta {
+            background: linear-gradient(135deg, var(--secondary-green), #00b35c);
+            font-size: 20px;
+            padding: 22px 50px;
+        }
+
+        .risk-reversal {
+            margin-top: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-gray);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .risk-reversal strong {
+            color: var(--primary-green);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0f0f0f;
+            padding: 60px 0 30px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .stats {
+                gap: 30px;
+            }
+
+            .stat-item {
+                min-width: 150px;
+                padding: 20px 20px;
+            }
+
+            .benefit-card, .step-card, .feature-item {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <img src=gymclues_logo.png>
+            
+            <h1>Stop Wasting Time at the Gym — Learn Equipment, Build Workouts, Track Progress</h1>
+            
+            <p class="hero-subheadline">GymClues is the strength-training gym app that adapts to YOUR equipment. Learn machines with video guides, build workouts from whatever's at your gym, and track your gains over time. No more guessing what each machine does or feeling like an outsider in the weight room.</p>
+            
+            <a href="#download" class="hero-cta">Get GymClues Free</a>
+            
+            <!-- Secondary CTA (A/B test) - placeholder, remove or customize later -->
+            <a href="https://www.gymclues-demo.com" class="hero-cta secondary-cta" style="background: linear-gradient(135deg, #2d4f2e, #1a381b); color: white; margin-top: 12px; font-size: 17px; padding: 16px 40px;">See It in Action</a>
+            
+            <!-- Secondary CTA (A/B test) -->
+            <a href="#demo" class="hero-cta secondary-cta" style="background: linear-gradient(135deg, #2d4f2e, #1a381b); color: white; margin-top: 12px;">Show Me the App Demo</a>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>Trusted by Lifters Who Wanted Real Help</h2>
+            <p>Join thousands of fitness enthusiasts who've stopped intimidation and started seeing progress. From beginners learning their first squat to intermediate lifters building custom bro-split workouts like our "Outlift Perfect Bro Split - Arms" routine.</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">50K+</span>
+                    Users Tracking Strength Gains
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.8/5</span>
+                    Star Rating
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Free</span>
+                    Forever (For Now)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2>The Gym Shouldn't Feel Like a Mystery Room</h2>
+            <p class="problem-intro">Let's be honest — walking into a gym can feel overwhelming. You see shiny machines you've never used, workout posters you don't understand, and other lifters who look like they've been training there for years.</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"I'd stand in front of a machine for 5 minutes just trying to figure out how it worked"</p>
+                    <p class="testimonial-situation">From the intimidation</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"I planned workouts online but couldn't execute them because equipment was missing"</p>
+                    <p class="testimonial-situation">When planning fails at your gym</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"I love lifting but I keep losing motivation when I can't see my progress"</p>
+                    <p class="testimonial-situation">The motivation killer</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"Some days the dumbbells are too light, some days too heavy — I need variety"</p>
+                    <p class="testimonial-situation">When equipment varies day to day</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 40px; color: var(--primary-green); font-weight: bold;">You're not alone. These frustrations are exactly why GymClues exists.</p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2>GymClues Gives You What Other Apps Don't</h2>
+
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">📚</div>
+                    <h3>Equipment That Makes Sense</h3>
+                    <p>Instead of guessing, learn every machine with our built-in guides that show setup instructions, which muscles you're working, proper technique tips, common mistakes to avoid, and safety notes. Plus video tutorials and QR code links when available.</p>
+                    <div class="outcome">✓ No more awkward hesitation in front of unfamiliar equipment</div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">💪</div>
+                    <h3>Workouts That Actually Fit Your Gym</h3>
+                    <p>Most apps assume you have perfect gym conditions. Not us. GymClues adapts to YOUR equipment. Have a leg press but no cable machine? No problem. Want to build a custom bro-split arms day? Set it up and the app suggests alternatives if needed.</p>
+                    <div class="outcome">✓ Never miss a workout because of unavailable equipment</div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>Track Real Strength Progress</h3>
+                    <p>Log your weights, reps, and sets automatically. Built-in rest timers keep your sessions efficient. See progress charts showing your strength gains over time. Get training-volume statistics so you can see if you're actually getting stronger.</p>
+                    <div class="outcome">✓ Visual proof that your hard work is paying off</div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏋️</div>
+                    <h3>Discover Your Gym's Equipment</h3>
+                    <p>Find gyms nearby or by name/city, then catalog their equipment yourself or through community contributions. Add photos and QR codes for easy reference. Our administrative review workflow ensures accuracy.</p>
+                    <div class="outcome">✓ Build a personalized map of your local gym's offerings</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>Get Started in Three Simple Steps</h2>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Tell Us About Your Gym</h3>
+                    <p>Download GymClues and enter your gym's name, location, or search for nearby gyms. Browse their equipment catalog (built from community submissions) or add your own details.</p>
+                    <div class="why-matters">💡 Why this matters: The app learns what you have available, so it can suggest workouts that actually fit.</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Learn the Equipment You Want</h3>
+                    <p>Tap any machine to see its guide: setup, muscle mapping, technique tips, common mistakes, safety notes, and video tutorials. Bookmark exercises to revisit later.</p>
+                    <div class="why-matters">💡 Why this matters: Master machines at your own pace without feeling rushed or embarrassed.</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Build & Follow Workouts</h3>
+                    <p>Choose from built-in routines like our "Outlift Perfect Bro Split" workouts, or create custom splits with any combination of exercises. The app suggests substitutions when equipment isn't available. Start tracking instantly.</p>
+                    <div class="why-matters">💡 Why this matters: Go to the gym ready with a plan, not wondering what to do.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>Questions? We've Got Answers.</h2>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <span class="faq-question">Is GymClues really free?</span>
+                    <p class="faq-answer">Yes! Right now, GymClues is completely free for all users. We're building a community first and are currently exploring advertiser partnerships that align with health and fitness — so the app stays accessible while we grow. Our goal is to make quality strength training help available to everyone, not just those willing to pay.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Do I need to know anything about lifting to use this?</span>
+                    <p class="faq-answer">Not at all! GymClues works whether you're squatting for the first time or chasing PRs on your bench press. Every exercise guide includes setup instructions, safety notes, and technique tips designed for beginners through advanced lifters.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">What if I change gyms?</span>
+                    <p class="faq-answer">Easy! Just update your gym information in settings. We'll show you how to quickly migrate your workout history and build new routines for your new location's equipment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Is my workout data secure?</span>
+                    <p class="faq-answer">Absolutely. Your progress, weights, sets, reps — it all stays yours. We don't sell data or send notifications unless you opt into them. Take full control of your training information.</p>
+                </div>
+
+                <div class="faq-item">
+                    <span class="faq-question">Does GymClues work offline?</span>
+                    <p class="faq-answer">Yes! Once you download the app and create your workouts, you can use most features without internet. Perfect for gym sessions with spotty connectivity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Everything You Need to Train Confidently</h2>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">📚</span>
+                    <h3>Equipment Guides</h3>
+                    <p>Setup instructions, muscle mapping, technique tips, common mistakes, safety notes, video/QR tutorials</p>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">💪</span>
+                    <h3>Workout Builder</h3>
+                    <p>Built-in routines + custom workouts with configurable exercises, sets, reps, rest periods + equipment substitution suggestions</p>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <h3>Progress Tracking</h3>
+                    <p>Logs weights/reps/sets, built-in rest timers, workout history, progress charts, training-volume statistics</p>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">🏋️</span>
+                    <h3>Gym Discovery</h3>
+                    <p>Find gyms nearby or by name/city, catalog equipment with photos and QR codes, community submissions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta" id="download">
+        <div class="container">
+            <h2>Ready to Stop Guessing and Start Training?</h2>
+            <p>Join the lifters who've turned gym intimidation into confidence. Download GymClues free today and get your first strength-training workout ready before you walk through those doors.</p>
+            
+            <a href="#app-store-link" class="hero-cta">Get GymClues Free</a>
+
+            <div class="risk-reversal">
+                <strong>Try it risk-free.</strong> If you don't find GymClues helpful within your first few gym sessions, we'll help you get unstuck. We're confident you'll love having a knowledgeable gym companion in your pocket.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <nav class="footer-links">
+                <a href="https://apps.apple.com/app/gymclues" target="_blank" class="footer-link">App Store Download</a>
+                <a href="https://play.google.com/store/apps/details?id=com.gymclues" target="_blank" class="footer-link">Google Play Download</a>
+                <a href="/privacy" class="footer-link">Privacy Policy</a>
+                <a href="/terms" class="footer-link">Terms of Service</a>
+                <a href="/support" class="footer-link">Support/Contact</a>
+            </nav>
+            
+            <p class="copyright">&copy; 2026 GymClues. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
