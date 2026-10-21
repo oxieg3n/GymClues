@@ -39,12 +39,12 @@ import com.gymclues.app.data.AppContainer
       Muted(listOf(q.category, q.manufacturer).filter { it.isNotBlank() }.joinToString(" · ").ifBlank { "Equipment" }) }
     if (q.photo.isNotBlank()) item {
       AsyncImage(model = "file:///android_asset/media/${q.photo}", contentDescription = q.name,
-        modifier = Modifier.fillMaxWidth().height(200.dp).clip(RoundedCornerShape(10.dp)), contentScale = ContentScale.Crop) }
+        modifier = Modifier.fillMaxWidth().height(200.dp).clip(MaterialTheme.shapes.medium), contentScale = ContentScale.Crop) }
     if (q.alternateNames.isNotEmpty()) item { Text("Also called: ${q.alternateNames.joinToString()}") }
 
     if (ex != null) item {
-      Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
-        Column(Modifier.padding(12.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+      AppCard(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+        Column(Modifier.padding(16.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Text("Setup for ${ex.name}", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimaryContainer)
           if (setup == null) Text("No specific setup recorded yet for this exercise.", color = MaterialTheme.colorScheme.onPrimaryContainer)
           else {
@@ -62,21 +62,24 @@ import com.gymclues.app.data.AppContainer
         }
       }
     }
+    app.catalog.trainingGuides.equipment[equipmentId]?.let { guide ->
+      item { EquipmentSetupGuideCard(guide, app.catalog.trainingGuides) }
+    }
     if (q.notes.isNotBlank()) item { Muted(q.notes) }
 
     if (usedBy.isNotEmpty()) {
       item { SectionTitle("Exercises on this equipment") }
-      items(usedBy, key = { it.id }) { e -> ListItem(headlineContent = { Text(e.name) }, supportingContent = { Text(e.primaryMuscles.joinToString()) },
+      items(usedBy, key = { it.id }) { e -> AppListItem(headlineContent = { Text(e.name) }, supportingContent = { Text(e.primaryMuscles.joinToString()) },
         modifier = Modifier.clickable { nav.navigate(Routes.exercise(e.id)) }) }
     }
 
     // ---- bottom section ----
     item { HorizontalDivider(Modifier.padding(vertical = 6.dp)); SectionTitle("How to use this equipment") }
     if (q.howToUse.isEmpty()) item { Muted("Instructions haven't been added for this equipment yet.") }
-    itemsIndexed(q.howToUse) { i, s -> Text("${i + 1}. $s") }
+    itemsIndexed(q.howToUse) { i, s -> InstructionStep(i + 1, s) }
     if (q.videoUrl.isNotBlank()) item { VideoEmbed(q.videoUrl) }
     if (q.qrCode.isNotBlank()) item {
-      Card { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+      AppCard { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Filled.QrCode2, null); Spacer(Modifier.width(8.dp))
           Text("Planet Fitness tutorial (QR)", fontWeight = FontWeight.Bold) }
         Muted("This tutorial lives in the PF App. GymClues opens it there; it can't be embedded.")

@@ -1,0 +1,644 @@
+{
+  "equipment": [
+    {
+      "id": "eq_cardio_treadmill",
+      "name": "Treadmill",
+      "alternateNames": [
+        "Running machine"
+      ],
+      "category": "Cardio",
+      "howToUse": [
+        "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+        "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+        "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+        "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+      ],
+      "notes": "Controls vary by model; follow its placard and staff orientation."
+    },
+    {
+      "id": "eq_cardio_stairs",
+      "name": "Stair machine",
+      "alternateNames": [
+        "Stair climber",
+        "Stairmill",
+        "Stepmill"
+      ],
+      "category": "Cardio",
+      "howToUse": [
+        "Find the stop control and use fixed steps and handrails to mount with the machine stopped, following its placard.",
+        "Face forward and place enough of each foot securely on the tread; keep shoes clear of moving edges.",
+        "Begin at the lowest pace and increase gradually. Stay upright with light rail contact rather than supporting bodyweight on the arms.",
+        "Slow and stop the steps fully before dismounting with the handrails. Record steps/min and floors from the console when available."
+      ],
+      "notes": "Controls vary by model; follow its placard and staff orientation."
+    },
+    {
+      "id": "eq_cardio_bike",
+      "name": "Exercise bike",
+      "alternateNames": [
+        "Stationary bike",
+        "Upright bike",
+        "Indoor cycle"
+      ],
+      "category": "Cardio",
+      "howToUse": [
+        "With the pedal farthest away, keep a small knee bend without rocking the hips. Adjust and lock the seat while stopped.",
+        "Set the seat and handlebar reach for relaxed shoulders. Secure shoes using the intended pedal straps; keep laces clear.",
+        "Start at low resistance and learn the model's braking controls. Fixed-gear pedals keep moving with the flywheel; use its brake before dismounting.",
+        "Select time and distance display units. Record resistance as the machine's setting; levels are not comparable across models."
+      ],
+      "notes": "Controls vary by model; follow its placard and staff orientation."
+    },
+    {
+      "id": "eq_cardio_rower",
+      "name": "Rowing machine",
+      "alternateNames": [
+        "Indoor rower",
+        "Row ergometer",
+        "RowErg"
+      ],
+      "category": "Cardio",
+      "howToUse": [
+        "Adjust the heel cups so the straps cross the widest part of the feet. Snug the straps without cutting circulation.",
+        "Check the seat slides smoothly and the rail is clear. Sit balanced with relaxed shoulders and a secure, light handle grip.",
+        "Start with an easy setting and learn the stroke. An air damper changes airflow and stroke feel; it is not a universal resistance or intensity scale.",
+        "Choose time and distance, normally meters, and begin with easy strokes. Park the handle safely and release the straps before standing."
+      ],
+      "notes": "Controls vary by model; follow its placard and staff orientation."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ex_cardio_walking",
+      "name": "Walking",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "Outdoor or bodyweight option; use the separate machine variation when training indoors.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_jogging",
+      "name": "Jogging",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "Outdoor or bodyweight option; use the separate machine variation when training indoors.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_running",
+      "name": "Running",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "Outdoor or bodyweight option; use the separate machine variation when training indoors.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_bicycling",
+      "name": "Bicycling",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes"
+      ],
+      "movement": "Cardio",
+      "tracking": "bike",
+      "setup": [
+        "On a stationary bike, adjust and lock the seat so the knee remains slightly bent at the farthest pedal position.",
+        "Set a comfortable handlebar reach and secure feet using the intended pedals or straps.",
+        "Begin at easy resistance. Outdoors, use a suitable helmet, inspect the bicycle and follow local road rules."
+      ],
+      "steps": [
+        "Pedal smoothly with knees tracking comfortably over the feet.",
+        "Keep the hips steady and the shoulders relaxed rather than gripping the bars tightly.",
+        "Adjust resistance gradually while maintaining controlled pedaling.",
+        "Ease the pace to finish; on a fixed-gear bike, use the brake and wait for the flywheel and pedals to stop before dismounting."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "Outdoor or bodyweight option; use the separate machine variation when training indoors.",
+      "target": "Quadriceps; Gluteus maximus",
+      "source": "https://news.mcmaster.ca/no-time-to-get-fit-think-again/",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Recheck seat adjustment if knee or hip discomfort appears.",
+        "Learn the machine's braking behavior before attempting hard intervals."
+      ],
+      "mistakes": [
+        "Rocking the hips: check seat height and reduce resistance.",
+        "Grinding against excessive resistance: lower the setting and restore smooth pedal motion.",
+        "Dismounting while fixed-gear pedals turn: brake and wait for a complete stop."
+      ]
+    },
+    {
+      "id": "ex_cardio_rowing",
+      "name": "Rowing",
+      "equipmentIds": [
+        "eq_cardio_rower"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Back"
+      ],
+      "movement": "Cardio",
+      "tracking": "rower",
+      "setup": [
+        "Adjust the footrests so the straps cross the widest part of each foot and secure them comfortably.",
+        "Check the seat and rail, take a light handle grip and choose an easy resistance or damper setting.",
+        "At the catch, reach with relaxed shoulders, a controlled hip hinge and shins close to vertical without forcing compression."
+      ],
+      "steps": [
+        "Push with the legs first while keeping the arms long and the trunk supported.",
+        "As the legs extend, swing the torso slightly back from the hips, then draw the handle toward the lower ribs.",
+        "Recover in reverse order: arms away, hinge the torso forward, then bend the knees to slide forward.",
+        "Repeat smoothly without slamming the seat or yanking the chain; ease off before parking the handle."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_rower",
+          "position": "Adjust the heel cups so the straps cross the widest part of the feet. Snug the straps without cutting circulation.",
+          "notes": [
+            "Check the seat slides smoothly and the rail is clear. Sit balanced with relaxed shoulders and a secure, light handle grip.",
+            "Start with an easy setting and learn the stroke. An air damper changes airflow and stroke feel; it is not a universal resistance or intensity scale.",
+            "Choose time and distance, normally meters, and begin with easy strokes. Park the handle safely and release the straps before standing."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus; Latissimus dorsi (lats)",
+      "source": "https://www.concept2.com/blog/10-ways-to-row-like-a-pro",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Use slower practice strokes before increasing power or stroke rate.",
+        "Keep the grip light and stop if the back or wrists become painful."
+      ],
+      "mistakes": [
+        "Pulling with the arms before driving the legs: restore the legs-body-arms sequence.",
+        "Rounding or throwing the lower back: shorten the reach and control the hip hinge.",
+        "Treating maximum damper as the best workout: learn technique at an easy setting; record the machine setting separately from effort."
+      ]
+    },
+    {
+      "id": "ex_cardio_jumping_jacks",
+      "name": "Jumping jacks",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Calves",
+        "Glutes"
+      ],
+      "movement": "Cardio",
+      "tracking": "reps",
+      "setup": [
+        "Use a clear, nonslip surface with overhead and side clearance.",
+        "Wear secure shoes and start with feet together, arms relaxed by the sides.",
+        "Choose small jumps or use alternating step-outs if a lower-impact option is needed."
+      ],
+      "steps": [
+        "Make a small jump to move the feet apart while raising the arms comfortably out and up.",
+        "Land softly with knees tracking with the feet rather than collapsing inward.",
+        "Jump back to feet together as the arms return to the sides; this out-and-back cycle is one rep.",
+        "Repeat at a controllable rhythm, stopping the set if landing quality or balance deteriorates."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "No equipment needed; use a clear, nonslip surface.",
+      "target": "Quadriceps; Gastrocnemius (calf); Gluteus medius / minimus (hip stabilizers)",
+      "source": "https://www.acefitness.org/resources/everyone/exercise-library/",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build repetitions gradually and allow enough recovery between sets.",
+        "Use step jacks for less impact if jumping causes discomfort."
+      ],
+      "mistakes": [
+        "Landing with stiff knees: soften the landing and reduce jump height.",
+        "Knees collapsing inward: slow down and keep knees aligned with the feet.",
+        "Forcing the arms overhead through pain: use a comfortable reach or a step-jack variation."
+      ]
+    },
+    {
+      "id": "ex_cardio_climbing_stairs",
+      "name": "Climbing stairs",
+      "equipmentIds": [],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes"
+      ],
+      "movement": "Cardio",
+      "tracking": "stairs",
+      "setup": [
+        "Choose dry, clear stairs with a usable handrail, or follow the stair machine's setup guide.",
+        "Wear secure footwear and locate the machine stop control before starting.",
+        "Start at a slow pace that allows secure foot placement."
+      ],
+      "steps": [
+        "Face forward and step onto each tread with controlled foot placement.",
+        "Push through the supporting leg while keeping the trunk upright.",
+        "Use the handrail for balance; reduce pace if you need to hang from it.",
+        "Slow before ending. Stop a machine fully before dismounting; descend real stairs carefully."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [],
+      "equipmentNotes": "Outdoor or bodyweight option; use the separate machine variation when training indoors.",
+      "target": "Quadriceps; Gluteus maximus",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Start with short bouts and increase time as balance and conditioning allow.",
+        "Use a secure handrail and keep clear of moving step edges."
+      ],
+      "mistakes": [
+        "Skipping treads at an uncontrolled pace: return to single, secure steps.",
+        "Supporting bodyweight on the rails: lower speed and restore upright posture.",
+        "Turning around on moving steps: remain forward-facing and stop before dismounting."
+      ]
+    },
+    {
+      "id": "ex_cardio_treadmill_walking",
+      "name": "Treadmill walking",
+      "equipmentIds": [
+        "eq_cardio_treadmill"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_treadmill",
+          "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+          "notes": [
+            "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+            "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+            "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_treadmill_jogging",
+      "name": "Treadmill jogging",
+      "equipmentIds": [
+        "eq_cardio_treadmill"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_treadmill",
+          "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+          "notes": [
+            "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+            "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+            "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_treadmill_running",
+      "name": "Treadmill running",
+      "equipmentIds": [
+        "eq_cardio_treadmill"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes",
+        "Calves"
+      ],
+      "movement": "Cardio",
+      "tracking": "locomotion",
+      "setup": [
+        "Choose a clear route with secure footing and suitable shoes.",
+        "For a treadmill, follow its setup guide, safety-stop instructions and gradual start procedure.",
+        "Begin easily and set a pace that lets you maintain a relaxed, controlled gait."
+      ],
+      "steps": [
+        "Move forward with a tall, relaxed trunk and natural arm swing.",
+        "Use comfortable strides rather than reaching far ahead of the body.",
+        "Build pace or incline gradually; on a treadmill, keep position on the belt without holding your bodyweight on the rails.",
+        "Slow gradually at the end; stop a treadmill fully before stepping off."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_treadmill",
+          "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+          "notes": [
+            "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+            "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+            "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus; Gastrocnemius (calf)",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    {
+      "id": "ex_cardio_stationary_bicycling",
+      "name": "Stationary bicycling",
+      "equipmentIds": [
+        "eq_cardio_bike"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes"
+      ],
+      "movement": "Cardio",
+      "tracking": "bike",
+      "setup": [
+        "On a stationary bike, adjust and lock the seat so the knee remains slightly bent at the farthest pedal position.",
+        "Set a comfortable handlebar reach and secure feet using the intended pedals or straps.",
+        "Begin at easy resistance. Outdoors, use a suitable helmet, inspect the bicycle and follow local road rules."
+      ],
+      "steps": [
+        "Pedal smoothly with knees tracking comfortably over the feet.",
+        "Keep the hips steady and the shoulders relaxed rather than gripping the bars tightly.",
+        "Adjust resistance gradually while maintaining controlled pedaling.",
+        "Ease the pace to finish; on a fixed-gear bike, use the brake and wait for the flywheel and pedals to stop before dismounting."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_bike",
+          "position": "With the pedal farthest away, keep a small knee bend without rocking the hips. Adjust and lock the seat while stopped.",
+          "notes": [
+            "Set the seat and handlebar reach for relaxed shoulders. Secure shoes using the intended pedal straps; keep laces clear.",
+            "Start at low resistance and learn the model's braking controls. Fixed-gear pedals keep moving with the flywheel; use its brake before dismounting.",
+            "Select time and distance display units. Record resistance as the machine's setting; levels are not comparable across models."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus",
+      "source": "https://news.mcmaster.ca/no-time-to-get-fit-think-again/",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Recheck seat adjustment if knee or hip discomfort appears.",
+        "Learn the machine's braking behavior before attempting hard intervals."
+      ],
+      "mistakes": [
+        "Rocking the hips: check seat height and reduce resistance.",
+        "Grinding against excessive resistance: lower the setting and restore smooth pedal motion.",
+        "Dismounting while fixed-gear pedals turn: brake and wait for a complete stop."
+      ]
+    },
+    {
+      "id": "ex_cardio_stair_machine_climbing",
+      "name": "Stair machine climbing",
+      "equipmentIds": [
+        "eq_cardio_stairs"
+      ],
+      "primaryMuscles": [
+        "Quads",
+        "Glutes"
+      ],
+      "movement": "Cardio",
+      "tracking": "stairs",
+      "setup": [
+        "Choose dry, clear stairs with a usable handrail, or follow the stair machine's setup guide.",
+        "Wear secure footwear and locate the machine stop control before starting.",
+        "Start at a slow pace that allows secure foot placement."
+      ],
+      "steps": [
+        "Face forward and step onto each tread with controlled foot placement.",
+        "Push through the supporting leg while keeping the trunk upright.",
+        "Use the handrail for balance; reduce pace if you need to hang from it.",
+        "Slow before ending. Stop a machine fully before dismounting; descend real stairs carefully."
+      ],
+      "breathing": "Breathe rhythmically; reduce intensity if you cannot maintain control. Do not hold your breath through intervals.",
+      "equipmentSetup": [
+        {
+          "equipmentId": "eq_cardio_stairs",
+          "position": "Find the stop control and use fixed steps and handrails to mount with the machine stopped, following its placard.",
+          "notes": [
+            "Face forward and place enough of each foot securely on the tread; keep shoes clear of moving edges.",
+            "Begin at the lowest pace and increase gradually. Stay upright with light rail contact rather than supporting bodyweight on the arms.",
+            "Slow and stop the steps fully before dismounting with the handrails. Record steps/min and floors from the console when available."
+          ]
+        }
+      ],
+      "equipmentNotes": "Use the linked machine setup guide.",
+      "target": "Quadriceps; Gluteus maximus",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "guideKind": "cardio",
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Start with short bouts and increase time as balance and conditioning allow.",
+        "Use a secure handrail and keep clear of moving step edges."
+      ],
+      "mistakes": [
+        "Skipping treads at an uncontrolled pace: return to single, secure steps.",
+        "Supporting bodyweight on the rails: lower speed and restore upright posture.",
+        "Turning around on moving steps: remain forward-facing and stop before dismounting."
+      ]
+    }
+  ]
+}

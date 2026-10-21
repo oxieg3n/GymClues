@@ -14,3 +14,13 @@
 <br>- Music controls showing track information, play/pause, and previous/next.
 
 <br> With <b>GymClues</b> there is less guessing & more lifting.
+
+## Exercise library content
+
+The library includes guides for every bundled program exercise, grouped by primary muscle. Workout cards link to the full setup, movement, breathing, muscle map, and safety guidance. Alternative spellings share pages; distinct movement options link to their own guides.
+
+To rebuild the program exercise asset and the [browser preview](docs/program-exercises/index.html), run `python tools/build_program_exercises.py` after updating the authored recipes and aliases in `tools/`. Existing catalog IDs and historical program references are preserved.
+
+## HIIT and cardio
+
+Three sourced HIIT programs are available under Workout programs → HIIT. Use Add exercise → Cardio to add walking, jogging, running, bicycling, rowing, jumping jacks or stair climbing to a workout. Cardio machines have their own setup guides, and cardio entries use activity-specific measurements instead of lifting weight fields. See [program sources, tracking fields and rebuild instructions](docs/hiit-cardio.md).

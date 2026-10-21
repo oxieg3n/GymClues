@@ -72,10 +72,10 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
     item { Text("Find a Gym", style = MaterialTheme.typography.headlineSmall)
       Muted("Pick the gym you train at, or add one so you can upload its equipment.") }
-    item { Button({ if (hasLocation(ctx)) runNearby() else perm.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
+    item { AppButton({ if (hasLocation(ctx)) runNearby() else perm.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
       Modifier.fillMaxWidth().height(52.dp), enabled = !loading) { Icon(Icons.Filled.MyLocation, null); Spacer(Modifier.width(8.dp)); Text("Search near me") } }
     item { Row(verticalAlignment = Alignment.CenterVertically) {
-      OutlinedTextField(query, { query = it }, Modifier.weight(1f), singleLine = true, label = { Text("Gym name or city") })
+      AppTextField(query, { query = it }, Modifier.weight(1f), singleLine = true, label = { Text("Gym name or city") })
       IconButton({ runText() }, enabled = !loading && query.isNotBlank()) { Icon(Icons.Filled.Search, "Search") } } }
     if (loading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
     error?.let { item { Text(it, color = MaterialTheme.colorScheme.error) } }
@@ -83,7 +83,7 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
       item { Muted("${list.size} results from ${app.gymDirectory.providerName}. Listings may not include every gym.") }
       items(list, key = { it.provider + it.placeId }) { r ->
         val existing = byPlace[r.provider to r.placeId]
-        ListItem(headlineContent = { Text(r.name) },
+        AppListItem(headlineContent = { Text(r.name) },
           supportingContent = { Column {
             Text(listOf(r.address, miles(r.distanceM)).filter { it.isNotBlank() }.joinToString(" · "))
             if (existing != null) Text("✓ In GymClues · ${counts[existing.id] ?: 0} machines" + if (existing.id == activeId) " · My gym" else "",
@@ -91,13 +91,13 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
           } },
           trailingContent = {
             if (existing != null) TextButton({ nav.navigate(Routes.gym(existing.id)) }) { Text("Open") }
-            else FilledTonalButton({ scope.launch { val g = app.gyms.addFromPlace(r); nav.navigate(Routes.gym(g.id)) } }) { Text("Add") }
+            else AppTonalButton({ scope.launch { val g = app.gyms.addFromPlace(r); nav.navigate(Routes.gym(g.id)) } }) { Text("Add") }
           })
       }
     }
     if (gyms.isNotEmpty()) {
       item { HorizontalDivider(); SectionTitle("Gyms in GymClues") }
-      items(gyms, key = { it.id }) { g -> ListItem(headlineContent = { Text(g.name) },
+      items(gyms, key = { it.id }) { g -> AppListItem(headlineContent = { Text(g.name) },
         supportingContent = { Text("${counts[g.id] ?: 0} machines" + if (g.id == activeId) " · My gym" else "") },
         modifier = Modifier.clickable { nav.navigate(Routes.gym(g.id)) }) }
     }
@@ -116,14 +116,17 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
     item { Text(g.name, style = MaterialTheme.typography.headlineSmall); if (g.address.isNotBlank()) Muted(g.address) }
     item { Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
       if (g.id == activeId) AssistChip({}, { Text("My gym") }, leadingIcon = { Icon(Icons.Filled.Check, null) })
-      else Button({ app.gyms.setActiveGym(g.id) }) { Text("Train here") }
-      OutlinedButton({ nav.navigate(Routes.addEquipment(g.id)) }) { Icon(Icons.Filled.AddAPhoto, null); Spacer(Modifier.width(6.dp)); Text("Add equipment") }
+      else AppButton({ app.gyms.setActiveGym(g.id) }) { Text("Train here") }
+      AppOutlinedButton({ nav.navigate(Routes.addEquipment(g.id)) }) { Icon(Icons.Filled.AddAPhoto, null); Spacer(Modifier.width(6.dp)); Text("Add equipment") }
     } }
     item { SectionTitle("Equipment (${visible.count { it.status == ReviewStatus.APPROVED }} approved)") }
     if (visible.isEmpty()) item { Muted("No equipment uploaded for this gym yet. Be the first — snap a photo of each machine and its label.") }
-    items(visible, key = { it.id }) { e ->
+    visible.groupBy { e -> app.catalog.equipment(e.catalogEquipmentId)?.machineType ?: equipmentType(e.catalogEquipmentId, e.category) }
+      .toSortedMap().forEach { (type, rows) ->
+    item(key = "type_${type.name}") { SectionTitle(type.title) }
+    items(rows.sortedWith(compareBy({ it.name.lowercase() }, { it.id })), key = { it.id }) { e ->
       val mine = e.submittedBy == me && e.status != ReviewStatus.APPROVED
-      ListItem(headlineContent = { Text(e.name) },
+      AppListItem(headlineContent = { Text(e.name) },
         supportingContent = { Column {
           Text(listOf(e.category, e.primaryMuscles.joinToString()).filter { it.isNotBlank() }.joinToString(" · "))
           if (e.status != ReviewStatus.APPROVED) Text(statusLabel(e.status) + if (e.reviewNote.isNotBlank()) " — ${e.reviewNote}" else "",
@@ -132,6 +135,7 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
         leadingContent = { if (e.photoUris.isNotEmpty()) PhotoRow(e.photoUris.take(1)) else Icon(Icons.Filled.FitnessCenter, null) },
         modifier = Modifier.clickable {
           when { mine -> nav.navigate(Routes.addEquipment(g.id, e.id)); e.catalogEquipmentId.isNotBlank() -> nav.navigate(Routes.equipment(e.catalogEquipmentId)) } })
+    }
     }
   }
 }
@@ -206,43 +210,46 @@ private fun lines(s: String) = s.split('\n', ';').map { it.trim() }.filter { it.
     SectionTitle("Photos")
     PhotoRow(photos) { photos.remove(it) }
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-      Button({ if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) launchCamera()
+      AppButton({ if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) launchCamera()
         else camPerm.launch(Manifest.permission.CAMERA) }) { Icon(Icons.Filled.PhotoCamera, null); Spacer(Modifier.width(6.dp)); Text("Take photo") }
-      OutlinedButton({ pickPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) {
+      AppOutlinedButton({ pickPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) {
         Icon(Icons.Filled.PhotoLibrary, null); Spacer(Modifier.width(6.dp)); Text("Gallery") }
     }
     Muted("Tip: photograph the whole machine and the label/instruction placard.")
 
     SectionTitle("Details")
-    OutlinedTextField(name, { name = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Machine name (as on the label) *") })
+    AppTextField(name, { name = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Machine name (as on the label) *") })
     ExposedDropdownMenuBox(catalogMenu, { catalogMenu = it }) {
-      OutlinedTextField(app.catalog.equipment(catalogId)?.name ?: "Not sure / new machine", {}, readOnly = true,
+      AppTextField(app.catalog.equipment(catalogId)?.name ?: "Not sure / new machine", {}, readOnly = true,
         label = { Text("Same as a GymClues machine?") }, trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(catalogMenu) },
         modifier = Modifier.menuAnchor().fillMaxWidth())
       ExposedDropdownMenu(catalogMenu, { catalogMenu = false }) {
         DropdownMenuItem(text = { Text("Not sure / new machine") }, onClick = { catalogId = ""; catalogMenu = false })
-        app.catalog.content.equipment.forEach { q -> DropdownMenuItem(text = { Text(q.name) }, onClick = { catalogId = q.id; if (name.isBlank()) name = q.name; catalogMenu = false }) }
+        app.catalog.equipmentGroups.forEach { (type, equipment) ->
+          Text(type.title, Modifier.padding(horizontal = 16.dp, vertical = 8.dp), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+          equipment.forEach { q -> DropdownMenuItem(text = { Text(q.name) }, onClick = { catalogId = q.id; if (name.isBlank()) name = q.name; catalogMenu = false }) }
+        }
       }
     }
-    OutlinedTextField(manufacturer, { manufacturer = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Manufacturer") })
-    OutlinedTextField(model, { model = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Model") })
-    OutlinedTextField(category, { category = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Category (Selectorized, Plate-loaded, Cable, Bench…)") })
-    OutlinedTextField(altNames, { altNames = it }, Modifier.fillMaxWidth(), label = { Text("Other names (separate with ;)") })
-    OutlinedTextField(muscles, { muscles = it }, Modifier.fillMaxWidth(), label = { Text("Muscles worked (separate with ;)") })
-    OutlinedTextField(howTo, { howTo = it }, Modifier.fillMaxWidth().heightIn(min = 100.dp), label = { Text("How to use it (one step per line)") })
+    AppTextField(manufacturer, { manufacturer = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Manufacturer") })
+    AppTextField(model, { model = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Model") })
+    AppTextField(category, { category = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Category (Selectorized, Plate-loaded, Cable, Bench…)") })
+    AppTextField(altNames, { altNames = it }, Modifier.fillMaxWidth(), label = { Text("Other names (separate with ;)") })
+    AppTextField(muscles, { muscles = it }, Modifier.fillMaxWidth(), label = { Text("Muscles worked (separate with ;)") })
+    AppTextField(howTo, { howTo = it }, Modifier.fillMaxWidth().heightIn(min = 100.dp), label = { Text("How to use it (one step per line)") })
 
     SectionTitle("Video / QR code")
     Row(verticalAlignment = Alignment.CenterVertically) {
-      OutlinedTextField(qr, { qr = it }, Modifier.weight(1f), singleLine = true, label = { Text("QR code on the machine") })
+      AppTextField(qr, { qr = it }, Modifier.weight(1f), singleLine = true, label = { Text("QR code on the machine") })
       IconButton({ scanQr.launch(ScanOptions().setPrompt("Scan the QR sticker on the machine").setBeepEnabled(false).setOrientationLocked(false)) }) {
         Icon(Icons.Filled.QrCodeScanner, "Scan QR") }
     }
-    OutlinedTextField(video, { video = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Video link (YouTube or .mp4)") })
-    OutlinedTextField(notes, { notes = it }, Modifier.fillMaxWidth(), label = { Text("Notes (where it is, quirks)") })
+    AppTextField(video, { video = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Video link (YouTube or .mp4)") })
+    AppTextField(notes, { notes = it }, Modifier.fillMaxWidth(), label = { Text("Notes (where it is, quirks)") })
 
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-      OutlinedButton({ scope.launch { result = app.gyms.submitEquipment(build(), ReviewStatus.DRAFT) } }, Modifier.weight(1f), enabled = name.isNotBlank()) { Text("Save draft") }
-      Button({ scope.launch { result = app.gyms.submitEquipment(build(), ReviewStatus.SUBMITTED) } }, Modifier.weight(1f), enabled = name.isNotBlank()) { Text("Submit") }
+      AppOutlinedButton({ scope.launch { result = app.gyms.submitEquipment(build(), ReviewStatus.DRAFT) } }, Modifier.weight(1f), enabled = name.isNotBlank()) { Text("Save draft") }
+      AppButton({ scope.launch { result = app.gyms.submitEquipment(build(), ReviewStatus.SUBMITTED) } }, Modifier.weight(1f), enabled = name.isNotBlank()) { Text("Submit") }
     }
     Spacer(Modifier.height(24.dp))
   }

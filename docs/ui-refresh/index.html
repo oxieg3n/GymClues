@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GymClues — UI refresh</title>
+<style>
+  :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0e1319; color: #edf2f7; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 48px 24px; }
+  main { max-width: 1240px; margin: auto; }
+  .eyebrow { color: #7ce4ae; font-size: 12px; letter-spacing: 2px; font-weight: 600; }
+  h1 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -1.3px; margin: 12px 0; }
+  p { color: #aab7c5; max-width: 680px; line-height: 1.7; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 40px; }
+  .tags span { background: #203c30; color: #b6f3d0; padding: 8px 12px; border-radius: 8px; font-size: 12px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 36px 24px; }
+  figure { margin: 0; }
+  figcaption { margin-bottom: 14px; font-size: 14px; font-weight: 600; }
+  figcaption span { color: #7ce4ae; font-size: 12px; margin-right: 10px; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid #7ce4ae; outline-offset: 5px; border-radius: 20px; }
+  img { width: 100%; height: auto; display: block; border-radius: 20px; border: 1px solid #2d3a47; background: #141b23; }
+  footer { margin-top: 48px; border-top: 1px solid #2d3a47; padding-top: 20px; font-size: 12px; color: #aab7c5; line-height: 1.7; }
+</style>
+<main>
+  <div class="eyebrow">GYMCLUES / INTERFACE UPDATE</div>
+  <h1>A familiar layout. A more refined finish.</h1>
+  <p>Charcoal surfaces, a softer green accent, clearer typography, and consistent cards and controls throughout the app. These are actual Android screen renders. Select any image to view it at full size.</p>
+  <div class="tags"><span>Original navigation</span><span>Offline system fonts</span><span>Responsive workout inputs</span><span>Muscle maps preserved</span></div>
+  <div class="gallery">
+    <figure><figcaption><span>01</span>Dashboard</figcaption><a href="01-home.png"><img src="01-home.png" alt="Refreshed GymClues dashboard with program progress, streak, schedule, and Rest Day button"></a></figure>
+    <figure><figcaption><span>02</span>Navigation menu</figcaption><a href="02-menu.png"><img loading="lazy" src="02-menu.png" alt="Existing navigation menu with consistent icons and typography"></a></figure>
+    <figure><figcaption><span>03</span>Program types</figcaption><a href="03-program-types.png"><img loading="lazy" src="03-program-types.png" alt="Program type cards with icons and clear descriptions"></a></figure>
+    <figure><figcaption><span>04</span>Program selection</figcaption><a href="04-programs.png"><img loading="lazy" src="04-programs.png" alt="Workout program cards with level and duration badges"></a></figure>
+    <figure><figcaption><span>05</span>Program details</figcaption><a href="05-program-detail.png"><img loading="lazy" src="05-program-detail.png" alt="Program description and daily workout list"></a></figure>
+    <figure><figcaption><span>06</span>Workout preview</figcaption><a href="06-program-day.png"><img loading="lazy" src="06-program-day.png" alt="Daily exercise prescriptions and muscle-map buttons"></a></figure>
+    <figure><figcaption><span>07</span>Active workout</figcaption><a href="07-active-workout.png"><img loading="lazy" src="07-active-workout.png" alt="Workout tracking with refined steppers and responsive weight and rep fields"></a></figure>
+    <figure><figcaption><span>08</span>Muscle mapping</figcaption><a href="08-muscle-map.png"><img loading="lazy" src="08-muscle-map.png" alt="Existing muscle-map diagram presented in the updated theme"></a></figure>
+    <figure><figcaption><span>09</span>Exercise form</figcaption><a href="09-add-exercise.png"><img loading="lazy" src="09-add-exercise.png" alt="Exercise creation form with consistent text fields, section labels and selection chips"></a></figure>
+    <figure><figcaption><span>10</span>Completed sessions</figcaption><a href="10-sessions.png"><img loading="lazy" src="10-sessions.png" alt="Completed sessions empty state"></a></figure>
+    <figure><figcaption><span>11</span>Gym search</figcaption><a href="11-gym-search.png"><img loading="lazy" src="11-gym-search.png" alt="Gym search controls using the shared visual design"></a></figure>
+    <figure><figcaption><span>12</span>Dashboard · narrow phone</figcaption><a href="12-narrow-home.png"><img loading="lazy" src="12-narrow-home.png" alt="Dashboard at 320dp phone width"></a></figure>
+    <figure><figcaption><span>13</span>Workout · narrow phone</figcaption><a href="13-narrow-workout.png"><img loading="lazy" src="13-narrow-workout.png" alt="Weight, rep, checkbox and muscle-map controls fit on a 320dp phone"></a></figure>
+  </div>
+  <footer>Captured with Android rendering in Robolectric at 411dp and 320dp widths. The preview checks cover program navigation, starting a workout, editing sets, opening and closing muscle maps, exercise forms, sessions, and gym search. Six muscle-map tests and both interface flow checks passed; the debug APK built successfully. Java 25 validation used a temporary test-runtime ASM override.</footer>
+</main>
+</html>

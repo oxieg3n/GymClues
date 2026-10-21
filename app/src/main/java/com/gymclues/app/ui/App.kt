@@ -57,9 +57,9 @@ object Routes {
         Box(Modifier.weight(1f).fillMaxWidth()) {
           NavHost(nav, "home") {
       composable("home") { Home(app, nav::navigate) }
-      composable("muscles") { ListScreen("Choose a muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
+      composable("muscles") { ListScreen("Choose a primary muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
       composable("list/{m}") { val m = it.arguments?.getString("m").orEmpty()
-        ExerciseList(app.catalog.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }) { id -> nav.navigate(Routes.exercise(id)) } }
+        ExerciseList(app.catalog.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }, title = m) { id -> nav.navigate(Routes.exercise(id)) } }
       composable("ex/{id}") { val e = app.catalog.exercise(it.arguments?.getString("id").orEmpty())
         if (e == null) NotFound("Exercise not found.") else ExerciseDetail(app, e, offIds, nav) }
       composable("equip/{id}?ex={ex}", listOf(navArgument("ex") { type = NavType.StringType; nullable = true; defaultValue = null })) {
@@ -69,7 +69,7 @@ object Routes {
         nav.popBackStack("home", false) } }
       composable("builder?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         WorkoutBuilder(app, it.arguments?.getString("id"), offIds, { nav.navigate(Routes.addExercise()) }) { nav.popBackStack() } }
-      composable("equipment") { EquipmentScreen(app, offIds) }
+      composable("equipment") { EquipmentScreen(app, offIds, nav) }
       composable("sessions") { CompletedSessions(app, nav) }
       composable("session/{id}") { SessionDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
       composable("gyms") { GymSearch(app, nav) }

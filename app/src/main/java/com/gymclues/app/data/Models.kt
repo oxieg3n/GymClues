@@ -26,11 +26,20 @@ import kotlinx.serialization.Serializable
   val breathing: String = "", val mistakes: List<String> = emptyList(), val safety: String = "",
   val alternativeIds: List<String> = emptyList(), val media: String = "",
   val equipmentSetup: List<EquipmentSetup> = emptyList(),
-  val target: String = "", val why: String = "", val source: String = "")
+  val target: String = "", val why: String = "", val source: String = "",
+  val safetyTips: List<String> = emptyList(), val injuryPrevention: List<String> = emptyList(),
+  val equipmentNotes: String = "", val muscleMapName: String = "", val guideKind: String = "",
+  val choices: List<ExerciseChoice> = emptyList(), val tracking: String = "strength")
+
+@Serializable data class ExerciseChoice(val name: String, val exerciseId: String)
+@Serializable data class ProgramExerciseLibrary(
+  val exercises: List<Exercise> = emptyList(), val nameAliases: Map<String, String> = emptyMap(),
+  val legacyIds: Map<String, String> = emptyMap(), val programIds: Map<String, String> = emptyMap(),
+  val primaryGroups: Map<String, List<String>> = emptyMap())
 
 @Serializable data class TemplateItem(val exerciseId: String, val sets: Int, val reps: String, val restSec: Int,
   val setsText: String = "", val repsNote: String = "", val phase: String = "", val restText: String = "",
-  val notes: String = "", val substitution: String = "", val originalName: String = "")
+  val notes: String = "", val substitution: String = "", val originalName: String = "", val durationSec: Int = 0)
 @Serializable data class WorkoutTemplate(val id: String, val name: String, val split: String,
   val description: String, val items: List<TemplateItem>)
 @Serializable data class Content(val equipment: List<Equipment>, val exercises: List<Exercise>, val templates: List<WorkoutTemplate> = emptyList())

@@ -6,6 +6,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,21 +38,22 @@ import com.gymclues.app.media.MediaRemote
 import com.gymclues.app.media.MusicApp
 import com.gymclues.app.media.NowPlaying
 
-/** Square, rounded-corner, green-bordered +/- button used for adding/removing sets. */
+/** A quiet, consistently sized control shared by workout set steppers. */
 @Composable fun SetStepButton(add: Boolean, enabled: Boolean = true, onClick: () -> Unit) {
   val green = MaterialTheme.colorScheme.primary
-  OutlinedIconButton(onClick = onClick, enabled = enabled, modifier = Modifier.size(40.dp), shape = RoundedCornerShape(8.dp),
-    border = BorderStroke(1.5.dp, if (enabled) green else green.copy(alpha = 0.3f))) {
+  OutlinedIconButton(onClick = onClick, enabled = enabled, modifier = Modifier.size(48.dp), shape = RoundedCornerShape(12.dp),
+    colors = IconButtonDefaults.outlinedIconButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+    border = BorderStroke(1.dp, if (enabled) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.outlineVariant)) {
     Icon(if (add) Icons.Filled.Add else Icons.Filled.Remove, contentDescription = if (add) "Add set" else "Remove set",
       tint = if (enabled) green else green.copy(alpha = 0.3f))
   }
 }
 
-/** Small red X in a circle, used to remove an exercise. */
+/** A restrained removal control with a full touch target. */
 @Composable fun RemoveCircleButton(label: String, onClick: () -> Unit) {
   val red = MaterialTheme.colorScheme.error
-  Surface(onClick = onClick, shape = CircleShape, border = BorderStroke(1.5.dp, red), color = red.copy(alpha = 0.12f),
-    modifier = Modifier.size(30.dp)) {
+  Surface(onClick = onClick, shape = CircleShape, color = red.copy(alpha = 0.08f),
+    modifier = Modifier.size(48.dp)) {
     Box(contentAlignment = Alignment.Center) { Icon(Icons.Filled.Close, contentDescription = label, tint = red, modifier = Modifier.size(18.dp)) }
   }
 }
@@ -64,6 +66,10 @@ import com.gymclues.app.media.NowPlaying
   FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     items.forEach { q ->
       AssistChip(onClick = { open(q.id) }, label = { Text(q.name) },
+        shape = RoundedCornerShape(10.dp),
+        colors = AssistChipDefaults.assistChipColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+          labelColor = MaterialTheme.colorScheme.onSurfaceVariant, leadingIconContentColor = MaterialTheme.colorScheme.primary),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         leadingIcon = { Icon(Icons.Filled.FitnessCenter, null, Modifier.size(16.dp)) },
         trailingIcon = { Icon(Icons.Filled.ChevronRight, null, Modifier.size(16.dp)) })
     }
@@ -87,8 +93,10 @@ import com.gymclues.app.media.NowPlaying
     lifecycle.addObserver(obs); remote.start { state = it }
     onDispose { lifecycle.removeObserver(obs); remote.stop() }
   }
-  Surface(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer) {
-    Row(Modifier.padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+  Surface(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium,
+    color = MaterialTheme.colorScheme.surfaceContainerLow,
+    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .7f))) {
+    Row(Modifier.padding(horizontal = 6.dp, vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
       Box {
         IconButton({ menu = true }, Modifier.size(40.dp)) { Icon(Icons.Filled.MusicNote, "Choose music app: ${app.label}", Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary) }
         DropdownMenu(menu, { menu = false }) {
@@ -107,8 +115,11 @@ import com.gymclues.app.media.NowPlaying
       if (!access) TextButton({ remote.openAccessSettings() }, contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Connect") }
       else {
         IconButton({ remote.previous() }, Modifier.size(40.dp)) { Icon(Icons.Filled.SkipPrevious, "Previous", Modifier.size(20.dp)) }
-        IconButton({ remote.playPause() }, Modifier.size(40.dp)) { Icon(if (state?.playing == true) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-          if (state?.playing == true) "Pause" else "Play", Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary) }
+        FilledTonalIconButton({ remote.playPause() }, Modifier.size(40.dp),
+          colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.primary)) {
+          Icon(if (state?.playing == true) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+            if (state?.playing == true) "Pause" else "Play", Modifier.size(22.dp)) }
         IconButton({ remote.next() }, Modifier.size(40.dp)) { Icon(Icons.Filled.SkipNext, "Next", Modifier.size(20.dp)) }
       }
     }
@@ -120,11 +131,12 @@ import com.gymclues.app.media.NowPlaying
 @Composable fun ExercisePickerSheet(catalog: CatalogRepository, suggested: List<Exercise>?, exclude: Set<String>,
                                     onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, onPick: (List<Exercise>) -> Unit) {
   var showAll by remember { mutableStateOf(suggested == null) }
+  var cardioOnly by remember { mutableStateOf(false) }
   var query by remember { mutableStateOf("") }
   var muscle by remember { mutableStateOf<String?>(null) }
   val picked = remember { mutableStateListOf<String>() }
-  val base = if (showAll || suggested == null) catalog.exercises else suggested
-  val list = base.filter { it.id !in exclude && (muscle == null || muscle in it.primaryMuscles) &&
+  val base = if (cardioOnly || showAll || suggested == null) catalog.exercises else suggested
+  val list = base.filter { (!cardioOnly || it.movement == "Cardio") && it.id !in exclude && (muscle == null || muscle in it.primaryMuscles) &&
     (query.isBlank() || it.name.contains(query, true) || it.primaryMuscles.any { m -> m.contains(query, true) }) }
   ModalBottomSheet(onDismissRequest = onDismiss) {
     Column(Modifier.padding(horizontal = 16.dp).fillMaxHeight(0.85f)) {
@@ -132,7 +144,8 @@ import com.gymclues.app.media.NowPlaying
       if (suggested != null) Row(verticalAlignment = Alignment.CenterVertically) {
         FilterChip(!showAll, { showAll = false }, { Text("Fits this workout") }); Spacer(Modifier.width(8.dp))
         FilterChip(showAll, { showAll = true }, { Text("All exercises") }) }
-      OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Search") },
+      FilterChip(cardioOnly, { cardioOnly = !cardioOnly; muscle = null }, { Text("Cardio") })
+      AppTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Search") },
         leadingIcon = { Icon(Icons.Filled.Search, null) })
       LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         item { FilterChip(muscle == null, { muscle = null }, { Text("Any muscle") }) }
@@ -142,13 +155,13 @@ import com.gymclues.app.media.NowPlaying
         if (list.isEmpty()) item { Text("No matching exercises.", Modifier.padding(vertical = 12.dp)) }
         if (onCreate != null) item { TextButton(onCreate) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Not listed? Add your own exercise") } }
         items(list, key = { it.id }) { e -> val on = e.id in picked
-          ListItem(headlineContent = { Text(e.name) },
+          AppListItem(headlineContent = { Text(e.name) },
             supportingContent = { Text("${e.primaryMuscles.joinToString()} · ${e.movement} · ${e.difficulty}") },
             trailingContent = { Checkbox(on, { if (it) picked += e.id else picked -= e.id }) },
             modifier = Modifier.clickable { if (on) picked -= e.id else picked += e.id })
         }
       }
-      Button({ onPick(picked.mapNotNull(catalog::exercise)) }, Modifier.fillMaxWidth().padding(vertical = 12.dp).height(52.dp),
+      AppButton({ onPick(picked.mapNotNull(catalog::exercise)) }, Modifier.fillMaxWidth().padding(vertical = 12.dp).height(52.dp),
         enabled = picked.isNotEmpty()) { Text(if (picked.isEmpty()) "Select exercises" else "Add ${picked.size} exercise(s)") }
     }
   }
@@ -169,7 +182,7 @@ import com.gymclues.app.media.NowPlaying
         settings.javaScriptEnabled = true; settings.mediaPlaybackRequiresUserGesture = true; settings.domStorageEnabled = true
         webChromeClient = WebChromeClient()
         loadDataWithBaseURL("https://app.gymclues.local", html, "text/html", "utf-8", null) } },
-      modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(10.dp)))
+      modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(MaterialTheme.shapes.medium))
   }
   TextButton({ runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } }) {
     Icon(Icons.Filled.OpenInNew, null, Modifier.size(16.dp)); Spacer(Modifier.width(4.dp)); Text(if (yt != null || direct) "Open video in another app" else "Open video") }
@@ -190,11 +203,15 @@ fun youtubeId(url: String): String? {
   LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
     items(uris) { u -> Box {
       AsyncImage(model = if (u.startsWith("/")) java.io.File(u) else u, contentDescription = "Equipment photo",
-        modifier = Modifier.size(96.dp).clip(RoundedCornerShape(8.dp)), contentScale = ContentScale.Crop)
+        modifier = Modifier.size(96.dp).clip(MaterialTheme.shapes.small), contentScale = ContentScale.Crop)
       if (onRemove != null) Box(Modifier.align(Alignment.TopEnd).padding(4.dp)) { RemoveCircleButton("Remove photo") { onRemove(u) } }
     } }
   }
 }
 
-@Composable fun SectionTitle(t: String) = Text(t, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+@Composable fun SectionTitle(t: String) = Row(Modifier.padding(top = 8.dp, bottom = 4.dp),
+  horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+  Box(Modifier.width(3.dp).height(16.dp).clip(RoundedCornerShape(2.dp)).background(MaterialTheme.colorScheme.primary))
+  Text(t, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
+}
 @Composable fun Muted(t: String) = Text(t, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

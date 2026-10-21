@@ -15,6 +15,7 @@ data class ShareCard(val title: String, val big: String, val sub: String, val ca
 
 /** "135 lb x 10", or "10 reps" for bodyweight. */
 fun setLabel(s: SetLog): String {
+  s.cardio?.let { return it.summary() }
   val w = if (s.weight % 1.0 == 0.0) s.weight.toLong().toString() else "%.1f".format(s.weight)
   return if (s.weight > 0) "$w ${s.units} x ${s.reps}" else "${s.reps} reps"
 }
@@ -25,7 +26,7 @@ fun setsSummary(sets: List<SetLog>): String {
   while (i < sets.size) {
     val l = setLabel(sets[i]); var n = 1
     while (i + n < sets.size && setLabel(sets[i + n]) == l) n++
-    out.add(if (n > 1) "$l ($n sets)" else l); i += n
+    out.add(if (n > 1) "$l ($n ${if (sets[i].cardio != null) "entries" else "sets"})" else l); i += n
   }
   return out.joinToString(", ")
 }

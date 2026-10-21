@@ -5,6 +5,7 @@ import com.gymclues.app.data.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.TaskAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,8 +45,12 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
     border = BorderStroke(1.dp, if (s.streak > 0) cs.primary.copy(alpha = 0.35f) else cs.outlineVariant)) {
     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(Icons.Filled.LocalFireDepartment, null, Modifier.size(40.dp), tint = if (s.streak > 0) cs.primary else cs.onSurfaceVariant)
-        Spacer(Modifier.width(10.dp))
+        Surface(shape = MaterialTheme.shapes.small, color = if (s.streak > 0) cs.primaryContainer else cs.surfaceContainerHigh) {
+          Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) {
+            Icon(Icons.Filled.LocalFireDepartment, null, Modifier.size(24.dp), tint = if (s.streak > 0) cs.primary else cs.onSurfaceVariant)
+          }
+        }
+        Spacer(Modifier.width(14.dp))
         Text("${s.streak}", style = MaterialTheme.typography.displayMedium, color = if (s.streak > 0) cs.primary else cs.onSurface)
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
@@ -56,8 +61,13 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
             style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
         }
       }
-      Row(Modifier.fillMaxWidth()) {
-        Tally("This week", s.week, Modifier.weight(1f)); Tally("This month", s.month, Modifier.weight(1f)); Tally("This year", s.year, Modifier.weight(1f))
+      HorizontalDivider(color = cs.outlineVariant)
+      Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+        Tally("This week", s.week, Modifier.weight(1f))
+        VerticalDivider(Modifier.padding(vertical = 4.dp), color = cs.outlineVariant)
+        Tally("This month", s.month, Modifier.weight(1f).padding(start = 16.dp))
+        VerticalDivider(Modifier.padding(vertical = 4.dp), color = cs.outlineVariant)
+        Tally("This year", s.year, Modifier.weight(1f).padding(start = 16.dp))
       }
     }
   }
@@ -72,15 +82,19 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
   val cs = MaterialTheme.colorScheme
   Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer,
     border = BorderStroke(1.dp, if (p.complete) cs.primary else cs.outlineVariant)) {
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(Icons.Filled.TaskAlt, null, Modifier.size(20.dp), tint = cs.primary)
+        Spacer(Modifier.width(8.dp))
         Text(if (p.complete) "Program complete" else "Program completed", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-        Text("${p.pct}%", style = MaterialTheme.typography.titleLarge, color = cs.primary)
+        Surface(shape = MaterialTheme.shapes.small, color = cs.primaryContainer) {
+          Text("${p.pct}%", Modifier.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.labelLarge, color = cs.primary)
+        }
       }
-      LinearProgressIndicator(progress = { p.pct / 100f }, Modifier.fillMaxWidth().height(8.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp)),
+      LinearProgressIndicator(progress = { p.pct / 100f }, Modifier.fillMaxWidth().height(6.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp)),
         color = cs.primary, trackColor = cs.surfaceContainerHighest)
       Text("${p.done} of ${p.total} sessions in ${p.program.name}", style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
-      if (p.complete) Button(onNewProgram, Modifier.fillMaxWidth()) { Text("Start a new program") }
+      if (p.complete) AppButton(onNewProgram, Modifier.fillMaxWidth()) { Text("Start a new program") }
     }
   }
 }

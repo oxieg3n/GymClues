@@ -9,6 +9,7 @@ captures/
 *.apk
 *.aab
 *.hprof
+__pycache__/
 # Local config & secrets (API keys, SDK path) — never commit
 local.properties
 *.jks

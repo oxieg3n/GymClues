@@ -24,22 +24,31 @@ import kotlinx.serialization.json.Json
 
 /** Read-only exercise/equipment/template catalog. Future: refreshed from the server, cached locally. */
 class CatalogRepository(private val ctx: Context) {
+  val trainingGuides = TrainingGuideLibrary.load(ctx)
   private val json = Json { ignoreUnknownKeys = true }
   private fun read(name: String) = ctx.assets.open(name).bufferedReader().use { it.readText() }
+  private val programLibrary = json.decodeFromString<ProgramExerciseLibrary>(read("program_exercises.json"))
   val content: Content = runCatching {
     val base = json.decodeFromString<Content>(read("content.json"))
     val lib = runCatching { json.decodeFromString<Content>(read("library.json")) }
       .getOrDefault(Content(emptyList(), emptyList(), emptyList()))
-    base.copy(equipment = base.equipment + lib.equipment, exercises = base.exercises + lib.exercises)
+    val cardio = json.decodeFromString<Content>(read("cardio.json"))
+    base.copy(equipment = base.equipment + lib.equipment + cardio.equipment,
+      exercises = (base.exercises + lib.exercises + programLibrary.exercises + cardio.exercises).map { e ->
+        trainingGuides.enrich(e.copy(primaryMuscles = programLibrary.primaryGroups[e.id] ?: e.primaryMuscles))
+      })
   }.getOrElse { Content(emptyList(), emptyList(), emptyList()) }
+  val equipmentGroups = equipmentGroups(content.equipment)
   /** Exercises this user added (observable, so lists update the moment one is saved). */
   var custom by mutableStateOf<List<Exercise>>(emptyList())
   val exercises: List<Exercise> get() = content.exercises + custom
   /** Display names for ids that are not catalog exercises (program lifts without a catalog match). */
   val aliases = HashMap<String, String>()
   fun displayName(id: String) = exercise(id)?.name ?: aliases[id] ?: id
-  fun byName(name: String): Exercise? { val n = norm(name); return if (n.isBlank()) null else exercises.firstOrNull { norm(it.name) == n } }
-  fun exercise(id: String) = exercises.firstOrNull { it.id == id }
+  fun byName(name: String): Exercise? { val n = norm(name); return if (n.isBlank()) null else exercises.firstOrNull { norm(it.name) == n } ?: programLibrary.nameAliases[n]?.let(::exercise) }
+  fun programExerciseReference(name: String) = programLibrary.programIds[MuscleMapLibrary.normalize(name)] ?: byName(name)?.id
+  fun exercise(id: String): Exercise? = exercises.firstOrNull { it.id == id }
+    ?: programLibrary.legacyIds[id]?.let { canonical -> exercises.firstOrNull { it.id == canonical }?.copy(id = id) }
   fun equipment(id: String) = content.equipment.firstOrNull { it.id == id }
   fun template(id: String) = content.templates.firstOrNull { it.id == id }
   val muscles get() = exercises.flatMap { it.primaryMuscles }.distinct().sorted()
@@ -70,7 +79,8 @@ class CatalogRepository(private val ctx: Context) {
 class ExerciseRepository(private val dao: GymDao, private val catalog: CatalogRepository, private val session: UserSession) {
   private fun norm(s: String) = s.lowercase().replace(Regex("[^a-z0-9]"), "")
   fun attach(scope: CoroutineScope) { scope.launch { dao.customExercises(session.userId).collect { l -> catalog.custom = l.map {
-    Exercise(it.id, it.name, it.equipmentIds, it.primaryMuscles, movement = it.movement.ifBlank { "Custom" }, steps = it.steps, safety = it.safety) } } } }
+    catalog.trainingGuides.enrich(Exercise(it.id, it.name, it.equipmentIds, it.primaryMuscles,
+      movement = it.movement.ifBlank { "Custom" }, steps = it.steps, safety = it.safety)) } } } }
   fun mine() = dao.customExercises(session.userId)
   /** Returns an error message, or null when saved. */
   suspend fun save(id: String?, name: String, muscles: List<String>, equipmentIds: List<String>, movement: String, steps: List<String>, safety: String): String? {
@@ -124,13 +134,19 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
     dao.upsertWorkout(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING))
     dao.enqueue(OutboxEntity(entityType = "workout", entityId = id, op = "delete")) } }
 
-  suspend fun logSet(s: SetLog) = dao.log(s)
+  suspend fun logSet(s: SetLog) {
+    require(s.cardio == null || s.cardio.valid()) { "Invalid cardio measurements" }
+    dao.log(s)
+  }
   fun history() = dao.history()
   fun sessions() = dao.sessions(session.userId)
   /** Saves a finished workout under Completed Sessions. Safe to call twice for the same session. */
   suspend fun renameSession(id: String, name: String) { dao.session(id)?.let {
     dao.upsertSession(it.copy(name = name.trim().ifBlank { it.name }, updatedAt = now(), syncState = SyncState.PENDING)) } }
-  suspend fun updateSet(s: SetLog) = dao.updateSet(s)
+  suspend fun updateSet(s: SetLog) {
+    require(s.cardio == null || s.cardio.valid()) { "Invalid cardio measurements" }
+    dao.updateSet(s)
+  }
   suspend fun deleteSet(id: Long) = dao.deleteSet(id)
   /** Hides the session and removes its sets so streaks and totals update. */
   suspend fun deleteSession(id: String) { dao.session(id)?.let {

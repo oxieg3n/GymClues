@@ -35,7 +35,7 @@ class RegressionTests {
       app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 8, weight = 90.0, sessionId = "unfinished"))
       app.workouts.completeSession("s1", "Leg day", "") }
     compose.waitUntil(10_000) { compose.onAllNodesWithText("Leg day").fetchSemanticsNodes().isNotEmpty() }
-    compose.onNodeWithText("2 exercises, 2 sets").assertExists()
+    compose.onNodeWithText("2 exercises, 2 entries").assertExists()
     compose.onNodeWithText("No completed sessions yet").assertDoesNotExist()
   }
 
@@ -59,7 +59,7 @@ class RegressionTests {
       execSQL("INSERT INTO SetLog(date,exerciseId,setNo,reps,weight,units,notes) VALUES(1,'ex_leg_press',1,10,100,'lb','')")
       execSQL("INSERT INTO CustomWorkout(name,exerciseIdsCsv) VALUES('Old one','ex_leg_press,ex_chest_press')")
       close() }
-    val db = helper.runMigrationsAndValidate("mig.db", 5, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+    val db = helper.runMigrationsAndValidate("mig.db", 6, true, MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
     db.query("SELECT COUNT(*) FROM SetLog").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM workout_items").use { it.moveToFirst(); assertEquals(2, it.getInt(0)) }
     db.query("SELECT COUNT(*) FROM completed_sessions").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }

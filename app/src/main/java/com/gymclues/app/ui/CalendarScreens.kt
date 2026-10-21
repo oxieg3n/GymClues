@@ -39,10 +39,12 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
   Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer, border = BorderStroke(1.dp, cs.outlineVariant)) {
     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Schedule", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-        FilledTonalButton({ go("week") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Week") }
+        Icon(Icons.Filled.CalendarToday, null, Modifier.size(18.dp), tint = cs.primary)
         Spacer(Modifier.width(8.dp))
-        FilledTonalButton({ go("month") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Month") }
+        Text("Schedule", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+        AppTonalButton({ go("week") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Week") }
+        Spacer(Modifier.width(8.dp))
+        AppTonalButton({ go("month") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Month") }
       }
       Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         listOf("Today" to stats.today, "Tomorrow" to stats.today.plusDays(1)).forEach { (label, date) ->
@@ -55,8 +57,9 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 
 @Composable private fun DayCard(label: String, date: LocalDate, a: AssignedDay?, restDay: Boolean, done: Boolean, go: (String) -> Unit, modifier: Modifier) {
   val cs = MaterialTheme.colorScheme
-  Surface(modifier.heightIn(min = 148.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh,
-    border = if (label == "Today") BorderStroke(1.5.dp, cs.primary) else null) {
+  Surface(modifier.heightIn(min = 148.dp), shape = MaterialTheme.shapes.medium,
+    color = if (label == "Today") cs.primaryContainer.copy(alpha = 0.3f) else cs.surfaceContainerLow,
+    border = BorderStroke(1.dp, if (label == "Today") cs.primary.copy(alpha = 0.4f) else cs.outlineVariant.copy(alpha = 0.6f))) {
     Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Text(label, style = MaterialTheme.typography.titleMedium, color = if (label == "Today") cs.primary else cs.onSurface, modifier = Modifier.weight(1f))
@@ -81,7 +84,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 @Composable fun SessionLink(a: AssignedDay, go: (String) -> Unit) {
   val cs = MaterialTheme.colorScheme
   Surface(onClick = { go(Routes.programDay(planId(a), a.date.toString())) }, shape = MaterialTheme.shapes.small, color = cs.primary.copy(alpha = 0.14f),
-    border = BorderStroke(1.dp, cs.primary.copy(alpha = 0.5f))) {
+    border = BorderStroke(1.dp, cs.primary.copy(alpha = 0.2f))) {
     Column(Modifier.fillMaxWidth().padding(10.dp)) {
       Text(a.day.session, style = MaterialTheme.typography.titleMedium, color = cs.primary, maxLines = 2, overflow = TextOverflow.Ellipsis)
       Text(a.program.name, style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)

@@ -17,6 +17,8 @@ import kotlinx.serialization.json.Json
 
 class Converters {
   private val json = Json
+  @TypeConverter fun fromCardio(v: CardioMetrics?): String? = v?.let { json.encodeToString(it) }
+  @TypeConverter fun toCardio(v: String?): CardioMetrics? = v?.let { json.decodeFromString<CardioMetrics>(it) }
   @TypeConverter fun fromList(v: List<String>): String = json.encodeToString(v)
   @TypeConverter fun toList(v: String): List<String> = if (v.isBlank()) emptyList() else runCatching { json.decodeFromString<List<String>>(v) }.getOrDefault(emptyList())
 }
@@ -26,7 +28,7 @@ class Converters {
 @Entity data class SetLog(@PrimaryKey(autoGenerate = true) val id: Long = 0, val date: Long,
   val exerciseId: String, val setNo: Int, val reps: Int, val weight: Double, val units: String = "lb", val notes: String = "",
   @ColumnInfo(defaultValue = "") val sessionId: String = "",
-  @ColumnInfo(defaultValue = "") val gymId: String = "")
+  @ColumnInfo(defaultValue = "") val gymId: String = "", val cardio: CardioMetrics? = null)
 
 @Entity(tableName = "workouts") data class WorkoutEntity(
   @PrimaryKey val id: String = newId(), val name: String, val description: String = "", val split: String = "Custom",
@@ -162,13 +164,13 @@ class Converters {
 @Database(entities = [Unavailable::class, SetLog::class, WorkoutEntity::class, WorkoutItemEntity::class,
   GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
   ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class, CompletedSessionEntity::class],
-  version = 5, exportSchema = true)
+  version = 6, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6).build().also { i = it } } }
 }
 
 /** v1 -> v3 app (db 1 -> 2): keeps workout history and any old CustomWorkout rows. */
@@ -210,4 +212,9 @@ val MIGRATION_4_5 = object : Migration(4, 5) {
 /** db 3 -> 4: user rest days. */
 val MIGRATION_3_4 = object : Migration(3, 4) {
   override fun migrate(db: SupportSQLiteDatabase) { SCHEMA_V4_CREATE.forEach { db.execSQL(it) } }
+}
+
+/** Cardio measurements remain separate from lifting weight and reps. */
+val MIGRATION_5_6 = object : Migration(5, 6) {
+  override fun migrate(db: SupportSQLiteDatabase) { db.execSQL("ALTER TABLE `SetLog` ADD COLUMN `cardio` TEXT") }
 }

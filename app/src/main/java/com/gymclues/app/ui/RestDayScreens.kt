@@ -17,21 +17,22 @@ import java.time.ZoneOffset
 import java.time.format.TextStyle
 import java.util.Locale
 
-/** Wide, short red button under the home calendar. */
+/** Recovery action stays below the home calendar, with a quiet warm treatment. */
 @Composable fun RestDayButton(app: AppContainer, go: (String) -> Unit, modifier: Modifier = Modifier.fillMaxWidth().height(70.dp)) {
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val scope = rememberCoroutineScope()
   var open by remember { mutableStateOf(false) }
   val today = LocalDate.now(); val isRest = rest.isRest(today)
-  Button({ open = true }, modifier, shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 16.dp),
-    colors = ButtonDefaults.buttonColors(containerColor = androidx.compose.ui.graphics.Color(0xFFD32F2F), contentColor = androidx.compose.ui.graphics.Color.White)) {
+  AppButton({ open = true }, modifier, shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 16.dp),
+    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.errorContainer,
+      contentColor = MaterialTheme.colorScheme.onErrorContainer)) {
     Icon(Icons.Filled.Bedtime, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text(if (isRest) "Rest Day (today is off)" else "Rest Day") }
   if (open) AlertDialog(onDismissRequest = { open = false }, title = { Text("Rest day") },
     text = { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
       Muted("Your program moves back so you don't miss a session.")
-      if (isRest) OutlinedButton({ scope.launch { app.programs.removeRestDate(today) }; open = false }, Modifier.fillMaxWidth()) { Text("Undo today's rest day") }
-      else Button({ scope.launch { app.programs.addRestDate(today) }; open = false }, Modifier.fillMaxWidth()) { Text("Set Today as Rest Day") }
-      OutlinedButton({ open = false; go("restdays") }, Modifier.fillMaxWidth()) { Text("Plan Rest Day") } } },
+      if (isRest) AppOutlinedButton({ scope.launch { app.programs.removeRestDate(today) }; open = false }, Modifier.fillMaxWidth()) { Text("Undo today's rest day") }
+      else AppButton({ scope.launch { app.programs.addRestDate(today) }; open = false }, Modifier.fillMaxWidth()) { Text("Set Today as Rest Day") }
+      AppOutlinedButton({ open = false; go("restdays") }, Modifier.fillMaxWidth()) { Text("Plan Rest Day") } } },
     confirmButton = {}, dismissButton = { TextButton({ open = false }) { Text("Cancel") } })
 }
 
@@ -61,10 +62,10 @@ import java.util.Locale
     if (warn) item { Text("Keep at least one training day.", color = MaterialTheme.colorScheme.error) }
     item { Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
       SectionTitle("Single days"); Spacer(Modifier.weight(1f))
-      FilledTonalButton({ picking = true }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add date") } } }
+      AppTonalButton({ picking = true }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add date") } } }
     if (singles.isEmpty()) item { Muted("No upcoming rest days planned.") }
     items(singles, key = { it.id }) { r -> val d = LocalDate.parse(r.startDate)
-      ListItem(headlineContent = { Text(d.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMM d"))) },
+      AppListItem(headlineContent = { Text(d.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMM d"))) },
         trailingContent = { IconButton({ scope.launch { app.programs.removeRestDate(d) } }) { Icon(Icons.Filled.Delete, "Remove rest day") } }) }
   }
 }

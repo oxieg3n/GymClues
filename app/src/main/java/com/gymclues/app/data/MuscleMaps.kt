@@ -43,7 +43,12 @@ data class MuscleMapLibrary(
 
     fun load(context: Context): MuscleMapLibrary = cached ?: synchronized(this) {
       cached ?: context.assets.open("muscle_maps.json").bufferedReader().use {
-        Json.decodeFromString<MuscleMapLibrary>(it.readText())
+        val base = Json.decodeFromString<MuscleMapLibrary>(it.readText())
+        val cardio = context.assets.open("cardio_muscle_maps.json").bufferedReader().use { reader ->
+          Json.decodeFromString<MuscleMapLibrary>(reader.readText())
+        }
+        base.copy(muscles = base.muscles + cardio.muscles, profiles = base.profiles + cardio.profiles,
+          exercises = base.exercises + cardio.exercises)
       }.also { cached = it }
     }
   }

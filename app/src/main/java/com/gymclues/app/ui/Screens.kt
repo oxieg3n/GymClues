@@ -44,11 +44,17 @@ val SPLIT_HELP = mapOf(
       if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
       else Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
-        Column(Modifier.padding(16.dp)) {
-          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("Program completed", style = MaterialTheme.typography.titleMedium)
-            Text("0%", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+          Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Filled.TaskAlt, null, Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary)
+            Spacer(Modifier.width(8.dp))
+            Text("Program completed", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+            Surface(shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.primaryContainer) {
+              Text("0%", Modifier.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+            }
           }
+          LinearProgressIndicator(progress = { 0f }, modifier = Modifier.fillMaxWidth().height(6.dp),
+            color = MaterialTheme.colorScheme.primary, trackColor = MaterialTheme.colorScheme.surfaceContainerHighest)
           TextButton({ go("programs") }) { Text("Pick a program to start tracking") }
         }
       }
@@ -56,7 +62,7 @@ val SPLIT_HELP = mapOf(
     Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null) }
     Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
    }
-    HorizontalDivider(color = MaterialTheme.colorScheme.outline)
+    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
     Box(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp).tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().height(70.dp)) }
   }
   }
@@ -66,12 +72,18 @@ val SPLIT_HELP = mapOf(
   item { Text(title, style = MaterialTheme.typography.titleLarge) }
   item { TextButton(onAdd, contentPadding = PaddingValues(0.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add your own exercise") } }
   if (items.isEmpty()) item { Text("No content yet.") }
-  items(items) { ListItem(headlineContent = { Text(it) }, modifier = Modifier.clickable { click(it) }) }
+  items(items) { AppListItem(headlineContent = { Text(it) },
+    leadingContent = { IconBadge(Icons.Filled.AccessibilityNew) },
+    trailingContent = { Icon(Icons.Filled.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
+    modifier = Modifier.clickable { click(it) }) }
 }
 
-@Composable fun ExerciseList(list: List<Exercise>, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
+@Composable fun ExerciseList(list: List<Exercise>, title: String = "Exercises", click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
+  item { Text(title, style = MaterialTheme.typography.headlineSmall) }
   if (list.isEmpty()) item { Text("No exercises available with your gym's equipment.") }
-  items(list) { e -> ListItem(headlineContent = { Text(e.name) },
+  items(list.sortedBy { it.name.lowercase() }) { e -> AppListItem(headlineContent = { Text(e.name) },
+    leadingContent = { IconBadge(Icons.Filled.FitnessCenter) },
+    trailingContent = { Icon(Icons.Filled.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
     supportingContent = { Text("${e.difficulty} · ${e.movement} · ${e.primaryMuscles.joinToString()}") },
     modifier = Modifier.clickable { click(e.id) }) }
 }
@@ -80,7 +92,17 @@ val SPLIT_HELP = mapOf(
   val repo = app.catalog
   var busy by remember { mutableStateOf(false) }
   LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-    item { Text(e.name, style = MaterialTheme.typography.headlineSmall) }
+    item { Row(verticalAlignment = Alignment.CenterVertically) {
+      Text(e.name, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
+      MuscleMapButton(e.muscleMapName.ifBlank { e.name })
+    } }
+    if (e.choices.isNotEmpty()) {
+      item { SectionTitle("Choose a variation") }
+      items(e.choices) { choice -> AppListItem(headlineContent = { Text(choice.name) },
+        trailingContent = { Icon(Icons.Filled.ChevronRight, null) },
+        modifier = Modifier.clickable { nav.navigate(Routes.exercise(choice.exerciseId)) }) }
+    }
+    if (e.equipmentNotes.isNotBlank()) item { Text(e.equipmentNotes) }
     item { SectionTitle("Equipment"); Muted("Tap for setup and how to use it") }
     item { EquipmentLinks(repo, e) { nav.navigate(Routes.equipment(it, e.id)) } }
     item { e.equipmentIds.mapNotNull(repo::equipment).filter { it.alternateNames.isNotEmpty() }.forEach { q ->
@@ -88,27 +110,33 @@ val SPLIT_HELP = mapOf(
     if (e.target.isNotBlank()) item { Text("Targets: ${e.target}") }
     if (e.why.isNotBlank()) item { Muted(e.why) }
     item { Text("Works: ${e.primaryMuscles.joinToString()}" + if (e.secondaryMuscles.isNotEmpty()) " (also ${e.secondaryMuscles.joinToString()})" else "") }
-    section("Setup", e.setup); section("How to do it", e.steps); section("Common mistakes", e.mistakes)
+    section("Setup", e.setup); section("How to do it", e.steps)
     if (e.breathing.isNotBlank()) item { Text("Breathing: ${e.breathing}") }
-    if (e.safety.isNotBlank()) item { Text("Safety: ${e.safety}", color = MaterialTheme.colorScheme.error) }
-    item { OutlinedButton({ busy = !busy }) { Text("Machine busy?") } }
+    item { ExerciseSafetyGuide(e, repo.trainingGuides) }
+    item { AppOutlinedButton({ busy = !busy }) { Text("Machine busy?") } }
     if (busy) { val alts = repo.alternatives(e, off)
       if (alts.isEmpty()) item { Text("No reviewed alternative yet.") }
-      items(alts) { a -> ListItem(headlineContent = { Text(a.name) }, modifier = Modifier.clickable { nav.navigate(Routes.exercise(a.id)) }) } }
+      items(alts) { a -> AppListItem(headlineContent = { Text(a.name) }, modifier = Modifier.clickable { nav.navigate(Routes.exercise(a.id)) }) } }
   }
 }
 fun LazyListScope.section(t: String, l: List<String>) { if (l.isEmpty()) return
-  item { Text(t, style = MaterialTheme.typography.titleMedium) }
-  itemsIndexed(l) { i, s -> Text("${i + 1}. $s") } }
+  item { SectionTitle(t) }
+  itemsIndexed(l) { i, s -> InstructionStep(i + 1, s) } }
 
-@Composable fun EquipmentScreen(app: AppContainer, off: Set<String>) {
+@Composable fun EquipmentScreen(app: AppContainer, off: Set<String>, nav: NavHostController) {
   val scope = rememberCoroutineScope()
   LazyColumn(Modifier.padding(16.dp)) {
     item { Text("Uncheck anything your gym doesn't have", style = MaterialTheme.typography.titleMedium) }
+    item { Muted("Tap equipment for setup diagrams and adjustment instructions.") }
     if (app.catalog.content.equipment.isEmpty()) item { Text("No equipment in the catalog yet.") }
-    items(app.catalog.content.equipment) { q -> val on = q.id !in off
-      ListItem(headlineContent = { Text(q.name) }, supportingContent = { Text(q.category) },
+    app.catalog.equipmentGroups.forEach { (type, equipment) ->
+    item(key = "type_${type.name}") { SectionTitle(type.title) }
+    items(equipment, key = { it.id }) { q -> val on = q.id !in off
+      AppListItem(headlineContent = { Text(q.name) },
+        modifier = Modifier.clickable { nav.navigate(Routes.equipment(q.id)) },
+        leadingContent = { IconBadge(Icons.Filled.FitnessCenter) },
         trailingContent = { Switch(on, { scope.launch { if (it) app.dao.markAvailable(Unavailable(q.id)) else app.dao.markUnavailable(Unavailable(q.id)) } }) }) }
+    }
   }
 }
 

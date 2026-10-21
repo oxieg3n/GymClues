@@ -15,7 +15,7 @@ import java.time.LocalDate
 @Serializable data class ProgramNote(val topic: String, val text: String)
 @Serializable data class ProgramDay(val day: Int, val session: String, val training: Boolean, val items: List<Prescription>)
 @Serializable data class Prescription(val phase: String, val exercise: String, val sets: String, val reps: String,
-  val repsNote: String, val rest: String, val restSec: Int, val setCount: Int, val notes: String, val substitution: String)
+  val repsNote: String, val rest: String, val restSec: Int, val setCount: Int, val notes: String, val substitution: String, val durationSec: Int = 0)
 data class AssignedDay(val program: WorkoutProgram, val day: ProgramDay, val date: LocalDate, val userRest: Boolean = false)
 private val REST = ProgramDay(0, "Rest day", false, emptyList())
 
@@ -84,10 +84,12 @@ fun programExerciseId(name: String) = "ex_program_" + name.lowercase().replace(R
 fun programPlan(p: WorkoutProgram, day: ProgramDay, resolve: (String) -> String? = { null }): WorkoutPlan = WorkoutPlan("${p.id}_${day.day}",
   "${p.name} - ${day.session}", day.items.map { r ->
     TemplateItem(resolve(r.exercise) ?: programExerciseId(r.exercise), r.setCount, r.reps, r.restSec, r.sets, r.repsNote, r.phase,
-      r.rest, r.notes, r.substitution, r.exercise) }, false, p.progression)
+      r.rest, r.notes, r.substitution, r.exercise, r.durationSec) }, false, p.progression)
 
 class ProgramRepository(ctx: Context, private val db: GymDb, private val session: UserSession, private val catalog: CatalogRepository) {
-  val programs = Json.decodeFromString<ProgramLibrary>(ctx.assets.open("programs.json").bufferedReader().use { it.readText() }).programs
+  val programs = listOf("programs.json", "hiit_programs.json").flatMap { asset ->
+    Json.decodeFromString<ProgramLibrary>(ctx.assets.open(asset).bufferedReader().use { it.readText() }).programs
+  }
   private val dao = db.dao()
   init { programs.forEach { pr -> pr.days.forEach { d -> d.items.forEach { catalog.aliases[programExerciseId(it.exercise)] = it.exercise } } } }
   fun assignments() = dao.assignments(session.userId)
@@ -95,7 +97,7 @@ class ProgramRepository(ctx: Context, private val db: GymDb, private val session
   suspend fun plan(id: String): WorkoutPlan? {
     val pid = id.substringBeforeLast('_'); val n = id.substringAfterLast('_').toIntOrNull()
     val p = find(pid) ?: return null
-    return p.days.firstOrNull { it.day == n && it.training }?.let { programPlan(p, it) { n -> catalog.byName(n)?.id } }
+    return p.days.firstOrNull { it.day == n && it.training }?.let { programPlan(p, it) { n -> catalog.programExerciseReference(n) } }
   }
   suspend fun assign(programId: String, start: LocalDate) = db.withTransaction {
     require(find(programId) != null)

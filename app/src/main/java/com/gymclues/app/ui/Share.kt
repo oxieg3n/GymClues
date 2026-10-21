@@ -38,7 +38,7 @@ fun dailyShareText(session: List<SetLog>, name: (String) -> String): String {
 /** Sets and total weight moved on the given days (a streak). Individual exercises are not included. */
 fun streakTotals(logs: List<SetLog>, days: Set<LocalDate>, zone: ZoneId = ZoneId.systemDefault()): Pair<Int, Double> {
   val inStreak = logs.filter { Instant.ofEpochMilli(it.date).atZone(zone).toLocalDate() in days }
-  return inStreak.size to inStreak.sumOf { it.weight * it.reps }
+  return inStreak.count { it.cardio == null } to inStreak.sumOf { it.weight * it.reps }
 }
 
 fun streakShareText(days: Int, sets: Int, volume: Double) =
@@ -84,7 +84,7 @@ private enum class Kind(val label: String) { DAY("This workout"), STREAK("Workou
     Kind.DAY -> logs.filter { it.sessionId == sessionId }.sortedBy { it.id }.let { ses ->
       val byEx = ses.groupBy { it.exerciseId }
       ShareCard("Workout complete", sessions.firstOrNull { it.id == sessionId }?.name ?: "Workout", "",
-        dailyShareText(ses) { app.catalog.displayName(it) }, byEx.keys.map { app.catalog.displayName(it) to "" }) }
+        dailyShareText(ses) { app.catalog.displayName(it) }, byEx.map { (id, entries) -> app.catalog.displayName(id) to if (entries.any { it.cardio != null }) setsSummary(entries) else "" }) }
     Kind.STREAK -> streakTotals(logs, streakDays).let { (n, v) ->
       ShareCard("${streakDays.size}-day streak", lb(v), "moved in ${sets(n)}", streakShareText(streakDays.size, n, v)) }
     Kind.MILESTONE -> ShareCard(if (milestone == 0) "New program" else "Program milestone", when (milestone) { 0 -> "Started"; 100 -> "100%"; else -> "$milestone%" },
@@ -99,10 +99,10 @@ private enum class Kind(val label: String) { DAY("This workout"), STREAK("Workou
         Text(k.label + if (k == Kind.MILESTONE && isNew) " (new)" else "", Modifier.weight(1f)) } }
       Image(preview, null, Modifier.fillMaxWidth().heightIn(max = 300.dp).clip(MaterialTheme.shapes.medium), contentScale = ContentScale.Fit)
       Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button({ shareToFacebook(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Facebook") }
-        Button({ shareToX(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("X") }
+        AppButton({ shareToFacebook(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Facebook") }
+        AppButton({ shareToX(ctx, card); shared() }, Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) { Text("X") }
       }
-      OutlinedButton({ send(ctx, card, null); shared() }, Modifier.fillMaxWidth()) { Text("Other apps") }
+      AppOutlinedButton({ send(ctx, card, null); shared() }, Modifier.fillMaxWidth()) { Text("Other apps") }
     } },
     confirmButton = {}, dismissButton = { TextButton(onDismiss) { Text("Not now") } })
 }

@@ -1,0 +1,227 @@
+{
+  "muscles": {
+    "pecs": "Pectoralis major (chest)",
+    "upper_pecs": "Clavicular pectoralis major (upper chest)",
+    "front_delts": "Anterior deltoids (front shoulders)",
+    "side_delts": "Lateral deltoids (side shoulders)",
+    "rear_delts": "Posterior deltoids (rear shoulders)",
+    "biceps": "Biceps brachii",
+    "brachialis": "Brachialis",
+    "triceps": "Triceps brachii",
+    "forearm_flexors": "Forearm / finger flexors (grip)",
+    "forearm_extensors": "Forearm / wrist extensors",
+    "brachioradialis": "Brachioradialis (outer forearm)",
+    "rotator_cuff": "Rotator cuff (deep shoulder)",
+    "traps_upper": "Upper trapezius",
+    "traps_mid": "Middle trapezius",
+    "traps_lower": "Lower trapezius",
+    "rhomboids": "Rhomboids (beneath trapezius)",
+    "lats": "Latissimus dorsi (lats)",
+    "serratus": "Serratus anterior",
+    "abs": "Rectus abdominis (abs)",
+    "obliques": "Internal / external obliques",
+    "deep_core": "Transversus abdominis (deep core)",
+    "erectors": "Erector spinae (spinal extensors)",
+    "glutes": "Gluteus maximus",
+    "glute_med": "Gluteus medius / minimus (hip stabilizers)",
+    "hip_flexors": "Iliopsoas / hip flexors (deep)",
+    "adductors": "Hip adductors (inner thighs)",
+    "quads": "Quadriceps",
+    "hamstrings": "Hamstrings",
+    "calves": "Gastrocnemius (calf)",
+    "soleus": "Soleus (deep calf)",
+    "tibialis": "Tibialis anterior (front shin)"
+  },
+  "profiles": {
+    "cardio_locomotion": {
+      "primary": [
+        "quads",
+        "glutes",
+        "calves"
+      ],
+      "assisting": [
+        "hamstrings",
+        "hip_flexors",
+        "soleus"
+      ],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "glute_med",
+        "erectors"
+      ],
+      "kind": "cardio",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "note": "Typical muscle roles during controlled cardio technique. These colors describe movement roles, not measured activation or individual training intensity."
+    },
+    "cardio_bike": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "hamstrings",
+        "calves",
+        "soleus"
+      ],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "erectors"
+      ],
+      "kind": "cardio",
+      "source": "https://news.mcmaster.ca/no-time-to-get-fit-think-again/",
+      "note": "Typical muscle roles during controlled cardio technique. These colors describe movement roles, not measured activation or individual training intensity."
+    },
+    "cardio_rower": {
+      "primary": [
+        "quads",
+        "glutes",
+        "lats"
+      ],
+      "assisting": [
+        "hamstrings",
+        "biceps",
+        "traps_mid",
+        "rear_delts",
+        "calves"
+      ],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "erectors",
+        "rotator_cuff"
+      ],
+      "kind": "cardio",
+      "source": "https://www.concept2.com/blog/10-ways-to-row-like-a-pro",
+      "note": "Typical muscle roles during controlled cardio technique. These colors describe movement roles, not measured activation or individual training intensity."
+    },
+    "cardio_reps": {
+      "primary": [
+        "quads",
+        "calves",
+        "glute_med"
+      ],
+      "assisting": [
+        "glutes",
+        "front_delts",
+        "side_delts",
+        "soleus"
+      ],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "erectors"
+      ],
+      "kind": "cardio",
+      "source": "https://www.acefitness.org/resources/everyone/exercise-library/",
+      "note": "Typical muscle roles during controlled cardio technique. These colors describe movement roles, not measured activation or individual training intensity."
+    },
+    "cardio_stairs": {
+      "primary": [
+        "quads",
+        "glutes"
+      ],
+      "assisting": [
+        "calves",
+        "hamstrings",
+        "soleus"
+      ],
+      "stabilizers": [
+        "abs",
+        "obliques",
+        "glute_med",
+        "erectors"
+      ],
+      "kind": "cardio",
+      "source": "https://www.ntnu.edu/cerg/advice",
+      "note": "Typical muscle roles during controlled cardio technique. These colors describe movement roles, not measured activation or individual training intensity."
+    }
+  },
+  "exercises": {
+    "walking": [
+      {
+        "label": "Walking",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "jogging": [
+      {
+        "label": "Jogging",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "running": [
+      {
+        "label": "Running",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "bicycling": [
+      {
+        "label": "Bicycling",
+        "profile": "cardio_bike",
+        "image": "muscle_cardio_bike"
+      }
+    ],
+    "rowing": [
+      {
+        "label": "Rowing",
+        "profile": "cardio_rower",
+        "image": "muscle_cardio_rower"
+      }
+    ],
+    "jumping_jacks": [
+      {
+        "label": "Jumping jacks",
+        "profile": "cardio_reps",
+        "image": "muscle_cardio_reps"
+      }
+    ],
+    "climbing_stairs": [
+      {
+        "label": "Climbing stairs",
+        "profile": "cardio_stairs",
+        "image": "muscle_cardio_stairs"
+      }
+    ],
+    "treadmill_walking": [
+      {
+        "label": "Treadmill walking",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "treadmill_jogging": [
+      {
+        "label": "Treadmill jogging",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "treadmill_running": [
+      {
+        "label": "Treadmill running",
+        "profile": "cardio_locomotion",
+        "image": "muscle_cardio_locomotion"
+      }
+    ],
+    "stationary_bicycling": [
+      {
+        "label": "Stationary bicycling",
+        "profile": "cardio_bike",
+        "image": "muscle_cardio_bike"
+      }
+    ],
+    "stair_machine_climbing": [
+      {
+        "label": "Stair machine climbing",
+        "profile": "cardio_stairs",
+        "image": "muscle_cardio_stairs"
+      }
+    ]
+  }
+}

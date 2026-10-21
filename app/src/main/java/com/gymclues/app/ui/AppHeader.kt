@@ -26,22 +26,25 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
   val activeGymId by app.gyms.activeGymId.collectAsState()
   val gym by remember(activeGymId) { app.gyms.gymFlow(activeGymId) }.collectAsState(null)
   val cs = MaterialTheme.colorScheme
-  Column(modifier.padding(horizontal = 12.dp, vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+  Column(modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-      if (showBack) IconButton(onBack, Modifier.size(40.dp)) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
+      if (showBack) FilledTonalIconButton(onBack, Modifier.size(44.dp),
+        shape = MaterialTheme.shapes.small,
+        colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = cs.surfaceContainerHigh, contentColor = cs.onSurface)) {
+        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back", Modifier.size(20.dp)) }
       Surface({ go("gyms") }, Modifier.weight(1f).fillMaxHeight().tourTarget("gym"), shape = MaterialTheme.shapes.small,
-        color = cs.background, border = BorderStroke(1.dp, cs.outline)) {
+        color = cs.surfaceContainerLow, border = BorderStroke(1.dp, cs.outlineVariant)) {
         Row(Modifier.padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
           Icon(Icons.Filled.Place, null, Modifier.size(18.dp), tint = cs.primary)
           Spacer(Modifier.width(6.dp))
-          Text(gym?.name ?: "Pick your gym", maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelLarge)
+          Text(gym?.name ?: "Pick your gym", maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelMedium)
         }
       }
       Surface(openMenu, Modifier.fillMaxHeight().tourTarget("logo").semantics { contentDescription = "GymClues menu" },
-        shape = MaterialTheme.shapes.small, color = cs.background, border = BorderStroke(1.dp, cs.primary.copy(alpha = .6f))) {
+        shape = MaterialTheme.shapes.small, color = cs.surfaceContainer, border = BorderStroke(1.dp, cs.outlineVariant)) {
         Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-          Image(painterResource(R.drawable.gymclues_logo), null, Modifier.size(28.dp))
-          Text("GymClues", style = MaterialTheme.typography.titleLarge, maxLines = 1, softWrap = false)
+          Image(painterResource(R.drawable.gymclues_logo), null, Modifier.size(26.dp))
+          Text("GymClues", style = MaterialTheme.typography.titleMedium, maxLines = 1, softWrap = false)
           Icon(Icons.Filled.ExpandMore, null, Modifier.size(18.dp), tint = cs.primary)
         }
       }
@@ -59,10 +62,18 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
     Triple("Completed Sessions", "sessions", null),
     if (active == null) Triple("Pick a Program", "programs", null) else Triple("Active Program", Routes.program(active.id), active.name),
     Triple("Exercises", "muscles", null), Triple("Equipment", "equipment", null), Triple("My Exercises", "myex", null), Triple("Admin", "admin", null))
-  Surface(modifier.width(264.dp).tourTarget("menu"), shape = MaterialTheme.shapes.medium,
-    color = MaterialTheme.colorScheme.surfaceContainerHighest, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)) {
-    Column(Modifier.padding(vertical = 4.dp)) {
-      entries.forEach { (label, route, sub) -> DropdownMenuItem(text = { Column { Text(label); sub?.let { Muted(it) } } }, onClick = { go(route) }) }
+  val icons = listOf(Icons.Filled.PlayCircleOutline, Icons.Filled.History, Icons.Filled.CalendarMonth,
+    Icons.Filled.FitnessCenter, Icons.Filled.SportsGymnastics, Icons.Filled.BookmarkBorder, Icons.Filled.AdminPanelSettings)
+  Surface(modifier.width(280.dp).tourTarget("menu"), shape = MaterialTheme.shapes.large,
+    shadowElevation = 12.dp, color = MaterialTheme.colorScheme.surfaceContainerHigh,
+    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
+    Column(Modifier.padding(vertical = 8.dp)) {
+      entries.forEachIndexed { index, (label, route, sub) ->
+        if (index == entries.lastIndex) HorizontalDivider(Modifier.padding(horizontal = 16.dp, vertical = 6.dp), color = MaterialTheme.colorScheme.outlineVariant)
+        DropdownMenuItem(text = { Column { Text(label, style = MaterialTheme.typography.labelLarge); sub?.let { Muted(it) } } },
+          leadingIcon = { Icon(icons[index], null, Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary) },
+          onClick = { go(route) })
+      }
     }
   }
 }

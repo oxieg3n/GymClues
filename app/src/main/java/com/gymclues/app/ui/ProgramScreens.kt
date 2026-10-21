@@ -27,6 +27,7 @@ private fun current(list: List<ProgramAssignmentEntity>): ProgramAssignmentEntit
   return list.filter { !it.deleted && (it.endDate.isBlank() || it.endDate > t) }.maxByOrNull { it.startDate } }
 
 private val TYPE_INFO = mapOf(
+  "HIIT" to ("HIIT" to "High-intensity intervals with planned recovery, warm-ups and cool-downs."),
   "BRO" to ("Bro split" to "One or two muscle groups per day, once a week."),
   "PPL" to ("Push / Pull / Legs" to "Pushing, pulling and leg days, usually six days a week."),
   "Upper/Lower" to ("Upper / Lower" to "Alternate upper-body and lower-body days, four days a week."),
@@ -48,13 +49,20 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
       val list = groups.getValue(split); val mine = list.any { it.id == cur?.programId }
       Surface({ nav.navigate(Routes.programType(split)) }, shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
         border = BorderStroke(if (mine) 1.5.dp else 1.dp, if (mine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant)) {
-        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.padding(18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+          Surface(shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.primaryContainer) {
+            Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) {
+              Icon(when (split) { "HIIT" -> Icons.Filled.Timer; "Full Body" -> Icons.Filled.AccessibilityNew; "PPL" -> Icons.Filled.FitnessCenter
+                "Upper/Lower" -> Icons.Filled.SwapVert; "Arnold" -> Icons.Filled.EmojiEvents; else -> Icons.Filled.ViewWeek },
+                null, Modifier.size(22.dp), tint = MaterialTheme.colorScheme.primary)
+            }
+          }
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(typeName(split), style = MaterialTheme.typography.titleLarge)
+            Text(typeName(split), style = MaterialTheme.typography.titleMedium)
             Muted(TYPE_INFO[split]?.second ?: "")
             Muted("${list.size} programs" + if (mine) " · includes your current program" else "")
           }
-          Icon(Icons.Filled.ChevronRight, null)
+          Icon(Icons.Filled.ChevronRight, null, Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
       }
     }
@@ -63,6 +71,7 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
 }
 
 /** Step 2: the programs of one type. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable fun ProgramsScreen(app: AppContainer, nav: NavHostController, split: String) {
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val cur = current(assignments)
@@ -76,18 +85,21 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
       val mine = cur?.programId == p.id
       Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
         border = BorderStroke(if (mine) 1.5.dp else 1.dp, if (mine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant)) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically) {
             Text(p.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
           }
-          Muted("${p.author} · ${p.level} · ${p.duration}")
+          Muted(p.author)
+          FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            InfoPill(p.level); InfoPill(p.duration)
+          }
           if (mine) Text(if (cur!!.startDate > LocalDate.now().toString()) "Assigned. Starts ${LocalDate.parse(cur.startDate).format(longFmt)}" else "Your current program",
             color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelLarge)
           Text(p.description, style = MaterialTheme.typography.bodyMedium)
           Muted("Cycle: ${p.schedule}")
           Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton({ nav.navigate(Routes.program(p.id)) }, Modifier.weight(1f)) { Text("Details") }
-            Button({ assigning = p }, Modifier.weight(1f)) { Text(if (mine) "Change start" else "Assign to me") }
+            AppOutlinedButton({ nav.navigate(Routes.program(p.id)) }, Modifier.weight(1f)) { Text("Details") }
+            AppButton({ assigning = p }, Modifier.weight(1f)) { Text(if (mine) "Change start" else "Assign to me") }
           }
         }
       }
@@ -117,17 +129,17 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
     item { Text(p.name, style = MaterialTheme.typography.headlineSmall); Muted("${p.author} · ${p.level} · ${p.duration}") }
     item { Text(p.description) }
-    item { Button({ assigning = true }, Modifier.fillMaxWidth().height(52.dp)) { Text("Assign to me") } }
+    item { AppButton({ assigning = true }, Modifier.fillMaxWidth().height(52.dp)) { Text("Assign to me") } }
     item { SectionTitle("Cycle (${p.cycleLength} days)") }
     items(p.days, key = { it.day }) { d ->
-      ListItem(headlineContent = { Text("Day ${d.day}: ${d.session}") },
-        supportingContent = { Text(if (d.training) "${d.items.count { it.phase != "Warm-up" }} exercises" else "No prescribed resistance workout") },
+      AppListItem(headlineContent = { Text("Day ${d.day}: ${d.session}") },
+        supportingContent = { Text(if (d.training) if (p.split == "HIIT") "${d.items.size} timed blocks" else "${d.items.count { it.phase != "Warm-up" }} exercises" else "No prescribed workout") },
         trailingContent = { if (d.training) Icon(Icons.Filled.ChevronRight, null) },
         modifier = Modifier.clickable(enabled = d.training) { nav.navigate(Routes.programDay("${p.id}_${d.day}", null)) })
     }
     item { SectionTitle("Progression"); Text(p.progression) }
     item { SectionTitle("Rest"); Text(p.rest) }
-    if (p.notes.isNotEmpty()) item { SectionTitle("Notes from the source"); p.notes.forEach { Text("${it.topic}: ${it.text}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(vertical = 2.dp)) } }
+    if (p.notes.isNotEmpty()) item { SectionTitle("Program notes"); p.notes.forEach { Text("${it.topic}: ${it.text}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(vertical = 2.dp)) } }
     item { TextButton({ runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(p.sourceUrl))) } }) { Text("Open original source") } }
   }
 }
@@ -140,24 +152,28 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
   LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
     item { date?.let { Muted(LocalDate.parse(it).format(longFmt)) }
       Text(d.session, style = MaterialTheme.typography.headlineSmall); Muted("${p.name} · day ${d.day} of ${p.cycleLength}") }
-    if (!d.training) item { Text("Rest day. No prescribed resistance workout.") }
+    if (!d.training) item { Text("Rest day. No prescribed workout.") }
     else {
-      item { Button({ nav.navigate(Routes.runProgram(planId)) }, Modifier.fillMaxWidth().height(52.dp)) {
+      item { AppButton({ nav.navigate(Routes.runProgram(planId)) }, Modifier.fillMaxWidth().height(52.dp)) {
         Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(6.dp)); Text("Start workout") } }
-      listOf("Warm-up", "Working").forEach { phase -> val rows = d.items.filter { it.phase == phase }
+      listOf("Warm-up", "Working", "Cool-down").forEach { phase -> val rows = d.items.filter { it.phase == phase }
         if (rows.isNotEmpty()) {
-          item { SectionTitle(if (phase == "Warm-up") "Warm-up" else "Workout") }
+          item { SectionTitle(if (phase == "Working") "Workout" else phase) }
           items(rows) { r -> Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer) {
-            Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
               Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(r.exercise, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                Text(r.exercise, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
                 MuscleMapButton(r.exercise)
               }
-              Text("${r.sets} sets × ${r.reps}", color = MaterialTheme.colorScheme.primary)
+              Text(if (r.durationSec > 0) "${r.durationSec}s" else "${r.sets} sets \u00d7 ${r.reps}", color = MaterialTheme.colorScheme.primary)
               if (r.repsNote.isNotBlank() && r.repsNote != "Per set") Muted(r.repsNote)
               if (r.rest.isNotBlank() && r.rest != "Not specified") Muted("Rest: ${r.rest}")
               if (r.notes.isNotBlank()) Muted(r.notes)
               if (r.substitution.isNotBlank() && !r.substitution.startsWith("Original")) Muted("Optional gym swap, not the original: ${r.substitution}")
+              app.catalog.byName(r.exercise)?.let { exercise ->
+                TextButton({ nav.navigate(Routes.exercise(exercise.id)) }) { Text("Exercise guide") }
+              }
+              ExerciseSafetyButton(r.exercise)
             } } }
         } }
       item { Muted("Progression: ${p.progression}") }

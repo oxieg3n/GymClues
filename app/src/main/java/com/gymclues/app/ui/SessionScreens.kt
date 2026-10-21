@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,17 +39,23 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
     Text("Completed Sessions", style = MaterialTheme.typography.headlineSmall)
     if (sessions.isEmpty()) {
       Spacer(Modifier.height(12.dp))
-      Text("No completed sessions yet", style = MaterialTheme.typography.titleLarge)
-      Muted("Finish a workout and tap Done. It shows up here.")
+      AppCard(Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+          Icon(Icons.Filled.History, null, Modifier.size(32.dp), tint = MaterialTheme.colorScheme.primary)
+          Text("No completed sessions yet", style = MaterialTheme.typography.titleMedium)
+          Muted("Finish a workout and tap Done. It shows up here.")
+        }
+      }
     } else LazyVerticalGrid(GridCells.Fixed(2), horizontalArrangement = Arrangement.spacedBy(12.dp),
       verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp)) {
       items(sessions, key = { it.id }) { s ->
         val sets = bySession[s.id].orEmpty()
-        Card(Modifier.fillMaxWidth().clickable { nav.navigate(Routes.session(s.id)) }) {
+        AppCard(Modifier.fillMaxWidth().clickable { nav.navigate(Routes.session(s.id)) }) {
           Column(Modifier.padding(14.dp).heightIn(min = 96.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Icon(Icons.Filled.FitnessCenter, null, Modifier.padding(bottom = 8.dp).size(22.dp), tint = MaterialTheme.colorScheme.primary)
             Text(s.name, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Muted(dateLabel(s.completedAt))
-            Muted("${sets.map { it.exerciseId }.distinct().size} exercises, ${sets.size} sets")
+            Muted("${sets.map { it.exerciseId }.distinct().size} exercises, ${sets.size} entries")
           }
         }
       }
@@ -69,38 +77,46 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
   val sets = remember(logs, id) { sessionSets(logs, id) }
   var name by remember(editing) { mutableStateOf(s.name) }
   val drafts = remember(editing) { mutableStateMapOf<Long, Pair<String, String>>() }
+  val cardioDrafts = remember(editing) { sets.filter { it.cardio != null }.associate { st ->
+    st.id to CardioDraft(app.catalog.exercise(st.exerciseId)?.tracking ?: "bike", st.cardio)
+  } }
   LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     item {
-      if (editing) OutlinedTextField(name, { name = it }, Modifier.fillMaxWidth(), label = { Text("Workout name") }, singleLine = true)
+      if (editing) AppTextField(name, { name = it }, Modifier.fillMaxWidth(), label = { Text("Workout name") }, singleLine = true)
       else { Text(s.name, style = MaterialTheme.typography.headlineSmall); Muted(dateLabel(s.completedAt)) }
     }
     item {
       if (editing) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button({ scope.launch {
+        AppButton({ scope.launch {
           app.workouts.renameSession(id, name)
-          sets.forEach { st -> drafts[st.id]?.let { (w, r) ->
+          sets.forEach { st ->
+            cardioDrafts[st.id]?.let { app.workouts.updateSet(st.copy(cardio = it.metrics()!!)) }
+            if (st.cardio == null) drafts[st.id]?.let { (w, r) ->
             app.workouts.updateSet(st.copy(weight = w.toDoubleOrNull() ?: st.weight, reps = r.toIntOrNull() ?: st.reps)) } }
-          editing = false } }, Modifier.weight(1f).height(52.dp)) { Text("Save changes") }
-        OutlinedButton({ editing = false }, Modifier.weight(1f).height(52.dp)) { Text("Cancel") }
+          editing = false } }, Modifier.weight(1f).height(52.dp), enabled = cardioDrafts.values.all { it.metrics() != null }) { Text("Save changes") }
+        AppOutlinedButton({ editing = false }, Modifier.weight(1f).height(52.dp)) { Text("Cancel") }
       } else Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button({ sharing = true }, Modifier.fillMaxWidth().height(56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") }
+        AppButton({ sharing = true }, Modifier.fillMaxWidth().height(56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-          OutlinedButton({ editing = true }, Modifier.weight(1f)) { Text("Edit") }
-          OutlinedButton({ confirmDelete = true }, Modifier.weight(1f)) { Text("Delete") }
+          AppOutlinedButton({ editing = true }, Modifier.weight(1f)) { Text("Edit") }
+          AppOutlinedButton({ confirmDelete = true }, Modifier.weight(1f)) { Text("Delete") }
         }
       }
     }
     items(sets.groupBy { it.exerciseId }.entries.toList(), key = { it.key }) { (ex, exSets) ->
-      Card(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+      AppCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(app.catalog.displayName(ex), fontWeight = FontWeight.Bold)
         exSets.forEachIndexed { i, set ->
-          if (!editing) Text("Set ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
-          else {
+          if (!editing) Text("${if (set.cardio != null) "Entry" else "Set"} ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
+          else if (set.cardio != null) {
+            CardioInput(cardioDrafts.getValue(set.id), showErrors = true)
+            TextButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Text("Delete cardio entry ${i + 1}") }
+          } else {
             val (w, r) = drafts[set.id] ?: (setLabel1(set.weight) to set.reps.toString())
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
               Text("Set ${i + 1}", Modifier.width(48.dp))
-              OutlinedTextField(w, { drafts[set.id] = it to r }, Modifier.weight(1f), label = { Text(set.units) }, singleLine = true)
-              OutlinedTextField(r, { drafts[set.id] = w to it }, Modifier.weight(1f), label = { Text("Reps") }, singleLine = true)
+              if (app.catalog.exercise(ex)?.tracking != "reps") AppTextField(w, { drafts[set.id] = it to r }, Modifier.weight(1f), label = { Text(set.units) }, singleLine = true)
+              AppTextField(r, { drafts[set.id] = w to it }, Modifier.weight(1f), label = { Text("Reps") }, singleLine = true)
               IconButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Icon(Icons.Filled.Delete, "Delete set ${i + 1}") }
             }
           }

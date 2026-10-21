@@ -1,0 +1,357 @@
+{
+  "equipment": {
+    "eq_cardio_treadmill": {
+      "name": "Treadmill",
+      "image": "setup_cardio_treadmill",
+      "steps": [
+        {
+          "title": "Safety stop",
+          "text": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer."
+        },
+        {
+          "title": "Starting position",
+          "text": "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed."
+        },
+        {
+          "title": "Speed and incline",
+          "text": "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails."
+        },
+        {
+          "title": "Dismount",
+          "text": "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+        }
+      ],
+      "caution": "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+    },
+    "eq_cardio_stairs": {
+      "name": "Stair machine",
+      "image": "setup_cardio_stairs",
+      "steps": [
+        {
+          "title": "Mount safely",
+          "text": "Find the stop control and use fixed steps and handrails to mount with the machine stopped, following its placard."
+        },
+        {
+          "title": "Foot placement",
+          "text": "Face forward and place enough of each foot securely on the tread; keep shoes clear of moving edges."
+        },
+        {
+          "title": "Step speed",
+          "text": "Begin at the lowest pace and increase gradually. Stay upright with light rail contact rather than supporting bodyweight on the arms."
+        },
+        {
+          "title": "Stop and descend",
+          "text": "Slow and stop the steps fully before dismounting with the handrails. Record steps/min and floors from the console when available."
+        }
+      ],
+      "caution": "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+    },
+    "eq_cardio_bike": {
+      "name": "Exercise bike",
+      "image": "setup_cardio_bike",
+      "steps": [
+        {
+          "title": "Seat height",
+          "text": "With the pedal farthest away, keep a small knee bend without rocking the hips. Adjust and lock the seat while stopped."
+        },
+        {
+          "title": "Reach and feet",
+          "text": "Set the seat and handlebar reach for relaxed shoulders. Secure shoes using the intended pedal straps; keep laces clear."
+        },
+        {
+          "title": "Resistance",
+          "text": "Start at low resistance and learn the model's braking controls. Fixed-gear pedals keep moving with the flywheel; use its brake before dismounting."
+        },
+        {
+          "title": "Console",
+          "text": "Select time and distance display units. Record resistance as the machine's setting; levels are not comparable across models."
+        }
+      ],
+      "caution": "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+    },
+    "eq_cardio_rower": {
+      "name": "Rowing machine",
+      "image": "setup_cardio_rower",
+      "steps": [
+        {
+          "title": "Foot supports",
+          "text": "Adjust the heel cups so the straps cross the widest part of the feet. Snug the straps without cutting circulation."
+        },
+        {
+          "title": "Seat and travel",
+          "text": "Check the seat slides smoothly and the rail is clear. Sit balanced with relaxed shoulders and a secure, light handle grip."
+        },
+        {
+          "title": "Resistance or damper",
+          "text": "Start with an easy setting and learn the stroke. An air damper changes airflow and stroke feel; it is not a universal resistance or intensity scale."
+        },
+        {
+          "title": "Monitor",
+          "text": "Choose time and distance, normally meters, and begin with easy strokes. Park the handle safely and release the straps before standing."
+        }
+      ],
+      "caution": "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+    }
+  },
+  "profiles": {
+    "cardio_locomotion": {
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build total duration gradually before adding harder intervals.",
+        "Use an easy warm-up and cool-down, and reduce impact if joints become painful."
+      ],
+      "mistakes": [
+        "Overstriding: shorten the stride and keep foot contacts controlled.",
+        "Increasing pace and incline abruptly: change one setting gradually.",
+        "Leaning on treadmill rails: reduce speed or incline until you can move with light balance support only."
+      ]
+    },
+    "cardio_bike": {
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Recheck seat adjustment if knee or hip discomfort appears.",
+        "Learn the machine's braking behavior before attempting hard intervals."
+      ],
+      "mistakes": [
+        "Rocking the hips: check seat height and reduce resistance.",
+        "Grinding against excessive resistance: lower the setting and restore smooth pedal motion.",
+        "Dismounting while fixed-gear pedals turn: brake and wait for a complete stop."
+      ]
+    },
+    "cardio_rower": {
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Use slower practice strokes before increasing power or stroke rate.",
+        "Keep the grip light and stop if the back or wrists become painful."
+      ],
+      "mistakes": [
+        "Pulling with the arms before driving the legs: restore the legs-body-arms sequence.",
+        "Rounding or throwing the lower back: shorten the reach and control the hip hinge.",
+        "Treating maximum damper as the best workout: learn technique at an easy setting; record the machine setting separately from effort."
+      ]
+    },
+    "cardio_reps": {
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Build repetitions gradually and allow enough recovery between sets.",
+        "Use step jacks for less impact if jumping causes discomfort."
+      ],
+      "mistakes": [
+        "Landing with stiff knees: soften the landing and reduce jump height.",
+        "Knees collapsing inward: slow down and keep knees aligned with the feet.",
+        "Forcing the arms overhead through pain: use a comfortable reach or a step-jack variation."
+      ]
+    },
+    "cardio_stairs": {
+      "safetyTips": [
+        "Warm up at an easy pace and build intensity gradually.",
+        "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+      ],
+      "injuryPrevention": [
+        "Start with short bouts and increase time as balance and conditioning allow.",
+        "Use a secure handrail and keep clear of moving step edges."
+      ],
+      "mistakes": [
+        "Skipping treads at an uncontrolled pace: return to single, secure steps.",
+        "Supporting bodyweight on the rails: lower speed and restore upright posture.",
+        "Turning around on moving steps: remain forward-facing and stop before dismounting."
+      ]
+    }
+  },
+  "exercises": {
+    "walking": [
+      {
+        "label": "Walking",
+        "profile": "cardio_locomotion",
+        "equipmentIds": []
+      }
+    ],
+    "jogging": [
+      {
+        "label": "Jogging",
+        "profile": "cardio_locomotion",
+        "equipmentIds": []
+      }
+    ],
+    "running": [
+      {
+        "label": "Running",
+        "profile": "cardio_locomotion",
+        "equipmentIds": []
+      }
+    ],
+    "bicycling": [
+      {
+        "label": "Bicycling",
+        "profile": "cardio_bike",
+        "equipmentIds": []
+      }
+    ],
+    "rowing": [
+      {
+        "label": "Rowing",
+        "profile": "cardio_rower",
+        "equipmentIds": [
+          "eq_cardio_rower"
+        ]
+      }
+    ],
+    "jumping_jacks": [
+      {
+        "label": "Jumping jacks",
+        "profile": "cardio_reps",
+        "equipmentIds": []
+      }
+    ],
+    "climbing_stairs": [
+      {
+        "label": "Climbing stairs",
+        "profile": "cardio_stairs",
+        "equipmentIds": []
+      }
+    ],
+    "treadmill_walking": [
+      {
+        "label": "Treadmill walking",
+        "profile": "cardio_locomotion",
+        "equipmentIds": [
+          "eq_cardio_treadmill"
+        ]
+      }
+    ],
+    "treadmill_jogging": [
+      {
+        "label": "Treadmill jogging",
+        "profile": "cardio_locomotion",
+        "equipmentIds": [
+          "eq_cardio_treadmill"
+        ]
+      }
+    ],
+    "treadmill_running": [
+      {
+        "label": "Treadmill running",
+        "profile": "cardio_locomotion",
+        "equipmentIds": [
+          "eq_cardio_treadmill"
+        ]
+      }
+    ],
+    "stationary_bicycling": [
+      {
+        "label": "Stationary bicycling",
+        "profile": "cardio_bike",
+        "equipmentIds": [
+          "eq_cardio_bike"
+        ]
+      }
+    ],
+    "stair_machine_climbing": [
+      {
+        "label": "Stair machine climbing",
+        "profile": "cardio_stairs",
+        "equipmentIds": [
+          "eq_cardio_stairs"
+        ]
+      }
+    ]
+  },
+  "exerciseSetups": {
+    "ex_cardio_walking": [],
+    "ex_cardio_jogging": [],
+    "ex_cardio_running": [],
+    "ex_cardio_bicycling": [],
+    "ex_cardio_rowing": [
+      {
+        "equipmentId": "eq_cardio_rower",
+        "position": "Adjust the heel cups so the straps cross the widest part of the feet. Snug the straps without cutting circulation.",
+        "notes": [
+          "Check the seat slides smoothly and the rail is clear. Sit balanced with relaxed shoulders and a secure, light handle grip.",
+          "Start with an easy setting and learn the stroke. An air damper changes airflow and stroke feel; it is not a universal resistance or intensity scale.",
+          "Choose time and distance, normally meters, and begin with easy strokes. Park the handle safely and release the straps before standing."
+        ]
+      }
+    ],
+    "ex_cardio_jumping_jacks": [],
+    "ex_cardio_climbing_stairs": [],
+    "ex_cardio_treadmill_walking": [
+      {
+        "equipmentId": "eq_cardio_treadmill",
+        "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+        "notes": [
+          "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+          "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+          "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+        ]
+      }
+    ],
+    "ex_cardio_treadmill_jogging": [
+      {
+        "equipmentId": "eq_cardio_treadmill",
+        "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+        "notes": [
+          "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+          "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+          "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+        ]
+      }
+    ],
+    "ex_cardio_treadmill_running": [
+      {
+        "equipmentId": "eq_cardio_treadmill",
+        "position": "Locate Stop and attach the safety clip to clothing if provided; test it as instructed by the manufacturer.",
+        "notes": [
+          "Mount using the fixed platforms and handrails according to the machine's placard; start the belt at its lowest walking speed.",
+          "Increase one setting gradually while keeping a natural gait. Slow down instead of hanging from the rails.",
+          "Reduce speed, stop the belt fully, and use the rails to step off. Never jump onto or off a moving belt."
+        ]
+      }
+    ],
+    "ex_cardio_stationary_bicycling": [
+      {
+        "equipmentId": "eq_cardio_bike",
+        "position": "With the pedal farthest away, keep a small knee bend without rocking the hips. Adjust and lock the seat while stopped.",
+        "notes": [
+          "Set the seat and handlebar reach for relaxed shoulders. Secure shoes using the intended pedal straps; keep laces clear.",
+          "Start at low resistance and learn the model's braking controls. Fixed-gear pedals keep moving with the flywheel; use its brake before dismounting.",
+          "Select time and distance display units. Record resistance as the machine's setting; levels are not comparable across models."
+        ]
+      }
+    ],
+    "ex_cardio_stair_machine_climbing": [
+      {
+        "equipmentId": "eq_cardio_stairs",
+        "position": "Find the stop control and use fixed steps and handrails to mount with the machine stopped, following its placard.",
+        "notes": [
+          "Face forward and place enough of each foot securely on the tread; keep shoes clear of moving edges.",
+          "Begin at the lowest pace and increase gradually. Stay upright with light rail contact rather than supporting bodyweight on the arms.",
+          "Slow and stop the steps fully before dismounting with the handrails. Record steps/min and floors from the console when available."
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "title": "Indoor rowing technique and setup",
+      "url": "https://www.concept2.com/blog/10-ways-to-row-like-a-pro"
+    },
+    {
+      "title": "HIIT exercise guidance",
+      "url": "https://www.ntnu.edu/cerg/advice"
+    }
+  ],
+  "equipmentCheck": "Read the model's controls before starting.",
+  "stopRule": "Stop for chest pain, faintness, unusual breathlessness or sharp pain. Get appropriate medical advice before vigorous intervals if you have symptoms or a relevant health condition."
+}

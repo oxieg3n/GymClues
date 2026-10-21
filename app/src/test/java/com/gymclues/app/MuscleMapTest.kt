@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -30,19 +32,25 @@ import java.io.File
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34], qualifiers = "w411dp-h891dp-mdpi")
 class MuscleMapTest {
-  @get:Rule val compose = createComposeRule()
+  @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
   private val ctx: Context get() = ApplicationProvider.getApplicationContext()
   private val maps get() = MuscleMapLibrary.load(ctx)
   private val containers = mutableListOf<AppContainer>()
   private fun app() = AppContainer(ctx).also { containers += it }
 
-  @After fun stopBackgroundCatalogObservers() = runBlocking {
+  @After fun stopBackgroundCatalogObservers() {
+    compose.activity.setContent { }
+    compose.waitForIdle()
+    runBlocking {
     // AppContainer owns a process-lifetime observer. Stop test-owned observers
     // before Robolectric resets SQLite, so they cannot query the next sandbox.
-    containers.forEach { app ->
-      val field = AppContainer::class.java.getDeclaredField("scope").apply { isAccessible = true }
-      (field.get(app) as CoroutineScope).coroutineContext[Job]?.cancelAndJoin()
+      containers.forEach { app ->
+        val field = AppContainer::class.java.getDeclaredField("scope").apply { isAccessible = true }
+        (field.get(app) as CoroutineScope).coroutineContext[Job]?.cancelAndJoin()
+      }
     }
+    containers.forEach { it.db.close() }
+    GymDb::class.java.getDeclaredField("i").apply { isAccessible = true }.set(null, null)
   }
 
   @Test fun everyProgramExerciseHasNamedMusclesAndLoadableImages() {

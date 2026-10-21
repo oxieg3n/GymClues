@@ -42,12 +42,12 @@ import kotlinx.coroutines.launch
     Icon(Icons.Filled.Lock, null, Modifier.size(48.dp), tint = MaterialTheme.colorScheme.primary)
     Text(if (setup) "Create admin PIN" else "Enter admin PIN", style = MaterialTheme.typography.headlineSmall)
     Muted(if (setup) "Choose a 6-digit, numbers-only PIN. This device's account becomes an admin." else "6 digits")
-    OutlinedTextField(pin, { pin = digits(it) }, singleLine = true, label = { Text("PIN") },
+    AppTextField(pin, { pin = digits(it) }, singleLine = true, label = { Text("PIN") },
       visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword))
-    if (setup) OutlinedTextField(confirm, { confirm = digits(it) }, singleLine = true, label = { Text("Confirm PIN") },
+    if (setup) AppTextField(confirm, { confirm = digits(it) }, singleLine = true, label = { Text("Confirm PIN") },
       visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword))
     msg?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-    Button({
+    AppButton({
       if (setup) {
         when { !auth.isValidFormat(pin) -> msg = "PIN must be exactly 6 digits."; pin != confirm -> msg = "PINs don't match."
           else -> { auth.setPin(pin); scope.launch { app.admin.makeCurrentUserAdmin(); app.admin.audit("set_admin_pin", "device", app.session.userId) }; onUnlocked() } }
@@ -91,7 +91,7 @@ import kotlinx.coroutines.launch
       ReviewStatus.all.forEach { s -> FilterChip(filter == s, { filter = s }, { Text("${statusLabel(s)} (${subs.count { it.status == s }})") }) } } }
     item { Muted("New gyms added: ${gyms.size} · uploads total: ${subs.size}") }
     if (list.isEmpty()) item { Text("Nothing here.", Modifier.padding(vertical = 12.dp)) }
-    items(list, key = { it.id }) { e -> ListItem(headlineContent = { Text(e.name) },
+    items(list, key = { it.id }) { e -> AppListItem(headlineContent = { Text(e.name) },
       supportingContent = { Text("${gymNames[e.gymId] ?: "Unknown gym"} · ${e.photoUris.size} photo(s) · ${java.text.DateFormat.getDateInstance().format(java.util.Date(e.updatedAt))}") },
       leadingContent = { if (e.photoUris.isNotEmpty()) PhotoRow(e.photoUris.take(1)) else Icon(Icons.Filled.FitnessCenter, null) },
       modifier = Modifier.clickable { open = e }) }
@@ -113,7 +113,7 @@ import kotlinx.coroutines.launch
       f("Manufacturer", "manufacturer", e.manufacturer); f("Model", "model", e.model); f("Category", "category", e.category)
       f("Other names", "alternateNames", e.alternateNames.joinToString()); f("Muscles", "primaryMuscles", e.primaryMuscles.joinToString())
       f("How to use", "howToUse", e.howToUse.joinToString(" / ")); f("QR", "qrCode", e.qrCode); f("Video", "videoUrl", e.videoUrl); f("Notes", "notes", e.notes)
-      OutlinedTextField(note, { note = it }, Modifier.fillMaxWidth(), label = { Text("Note to submitter") })
+      AppTextField(note, { note = it }, Modifier.fillMaxWidth(), label = { Text("Note to submitter") })
     } },
     confirmButton = { Row { TextButton({ act(ReviewStatus.REJECTED) }) { Text("Reject", color = MaterialTheme.colorScheme.error) }
       TextButton({ act(ReviewStatus.NEEDS_INFO) }) { Text("Needs info") }; TextButton({ act(ReviewStatus.APPROVED) }) { Text("Approve") } } },
@@ -131,7 +131,7 @@ import kotlinx.coroutines.launch
       types.forEach { t -> FilterChip(type == t, { type = t }, { Text("$t (${report.count { it.type == t }})") }) } } }
     val list = report.filter { type == null || it.type == type }
     if (list.isEmpty()) item { Text("Everything is complete.", Modifier.padding(vertical = 12.dp)) }
-    items(list, key = { it.type + it.id }) { m -> ListItem(headlineContent = { Text(m.name) }, overlineContent = { Text("${m.type} · ${m.id}") },
+    items(list, key = { it.type + it.id }) { m -> AppListItem(headlineContent = { Text(m.name) }, overlineContent = { Text("${m.type} · ${m.id}") },
       supportingContent = { Text("Missing: " + m.missing.joinToString(), color = MaterialTheme.colorScheme.error) }) }
   }
 }
@@ -144,16 +144,16 @@ import kotlinx.coroutines.launch
   var adding by remember { mutableStateOf(false) }
   if (adding) { var n by remember { mutableStateOf("") }; var em by remember { mutableStateOf("") }
     AlertDialog(onDismissRequest = { adding = false }, title = { Text("Add user") },
-      text = { Column { OutlinedTextField(n, { n = it }, label = { Text("Display name") }, singleLine = true)
-        OutlinedTextField(em, { em = it }, label = { Text("Email") }, singleLine = true) } },
+      text = { Column { AppTextField(n, { n = it }, label = { Text("Display name") }, singleLine = true)
+        AppTextField(em, { em = it }, label = { Text("Email") }, singleLine = true) } },
       confirmButton = { TextButton({ scope.launch { app.admin.saveUser(UserEntity(displayName = n.trim(), email = em.trim()), "create_user") }; adding = false },
         enabled = n.isNotBlank()) { Text("Add") } }, dismissButton = { TextButton({ adding = false }) { Text("Cancel") } }) }
   Box(Modifier.fillMaxSize()) {
     LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
       item { Row(verticalAlignment = Alignment.CenterVertically) { Muted("${users.size} user(s)"); Spacer(Modifier.weight(1f))
-        FilledTonalButton({ adding = true }) { Icon(Icons.Filled.PersonAdd, null); Spacer(Modifier.width(4.dp)); Text("Add user") } } }
+        AppTonalButton({ adding = true }) { Icon(Icons.Filled.PersonAdd, null); Spacer(Modifier.width(4.dp)); Text("Add user") } } }
       items(users, key = { it.id }) { u -> var menu by remember { mutableStateOf(false) }
-        ListItem(headlineContent = { Text(u.displayName + if (u.id == app.session.userId) " (you)" else "") },
+        AppListItem(headlineContent = { Text(u.displayName + if (u.id == app.session.userId) " (you)" else "") },
           supportingContent = { Text(listOf(u.email, u.role, u.status).filter { it.isNotBlank() }.joinToString(" · "),
             color = if (u.status == AccountStatus.SUSPENDED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant) },
           trailingContent = { Box { IconButton({ menu = true }) { Icon(Icons.Filled.MoreVert, "Manage") }
@@ -175,7 +175,7 @@ import kotlinx.coroutines.launch
   var open by remember { mutableStateOf(false) }; var p by remember { mutableStateOf("") }; var msg by remember { mutableStateOf("") }
   TextButton({ open = !open }) { Text("Change admin PIN") }
   if (open) Row(verticalAlignment = Alignment.CenterVertically) {
-    OutlinedTextField(p, { p = it.filter(Char::isDigit).take(6) }, Modifier.weight(1f), singleLine = true, label = { Text("New 6-digit PIN") },
+    AppTextField(p, { p = it.filter(Char::isDigit).take(6) }, Modifier.weight(1f), singleLine = true, label = { Text("New 6-digit PIN") },
       visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword))
     TextButton({ msg = if (app.adminAuth.setPin(p)) "PIN changed" else "Must be 6 digits"; p = "" }, enabled = p.length == 6) { Text("Save") }
   }
@@ -192,8 +192,8 @@ import kotlinx.coroutines.launch
   if (creating || editing != null) { val g = editing
     var n by remember(g) { mutableStateOf(g?.name ?: "") }; var a by remember(g) { mutableStateOf(g?.address ?: "") }
     AlertDialog(onDismissRequest = { creating = false; editing = null }, title = { Text(if (g == null) "Add gym" else "Edit gym") },
-      text = { Column { OutlinedTextField(n, { n = it }, label = { Text("Name") }, singleLine = true)
-        OutlinedTextField(a, { a = it }, label = { Text("Address") }) } },
+      text = { Column { AppTextField(n, { n = it }, label = { Text("Name") }, singleLine = true)
+        AppTextField(a, { a = it }, label = { Text("Address") }) } },
       confirmButton = { TextButton({ scope.launch {
           if (g == null) { val ng = GymEntity(provider = "manual", providerPlaceId = newId(), name = n.trim(), address = a.trim(), createdBy = app.session.userId)
             app.gyms.saveGym(ng, "create"); app.admin.audit("create_gym", "gym", ng.id, ng.name) }
@@ -204,9 +204,9 @@ import kotlinx.coroutines.launch
   }
   LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
     item { Row(verticalAlignment = Alignment.CenterVertically) { Muted("${gyms.size} gym(s)"); Spacer(Modifier.weight(1f))
-      FilledTonalButton({ creating = true }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add gym") } } }
+      AppTonalButton({ creating = true }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add gym") } } }
     items(gyms, key = { it.id }) { g -> val eq = all.filter { it.gymId == g.id }
-      ListItem(headlineContent = { Text(g.name) },
+      AppListItem(headlineContent = { Text(g.name) },
         supportingContent = { Text("${eq.count { it.status == ReviewStatus.APPROVED }} approved · ${eq.count { it.status == ReviewStatus.SUBMITTED }} waiting · ${g.provider}") },
         trailingContent = { Row { IconButton({ editing = g }) { Icon(Icons.Filled.Edit, "Edit gym") }
           IconButton({ nav.navigate(Routes.addEquipment(g.id)) }) { Icon(Icons.Filled.Add, "Add equipment") } } },
