@@ -4,6 +4,7 @@ import com.gymclues.app.BuildConfig
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -43,8 +44,11 @@ class FoodHttp : FoodTransport {
   }
 }
 class FoodRateLimit(val seconds: Long) : IOException("Provider is rate limited. Try again in $seconds seconds.")
+class FoodHttpError(val status: Int) : IOException("Food provider HTTP $status")
 fun providerMessage(error: Exception): String = when (error) {
   is FoodRateLimit -> error.message.orEmpty()
+  is FoodHttpError -> if (error.status in 500..599) "Food database temporarily unavailable (HTTP ${error.status}). Try again shortly; your local foods are still available."
+    else "Food database request failed (HTTP ${error.status}). Try again or use cached/custom foods."
   is SocketTimeoutException, is TimeoutCancellationException -> "Search timed out. Your local foods are still available."
   is IOException -> "Online food lookup is unavailable. Check your connection or use cached/custom foods."
   else -> "The provider returned incomplete or invalid data. Use a local food or enter the label manually."
@@ -73,13 +77,14 @@ class OpenFoodFactsProvider(private val transport: FoodTransport = FoodHttp(), p
     val response = transport.get(url)
     if (response.status == 429) { blockedUntil = clock() + response.retryAfter * 1000; throw FoodRateLimit(response.retryAfter) }
     if (response.status == 404) return@withLock buildJsonObject { }
-    if (response.status !in 200..299) throw IOException("Food provider HTTP ${response.status}")
+    if (response.status !in 200..299) throw FoodHttpError(response.status)
     Json.parseToJsonElement(response.body).jsonObject
   }
   override suspend fun searchFoods(query: String): List<FoodEntity> {
     require(query.trim().length in 2..120)
-    val root = request("https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encoded(query)}&search_simple=1&action=process&json=1&page_size=20&fields=$fields", true)
-    return root.arrayAt("products").take(20).mapNotNull { (it as? JsonObject)?.let(::parse) }
+    val root = request("https://search.openfoodfacts.org/search?q=${encoded(query.trim())}&page_size=20&langs=en&fields=$fields", true)
+    val hits = root["hits"] as? JsonArray ?: throw SerializationException("Food search returned an invalid response")
+    return hits.take(20).mapNotNull { (it as? JsonObject)?.let(::parse) }
   }
   override suspend fun getFoodDetails(sourceId: String): FoodEntity? {
     require(sourceId.matches(Regex("[0-9]{8}|[0-9]{12,14}")))
@@ -101,7 +106,8 @@ class OpenFoodFactsProvider(private val transport: FoodTransport = FoodHttp(), p
       val portion = product.number("serving_quantity")?.takeIf { it > 0 }?.let {
         FoodPortion(product.text("serving_size").ifBlank { "1 serving ($it $unit)" }, it)
       }
-      return FoodEntity(id = stableNutritionId("off|$code"), ownerId = "", name = title.take(200), brand = product.text("brands").take(200),
+      val brand = (product["brands"] as? JsonArray)?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }?.joinToString(", ") ?: product.text("brands")
+      return FoodEntity(id = stableNutritionId("off|$code"), ownerId = "", name = title.take(200), brand = brand.take(200),
         barcode = code, source = "off", sourceId = code, sourceUrl = "https://world.openfoodfacts.org/product/$code",
         license = "Open Food Facts · ODbL 1.0 / DbCL 1.0", basisQuantity = 100.0, basisUnit = unit,
         nutrients = nutrients, portions = listOfNotNull(portion))
@@ -127,7 +133,7 @@ class UsdaFoodProvider(private val proxyUrl: String, private val transport: Food
     val response = transport.get(proxyUrl.trimEnd('/') + path)
     if (response.status == 429) { blockedUntil = clock() + response.retryAfter * 1000; throw FoodRateLimit(response.retryAfter) }
     if (response.status == 404) return@withLock JsonNull
-    if (response.status !in 200..299) throw IOException("USDA proxy HTTP ${response.status}")
+    if (response.status !in 200..299) throw FoodHttpError(response.status)
     Json.parseToJsonElement(response.body)
   }
   override suspend fun searchFoods(query: String): List<FoodEntity> {
