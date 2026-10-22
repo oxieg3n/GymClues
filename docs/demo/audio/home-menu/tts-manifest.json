@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-10-22T15:13:16.597Z",
+  "input": "F:\\Projects\\GymClues\\docs\\demo\\audio\\home-menu\\voiceover-sections.md",
+  "provider": "voicestudio",
+  "model": "k2-fsa/OmniVoice",
+  "voice": "GymClues",
+  "speed": 1,
+  "sections": [
+    {
+      "title": "Your gym, your starting point",
+      "slug": "your-gym-your-starting-point",
+      "text": "Welcome to GymClues. Choose your gym here.",
+      "file": "00-your-gym-your-starting-point.wav",
+      "bytes": 130124,
+      "duration_seconds": 2.71
+    },
+    {
+      "title": "Music within reach",
+      "slug": "music-within-reach",
+      "text": "Connect music and keep playback within reach.",
+      "file": "01-music-within-reach.wav",
+      "bytes": 134444,
+      "duration_seconds": 2.8
+    },
+    {
+      "title": "Today's training",
+      "slug": "today-s-training",
+      "text": "Today's training shows your exercises and working sets. Start here, or preview first.",
+      "file": "02-today-s-training.wav",
+      "bytes": 241004,
+      "duration_seconds": 5.02
+    },
+    {
+      "title": "Build your training rhythm",
+      "slug": "build-your-training-rhythm",
+      "text": "Training rhythm tracks workout days and your streak.",
+      "file": "03-build-your-training-rhythm.wav",
+      "bytes": 146924,
+      "duration_seconds": 3.06
+    },
+    {
+      "title": "Follow your program progress",
+      "slug": "follow-your-program-progress",
+      "text": "Program progress counts the sessions you've completed.",
+      "file": "04-follow-your-program-progress.wav",
+      "bytes": 137324,
+      "duration_seconds": 2.86
+    },
+    {
+      "title": "Plan the days ahead",
+      "slug": "plan-the-days-ahead",
+      "text": "Scroll for upcoming workouts, calendar views, and rest days.",
+      "file": "05-plan-the-days-ahead.wav",
+      "bytes": 184364,
+      "duration_seconds": 3.84
+    },
+    {
+      "title": "Open Training & tools",
+      "slug": "open-training-tools",
+      "text": "Open the menu for more.",
+      "file": "06-open-training-tools.wav",
+      "bytes": 72524,
+      "duration_seconds": 1.51
+    },
+    {
+      "title": "Start a workout",
+      "slug": "start-a-workout",
+      "text": "Start a workout from a program, or build your own.",
+      "file": "07-start-a-workout.wav",
+      "bytes": 175724,
+      "duration_seconds": 3.66
+    },
+    {
+      "title": "Your completed sessions",
+      "slug": "your-completed-sessions",
+      "text": "Review your completed sessions.",
+      "file": "08-your-completed-sessions.wav",
+      "bytes": 97484,
+      "duration_seconds": 2.03
+    },
+    {
+      "title": "Your active program",
+      "slug": "your-active-program",
+      "text": "Return to your active program.",
+      "file": "09-your-active-program.wav",
+      "bytes": 95084,
+      "duration_seconds": 1.98
+    },
+    {
+      "title": "Exercise & equipment guides",
+      "slug": "exercise-equipment-guides",
+      "text": "Explore exercise guides and equipment setup instructions.",
+      "file": "10-exercise-equipment-guides.wav",
+      "bytes": 147884,
+      "duration_seconds": 3.08
+    },
+    {
+      "title": "Make it your own",
+      "slug": "make-it-your-own",
+      "text": "Add personal exercises in My Exercises.",
+      "file": "11-make-it-your-own.wav",
+      "bytes": 136364,
+      "duration_seconds": 2.84
+    },
+    {
+      "title": "Five themes to choose from",
+      "slug": "five-themes-to-choose-from",
+      "text": "Choose your favorite of five color themes.",
+      "file": "12-five-themes-to-choose-from.wav",
+      "bytes": 123404,
+      "duration_seconds": 2.57
+    },
+    {
+      "title": "You're ready to train",
+      "slug": "you-re-ready-to-train",
+      "text": "Admin manages the catalog. You're ready to train.",
+      "file": "13-you-re-ready-to-train.wav",
+      "bytes": 147884,
+      "duration_seconds": 3.08
+    }
+  ],
+  "language": "en",
+  "num_step": 32,
+  "target_timing": "Existing video cues, with 0.12-second end pause"
+}

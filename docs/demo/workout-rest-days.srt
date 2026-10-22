@@ -1,0 +1,47 @@
+1
+00:00:02,000 --> 00:00:06,000
+From Home, tap Preview session to review today's assigned workout.
+
+2
+00:00:06,000 --> 00:00:10,000
+Check the exercises and targets, then tap Start workout.
+
+3
+00:00:10,000 --> 00:00:14,000
+Your session includes editable weights, reps, and set logging.
+
+4
+00:00:14,000 --> 00:00:17,000
+Return Home, then scroll down to Rest Day.
+
+5
+00:00:17,000 --> 00:00:21,000
+Tap Rest Day when you need a recovery day.
+
+6
+00:00:21,000 --> 00:00:26,000
+Set Today as Rest Day pauses training and moves your program forward.
+
+7
+00:00:26,000 --> 00:00:29,000
+Your workout moves to the next training day.
+
+8
+00:00:29,000 --> 00:00:32,000
+Open Rest Day again to plan repeating breaks.
+
+9
+00:00:32,000 --> 00:00:35,000
+Choose Plan Rest Day for your regular schedule.
+
+10
+00:00:35,000 --> 00:00:39,000
+Under Every week, select the weekdays you want off.
+
+11
+00:00:39,000 --> 00:00:42,000
+Weekly rest days repeat automatically and save immediately.
+
+12
+00:00:42,000 --> 00:00:45,000
+Use Add date for a one-off rest day.

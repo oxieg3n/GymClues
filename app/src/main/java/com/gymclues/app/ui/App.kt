@@ -56,6 +56,7 @@ object Routes {
         Box(Modifier.weight(1f).widthIn(max = 1040.dp).fillMaxWidth()) {
           NavHost(nav, "home") {
       composable("home") { Home(app, nav::navigate) }
+      composable("theme") { ThemeScreen() }
       composable("muscles") { ListScreen("Choose a primary muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
       composable("list/{m}") { val m = it.arguments?.getString("m").orEmpty()
         ExerciseList(app.catalog.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }, title = m) { id -> nav.navigate(Routes.exercise(id)) } }

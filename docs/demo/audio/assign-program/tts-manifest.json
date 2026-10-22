@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-10-22T15:21:53.344Z",
+  "input": "F:\\Projects\\GymClues\\docs\\demo\\audio\\assign-program\\voiceover-sections.md",
+  "provider": "voicestudio",
+  "model": "k2-fsa/OmniVoice",
+  "voice": "GymClues",
+  "speed": 1,
+  "sections": [
+    {
+      "title": "Start from Home",
+      "slug": "start-from-home",
+      "text": "To assign a workout program, open the menu.",
+      "file": "00-start-from-home.wav",
+      "bytes": 137804,
+      "duration_seconds": 2.87
+    },
+    {
+      "title": "Pick a Program",
+      "slug": "pick-a-program",
+      "text": "Choose Pick a Program to browse your options.",
+      "file": "01-pick-a-program.wav",
+      "bytes": 130124,
+      "duration_seconds": 2.71
+    },
+    {
+      "title": "Choose a training style",
+      "slug": "choose-a-training-style",
+      "text": "Choose a training style that fits your goals and schedule.",
+      "file": "02-choose-a-training-style.wav",
+      "bytes": 141164,
+      "duration_seconds": 2.94
+    },
+    {
+      "title": "Compare the routines",
+      "slug": "compare-the-routines",
+      "text": "Compare the routines, then open Details for a closer look.",
+      "file": "03-compare-the-routines.wav",
+      "bytes": 172844,
+      "duration_seconds": 3.6
+    },
+    {
+      "title": "Review the program",
+      "slug": "review-the-program",
+      "text": "Review the experience level, training cycle, and how the program progresses.",
+      "file": "04-review-the-program.wav",
+      "bytes": 224204,
+      "duration_seconds": 4.67
+    },
+    {
+      "title": "Assign to me",
+      "slug": "assign-to-me",
+      "text": "Tap Assign to me when you've found the right fit.",
+      "file": "05-assign-to-me.wav",
+      "bytes": 125324,
+      "duration_seconds": 2.61
+    },
+    {
+      "title": "Choose your start date",
+      "slug": "choose-your-start-date",
+      "text": "Choose Today, Tomorrow, or Next Monday as your start date.",
+      "file": "06-choose-your-start-date.wav",
+      "bytes": 186764,
+      "duration_seconds": 3.89
+    },
+    {
+      "title": "Confirm your selection",
+      "slug": "confirm-your-selection",
+      "text": "Tap Assign to save your start date.",
+      "file": "07-confirm-your-selection.wav",
+      "bytes": 96044,
+      "duration_seconds": 2
+    },
+    {
+      "title": "Your program is assigned",
+      "slug": "your-program-is-assigned",
+      "text": "Already Assigned confirms your selection and prevents duplicate assignments.",
+      "file": "08-your-program-is-assigned.wav",
+      "bytes": 193484,
+      "duration_seconds": 4.03
+    },
+    {
+      "title": "Return to Home",
+      "slug": "return-to-home",
+      "text": "Use the back arrow to return to Home.",
+      "file": "09-return-to-home.wav",
+      "bytes": 141644,
+      "duration_seconds": 2.95
+    },
+    {
+      "title": "Your plan, on your dashboard",
+      "slug": "your-plan-on-your-dashboard",
+      "text": "Today's training now follows your program, with a preview and a button to start.",
+      "file": "10-your-plan-on-your-dashboard.wav",
+      "bytes": 268844,
+      "duration_seconds": 5.6
+    }
+  ],
+  "language": "en",
+  "num_step": 32,
+  "target_timing": "Existing video cues, with 0.12-second end pause"
+}

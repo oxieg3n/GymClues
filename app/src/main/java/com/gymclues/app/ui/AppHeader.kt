@@ -2,6 +2,8 @@ package com.gymclues.app.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -57,12 +59,13 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
     Triple("Start A Workout", "programs", null),
     Triple("Completed Sessions", "sessions", null),
     if (active == null) Triple("Pick a Program", "programs", null) else Triple("Active Program", Routes.program(active.id), active.name),
-    Triple("Exercises", "muscles", null), Triple("Equipment", "equipment", null), Triple("My Exercises", "myex", null), Triple("Admin", "admin", null))
+    Triple("Exercises", "muscles", null), Triple("Equipment", "equipment", null), Triple("My Exercises", "myex", null),
+    Triple("Theme", "theme", null), Triple("Admin", "admin", null))
   val icons = listOf(Icons.Filled.PlayCircleOutline, Icons.Filled.History, Icons.Filled.CalendarMonth,
-    Icons.Filled.FitnessCenter, Icons.Filled.SportsGymnastics, Icons.Filled.BookmarkBorder, Icons.Filled.AdminPanelSettings)
+    Icons.Filled.FitnessCenter, Icons.Filled.SportsGymnastics, Icons.Filled.BookmarkBorder, Icons.Filled.Palette, Icons.Filled.AdminPanelSettings)
   Surface(modifier.width(300.dp).tourTarget("menu"), shape = MaterialTheme.shapes.large,
-    shadowElevation = 8.dp, color = MaterialTheme.colorScheme.surfaceContainerHigh) {
-    Column(Modifier.padding(vertical = 12.dp)) {
+    shadowElevation = 8.dp, color = MaterialTheme.colorScheme.surfaceContainerHigh, border = informationBorder()) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(vertical = 12.dp)) {
       Text("Training & tools", Modifier.padding(horizontal = 16.dp, vertical = 8.dp), style = MaterialTheme.typography.titleSmall)
       entries.forEachIndexed { index, (label, route, sub) ->
         if (index == entries.lastIndex) HorizontalDivider(Modifier.padding(horizontal = 16.dp, vertical = 6.dp), color = MaterialTheme.colorScheme.outlineVariant)

@@ -94,7 +94,7 @@ import com.gymclues.app.media.NowPlaying
     onDispose { lifecycle.removeObserver(obs); remote.stop() }
   }
   Surface(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium,
-    color = MaterialTheme.colorScheme.surfaceContainerLow) {
+    color = MaterialTheme.colorScheme.surfaceContainerLow, border = informationBorder()) {
     Row(Modifier.padding(horizontal = 6.dp, vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
       Box {
         IconButton({ menu = true }, Modifier.size(44.dp)) { Icon(Icons.Filled.MusicNote, "Choose music app: ${app.label}", Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary) }

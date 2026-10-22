@@ -30,15 +30,17 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.gymclues.app.data.*
 
-private val GuideGold = Color(0xFFFFD18A)
-private val GuideBlue = Color(0xFF91B5D9)
+private val GuideGold: Color
+  @Composable get() = if (LocalAppTheme.current.dark) Color(0xFFFFD18A) else Color(0xFF845917)
+private val GuideBlue: Color
+  @Composable get() = if (LocalAppTheme.current.dark) Color(0xFF91B5D9) else Color(0xFF315E80)
 
 @Composable
 private fun GuideDialog(title: String, dismiss: () -> Unit, content: @Composable ColumnScope.() -> Unit) {
   val maxHeight = LocalConfiguration.current.screenHeightDp.dp * 0.9f
   Dialog(dismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
     Surface(Modifier.padding(16.dp).widthIn(max = 640.dp).fillMaxWidth().heightIn(max = maxHeight),
-      shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer) {
+      shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer, border = informationBorder()) {
       Column(Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
           Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)

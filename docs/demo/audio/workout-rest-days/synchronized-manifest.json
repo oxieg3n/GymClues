@@ -1,0 +1,134 @@
+{
+  "provider": "voicestudio",
+  "model": "k2-fsa/OmniVoice",
+  "voice": "GymClues",
+  "language": "en-US",
+  "generated_with": "codex-tts/scripts/tts.mjs",
+  "duration_seconds": 45,
+  "intro_silence_seconds": 2,
+  "sample_rate_hz": 48000,
+  "loudness_target_lufs": -16,
+  "true_peak_target_dbtp": -1.5,
+  "sections": [
+    {
+      "title": "Open today's assigned workout",
+      "text": "From Home, tap Preview session to review today's assigned workout.",
+      "source_file": "00-open-today-s-assigned-workout.wav",
+      "source_duration_seconds": 3.97,
+      "start_seconds": 2.0,
+      "end_seconds": 6.0,
+      "tempo_multiplier": 1.023196,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Review, then start",
+      "text": "Check the exercises and targets, then tap Start workout.",
+      "source_file": "01-review-then-start.wav",
+      "source_duration_seconds": 3.88,
+      "start_seconds": 6.0,
+      "end_seconds": 10.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Your active workout",
+      "text": "Your session includes editable weights, reps, and set logging.",
+      "source_file": "02-your-active-workout.wav",
+      "source_duration_seconds": 3.88,
+      "start_seconds": 10.0,
+      "end_seconds": 14.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Return Home and scroll",
+      "text": "Return Home, then scroll down to Rest Day.",
+      "source_file": "03-return-home-and-scroll.wav",
+      "source_duration_seconds": 2.91,
+      "start_seconds": 14.0,
+      "end_seconds": 17.0,
+      "tempo_multiplier": 1.010417,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Plan a recovery day",
+      "text": "Tap Rest Day when you need a recovery day.",
+      "source_file": "04-plan-a-recovery-day.wav",
+      "source_duration_seconds": 2.93,
+      "start_seconds": 17.0,
+      "end_seconds": 21.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Take today off",
+      "text": "Set Today as Rest Day pauses training and moves your program forward.",
+      "source_file": "05-take-today-off.wav",
+      "source_duration_seconds": 4.2,
+      "start_seconds": 21.0,
+      "end_seconds": 26.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Keep your next workout",
+      "text": "Your workout moves to the next training day.",
+      "source_file": "06-keep-your-next-workout.wav",
+      "source_duration_seconds": 2.72,
+      "start_seconds": 26.0,
+      "end_seconds": 29.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Plan your regular rest days",
+      "text": "Open Rest Day again to plan repeating breaks.",
+      "source_file": "07-plan-your-regular-rest-days.wav",
+      "source_duration_seconds": 2.64,
+      "start_seconds": 29.0,
+      "end_seconds": 32.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Open the rest-day planner",
+      "text": "Choose Plan Rest Day for your regular schedule.",
+      "source_file": "08-open-the-rest-day-planner.wav",
+      "source_duration_seconds": 2.69,
+      "start_seconds": 32.0,
+      "end_seconds": 35.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Pick repeating weekdays",
+      "text": "Under Every week, select the weekdays you want off.",
+      "source_file": "09-pick-repeating-weekdays.wav",
+      "source_duration_seconds": 3.39,
+      "start_seconds": 35.0,
+      "end_seconds": 39.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Repeat automatically",
+      "text": "Weekly rest days repeat automatically and save immediately.",
+      "source_file": "10-repeat-automatically.wav",
+      "source_duration_seconds": 3.04,
+      "start_seconds": 39.0,
+      "end_seconds": 42.0,
+      "tempo_multiplier": 1.055556,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "One-off dates are separate",
+      "text": "Use Add date for a one-off rest day.",
+      "source_file": "11-one-off-dates-are-separate.wav",
+      "source_duration_seconds": 2.64,
+      "start_seconds": 42.0,
+      "end_seconds": 45.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    }
+  ]
+}

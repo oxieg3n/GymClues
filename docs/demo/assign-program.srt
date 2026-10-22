@@ -1,0 +1,43 @@
+1
+00:00:02,000 --> 00:00:05,000
+To assign a workout program, open the menu.
+
+2
+00:00:05,000 --> 00:00:08,000
+Choose Pick a Program to browse your options.
+
+3
+00:00:08,000 --> 00:00:12,000
+Choose a training style that fits your goals and schedule.
+
+4
+00:00:12,000 --> 00:00:16,000
+Compare the routines, then open Details for a closer look.
+
+5
+00:00:16,000 --> 00:00:21,000
+Review the experience level, training cycle, and how the program progresses.
+
+6
+00:00:21,000 --> 00:00:25,000
+Tap Assign to me when you've found the right fit.
+
+7
+00:00:25,000 --> 00:00:29,000
+Choose Today, Tomorrow, or Next Monday as your start date.
+
+8
+00:00:29,000 --> 00:00:32,000
+Tap Assign to save your start date.
+
+9
+00:00:32,000 --> 00:00:36,000
+Already Assigned confirms your selection and prevents duplicate assignments.
+
+10
+00:00:36,000 --> 00:00:39,000
+Use the back arrow to return to Home.
+
+11
+00:00:39,000 --> 00:00:45,000
+Today's training now follows your program, with a preview and a button to start.

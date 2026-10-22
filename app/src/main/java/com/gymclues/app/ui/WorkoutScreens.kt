@@ -195,7 +195,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
               Checkbox(row.done, { c -> if (c) scope.launch { if (log(se, n, row)) rest = se.restSec } else row.done = false },
                 modifier = Modifier.align(Alignment.Bottom).semantics { contentDescription = "Complete set ${n + 1} of $exerciseName" }, enabled = !row.saving,
-                colors = CheckboxDefaults.colors(checkedColor = Green, checkmarkColor = MaterialTheme.colorScheme.onPrimary))
+                colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary, checkmarkColor = MaterialTheme.colorScheme.onPrimary))
             }
           }
           }

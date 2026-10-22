@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.painterResource
@@ -66,9 +68,13 @@ val SPLIT_HELP = mapOf(
 }
 
 @Composable private fun ProgramChoice() {
-  Column(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+  val border = informationBorder()
+  Surface(shape = if (border != null) MaterialTheme.shapes.medium else RectangleShape,
+    color = if (border != null) MaterialTheme.colorScheme.surfaceContainer else Color.Transparent, border = border) {
+  Column(Modifier.fillMaxWidth().padding(if (border != null) PaddingValues(20.dp) else PaddingValues(vertical = 4.dp)), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     Text("Program progress", style = MaterialTheme.typography.titleMedium)
     Muted("No program assigned. Choose a routine to build your training schedule.")
+  }
   }
 }
 
@@ -78,7 +84,7 @@ val SPLIT_HELP = mapOf(
     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
       Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
         Text("Today's training", style = MaterialTheme.typography.titleMedium)
-        if (done) Text("Logged today", style = MaterialTheme.typography.labelMedium, color = Green)
+        if (done) Text("Logged today", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
       }
       Text(when { training -> a!!.day.session; restDay || a?.userRest == true || a != null -> "Recovery day"; else -> "Your next session starts here" },
         style = MaterialTheme.typography.headlineSmall)

@@ -76,7 +76,7 @@ private fun MuscleMapDialog(
     Surface(
       modifier = Modifier.padding(16.dp).widthIn(max = 600.dp).fillMaxWidth().heightIn(max = maxHeight),
       shape = MaterialTheme.shapes.large,
-      color = MaterialTheme.colorScheme.surfaceContainer
+      color = MaterialTheme.colorScheme.surfaceContainer, border = informationBorder()
     ) {
       Column(Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -135,17 +135,17 @@ private fun MuscleMapDialog(
 private fun MuscleMapKey(label: String, color: Color) {
   Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
     Box(Modifier.size(8.dp).background(color, CircleShape))
-    Text(label, color = color, style = MaterialTheme.typography.labelSmall)
+    Text(label, color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.labelSmall)
   }
 }
 
 @Composable
 private fun MuscleRoleList(title: String, muscles: List<String>, color: Color) {
-  Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainerHigh) {
+  Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainerHigh, border = informationBorder()) {
     Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Box(Modifier.size(10.dp).background(color, CircleShape))
-        Text(title, style = MaterialTheme.typography.titleSmall, color = color)
+        Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
       }
       Text(muscles.joinToString("\n").ifEmpty { "None separately mapped" }, style = MaterialTheme.typography.bodyMedium)
     }

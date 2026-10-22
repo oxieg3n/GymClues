@@ -1,0 +1,1921 @@
+{
+ "url": "F:/Projects/GymClues/docs/demo/index.html",
+ "at": "2026-10-22T15:44:09.831Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.87,
+    0.63,
+    0.67,
+    0.78,
+    0.74,
+    0.56,
+    0.49,
+    0.83
+   ],
+   "motion": {
+    "elements": 27,
+    "css": 27,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 7183,
+     "screens": 8,
+     "words": 384,
+     "img": 16,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "01-home.png",
+      "01-home.png",
+      "02-session-preview.png",
+      "06-program-types.png",
+      "03-muscle-map.png",
+      "04-safety-guide.png",
+      "05-exercise-guide.png",
+      "07-equipment.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "chars": 13,
+     "lines": 2,
+     "size": 172.8,
+     "vw": 12,
+     "font": "Inter",
+     "weight": 850,
+     "tracking": -0.055,
+     "leading": 0.86,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.66,
+     "top": 140,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "lines": 2,
+     "size": 172.8,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "TRAIN SMARTER",
+      "words": 2,
+      "chars": 13,
+      "lines": 2,
+      "size": 172.8,
+      "vw": 12,
+      "font": "Inter",
+      "weight": 850,
+      "tracking": -0.055,
+      "leading": 0.86,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.66,
+      "top": 140,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Watch it work",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 51.8,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 911,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next session, ready",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 51.8,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 2024,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Know every movement",
+      "words": 3,
+      "chars": 19,
+      "lines": 1,
+      "size": 51.8,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 3485,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Set up with confidence",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 51.8,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 5133,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Make it feel like you",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 51.8,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 5832,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GymClues",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 172.8,
+      "vw": 12,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.055,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.54,
+      "top": 6829,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 7,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      52,
+      173
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 172.8,
+      "vw": 12,
+      "font": "Inter",
+      "text": "TRAINSMARTER"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#04f730",
+       "top": 88,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      },
+      {
+       "color": "#121512",
+       "top": 1023,
+       "hsl": {
+        "h": 120,
+        "s": 0.08,
+        "l": 0.08
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7bdb5",
+       "share": 0.55
+      },
+      {
+       "color": "#f4f5ee",
+       "share": 0.28
+      },
+      {
+       "color": "#000000",
+       "share": 0.13
+      },
+      {
+       "color": "#04f730",
+       "share": 0.02
+      },
+      {
+       "color": "#17321b",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f4f5ee",
+      "hsl": {
+       "h": 69,
+       "s": 0.26,
+       "l": 0.95
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 0,
+     "height": 49,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to tutorials",
+      "Watch the tutorials ↘"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 14,
+     "roundedMedia": 1,
+     "mediaRadius": 180,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1023
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.21
+     }
+    ],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 88,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 7183,
+    "margins": {
+     "left": 28,
+     "right": 28
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 88,
+      "height": 703,
+      "words": 29,
+      "media": 0,
+      "middle": 367,
+      "heading": {
+       "text": "TRAIN",
+       "size": 173,
+       "tag": "h1"
+      },
+      "left": 28,
+      "right": 115,
+      "textLeft": 28,
+      "textRight": 115,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#watch.watch.section",
+      "tag": "section",
+      "top": 791,
+      "height": 1113,
+      "words": 112,
+      "media": 1,
+      "middle": 20,
+      "heading": {
+       "text": "Watch it work",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 206,
+      "textLeft": 28,
+      "textRight": 206,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#screenshots.day.section",
+      "tag": "section",
+      "top": 1904,
+      "height": 1461,
+      "words": 64,
+      "media": 3,
+      "middle": 64,
+      "heading": {
+       "text": "Your next session, ready",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 76,
+      "textLeft": 28,
+      "textRight": 92,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.movement.section",
+      "tag": "section",
+      "top": 3365,
+      "height": 1296,
+      "words": 55,
+      "media": 3,
+      "middle": 112,
+      "heading": {
+       "text": "Know every movement",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 50,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.equipment.section",
+      "tag": "section",
+      "top": 4661,
+      "height": 1051,
+      "words": 47,
+      "media": 2,
+      "middle": 117,
+      "heading": {
+       "text": "Set up with confidence",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 94,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#themes.themes.section",
+      "tag": "section",
+      "top": 5712,
+      "height": 1060,
+      "words": 52,
+      "media": 5,
+      "middle": 24,
+      "heading": {
+       "text": "Make it feel like you",
+       "size": 52,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 84,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 6773,
+      "height": 410,
+      "words": 30,
+      "media": 1,
+      "middle": 48,
+      "heading": {
+       "text": "GymClues",
+       "size": 173,
+       "tag": "p"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 28,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "TRAIN SMARTER",
+      "size": 173,
+      "top": 140,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 28,
+      "n": 10
+     },
+     {
+      "x": 744,
+      "n": 4
+     },
+     {
+      "x": 606,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 16,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.13,
+    "voidBox": {
+     "x": 0,
+     "y": 780,
+     "w": 1440,
+     "h": 120
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.77,
+    0.63,
+    0.72,
+    0.53,
+    0.67,
+    0.56,
+    0.69
+   ],
+   "motion": {
+    "elements": 27,
+    "css": 27,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 6929,
+     "screens": 6.8,
+     "words": 384,
+     "img": 16,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "01-home.png",
+      "01-home.png",
+      "02-session-preview.png",
+      "06-program-types.png",
+      "03-muscle-map.png",
+      "04-safety-guide.png",
+      "05-exercise-guide.png",
+      "07-equipment.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "chars": 13,
+     "lines": 2,
+     "size": 92.2,
+     "vw": 12,
+     "font": "Inter",
+     "weight": 850,
+     "tracking": -0.055,
+     "leading": 0.86,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.64,
+     "top": 140,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "lines": 2,
+     "size": 92.2,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "TRAIN SMARTER",
+      "words": 2,
+      "chars": 13,
+      "lines": 2,
+      "size": 92.2,
+      "vw": 12,
+      "font": "Inter",
+      "weight": 850,
+      "tracking": -0.055,
+      "leading": 0.86,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 140,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Watch it work",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 906,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next session, ready",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 2049,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Know every movement",
+      "words": 3,
+      "chars": 19,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 2964,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Set up with confidence",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.45,
+      "top": 3913,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Make it feel like you",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 5040,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GymClues",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 92.2,
+      "vw": 12,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.055,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.54,
+      "top": 6598,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 7,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      32,
+      92
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 92.2,
+      "vw": 12,
+      "font": "Inter",
+      "text": "TRAINSMARTER"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#04f730",
+       "top": 88,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      },
+      {
+       "color": "#121512",
+       "top": 2140,
+       "hsl": {
+        "h": 120,
+        "s": 0.08,
+        "l": 0.08
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7bdb5",
+       "share": 0.55
+      },
+      {
+       "color": "#f4f5ee",
+       "share": 0.28
+      },
+      {
+       "color": "#000000",
+       "share": 0.13
+      },
+      {
+       "color": "#04f730",
+       "share": 0.02
+      },
+      {
+       "color": "#17321b",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f4f5ee",
+      "hsl": {
+       "h": 69,
+       "s": 0.26,
+       "l": 0.95
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 0,
+     "height": 49,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to tutorials",
+      "Watch the tutorials ↘"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 12,
+     "roundedMedia": 1,
+     "mediaRadius": 180,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 997
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.18
+     }
+    ],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 88,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 6929,
+    "margins": {
+     "left": 28,
+     "right": 28
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 88,
+      "height": 683,
+      "words": 29,
+      "media": 0,
+      "middle": 71,
+      "heading": {
+       "text": "TRAIN",
+       "size": 92,
+       "tag": "h1"
+      },
+      "left": 28,
+      "right": 79,
+      "textLeft": 28,
+      "textRight": 79,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#watch.watch.section",
+      "tag": "section",
+      "top": 771,
+      "height": 1118,
+      "words": 112,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Watch it work",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 48,
+      "textLeft": 28,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#screenshots.day.section",
+      "tag": "section",
+      "top": 1889,
+      "height": 915,
+      "words": 64,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Your next session, ready",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 36,
+      "textLeft": 28,
+      "textRight": 36,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.movement.section",
+      "tag": "section",
+      "top": 2804,
+      "height": 988,
+      "words": 55,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Know every movement",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 32,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.equipment.section",
+      "tag": "section",
+      "top": 3793,
+      "height": 1088,
+      "words": 47,
+      "media": 0,
+      "middle": 48,
+      "heading": {
+       "text": "Set up with confidence",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 64,
+      "textLeft": 28,
+      "textRight": 64,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#themes.themes.section",
+      "tag": "section",
+      "top": 4880,
+      "height": 1662,
+      "words": 52,
+      "media": 5,
+      "middle": 0,
+      "heading": {
+       "text": "Make it feel like you",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 30,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 6542,
+      "height": 387,
+      "words": 30,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "GymClues",
+       "size": 92,
+       "tag": "p"
+      },
+      "left": 28,
+      "right": 142,
+      "textLeft": 28,
+      "textRight": 142,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "TRAIN SMARTER",
+      "size": 92,
+      "top": 140,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 28,
+      "n": 9
+     },
+     {
+      "x": 408,
+      "n": 4
+     },
+     {
+      "x": 362,
+      "n": 2
+     },
+     {
+      "x": 396,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 16,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    0.71,
+    0.64,
+    0.89,
+    0.6,
+    0.6,
+    0.63,
+    0.69,
+    0.6,
+    0.68
+   ],
+   "motion": {
+    "elements": 27,
+    "css": 27,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 7688,
+     "screens": 9.1,
+     "words": 384,
+     "img": 16,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 15,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "01-home.png",
+      "01-home.png",
+      "02-session-preview.png",
+      "06-program-types.png",
+      "03-muscle-map.png",
+      "04-safety-guide.png",
+      "05-exercise-guide.png",
+      "07-equipment.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "chars": 13,
+     "lines": 2,
+     "size": 72.5,
+     "vw": 18.6,
+     "font": "Inter",
+     "weight": 850,
+     "tracking": -0.055,
+     "leading": 0.9,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 137,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "TRAIN SMARTER",
+     "words": 2,
+     "lines": 2,
+     "size": 72.5,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "TRAIN SMARTER",
+      "words": 2,
+      "chars": 13,
+      "lines": 2,
+      "size": 72.5,
+      "vw": 18.6,
+      "font": "Inter",
+      "weight": 850,
+      "tracking": -0.055,
+      "leading": 0.9,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 137,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Watch it work",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 918,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next session, ready",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2559,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Know every movement",
+      "words": 3,
+      "chars": 19,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3704,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Set up with confidence",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4873,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Make it feel like you",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 650,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5701,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GymClues",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 46.8,
+      "vw": 12,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.055,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.54,
+      "top": 7410,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 7,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      32,
+      47,
+      73
+     ],
+     "sizeCount": 5,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 72.5,
+      "vw": 18.6,
+      "font": "Inter",
+      "text": "TRAINSMARTER"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#04f730",
+       "top": 117,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      },
+      {
+       "color": "#121512",
+       "top": 547,
+       "hsl": {
+        "h": 120,
+        "s": 0.08,
+        "l": 0.08
+       }
+      },
+      {
+       "color": "#000000",
+       "top": 1463,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7bdb5",
+       "share": 0.55
+      },
+      {
+       "color": "#f4f5ee",
+       "share": 0.28
+      },
+      {
+       "color": "#000000",
+       "share": 0.13
+      },
+      {
+       "color": "#04f730",
+       "share": 0.02
+      },
+      {
+       "color": "#17321b",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f4f5ee",
+      "hsl": {
+       "h": 69,
+       "s": 0.26,
+       "l": 0.95
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 0,
+     "height": 49,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to tutorials",
+      "Watch the tutorials ↘"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 1,
+     "mediaRadius": 110,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.19
+     }
+    ],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 117,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 7688,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 117,
+      "height": 713,
+      "words": 29,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "TRAIN",
+       "size": 73,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 17,
+      "textLeft": 20,
+      "textRight": 41,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#watch.watch.section",
+      "tag": "section",
+      "top": 830,
+      "height": 1642,
+      "words": 112,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Watch it work",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 25,
+      "textLeft": 20,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#screenshots.day.section",
+      "tag": "section",
+      "top": 2471,
+      "height": 1145,
+      "words": 64,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Your next session, ready",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 29,
+      "textLeft": 20,
+      "textRight": 29,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.movement.section",
+      "tag": "section",
+      "top": 3616,
+      "height": 1169,
+      "words": 55,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "Know every movement",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.equipment.section",
+      "tag": "section",
+      "top": 4785,
+      "height": 828,
+      "words": 47,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Set up with confidence",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.section-intro",
+      "tag": "div",
+      "top": 5701,
+      "height": 129,
+      "words": 17,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 40,
+      "textLeft": 20,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.theme-lineup",
+      "tag": "div",
+      "top": 5862,
+      "height": 1428,
+      "words": 30,
+      "media": 5,
+      "middle": 20,
+      "heading": {
+       "text": "GymClues Default",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 7378,
+      "height": 310,
+      "words": 30,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "GymClues",
+       "size": 47,
+       "tag": "p"
+      },
+      "left": 20,
+      "right": 21,
+      "textLeft": 20,
+      "textRight": 21,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "TRAIN SMARTER",
+      "size": 73,
+      "top": 137,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 16
+     }
+    ],
+    "leftBlocks": 16,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\desktop-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\desktop-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\tablet-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\tablet-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\mobile-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\mobile-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\demo\\round-2\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -29,3 +29,5 @@ Signature: today's assigned training prescription and a rest-aware next-session 
 Native adaptation: 48dp primary controls and at least 44dp compact native icon targets (Android accessibility) replace the sheet's 36px desktop buttons. The DOM inspector cannot inspect Android views; native Robolectric captures and bounds/behavior checks cover 320/390/768/1440dp and enlarged text. Keep all persistence and catalog content. Scientific map colors remain their existing semantic role legend.
 
 Grid: phone content width = viewport minus 40dp (20dp gutters). Tablet canvas = min(viewport, 1040dp), content = canvas minus 40dp, with home columns (W - 16dp)/2. All other lists/forms use the same outer edges. Typography: 12/14/16/20/24/30sp; tabular numeric features.
+
+Current Default refinement: the later supplied reference replaces forest fills with a black canvas, #0C0C0C information panels and 1.5dp #04F730 outlines sampled from the logo. This is a user-requested override to the flat-panel style. All four alternate theme home previews remain byte-for-byte unchanged; see .taste-skill/themes/notes.md for the five-theme scope.

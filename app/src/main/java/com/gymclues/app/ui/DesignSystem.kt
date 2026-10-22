@@ -27,6 +27,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
+internal fun informationBorder(): BorderStroke? =
+  if (LocalAppTheme.current == AppTheme.DEFAULT) BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary) else null
+
+@Composable
 fun InfoPill(text: String) {
   Text(text, Modifier.padding(vertical = 2.dp), style = MaterialTheme.typography.labelMedium,
     color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -90,7 +94,7 @@ fun AppCard(
   modifier: Modifier = Modifier,
   colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
   content: @Composable ColumnScope.() -> Unit
-) = Card(modifier, shape = MaterialTheme.shapes.medium, colors = colors,
+) = Card(modifier, shape = MaterialTheme.shapes.medium, colors = colors, border = informationBorder(),
   elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
   content = content)
 
@@ -104,7 +108,7 @@ fun AppListItem(
   trailingContent: (@Composable () -> Unit)? = null
 ) {
   Surface(modifier.padding(vertical = 2.dp).fillMaxWidth(), shape = MaterialTheme.shapes.small,
-    color = MaterialTheme.colorScheme.surfaceContainerLow) {
+    color = MaterialTheme.colorScheme.surfaceContainerLow, border = informationBorder()) {
     ListItem(headlineContent = {
       ProvideTextStyle(MaterialTheme.typography.titleSmall, headlineContent)
     }, overlineContent = overlineContent, supportingContent = supportingContent,

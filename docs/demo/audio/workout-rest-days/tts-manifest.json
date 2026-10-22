@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-10-22T15:22:43.280Z",
+  "input": "F:\\Projects\\GymClues\\docs\\demo\\audio\\workout-rest-days\\voiceover-sections.md",
+  "provider": "voicestudio",
+  "model": "k2-fsa/OmniVoice",
+  "voice": "GymClues",
+  "speed": 1,
+  "sections": [
+    {
+      "title": "Open today's assigned workout",
+      "slug": "open-today-s-assigned-workout",
+      "text": "From Home, tap Preview session to review today's assigned workout.",
+      "file": "00-open-today-s-assigned-workout.wav",
+      "bytes": 190604,
+      "duration_seconds": 3.97
+    },
+    {
+      "title": "Review, then start",
+      "slug": "review-then-start",
+      "text": "Check the exercises and targets, then tap Start workout.",
+      "file": "01-review-then-start.wav",
+      "bytes": 186284,
+      "duration_seconds": 3.88
+    },
+    {
+      "title": "Your active workout",
+      "slug": "your-active-workout",
+      "text": "Your session includes editable weights, reps, and set logging.",
+      "file": "02-your-active-workout.wav",
+      "bytes": 186284,
+      "duration_seconds": 3.88
+    },
+    {
+      "title": "Return Home and scroll",
+      "slug": "return-home-and-scroll",
+      "text": "Return Home, then scroll down to Rest Day.",
+      "file": "03-return-home-and-scroll.wav",
+      "bytes": 139724,
+      "duration_seconds": 2.91
+    },
+    {
+      "title": "Plan a recovery day",
+      "slug": "plan-a-recovery-day",
+      "text": "Tap Rest Day when you need a recovery day.",
+      "file": "04-plan-a-recovery-day.wav",
+      "bytes": 140684,
+      "duration_seconds": 2.93
+    },
+    {
+      "title": "Take today off",
+      "slug": "take-today-off",
+      "text": "Set Today as Rest Day pauses training and moves your program forward.",
+      "file": "05-take-today-off.wav",
+      "bytes": 201644,
+      "duration_seconds": 4.2
+    },
+    {
+      "title": "Keep your next workout",
+      "slug": "keep-your-next-workout",
+      "text": "Your workout moves to the next training day.",
+      "file": "06-keep-your-next-workout.wav",
+      "bytes": 130604,
+      "duration_seconds": 2.72
+    },
+    {
+      "title": "Plan your regular rest days",
+      "slug": "plan-your-regular-rest-days",
+      "text": "Open Rest Day again to plan repeating breaks.",
+      "file": "07-plan-your-regular-rest-days.wav",
+      "bytes": 126764,
+      "duration_seconds": 2.64
+    },
+    {
+      "title": "Open the rest-day planner",
+      "slug": "open-the-rest-day-planner",
+      "text": "Choose Plan Rest Day for your regular schedule.",
+      "file": "08-open-the-rest-day-planner.wav",
+      "bytes": 129164,
+      "duration_seconds": 2.69
+    },
+    {
+      "title": "Pick repeating weekdays",
+      "slug": "pick-repeating-weekdays",
+      "text": "Under Every week, select the weekdays you want off.",
+      "file": "09-pick-repeating-weekdays.wav",
+      "bytes": 162764,
+      "duration_seconds": 3.39
+    },
+    {
+      "title": "Repeat automatically",
+      "slug": "repeat-automatically",
+      "text": "Weekly rest days repeat automatically and save immediately.",
+      "file": "10-repeat-automatically.wav",
+      "bytes": 145964,
+      "duration_seconds": 3.04
+    },
+    {
+      "title": "One-off dates are separate",
+      "slug": "one-off-dates-are-separate",
+      "text": "Use Add date for a one-off rest day.",
+      "file": "11-one-off-dates-are-separate.wav",
+      "bytes": 126764,
+      "duration_seconds": 2.64
+    }
+  ],
+  "language": "en",
+  "num_step": 32,
+  "target_timing": "Existing video cues, with 0.12-second end pause"
+}

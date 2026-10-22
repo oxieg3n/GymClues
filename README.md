@@ -12,6 +12,7 @@
 <br>- Nearby gym search using GPS or gym name/city.
 <br>- Gym and equipment submissions with camera/gallery photos and QR scanning.
 <br>- Music controls showing track information, play/pause, and previous/next.
+<br>- Five saved color themes under Menu > Theme: GymClues Default, Ocean, Ember, Rosewood, and Daylight. [Preview the themes](docs/taste-redesign/themes/index.html).
 
 <br> With <b>GymClues</b> there is less guessing & more lifting.
 

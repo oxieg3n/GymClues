@@ -1,0 +1,64 @@
+[
+  {
+    "tutorial": "home",
+    "id": "lesson-home",
+    "duration": 45,
+    "width": 1080,
+    "height": 2400,
+    "current": "#lesson-home",
+    "hiddenPaused": true,
+    "playback": "passed"
+  },
+  {
+    "tutorial": "assign",
+    "id": "lesson-assign",
+    "duration": 45,
+    "width": 1080,
+    "height": 2400,
+    "current": "#lesson-assign",
+    "hiddenPaused": true,
+    "playback": "passed"
+  },
+  {
+    "tutorial": "rest",
+    "id": "lesson-rest",
+    "duration": 45,
+    "width": 1080,
+    "height": 2400,
+    "current": "#lesson-rest",
+    "hiddenPaused": true,
+    "playback": "passed"
+  },
+  {
+    "tutorial": "themes",
+    "id": "lesson-themes",
+    "duration": 16.448,
+    "width": 1080,
+    "height": 2400,
+    "current": "#lesson-themes",
+    "hiddenPaused": true,
+    "playback": "passed"
+  },
+  {
+    "keyboardSelection": "passed"
+  },
+  {
+    "overflowWidths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "result": "passed"
+  },
+  {
+    "fileUrlAndDeepLink": "passed",
+    "consoleErrors": []
+  },
+  {
+    "reducedMotion": "passed"
+  },
+  {
+    "noJavaScript": "four playable videos and all screenshots visible"
+  }
+]

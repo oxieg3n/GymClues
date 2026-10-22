@@ -5,6 +5,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import java.time.DayOfWeek
 import java.time.Instant
@@ -36,9 +38,12 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
 /** [program] = the streak counts scheduled training days, with rest days excluded. */
 @Composable fun StreakPanel(s: WorkoutStats, program: Boolean = false, modifier: Modifier = Modifier) {
   val cs = MaterialTheme.colorScheme
-  BoxWithConstraints(modifier.fillMaxWidth()) {
+  val border = informationBorder()
+  Surface(modifier.fillMaxWidth(), shape = if (border != null) MaterialTheme.shapes.medium else RectangleShape,
+    color = if (border != null) cs.surfaceContainer else Color.Transparent, border = border) {
+  BoxWithConstraints(Modifier.padding(if (border != null) 20.dp else 0.dp)) {
   val compact = maxWidth < 340.dp
-  Column(Modifier.padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+  Column(Modifier.padding(vertical = if (border != null) 0.dp else 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
       Text("Training rhythm", style = MaterialTheme.typography.titleMedium)
       Text("Workout days", style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
@@ -58,6 +63,7 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
     if (program) Muted("Streak follows scheduled training; rest days keep it intact.")
   }
   }
+  }
 }
 
 @Composable private fun Tally(label: String, n: Int, modifier: Modifier) = Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -71,10 +77,10 @@ fun workoutStats(logDates: List<Long>, today: LocalDate = LocalDate.now(), zone:
     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
       Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
         Text(if (p.complete) "Program complete" else "Program progress", style = MaterialTheme.typography.titleMedium)
-        Text("${p.pct}%", style = MaterialTheme.typography.titleLarge, color = if (p.pct > 0) Green else cs.onSurface)
+        Text("${p.pct}%", style = MaterialTheme.typography.titleLarge, color = if (p.pct > 0) cs.primary else cs.onSurface)
       }
       LinearProgressIndicator(progress = { p.pct / 100f }, Modifier.fillMaxWidth().height(4.dp),
-        color = Green, trackColor = cs.surfaceContainerHighest, drawStopIndicator = {})
+        color = cs.primary, trackColor = cs.surfaceContainerHighest, drawStopIndicator = {})
       Muted("${p.done} of ${p.total} sessions \u00b7 ${p.program.name}")
       if (p.complete) AppOutlinedButton(onNewProgram, Modifier.fillMaxWidth()) { Text("Start a new program") }
     }

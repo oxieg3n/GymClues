@@ -53,13 +53,13 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
     items(groups.keys.toList(), key = { it }) { split ->
       val list = groups.getValue(split); val mine = list.any { it.id == cur?.programId }
       Surface({ nav.navigate(Routes.programType(split)) }, shape = MaterialTheme.shapes.medium,
-        color = if (mine) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainer) {
+        color = if (mine) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainer, border = informationBorder()) {
         Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(typeName(split), style = MaterialTheme.typography.titleMedium)
             Muted(TYPE_INFO[split]?.second.orEmpty())
             Text("${list.size} programs" + if (mine) " \u00b7 Assigned" else "", style = MaterialTheme.typography.bodySmall,
-              color = if (mine) Green else MaterialTheme.colorScheme.onSurfaceVariant)
+              color = if (mine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
           }
           Icon(Icons.Filled.ChevronRight, null, Modifier.size(20.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -82,7 +82,7 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
     items(app.programs.programs.filter { it.split == split }, key = { it.id }) { p ->
       val mine = cur?.programId == p.id
       val assigned = isProgramAssigned(assignments.orEmpty(), p.id)
-      Surface(shape = MaterialTheme.shapes.medium, color = if (mine) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainer) {
+      Surface(shape = MaterialTheme.shapes.medium, color = if (mine) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainer, border = informationBorder()) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically) {
             Text(p.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
@@ -157,7 +157,7 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
       listOf("Warm-up", "Working", "Cool-down").forEach { phase -> val rows = d.items.filter { it.phase == phase }
         if (rows.isNotEmpty()) {
           item { SectionTitle(if (phase == "Working") "Workout" else phase) }
-          items(rows) { r -> Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer) {
+          items(rows) { r -> Surface(shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainer, border = informationBorder()) {
             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
               Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(r.exercise, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))

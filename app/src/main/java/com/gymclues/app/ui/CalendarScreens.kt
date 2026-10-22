@@ -47,7 +47,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
       val isRest = a?.userRest == true || rest.isRest(date) || a?.day?.training == false
       val label = if (date == stats.today.plusDays(1)) "Tomorrow" else date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
       Surface(onClick = { if (a != null && a.day.training && !isRest) go(Routes.programDay(planId(a), date.toString())) else go("week") },
-        shape = MaterialTheme.shapes.small, color = cs.surfaceContainerLow) {
+        shape = MaterialTheme.shapes.small, color = cs.surfaceContainerLow, border = informationBorder()) {
         Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
           Column(Modifier.width(72.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(label, style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
@@ -67,7 +67,7 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 /** Tappable program name for a day; opens that day's workout page. */
 @Composable fun SessionLink(a: AssignedDay, go: (String) -> Unit) {
   val cs = MaterialTheme.colorScheme
-  Surface(onClick = { go(Routes.programDay(planId(a), a.date.toString())) }, shape = MaterialTheme.shapes.small, color = cs.surfaceContainerHigh) {
+  Surface(onClick = { go(Routes.programDay(planId(a), a.date.toString())) }, shape = MaterialTheme.shapes.small, color = cs.surfaceContainerHigh, border = informationBorder()) {
     Column(Modifier.fillMaxWidth().padding(10.dp)) {
       Text(a.day.session, style = MaterialTheme.typography.titleMedium, color = cs.onSurface, maxLines = 2, overflow = TextOverflow.Ellipsis)
       Text(a.program.name, style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -100,7 +100,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
       val a = scheduledDay(app.programs.programs, assignments, d, rest)
       val cs = MaterialTheme.colorScheme
       Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainer,
-        border = if (d == today) BorderStroke(1.5.dp, cs.primary) else null) {
+        border = if (d == today) BorderStroke(1.5.dp, cs.primary) else informationBorder()) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
           Column(Modifier.width(56.dp)) {
             Text(d.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()), style = MaterialTheme.typography.labelLarge,
@@ -115,7 +115,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
               else -> SessionLink(a, go)
             }
           }
-          if (d in done) Icon(Icons.Filled.CheckCircle, "Worked out", tint = Green) else Spacer(Modifier.size(24.dp))
+          if (d in done) Icon(Icons.Filled.CheckCircle, "Worked out", tint = MaterialTheme.colorScheme.primary) else Spacer(Modifier.size(24.dp))
         }
       }
     }
@@ -165,7 +165,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
     val sel = picked?.let(LocalDate::parse)
     if (sel != null) {
       val a = scheduledDay(app.programs.programs, assignments, sel, rest)
-      Surface(Modifier.fillMaxWidth().padding(top = 8.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh) {
+      Surface(Modifier.fillMaxWidth().padding(top = 8.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh, border = informationBorder()) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Text(sel.format(dayFmt) + if (sel in done) "  (worked out)" else "", style = MaterialTheme.typography.titleMedium)
           when {

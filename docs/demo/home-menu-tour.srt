@@ -1,0 +1,55 @@
+1
+00:00:02,000 --> 00:00:05,000
+Welcome to GymClues. Choose your gym here.
+
+2
+00:00:05,000 --> 00:00:08,000
+Connect music and keep playback within reach.
+
+3
+00:00:08,000 --> 00:00:13,000
+Today's training shows your exercises and working sets. Start here, or preview first.
+
+4
+00:00:13,000 --> 00:00:16,000
+Training rhythm tracks workout days and your streak.
+
+5
+00:00:16,000 --> 00:00:19,000
+Program progress counts the sessions you've completed.
+
+6
+00:00:19,000 --> 00:00:23,000
+Scroll for upcoming workouts, calendar views, and rest days.
+
+7
+00:00:23,000 --> 00:00:25,000
+Open the menu for more.
+
+8
+00:00:25,000 --> 00:00:29,000
+Start a workout from a program, or build your own.
+
+9
+00:00:29,000 --> 00:00:31,000
+Review your completed sessions.
+
+10
+00:00:31,000 --> 00:00:33,000
+Return to your active program.
+
+11
+00:00:33,000 --> 00:00:36,000
+Explore exercise guides and equipment setup instructions.
+
+12
+00:00:36,000 --> 00:00:39,000
+Add personal exercises in My Exercises.
+
+13
+00:00:39,000 --> 00:00:42,000
+Choose your favorite of five color themes.
+
+14
+00:00:42,000 --> 00:00:45,000
+Admin manages the catalog. You're ready to train.

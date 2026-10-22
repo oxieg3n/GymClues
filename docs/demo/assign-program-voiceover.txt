@@ -1,0 +1,21 @@
+To assign a workout program, open the menu.
+
+Choose Pick a Program to browse your options.
+
+Choose a training style that fits your goals and schedule.
+
+Compare the routines, then open Details for a closer look.
+
+Review the experience level, training cycle, and how the program progresses.
+
+Tap Assign to me when you've found the right fit.
+
+Choose Today, Tomorrow, or Next Monday as your start date.
+
+Tap Assign to save your start date.
+
+Already Assigned confirms your selection and prevents duplicate assignments.
+
+Use the back arrow to return to Home.
+
+Today's training now follows your program, with a preview and a button to start.

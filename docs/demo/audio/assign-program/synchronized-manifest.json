@@ -1,0 +1,124 @@
+{
+  "provider": "voicestudio",
+  "model": "k2-fsa/OmniVoice",
+  "voice": "GymClues",
+  "language": "en-US",
+  "generated_with": "codex-tts/scripts/tts.mjs",
+  "duration_seconds": 45,
+  "intro_silence_seconds": 2,
+  "sample_rate_hz": 48000,
+  "loudness_target_lufs": -16,
+  "true_peak_target_dbtp": -1.5,
+  "sections": [
+    {
+      "title": "Start from Home",
+      "text": "To assign a workout program, open the menu.",
+      "source_file": "00-start-from-home.wav",
+      "source_duration_seconds": 2.87,
+      "start_seconds": 2.0,
+      "end_seconds": 5.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Pick a Program",
+      "text": "Choose Pick a Program to browse your options.",
+      "source_file": "01-pick-a-program.wav",
+      "source_duration_seconds": 2.71,
+      "start_seconds": 5.0,
+      "end_seconds": 8.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Choose a training style",
+      "text": "Choose a training style that fits your goals and schedule.",
+      "source_file": "02-choose-a-training-style.wav",
+      "source_duration_seconds": 2.94,
+      "start_seconds": 8.0,
+      "end_seconds": 12.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Compare the routines",
+      "text": "Compare the routines, then open Details for a closer look.",
+      "source_file": "03-compare-the-routines.wav",
+      "source_duration_seconds": 3.6,
+      "start_seconds": 12.0,
+      "end_seconds": 16.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Review the program",
+      "text": "Review the experience level, training cycle, and how the program progresses.",
+      "source_file": "04-review-the-program.wav",
+      "source_duration_seconds": 4.67,
+      "start_seconds": 16.0,
+      "end_seconds": 21.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Assign to me",
+      "text": "Tap Assign to me when you've found the right fit.",
+      "source_file": "05-assign-to-me.wav",
+      "source_duration_seconds": 2.61,
+      "start_seconds": 21.0,
+      "end_seconds": 25.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Choose your start date",
+      "text": "Choose Today, Tomorrow, or Next Monday as your start date.",
+      "source_file": "06-choose-your-start-date.wav",
+      "source_duration_seconds": 3.89,
+      "start_seconds": 25.0,
+      "end_seconds": 29.0,
+      "tempo_multiplier": 1.002577,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Confirm your selection",
+      "text": "Tap Assign to save your start date.",
+      "source_file": "07-confirm-your-selection.wav",
+      "source_duration_seconds": 2,
+      "start_seconds": 29.0,
+      "end_seconds": 32.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Your program is assigned",
+      "text": "Already Assigned confirms your selection and prevents duplicate assignments.",
+      "source_file": "08-your-program-is-assigned.wav",
+      "source_duration_seconds": 4.03,
+      "start_seconds": 32.0,
+      "end_seconds": 36.0,
+      "tempo_multiplier": 1.03866,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Return to Home",
+      "text": "Use the back arrow to return to Home.",
+      "source_file": "09-return-to-home.wav",
+      "source_duration_seconds": 2.95,
+      "start_seconds": 36.0,
+      "end_seconds": 39.0,
+      "tempo_multiplier": 1.024306,
+      "minimum_end_pause_seconds": 0.12
+    },
+    {
+      "title": "Your plan, on your dashboard",
+      "text": "Today's training now follows your program, with a preview and a button to start.",
+      "source_file": "10-your-plan-on-your-dashboard.wav",
+      "source_duration_seconds": 5.6,
+      "start_seconds": 39.0,
+      "end_seconds": 45.0,
+      "tempo_multiplier": 1.0,
+      "minimum_end_pause_seconds": 0.12
+    }
+  ]
+}
