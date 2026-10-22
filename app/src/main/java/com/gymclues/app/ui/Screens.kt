@@ -47,6 +47,7 @@ val SPLIT_HELP = mapOf(
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.Top) {
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
+            com.gymclues.app.ui.nutrition.HomeNutrition(app) { go("nutrition") }
             Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
           }
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -58,6 +59,7 @@ val SPLIT_HELP = mapOf(
         }
       } else {
         TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
+        com.gymclues.app.ui.nutrition.HomeNutrition(app) { go("nutrition") }
         Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
         Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } } ?: ProgramChoice() }
         Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }

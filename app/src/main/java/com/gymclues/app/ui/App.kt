@@ -14,6 +14,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.gymclues.app.data.AppContainer
+import com.gymclues.app.ui.nutrition.nutritionRoutes
 
 /** Route helpers so every screen builds URLs the same way (and encodes user text safely). */
 object Routes {
@@ -57,6 +58,7 @@ object Routes {
           NavHost(nav, "home") {
       composable("home") { Home(app, nav::navigate) }
       composable("theme") { ThemeScreen() }
+      nutritionRoutes(app, nav)
       composable("muscles") { ListScreen("Choose a primary muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
       composable("list/{m}") { val m = it.arguments?.getString("m").orEmpty()
         ExerciseList(app.catalog.exercises.filter { e -> m in e.primaryMuscles && app.catalog.usable(e, offIds) }, title = m) { id -> nav.navigate(Routes.exercise(id)) } }

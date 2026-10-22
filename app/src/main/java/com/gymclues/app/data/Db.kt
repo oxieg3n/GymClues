@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.room.*
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.gymclues.app.data.nutrition.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -163,14 +164,16 @@ class Converters {
 
 @Database(entities = [Unavailable::class, SetLog::class, WorkoutEntity::class, WorkoutItemEntity::class,
   GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
-  ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class, CompletedSessionEntity::class],
-  version = 6, exportSchema = true)
-@TypeConverters(Converters::class)
+  ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class, CompletedSessionEntity::class,
+  FoodEntity::class, DiaryEntry::class, FoodBundle::class, BundleItem::class, NutritionGoal::class, WeightLog::class, WaterLog::class],
+  version = 7, exportSchema = true)
+@TypeConverters(Converters::class, NutritionConverters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
+  abstract fun nutrition(): NutritionDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build().also { i = it } } }
 }
 
 /** v1 -> v3 app (db 1 -> 2): keeps workout history and any old CustomWorkout rows. */
