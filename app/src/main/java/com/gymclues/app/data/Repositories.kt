@@ -243,7 +243,7 @@ class AdminRepository(private val dao: GymDao, private val session: UserSession,
 data class MissingItem(val type: String, val id: String, val name: String, val missing: List<String>)
 
 /** One object that owns every repository; created once in MainActivity. */
-class AppContainer(ctx: Context) {
+class AppContainer(ctx: Context, foodProviders: List<com.gymclues.app.data.nutrition.FoodProvider>? = null) {
   val db = GymDb.get(ctx); val dao = db.dao()
   val catalog = CatalogRepository(ctx)
   val session = UserSession(ctx, dao)
@@ -252,6 +252,11 @@ class AppContainer(ctx: Context) {
   val workouts = WorkoutRepository(dao, catalog, session)
   val exercises = ExerciseRepository(dao, catalog, session)
   val programs = ProgramRepository(ctx, db, session, catalog)
+  val nutritionSettings = ctx.getSharedPreferences("nutrition", Context.MODE_PRIVATE)
+  val nutrition = com.gymclues.app.data.nutrition.NutritionRepository(db, session, ctx, programs.programs,
+    foodProviders ?: (listOf(com.gymclues.app.data.nutrition.OpenFoodFactsProvider()) +
+      listOfNotNull(nutritionSettings.getString("usdaProxy", null)?.takeIf(com.gymclues.app.data.nutrition.UsdaFoodProvider::validProxy)
+        ?.let { com.gymclues.app.data.nutrition.UsdaFoodProvider(it) })))
   private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
   init { exercises.attach(scope) }
   val gyms = GymRepository(ctx, dao, catalog, session, enrichment)

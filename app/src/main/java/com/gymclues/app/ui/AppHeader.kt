@@ -60,9 +60,9 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
     Triple("Completed Sessions", "sessions", null),
     if (active == null) Triple("Pick a Program", "programs", null) else Triple("Active Program", Routes.program(active.id), active.name),
     Triple("Exercises", "muscles", null), Triple("Equipment", "equipment", null), Triple("My Exercises", "myex", null),
-    Triple("Theme", "theme", null), Triple("Admin", "admin", null))
+    Triple("Nutrition", "nutrition", null), Triple("Theme", "theme", null), Triple("Admin", "admin", null))
   val icons = listOf(Icons.Filled.PlayCircleOutline, Icons.Filled.History, Icons.Filled.CalendarMonth,
-    Icons.Filled.FitnessCenter, Icons.Filled.SportsGymnastics, Icons.Filled.BookmarkBorder, Icons.Filled.Palette, Icons.Filled.AdminPanelSettings)
+    Icons.Filled.FitnessCenter, Icons.Filled.SportsGymnastics, Icons.Filled.BookmarkBorder, Icons.Filled.Restaurant, Icons.Filled.Palette, Icons.Filled.AdminPanelSettings)
   Surface(modifier.width(300.dp).tourTarget("menu"), shape = MaterialTheme.shapes.large,
     shadowElevation = 8.dp, color = MaterialTheme.colorScheme.surfaceContainerHigh, border = informationBorder()) {
     Column(Modifier.verticalScroll(rememberScrollState()).padding(vertical = 12.dp)) {
