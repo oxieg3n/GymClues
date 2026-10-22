@@ -34,42 +34,82 @@ val SPLIT_HELP = mapOf(
   val stats = remember(logs) { workoutStats(logs.map { it.date }) }
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
-  val pStreak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+  val streak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
+  val today = scheduledDay(app.programs.programs, assignments, stats.today, rest)
   BoxWithConstraints(Modifier.fillMaxSize()) {
-  Column(Modifier.fillMaxSize()) {
-   // Cards fill the screen above Rest Day and scroll if needed.
-   Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-    Box(Modifier.tourTarget("progress")) {
-      if (progress != null) ProgramProgressCard(progress!!) { go("programs") }
-      else Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainer,
-        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-          Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Filled.TaskAlt, null, Modifier.size(20.dp), tint = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.width(8.dp))
-            Text("Program completed", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-            Surface(shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.primaryContainer) {
-              Text("0%", Modifier.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-            }
+    val wide = maxWidth >= 700.dp
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+      ScreenTitle("Today", stats.today.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d")))
+      if (wide) {
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.Top) {
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
+            Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
           }
-          LinearProgressIndicator(progress = { 0f }, modifier = Modifier.fillMaxWidth().height(6.dp),
-            color = MaterialTheme.colorScheme.primary, trackColor = MaterialTheme.colorScheme.surfaceContainerHighest)
-          TextButton({ go("programs") }) { Text("Pick a program to start tracking") }
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
+            Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } }
+              ?: ProgramChoice() }
+            Box(Modifier.tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().heightIn(min = 48.dp)) }
+          }
         }
+      } else {
+        TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
+        Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
+        Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } } ?: ProgramChoice() }
+        Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
+        Box(Modifier.tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().heightIn(min = 48.dp)) }
       }
     }
-    Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = pStreak ?: stats.streak), pStreak != null) }
-    Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
-   }
-    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-    Box(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp).tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().height(70.dp)) }
-  }
   }
 }
 
-@Composable fun ListScreen(title: String, items: List<String>, onAdd: () -> Unit, click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
-  item { Text(title, style = MaterialTheme.typography.titleLarge) }
+@Composable private fun ProgramChoice() {
+  Column(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Text("Program progress", style = MaterialTheme.typography.titleMedium)
+    Muted("No program assigned. Choose a routine to build your training schedule.")
+  }
+}
+
+@Composable private fun TodayTraining(a: AssignedDay?, restDay: Boolean, done: Boolean, go: (String) -> Unit) {
+  val training = a != null && a.day.training && !a.userRest
+  AppCard(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+    Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+      Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Text("Today's training", style = MaterialTheme.typography.titleMedium)
+        if (done) Text("Logged today", style = MaterialTheme.typography.labelMedium, color = Green)
+      }
+      Text(when { training -> a!!.day.session; restDay || a?.userRest == true || a != null -> "Recovery day"; else -> "Your next session starts here" },
+        style = MaterialTheme.typography.headlineSmall)
+      if (a != null) Muted(a.program.name)
+      when {
+        training -> {
+          val rows = a!!.day.items.filter { it.phase == "Working" }
+          val seconds = a.day.items.sumOf { it.durationSec }
+          Text(if (seconds > 0) "${a.day.items.size} timed blocks \u00b7 ${seconds / 60} min planned"
+            else "${rows.size} exercises \u00b7 ${rows.sumOf { it.setCount }} working sets", style = MaterialTheme.typography.bodyMedium)
+          AppButton({ go(Routes.runProgram(planId(a))) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
+            Icon(Icons.Filled.PlayArrow, null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp)); Text("Start today's workout")
+          }
+          TextButton({ go(Routes.programDay(planId(a), a.date.toString())) }, Modifier.fillMaxWidth()) { Text("Preview session") }
+        }
+        a != null || restDay -> {
+          Muted(if (a?.userRest == true) "Your program shifts back so you keep every session." else "Keep today easy. Your next training session is in the schedule.")
+          AppOutlinedButton({ go("week") }, Modifier.fillMaxWidth()) { Text("View schedule") }
+        }
+        else -> {
+          Muted("Follow a structured program, or build a workout from your exercise library.")
+          AppButton({ go("programs") }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Choose a program") }
+          TextButton({ go(Routes.builder()) }, Modifier.fillMaxWidth()) { Text("Create a custom workout") }
+        }
+      }
+    }
+  }
+}
+
+@Composable fun ListScreen(title: String, items: List<String>, onAdd: () -> Unit, click: (String) -> Unit) = LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
+  item { ScreenTitle(title) }
   item { TextButton(onAdd, contentPadding = PaddingValues(0.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add your own exercise") } }
   if (items.isEmpty()) item { Text("No content yet.") }
   items(items) { AppListItem(headlineContent = { Text(it) },
@@ -78,8 +118,8 @@ val SPLIT_HELP = mapOf(
     modifier = Modifier.clickable { click(it) }) }
 }
 
-@Composable fun ExerciseList(list: List<Exercise>, title: String = "Exercises", click: (String) -> Unit) = LazyColumn(Modifier.padding(16.dp)) {
-  item { Text(title, style = MaterialTheme.typography.headlineSmall) }
+@Composable fun ExerciseList(list: List<Exercise>, title: String = "Exercises", click: (String) -> Unit) = LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
+  item { ScreenTitle(title, "${list.size} exercises") }
   if (list.isEmpty()) item { Text("No exercises available with your gym's equipment.") }
   items(list.sortedBy { it.name.lowercase() }) { e -> AppListItem(headlineContent = { Text(e.name) },
     leadingContent = { IconBadge(Icons.Filled.FitnessCenter) },
@@ -91,7 +131,7 @@ val SPLIT_HELP = mapOf(
 @Composable fun ExerciseDetail(app: AppContainer, e: Exercise, off: Set<String>, nav: NavHostController) {
   val repo = app.catalog
   var busy by remember { mutableStateOf(false) }
-  LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     item { Row(verticalAlignment = Alignment.CenterVertically) {
       Text(e.name, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
       MuscleMapButton(e.muscleMapName.ifBlank { e.name })
@@ -125,8 +165,8 @@ fun LazyListScope.section(t: String, l: List<String>) { if (l.isEmpty()) return
 
 @Composable fun EquipmentScreen(app: AppContainer, off: Set<String>, nav: NavHostController) {
   val scope = rememberCoroutineScope()
-  LazyColumn(Modifier.padding(16.dp)) {
-    item { Text("Uncheck anything your gym doesn't have", style = MaterialTheme.typography.titleMedium) }
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
+    item { ScreenTitle("Equipment", "${app.catalog.content.equipment.size} setup guides. Uncheck anything your gym doesn't have.") }
     item { Muted("Tap equipment for setup diagrams and adjustment instructions.") }
     if (app.catalog.content.equipment.isEmpty()) item { Text("No equipment in the catalog yet.") }
     app.catalog.equipmentGroups.forEach { (type, equipment) ->

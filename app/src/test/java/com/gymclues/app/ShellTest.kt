@@ -2,7 +2,10 @@ package com.gymclues.app
 
 import android.content.Context
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import kotlinx.coroutines.cancelAndJoin
 import androidx.test.core.app.ApplicationProvider
 import com.gymclues.app.data.*
 import com.gymclues.app.ui.*
@@ -15,28 +18,46 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class) @Config(sdk = [34], qualifiers = "w411dp-h891dp-mdpi")
 class ShellTest {
-  @get:Rule val compose = createComposeRule()
+  @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
   private val ctx: Context get() = ApplicationProvider.getApplicationContext()
+
+  private val containers = mutableListOf<AppContainer>()
+  private fun newApp() = AppContainer(ctx).also { containers += it }
+
+  @org.junit.After fun cleanup() {
+    compose.activity.setContent { }
+    compose.waitForIdle()
+    kotlinx.coroutines.runBlocking { containers.forEach { app ->
+      val scope = AppContainer::class.java.getDeclaredField("scope").apply { isAccessible = true }.get(app) as kotlinx.coroutines.CoroutineScope
+      scope.coroutineContext[kotlinx.coroutines.Job]?.cancelAndJoin()
+    } }
+    containers.forEach { it.db.close() }
+    GymDb::class.java.getDeclaredField("i").apply { isAccessible = true }.set(null, null)
+  }
+
   private fun launch(tourDone: Boolean) {
     ctx.getSharedPreferences("ui", Context.MODE_PRIVATE).edit().clear().putBoolean("tourDone", tourDone).commit()
-    compose.setContent { GymCluesTheme { App(AppContainer(ctx)) } }
+    compose.setContent { GymCluesTheme { App(newApp()) } }
     compose.waitForIdle()
   }
   @Test fun homeHasOnlyRequestedSectionsAndHeaderPersists() {
     launch(true)
     compose.onNodeWithText("+ Start A Workout +").assertDoesNotExist()
-    compose.onNodeWithText("Program completed").assertExists()
+    compose.onNodeWithText("Today").assertExists()
+    compose.onNodeWithText("Program completed").assertDoesNotExist()
     compose.onNodeWithContentDescription("GymClues menu").performClick()
     compose.onNodeWithText("Completed Sessions").performClick()
     compose.onNodeWithContentDescription("GymClues menu").assertExists()
     compose.onNodeWithText("Pick your gym").assertExists().performClick()
     compose.onNodeWithText("Find a Gym").assertExists()
   }
-  @Test fun startWorkoutOpensCustomWorkouts() {
+  @Test fun startWorkoutOpensProgramTypes() {
     launch(true)
     compose.onNodeWithContentDescription("GymClues menu").performClick()
     compose.onNodeWithText("Start A Workout").performClick()
-    compose.onNodeWithText("Custom Workouts").assertExists()
+    compose.onNodeWithText("Start a Workout").assertExists()
+    compose.onNodeWithText("Bro split").assertExists()
+    compose.onNodeWithText("Custom Workout").assertExists()
   }
   @Test fun tutorialOpensRealMenuAndFinishesOnce() {
     launch(false)

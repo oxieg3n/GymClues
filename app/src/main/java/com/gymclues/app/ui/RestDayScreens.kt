@@ -17,16 +17,15 @@ import java.time.ZoneOffset
 import java.time.format.TextStyle
 import java.util.Locale
 
-/** Recovery action stays below the home calendar, with a quiet warm treatment. */
-@Composable fun RestDayButton(app: AppContainer, go: (String) -> Unit, modifier: Modifier = Modifier.fillMaxWidth().height(70.dp)) {
+/** Recovery action stays below the home calendar. */
+@Composable fun RestDayButton(app: AppContainer, go: (String) -> Unit, modifier: Modifier = Modifier.fillMaxWidth().heightIn(min = 70.dp)) {
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val scope = rememberCoroutineScope()
   var open by remember { mutableStateOf(false) }
   val today = LocalDate.now(); val isRest = rest.isRest(today)
-  AppButton({ open = true }, modifier, shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 16.dp),
-    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.errorContainer,
-      contentColor = MaterialTheme.colorScheme.onErrorContainer)) {
-    Icon(Icons.Filled.Bedtime, null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text(if (isRest) "Rest Day (today is off)" else "Rest Day") }
+  AppOutlinedButton({ open = true }, modifier, contentPadding = PaddingValues(horizontal = 16.dp)) {
+    Icon(Icons.Filled.Bedtime, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.tertiary); Spacer(Modifier.width(8.dp))
+    Text(if (isRest) "Rest Day (today is off)" else "Rest Day", color = MaterialTheme.colorScheme.tertiary) }
   if (open) AlertDialog(onDismissRequest = { open = false }, title = { Text("Rest day") },
     text = { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
       Muted("Your program moves back so you don't miss a session.")
@@ -52,9 +51,8 @@ import java.util.Locale
       st.selectedDateMillis?.let { m -> scope.launch { app.programs.addRestDate(Instant.ofEpochMilli(m).atZone(ZoneOffset.UTC).toLocalDate()) } }; picking = false },
       enabled = st.selectedDateMillis != null) { Text("Add") } }, dismissButton = { TextButton({ picking = false }) { Text("Cancel") } }) { DatePicker(st) }
   }
-  LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-    item { Text("Rest days", style = MaterialTheme.typography.headlineSmall)
-      Muted("Your program skips these days and picks up on the next one.") }
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    item { ScreenTitle("Rest days", "Your program skips these days and picks up on the next one.") }
     item { SectionTitle("Every week") }
     item { FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
       DayOfWeek.values().forEach { d -> FilterChip(d.value in weekly, { scope.launch { warn = !app.programs.setWeekly(d.value, d.value !in weekly) } },

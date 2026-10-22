@@ -69,12 +69,12 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
   val perm = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { r ->
     if (r.values.any { it }) runNearby() else error = "Location permission denied. You can still search by gym name or city." }
 
-  LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
     item { Text("Find a Gym", style = MaterialTheme.typography.headlineSmall)
       Muted("Pick the gym you train at, or add one so you can upload its equipment.") }
     item { AppButton({ if (hasLocation(ctx)) runNearby() else perm.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) },
-      Modifier.fillMaxWidth().height(52.dp), enabled = !loading) { Icon(Icons.Filled.MyLocation, null); Spacer(Modifier.width(8.dp)); Text("Search near me") } }
-    item { Row(verticalAlignment = Alignment.CenterVertically) {
+      Modifier.fillMaxWidth().heightIn(min = 52.dp), enabled = !loading) { Icon(Icons.Filled.MyLocation, null); Spacer(Modifier.width(8.dp)); Text("Search near me") } }
+    item { Row(verticalAlignment = Alignment.Bottom) {
       AppTextField(query, { query = it }, Modifier.weight(1f), singleLine = true, label = { Text("Gym name or city") })
       IconButton({ runText() }, enabled = !loading && query.isNotBlank()) { Icon(Icons.Filled.Search, "Search") } } }
     if (loading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
@@ -112,7 +112,7 @@ private fun miles(m: Float?) = m?.let { "%.1f mi".format(it / 1609.34f) } ?: ""
   val me = app.session.userId
   val g = gym ?: run { NotFound("Loading gym…"); return }
   val visible = equipment.filter { it.status == ReviewStatus.APPROVED || it.submittedBy == me }
-  LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
     item { Text(g.name, style = MaterialTheme.typography.headlineSmall); if (g.address.isNotBlank()) Muted(g.address) }
     item { Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
       if (g.id == activeId) AssistChip({}, { Text("My gym") }, leadingIcon = { Icon(Icons.Filled.Check, null) })

@@ -31,50 +31,34 @@ import java.util.Locale
 private val dayFmt = java.time.format.DateTimeFormatter.ofPattern("EEE, MMM d")
 fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 
-/** Home calendar: Today and Tomorrow with their assigned sessions, plus Week/Month pages. */
+/** The home lead owns today; this panel shows the next two calendar days. */
 @Composable fun CalendarCard(app: AppContainer, stats: WorkoutStats, go: (String) -> Unit) {
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val cs = MaterialTheme.colorScheme
-  Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large, color = cs.surfaceContainer, border = BorderStroke(1.dp, cs.outlineVariant)) {
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-      Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(Icons.Filled.CalendarToday, null, Modifier.size(18.dp), tint = cs.primary)
-        Spacer(Modifier.width(8.dp))
-        Text("Schedule", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-        AppTonalButton({ go("week") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Week") }
-        Spacer(Modifier.width(8.dp))
-        AppTonalButton({ go("month") }, contentPadding = PaddingValues(horizontal = 14.dp)) { Text("Month") }
-      }
-      Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        listOf("Today" to stats.today, "Tomorrow" to stats.today.plusDays(1)).forEach { (label, date) ->
-          DayCard(label, date, scheduledDay(app.programs.programs, assignments, date, rest), rest.isRest(date), date in stats.doneDays, go, Modifier.weight(1f))
-        }
-      }
+  Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+      Text("Upcoming", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+      TextButton({ go("week") }) { Text("Week") }
+      TextButton({ go("month") }) { Text("Month") }
     }
-  }
-}
-
-@Composable private fun DayCard(label: String, date: LocalDate, a: AssignedDay?, restDay: Boolean, done: Boolean, go: (String) -> Unit, modifier: Modifier) {
-  val cs = MaterialTheme.colorScheme
-  Surface(modifier.heightIn(min = 148.dp), shape = MaterialTheme.shapes.medium,
-    color = if (label == "Today") cs.primaryContainer.copy(alpha = 0.3f) else cs.surfaceContainerLow,
-    border = BorderStroke(1.dp, if (label == "Today") cs.primary.copy(alpha = 0.4f) else cs.outlineVariant.copy(alpha = 0.6f))) {
-    Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-      Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(label, style = MaterialTheme.typography.titleMedium, color = if (label == "Today") cs.primary else cs.onSurface, modifier = Modifier.weight(1f))
-        if (done) Surface(shape = CircleShape, color = cs.primary, modifier = Modifier.size(24.dp).semantics { contentDescription = "Worked out" }) {
-          Box(contentAlignment = Alignment.Center) { Icon(Icons.Filled.Check, null, Modifier.size(16.dp), tint = cs.onPrimary) } }
-      }
-      Muted(date.format(dayFmt))
-      Spacer(Modifier.weight(1f))
-      when {
-        a != null && a.userRest -> { Text("Your rest day", style = MaterialTheme.typography.titleMedium); Muted("${a.program.name} shifts back a day") }
-        a == null && restDay -> Text("Your rest day", style = MaterialTheme.typography.titleMedium)
-        a == null -> { Text("No program", style = MaterialTheme.typography.bodyMedium)
-          TextButton({ go("programs") }, contentPadding = PaddingValues(0.dp)) { Text("Choose a program") } }
-        !a.day.training -> { Text("Rest day", style = MaterialTheme.typography.titleMedium); Muted(a.program.name) }
-        else -> SessionLink(a, go)
+    listOf(stats.today.plusDays(1), stats.today.plusDays(2)).forEach { date ->
+      val a = scheduledDay(app.programs.programs, assignments, date, rest)
+      val isRest = a?.userRest == true || rest.isRest(date) || a?.day?.training == false
+      val label = if (date == stats.today.plusDays(1)) "Tomorrow" else date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+      Surface(onClick = { if (a != null && a.day.training && !isRest) go(Routes.programDay(planId(a), date.toString())) else go("week") },
+        shape = MaterialTheme.shapes.small, color = cs.surfaceContainerLow) {
+        Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+          Column(Modifier.width(72.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(label, style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
+            Text("${date.dayOfMonth}", style = MaterialTheme.typography.titleLarge)
+          }
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(when { isRest -> "Recovery day"; a != null -> a.day.session; else -> "No session scheduled" }, style = MaterialTheme.typography.titleSmall)
+            if (a != null) Muted(a.program.name) else Muted("Choose a program to plan your week")
+          }
+          Icon(Icons.Filled.ChevronRight, null, Modifier.size(18.dp), tint = cs.onSurfaceVariant)
+        }
       }
     }
   }
@@ -83,10 +67,9 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
 /** Tappable program name for a day; opens that day's workout page. */
 @Composable fun SessionLink(a: AssignedDay, go: (String) -> Unit) {
   val cs = MaterialTheme.colorScheme
-  Surface(onClick = { go(Routes.programDay(planId(a), a.date.toString())) }, shape = MaterialTheme.shapes.small, color = cs.primary.copy(alpha = 0.14f),
-    border = BorderStroke(1.dp, cs.primary.copy(alpha = 0.2f))) {
+  Surface(onClick = { go(Routes.programDay(planId(a), a.date.toString())) }, shape = MaterialTheme.shapes.small, color = cs.surfaceContainerHigh) {
     Column(Modifier.fillMaxWidth().padding(10.dp)) {
-      Text(a.day.session, style = MaterialTheme.typography.titleMedium, color = cs.primary, maxLines = 2, overflow = TextOverflow.Ellipsis)
+      Text(a.day.session, style = MaterialTheme.typography.titleMedium, color = cs.onSurface, maxLines = 2, overflow = TextOverflow.Ellipsis)
       Text(a.program.name, style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
     }
   }
@@ -106,7 +89,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
   var offset by rememberSaveable { mutableIntStateOf(0) }
   val today = LocalDate.now()
   val start = today.with(TemporalAdjusters.previousOrSame(WeekFields.of(Locale.getDefault()).firstDayOfWeek)).plusWeeks(offset.toLong())
-  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
     Row(verticalAlignment = Alignment.CenterVertically) {
       IconButton({ offset-- }) { Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, "Previous week") }
       Text("${start.format(java.time.format.DateTimeFormatter.ofPattern("MMM d"))} - ${start.plusDays(6).format(java.time.format.DateTimeFormatter.ofPattern("MMM d"))}",
@@ -126,13 +109,13 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
           }
           Box(Modifier.weight(1f)) {
             when {
-              a != null && a.userRest || a == null && rest.isRest(d) -> Text("Your rest day", color = MaterialTheme.colorScheme.error)
+              a != null && a.userRest || a == null && rest.isRest(d) -> Muted("Your rest day")
               a == null -> Muted(if (assignments.isEmpty()) "No program assigned" else "Outside program dates")
               !a.day.training -> Muted("Rest day")
               else -> SessionLink(a, go)
             }
           }
-          if (d in done) Icon(Icons.Filled.CheckCircle, "Worked out", tint = cs.primary) else Spacer(Modifier.size(24.dp))
+          if (d in done) Icon(Icons.Filled.CheckCircle, "Worked out", tint = Green) else Spacer(Modifier.size(24.dp))
         }
       }
     }
@@ -149,7 +132,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
   val lead = ((month.atDay(1).dayOfWeek.value - first.value) + 7) % 7
   val cells: List<LocalDate?> = List(lead) { null } + (1..month.lengthOfMonth()).map { month.atDay(it) }
   val cs = MaterialTheme.colorScheme
-  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
     Row(verticalAlignment = Alignment.CenterVertically) {
       IconButton({ offset--; picked = null }) { Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, "Previous month") }
       Text("${month.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${month.year}", style = MaterialTheme.typography.titleLarge,

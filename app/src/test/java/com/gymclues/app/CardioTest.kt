@@ -159,7 +159,7 @@ class CardioTest {
     val app = app()
     compose.activity.setContent { GymCluesTheme { ProgramTypesScreen(app, rememberNavController()) } }
     compose.waitForIdle()
-    compose.onNode(hasScrollAction()).performScrollToIndex(app.programs.programs.map { it.split }.distinct().indexOf("HIIT") + 1)
+    compose.onNode(hasScrollAction()).performScrollToIndex(app.programs.programs.map { it.split }.distinct().indexOf("HIIT") + 2)
     compose.onNodeWithText("HIIT").assertIsDisplayed()
     snapshot("hiit-category.png")
     compose.activity.setContent { GymCluesTheme { ProgramDayScreen(app, "HIIT_TABATA_1", null, rememberNavController()) } }

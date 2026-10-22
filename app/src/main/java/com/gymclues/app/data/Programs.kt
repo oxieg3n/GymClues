@@ -19,6 +19,9 @@ import java.time.LocalDate
 data class AssignedDay(val program: WorkoutProgram, val day: ProgramDay, val date: LocalDate, val userRest: Boolean = false)
 private val REST = ProgramDay(0, "Rest day", false, emptyList())
 
+fun isProgramAssigned(assignments: List<ProgramAssignmentEntity>, programId: String, date: LocalDate = LocalDate.now()) =
+  assignments.any { !it.deleted && it.programId == programId && (it.endDate.isBlank() || it.endDate > date.toString()) }
+
 fun assignmentOn(assignments: List<ProgramAssignmentEntity>, date: LocalDate) = assignments.filter { !it.deleted &&
   it.startDate <= date.toString() && (it.endDate.isBlank() || date.toString() < it.endDate) }.maxByOrNull { it.startDate }
 

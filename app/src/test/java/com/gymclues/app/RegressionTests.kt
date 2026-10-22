@@ -1,7 +1,10 @@
 package com.gymclues.app
 import android.content.Context
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import kotlinx.coroutines.cancelAndJoin
 import androidx.room.Room
 import androidx.room.testing.MigrationTestHelper
 import androidx.test.core.app.ApplicationProvider
@@ -21,12 +24,27 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class) @Config(sdk = [34])
 class RegressionTests {
-  @get:Rule val compose = createComposeRule()
+  @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
   private val ctx: Context get() = ApplicationProvider.getApplicationContext()
+
+  private val containers = mutableListOf<AppContainer>()
+  private fun newApp() = AppContainer(ctx).also { containers += it }
+
+  @org.junit.After fun cleanup() {
+    compose.activity.setContent { }
+    compose.waitForIdle()
+    kotlinx.coroutines.runBlocking { containers.forEach { app ->
+      val scope = AppContainer::class.java.getDeclaredField("scope").apply { isAccessible = true }.get(app) as kotlinx.coroutines.CoroutineScope
+      scope.coroutineContext[kotlinx.coroutines.Job]?.cancelAndJoin()
+    } }
+    containers.forEach { it.db.close() }
+    GymDb::class.java.getDeclaredField("i").apply { isAccessible = true }.set(null, null)
+  }
+
 
   /** Completed Sessions starts empty, only lists workouts the user finished, and survives sets for exercises missing from the catalog. */
   @Test fun completedSessionsListsOnlyFinishedWorkouts() {
-    val app = AppContainer(ctx)
+    val app = newApp()
     compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); CompletedSessions(app, nav) }
     compose.onNodeWithText("No completed sessions yet").assertExists()
     runBlocking {
@@ -41,7 +59,7 @@ class RegressionTests {
 
   /** The detail page shows each set with weight and reps and offers Share. */
   @Test fun sessionDetailShowsSetsAndShare() {
-    val app = AppContainer(ctx)
+    val app = newApp()
     runBlocking {
       app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s2"))
       app.workouts.completeSession("s2", "Push day", "") }
@@ -70,7 +88,7 @@ class RegressionTests {
 
   /** Sessions can be renamed, their sets edited, and deleted (sets go too). */
   @Test fun sessionEditAndDelete() = runBlocking {
-    val app = AppContainer(ctx); val w = app.workouts
+    val app = newApp(); val w = app.workouts
     w.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s3"))
     w.completeSession("s3", "Old name", "")
     w.renameSession("s3", "New name")
@@ -85,7 +103,7 @@ class RegressionTests {
 
   /** Edit mode on the detail page shows the save control. */
   @Test fun sessionDetailEditMode() {
-    val app = AppContainer(ctx)
+    val app = newApp()
     runBlocking { app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 100.0, sessionId = "s4"))
       app.workouts.completeSession("s4", "Pull day", "") }
     compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); SessionDetail(app, "s4", nav) }
@@ -96,7 +114,7 @@ class RegressionTests {
 
   /** Removing every exercise and the minimum-set rule never crash the active workout. */
   @Test fun activeWorkoutRemoveAllAndMinimumSets() {
-    val app = AppContainer(ctx)
+    val app = newApp()
     compose.setContent { val nav = androidx.navigation.compose.rememberNavController()
       NavHost(nav, "w") { composable("w") {
         ActiveWorkout(app, "template", "t_fullbody_1", emptySet(), nav) {} } } }
@@ -110,7 +128,7 @@ class RegressionTests {
   }
 
   @Test fun customWorkoutSavesAndLoads() = runBlocking {
-    val app = AppContainer(ctx); app.session.ensureUser()
+    val app = newApp(); app.session.ensureUser()
     val id = app.workouts.saveCustom(null, "My Push", listOf(TemplateItem("ex_chest_press", 3, "10", 60), TemplateItem("ex_db_incline_press", 2, "8-10", 90)))
     val plan = app.workouts.plan("custom", id)!!
     assertEquals("My Push", plan.name); assertEquals(2, plan.items.size); assertEquals("ex_db_incline_press", plan.items[1].exerciseId)
@@ -118,7 +136,7 @@ class RegressionTests {
   }
 
   @Test fun enrichmentFillsOnlyIdentifiedFieldsAndLeavesRestBlank() = runBlocking {
-    val app = AppContainer(ctx)
+    val app = newApp()
     val known = app.gyms.submitEquipment(GymEquipmentEntity(gymId = "g", name = "Seated chest press", submittedBy = "u"))
     assertEquals("eq_chest_press", known.catalogEquipmentId); assertEquals("Selectorized", known.category)
     assertTrue(known.primaryMuscles.contains("Chest")); assertEquals("", known.model)
@@ -164,16 +182,31 @@ class WorkoutStatsTest {
 @RunWith(RobolectricTestRunner::class) @Config(sdk = [34])
 class ProgramTests {
   private val ctx: Context get() = ApplicationProvider.getApplicationContext()
-  @get:Rule val compose = createComposeRule()
+
+  private val containers = mutableListOf<AppContainer>()
+  private fun newApp() = AppContainer(ctx).also { containers += it }
+
+  @org.junit.After fun cleanup() {
+    compose.activity.setContent { }
+    compose.waitForIdle()
+    kotlinx.coroutines.runBlocking { containers.forEach { app ->
+      val scope = AppContainer::class.java.getDeclaredField("scope").apply { isAccessible = true }.get(app) as kotlinx.coroutines.CoroutineScope
+      scope.coroutineContext[kotlinx.coroutines.Job]?.cancelAndJoin()
+    } }
+    containers.forEach { it.db.close() }
+    GymDb::class.java.getDeclaredField("i").apply { isAccessible = true }.set(null, null)
+  }
+
+  @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
 
   @Test fun assetsLoadAndKeepOriginalPrescriptions() {
-    val app = AppContainer(ctx); val ps = app.programs.programs
-    assertEquals(21, ps.size); assertEquals(7, ps.groupBy { it.split }.size); assertTrue(ps.all { it.description.length > 200 })
+    val app = newApp(); val ps = app.programs.programs
+    assertEquals(24, ps.size); assertEquals(8, ps.groupBy { it.split }.size); assertTrue(ps.filter { it.split != "HIIT" }.all { it.description.length > 200 })
     val p3 = ps.first { it.id == "P3" }
     assertEquals(8, p3.cycleLength); assertEquals(8, p3.days.size)
     val bench = p3.days[0].items.first { it.exercise == "Flat barbell bench press" }
     assertEquals("5", bench.sets); assertEquals("15", bench.reps); assertTrue(bench.repsNote.startsWith("TOTAL"))
-    assertEquals(675, ps.sumOf { p -> p.days.sumOf { it.items.size } })
+    assertEquals(675, ps.filter { it.split != "HIIT" }.sumOf { p -> p.days.sumOf { it.items.size } })
     assertTrue(app.catalog.exercises.size >= 100 && app.catalog.exercise("ex_x_cable_curl") != null)
     assertTrue(app.catalog.exercises.all { e -> e.equipmentIds.all { app.catalog.equipment(it) != null } })
   }
@@ -183,7 +216,7 @@ class ProgramTests {
   private val today = java.time.LocalDate.of(2026, 10, 14)
 
   @Test fun programStreakSkipsRestAndCountsTrainingDays() {
-    val ps = AppContainer(ctx).programs.programs
+    val ps = newApp().programs.programs
     fun st(done: Set<java.time.LocalDate>, rest: RestRules = RestRules.NONE) = programStreak(done, ps, a, rest, today)
     assertEquals(7, st(days(5, 6, 7, 8, 9, 12, 13)))                    // weekend (cycle rest) does not break it; today not logged yet
     assertEquals(8, st(days(5, 6, 7, 8, 9, 12, 13, 14)))                // today counts once logged
@@ -194,7 +227,7 @@ class ProgramTests {
   }
 
   @Test fun programProgressCountsScheduledSessions() {
-    val ps = AppContainer(ctx).programs.programs
+    val ps = newApp().programs.programs
     val p = programProgress(days(5, 6, 7, 8, 9, 12, 13, 11), ps, a, RestRules.NONE, today)!!   // the 11th is a rest day: not counted
     assertEquals(7, p.done); assertEquals(50, p.total); assertEquals(14, p.pct); assertFalse(p.complete)
     assertTrue(ProgramProgress(ps[0], 50, 50).complete); assertEquals(100, ProgramProgress(ps[0], 60, 50).pct)
@@ -202,7 +235,7 @@ class ProgramTests {
   }
 
   @Test fun scheduleUsesCycleLengthAndNewestAssignment() {
-    val ps = AppContainer(ctx).programs.programs
+    val ps = newApp().programs.programs
     val a = ProgramAssignmentEntity(programId = "P3", startDate = "2026-10-14", ownerId = "u")
     fun day(d: String) = scheduledDay(ps, listOf(a), java.time.LocalDate.parse(d))?.day
     assertEquals("Push A", day("2026-10-14")!!.session)
@@ -216,7 +249,7 @@ class ProgramTests {
   }
 
   @Test fun assignPersistsAndReplacesOldProgram() = runBlocking {
-    val app = AppContainer(ctx)
+    val app = newApp()
     app.programs.assign("B1", java.time.LocalDate.now()); app.programs.assign("P1", java.time.LocalDate.now().plusDays(1))
     val l = app.dao.assignmentsOnce(app.session.userId)
     assertEquals(2, l.size); assertEquals(java.time.LocalDate.now().plusDays(1).toString(), l.first { it.programId == "B1" }.endDate)
@@ -224,17 +257,17 @@ class ProgramTests {
   }
 
   @Test fun userExerciseSavesValidatesAndJoinsCatalog() = runBlocking {
-    val app = AppContainer(ctx)
+    val app = newApp()
     assertNotNull(app.exercises.save(null, " ", listOf("Chest"), emptyList(), "", emptyList(), ""))
     assertNotNull(app.exercises.save(null, "Cable curl", listOf("Biceps"), emptyList(), "", emptyList(), ""))   // duplicate of library
-    assertNull(app.exercises.save(null, "Zottman curl", listOf("Biceps"), listOf("eq_dumbbells"), "Pull", listOf("Curl up", "Rotate"), ""))
+    assertNull(app.exercises.save(null, "My alternating curl", listOf("Biceps"), listOf("eq_dumbbells"), "Pull", listOf("Curl up", "Rotate"), ""))
     val e = app.dao.customExercises(app.session.userId).first().single()
     assertEquals(Visibility.PRIVATE, e.visibility); assertEquals(SyncState.PENDING, e.syncState)
     assertTrue(app.dao.outbox().any { it.entityType == "exercise" && it.entityId == e.id })
   }
 
   @Test fun restDaysShiftTheProgram() {
-    val ps = AppContainer(ctx).programs.programs
+    val ps = newApp().programs.programs
     val a = listOf(ProgramAssignmentEntity(programId = "B1", startDate = "2026-10-12", ownerId = "u"))   // Mon: Back, Tue Chest, Wed Legs, Thu Shoulders, Fri Arms
     fun rd(w: Int, s: String, e: String = "") = RestDayEntity(ownerId = "u", weekday = w, startDate = s, endDate = e)
     fun on(rules: List<RestDayEntity>, d: String) = scheduledDay(ps, a, java.time.LocalDate.parse(d), RestRules(rules))
@@ -252,7 +285,7 @@ class ProgramTests {
   }
 
   @Test fun restDayRepositoryRules() = runBlocking {
-    val app = AppContainer(ctx); val today = java.time.LocalDate.now()
+    val app = newApp(); val today = java.time.LocalDate.now()
     app.programs.addRestDate(today); app.programs.addRestDate(today)   // duplicate is ignored
     assertEquals(1, app.dao.restDaysOnce(app.session.userId).size)
     assertTrue(RestRules(app.dao.restDaysOnce(app.session.userId)).isRest(today))
@@ -265,7 +298,7 @@ class ProgramTests {
   }
 
   @Test fun programDayWorkoutRunsWithUnmatchedExercisesAndLogsOnlyWorkingSets() {
-    val app = AppContainer(ctx)
+    val app = newApp()
     compose.setContent { val nav = androidx.navigation.compose.rememberNavController()
       NavHost(nav, "w") { composable("w") { ActiveWorkout(app, "program", "B3_1", emptySet(), nav) {} } } }
     compose.waitForIdle()

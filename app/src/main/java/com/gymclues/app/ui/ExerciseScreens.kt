@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
   del?.let { e -> AlertDialog({ del = null }, title = { Text("Delete \"${e.name}\"?") }, text = { Text("Past logs stay in the tracker.") },
     confirmButton = { TextButton({ scope.launch { app.exercises.delete(e.id) }; del = null }) { Text("Delete") } },
     dismissButton = { TextButton({ del = null }) { Text("Cancel") } }) }
-  LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     item { Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
       Text("My exercises", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
       AppTonalButton({ nav.navigate(Routes.addExercise()) }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add") } } }
@@ -52,8 +52,8 @@ import kotlinx.coroutines.launch
     name = it.name; muscles = it.primaryMuscles; equipmentSelected = it.equipmentIds; movement = it.movement; steps = it.steps.joinToString("\n"); safety = it.safety }
     loaded = true } }
   fun <T> List<T>.toggle(x: T) = if (x in this) this - x else this + x
-  Column(Modifier.verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-    Text(if (editId == null) "Add an exercise" else "Edit exercise", style = MaterialTheme.typography.headlineSmall)
+  Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    ScreenTitle(if (editId == null) "Add an exercise" else "Edit exercise")
     AppTextField(name, { name = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Name") })
     SectionTitle("Muscles worked")
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) { repo.muscles.forEach { m -> FilterChip(m in muscles, { muscles = muscles.toggle(m) }, { Text(m) }) } }
@@ -70,6 +70,6 @@ import kotlinx.coroutines.launch
     AppTextField(safety, { safety = it }, Modifier.fillMaxWidth(), label = { Text("Safety note (optional)") })
     error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
     AppButton({ scope.launch { error = app.exercises.save(editId, name, muscles, equipmentSelected, movement, steps.lines(), safety); if (error == null) onSaved() } },
-      Modifier.fillMaxWidth().height(52.dp), enabled = loaded) { Text("Save exercise") }
+      Modifier.fillMaxWidth().heightIn(min = 52.dp), enabled = loaded) { Text("Save exercise") }
   }
 }

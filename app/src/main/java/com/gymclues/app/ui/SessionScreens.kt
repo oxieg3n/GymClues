@@ -35,8 +35,8 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
   val sessions by app.workouts.sessions().collectAsState(emptyList())
   val logs by app.workouts.history().collectAsState(emptyList())
   val bySession = remember(logs) { logs.groupBy { it.sessionId } }
-  Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp)) {
-    Text("Completed Sessions", style = MaterialTheme.typography.headlineSmall)
+  Column(Modifier.fillMaxSize().padding(20.dp)) {
+    ScreenTitle("Completed Sessions", "Your finished workouts and recorded measurements.")
     if (sessions.isEmpty()) {
       Spacer(Modifier.height(12.dp))
       AppCard(Modifier.fillMaxWidth()) {
@@ -46,7 +46,7 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
           Muted("Finish a workout and tap Done. It shows up here.")
         }
       }
-    } else LazyVerticalGrid(GridCells.Fixed(2), horizontalArrangement = Arrangement.spacedBy(12.dp),
+    } else LazyVerticalGrid(GridCells.Adaptive(240.dp), horizontalArrangement = Arrangement.spacedBy(12.dp),
       verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp)) {
       items(sessions, key = { it.id }) { s ->
         val sets = bySession[s.id].orEmpty()
@@ -55,7 +55,8 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
             Icon(Icons.Filled.FitnessCenter, null, Modifier.padding(bottom = 8.dp).size(22.dp), tint = MaterialTheme.colorScheme.primary)
             Text(s.name, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Muted(dateLabel(s.completedAt))
-            Muted("${sets.map { it.exerciseId }.distinct().size} exercises, ${sets.size} entries")
+            val exercises = sets.map { it.exerciseId }.distinct().size
+            Muted("$exercises exercise${if (exercises == 1) "" else "s"}, ${sets.size} ${if (sets.size == 1) "entry" else "entries"}")
           }
         }
       }
@@ -80,7 +81,7 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
   val cardioDrafts = remember(editing) { sets.filter { it.cardio != null }.associate { st ->
     st.id to CardioDraft(app.catalog.exercise(st.exerciseId)?.tracking ?: "bike", st.cardio)
   } }
-  LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     item {
       if (editing) AppTextField(name, { name = it }, Modifier.fillMaxWidth(), label = { Text("Workout name") }, singleLine = true)
       else { Text(s.name, style = MaterialTheme.typography.headlineSmall); Muted(dateLabel(s.completedAt)) }
@@ -93,10 +94,10 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
             cardioDrafts[st.id]?.let { app.workouts.updateSet(st.copy(cardio = it.metrics()!!)) }
             if (st.cardio == null) drafts[st.id]?.let { (w, r) ->
             app.workouts.updateSet(st.copy(weight = w.toDoubleOrNull() ?: st.weight, reps = r.toIntOrNull() ?: st.reps)) } }
-          editing = false } }, Modifier.weight(1f).height(52.dp), enabled = cardioDrafts.values.all { it.metrics() != null }) { Text("Save changes") }
-        AppOutlinedButton({ editing = false }, Modifier.weight(1f).height(52.dp)) { Text("Cancel") }
+          editing = false } }, Modifier.weight(1f).heightIn(min = 52.dp), enabled = cardioDrafts.values.all { it.metrics() != null }) { Text("Save changes") }
+        AppOutlinedButton({ editing = false }, Modifier.weight(1f).heightIn(min = 52.dp)) { Text("Cancel") }
       } else Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        AppButton({ sharing = true }, Modifier.fillMaxWidth().height(56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") }
+        AppButton({ sharing = true }, Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium) { Text("Share") }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
           AppOutlinedButton({ editing = true }, Modifier.weight(1f)) { Text("Edit") }
           AppOutlinedButton({ confirmDelete = true }, Modifier.weight(1f)) { Text("Delete") }
@@ -105,7 +106,7 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
     }
     items(sets.groupBy { it.exerciseId }.entries.toList(), key = { it.key }) { (ex, exSets) ->
       AppCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(app.catalog.displayName(ex), fontWeight = FontWeight.Bold)
+        Text(app.catalog.displayName(ex), fontWeight = FontWeight.Medium)
         exSets.forEachIndexed { i, set ->
           if (!editing) Text("${if (set.cardio != null) "Entry" else "Set"} ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
           else if (set.cardio != null) {

@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
   var confirm by remember { mutableStateOf("") }
   var msg by remember { mutableStateOf<String?>(null) }
   fun digits(s: String) = s.filter { it in '0'..'9' }.take(6)
-  Column(Modifier.fillMaxWidth().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+  Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
     Icon(Icons.Filled.Lock, null, Modifier.size(48.dp), tint = MaterialTheme.colorScheme.primary)
     Text(if (setup) "Create admin PIN" else "Enter admin PIN", style = MaterialTheme.typography.headlineSmall)
     Muted(if (setup) "Choose a 6-digit, numbers-only PIN. This device's account becomes an admin." else "6 digits")
@@ -57,7 +57,7 @@ import kotlinx.coroutines.launch
         is AdminAuth.Result.Wrong -> { msg = "Wrong PIN. ${r.left} attempt(s) left."; pin = "" }
         is AdminAuth.Result.Locked -> { msg = "Too many attempts. Try again in ${(r.ms / 60000) + 1} min."; pin = "" }
       }
-    }, Modifier.fillMaxWidth().height(52.dp), enabled = pin.length == 6) { Text(if (setup) "Create PIN" else "Unlock") }
+    }, Modifier.fillMaxWidth().heightIn(min = 52.dp), enabled = pin.length == 6) { Text(if (setup) "Create PIN" else "Unlock") }
   }
 }
 
@@ -66,7 +66,7 @@ import kotlinx.coroutines.launch
   val tabs = listOf("Submissions", "Missing info", "Users", "Gyms")
   val pending by app.admin.pendingSync().collectAsState(0)
   Column {
-    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
       Column(Modifier.weight(1f)) { Text("Admin", style = MaterialTheme.typography.headlineSmall)
         Muted("Local admin mode · $pending change(s) waiting to sync") }
       TextButton(lock) { Icon(Icons.Filled.Lock, null, Modifier.size(16.dp)); Spacer(Modifier.width(4.dp)); Text("Lock") }
@@ -86,7 +86,7 @@ import kotlinx.coroutines.launch
   var open by remember { mutableStateOf<GymEquipmentEntity?>(null) }
   open?.let { ReviewDialog(app, it, gymNames[it.gymId] ?: "Unknown gym") { open = null } }
   val list = subs.filter { it.status == filter }
-  LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
     item { Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.horizontalScroll(rememberScrollState())) {
       ReviewStatus.all.forEach { s -> FilterChip(filter == s, { filter = s }, { Text("${statusLabel(s)} (${subs.count { it.status == s }})") }) } } }
     item { Muted("New gyms added: ${gyms.size} · uploads total: ${subs.size}") }
@@ -125,7 +125,7 @@ import kotlinx.coroutines.launch
   val report by app.admin.missingReport().collectAsState(emptyList())
   var type by remember { mutableStateOf<String?>(null) }
   val types = report.map { it.type }.distinct()
-  LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
     item { Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.horizontalScroll(rememberScrollState())) {
       FilterChip(type == null, { type = null }, { Text("All (${report.size})") })
       types.forEach { t -> FilterChip(type == t, { type = t }, { Text("$t (${report.count { it.type == t }})") }) } } }
@@ -149,7 +149,7 @@ import kotlinx.coroutines.launch
       confirmButton = { TextButton({ scope.launch { app.admin.saveUser(UserEntity(displayName = n.trim(), email = em.trim()), "create_user") }; adding = false },
         enabled = n.isNotBlank()) { Text("Add") } }, dismissButton = { TextButton({ adding = false }) { Text("Cancel") } }) }
   Box(Modifier.fillMaxSize()) {
-    LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
+    LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
       item { Row(verticalAlignment = Alignment.CenterVertically) { Muted("${users.size} user(s)"); Spacer(Modifier.weight(1f))
         AppTonalButton({ adding = true }) { Icon(Icons.Filled.PersonAdd, null); Spacer(Modifier.width(4.dp)); Text("Add user") } } }
       items(users, key = { it.id }) { u -> var menu by remember { mutableStateOf(false) }
@@ -202,7 +202,7 @@ import kotlinx.coroutines.launch
       dismissButton = { if (g != null) TextButton({ scope.launch { app.gyms.saveGym(g.copy(deleted = true), "delete"); app.admin.audit("delete_gym", "gym", g.id, g.name) }
         editing = null }) { Text("Delete", color = MaterialTheme.colorScheme.error) } else TextButton({ creating = false }) { Text("Cancel") } })
   }
-  LazyColumn(Modifier.padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
     item { Row(verticalAlignment = Alignment.CenterVertically) { Muted("${gyms.size} gym(s)"); Spacer(Modifier.weight(1f))
       AppTonalButton({ creating = true }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Add gym") } } }
     items(gyms, key = { it.id }) { g -> val eq = all.filter { it.gymId == g.id }

@@ -13,11 +13,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.gymclues.app.data.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -35,7 +38,7 @@ const val MIN_SETS = 1
     confirmButton = { TextButton({ scope.launch { app.workouts.deleteCustom(w.id) }; confirmDelete = null }) { Text("Delete") } },
     dismissButton = { TextButton({ confirmDelete = null }) { Text("Cancel") } }) }
 
-  LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), contentPadding = PaddingValues(vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     item { Row(verticalAlignment = Alignment.CenterVertically) {
       Text("Custom Workouts", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
       AppTonalButton({ nav.navigate(Routes.builder()) }) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Create") } } }
@@ -124,7 +127,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   if (showDone && !sharing) AlertDialog(onDismissRequest = {}, confirmButton = {},
     title = { Text("Workout Completed, Congratulations!", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
     text = { Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-      AppButton({ scope.launch { app.workouts.completeSession(sessionId, p.name, gymId); sharing = true } }, Modifier.fillMaxWidth().height(64.dp), shape = MaterialTheme.shapes.medium) {
+      AppButton({ scope.launch { app.workouts.completeSession(sessionId, p.name, gymId); sharing = true } }, Modifier.fillMaxWidth().heightIn(min = 64.dp), shape = MaterialTheme.shapes.medium) {
         Text("Share Your Milestone?", style = MaterialTheme.typography.titleMedium) }
       TextButton({ scope.launch { app.workouts.completeSession(sessionId, p.name, gymId); onDone() } }) { Text("Done", style = MaterialTheme.typography.bodyMedium) }
     } })
@@ -137,33 +140,23 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       saveAs = false; snackbar.showSnackbar("Saved to Custom Workouts") } }
 
   Box(Modifier.fillMaxSize()) {
-    LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
-      contentPadding = PaddingValues(top = 8.dp, bottom = 96.dp)) {
-      item { Text(p.name, style = MaterialTheme.typography.headlineSmall)
-        if (p.description.isNotBlank()) Muted(p.description)
+    LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
+      contentPadding = PaddingValues(top = 20.dp, bottom = 28.dp)) {
+      item { ScreenTitle(p.name, p.description)
         if (rest > 0) Text("Rest: ${rest}s", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
       if (session.isEmpty()) item { AppCard { Column(Modifier.padding(16.dp)) {
-        Text("No exercises in this workout.", fontWeight = FontWeight.Bold); Muted("Tap \"Add exercise\" below to build today's session.") } } }
+        Text("No exercises in this workout.", fontWeight = FontWeight.Medium); Muted("Tap \"Add exercise\" below to build today's session.") } } }
       itemsIndexed(session, key = { _, se -> se.uid }) { index, se ->
         val ex = repo.exercise(se.exerciseId)
         val exerciseName = workoutMuscleMapName(se.item?.originalName,
           ex?.name ?: repo.displayName(se.exerciseId), se.swappedFrom != null)
-        AppCard { Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        AppCard { Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+          val it0 = se.item
+          if (it0?.phase == "Warm-up") SectionTitle("Warm-up")
           Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f).clickable(enabled = ex != null) { nav.navigate(Routes.exercise(se.exerciseId)) }) {
-              val it0 = se.item
-              if (it0?.phase == "Warm-up") SectionTitle("Warm-up")
-              Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(exerciseName + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""),
-                  fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
-                MuscleMapButton(exerciseName)
-              }
-              Muted(if (se.cardio != null) (if ((it0?.durationSec ?: 0) > 0) "Target: ${it0!!.durationSec}s" else "Cardio session") else if (it0 == null) "Target: ${se.sets.size} sets × ${se.reps} reps · rest ${se.restSec}s"
-                else "Prescribed: ${it0.setsText.ifBlank { "${it0.sets}" }} sets × ${it0.reps}" + (if (it0.restText.isNotBlank() && it0.restText != "Not specified") " · rest ${it0.restText}" else ""))
-              if (it0 != null && it0.repsNote.isNotBlank() && it0.repsNote != "Per set") Muted(it0.repsNote)
-              if (it0 != null && it0.notes.isNotBlank()) Muted(it0.notes)
-              if (it0 != null && it0.substitution.isNotBlank() && !it0.substitution.startsWith("Original")) Muted("Optional gym swap, not the original: ${it0.substitution}")
-            }
+            Text(exerciseName + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""),
+              fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f).clickable(enabled = ex != null) { nav.navigate(Routes.exercise(se.exerciseId)) })
+            MuscleMapButton(exerciseName)
             RemoveCircleButton("Remove ${ex?.name ?: repo.displayName(se.exerciseId)}") {
               val removed = session.removeAt(index)
               scope.launch {
@@ -172,6 +165,11 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
               }
             }
           }
+          Muted(if (se.cardio != null) (if ((it0?.durationSec ?: 0) > 0) "Target: ${it0!!.durationSec}s" else "Cardio session") else if (it0 == null) "Target: ${se.sets.size} sets × ${se.reps} reps · rest ${se.restSec}s"
+            else "Prescribed: ${it0.setsText.ifBlank { "${it0.sets}" }} sets × ${it0.reps}" + (if (it0.restText.isNotBlank() && it0.restText != "Not specified") " · rest ${it0.restText}" else ""))
+          if (it0 != null && it0.repsNote.isNotBlank() && it0.repsNote != "Per set") Muted(it0.repsNote)
+          if (it0 != null && it0.notes.isNotBlank()) Muted(it0.notes)
+          if (it0 != null && it0.substitution.isNotBlank() && !it0.substitution.startsWith("Original")) Muted("Optional gym swap, not the original: ${it0.substitution}")
           if (ex != null) EquipmentLinks(repo, ex) { nav.navigate(Routes.equipment(it, ex.id)) }
           ExerciseSafetyButton(exerciseName)
           if (se.cardio != null) {
@@ -183,25 +181,27 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
           } else {
           Row(verticalAlignment = Alignment.CenterVertically) {
             SetStepButton(add = false, enabled = se.sets.size > MIN_SETS) { if (se.sets.size > MIN_SETS) se.sets.removeAt(se.sets.lastIndex) }
-            Text("  ${se.sets.size} sets  ", style = MaterialTheme.typography.titleMedium)
+            Text("  ${se.sets.size} sets  ", style = MaterialTheme.typography.titleSmall)
             SetStepButton(add = true, enabled = se.sets.size < MAX_SETS) { if (se.sets.size < MAX_SETS) se.sets.add(SetRow()) }
           }
           HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
           se.sets.forEachIndexed { n, row ->
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-              Text("Set ${n + 1}", Modifier.width(38.dp), style = MaterialTheme.typography.labelMedium,
+              Text("${n + 1}".padStart(2, '0'), Modifier.width(24.dp).heightIn(min = 48.dp).wrapContentHeight(Alignment.CenterVertically).align(Alignment.Bottom), style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
               if (se.tracking != "reps") AppTextField(row.weight, { row.weight = it }, Modifier.weight(1f), label = { Text("lb") }, singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
               AppTextField(row.reps, { row.reps = it }, Modifier.weight(1f), label = { Text("reps") }, singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-              Checkbox(row.done, { c -> if (c) scope.launch { if (log(se, n, row)) rest = se.restSec } else row.done = false }, enabled = !row.saving)
+              Checkbox(row.done, { c -> if (c) scope.launch { if (log(se, n, row)) rest = se.restSec } else row.done = false },
+                modifier = Modifier.align(Alignment.Bottom).semantics { contentDescription = "Complete set ${n + 1} of $exerciseName" }, enabled = !row.saving,
+                colors = CheckboxDefaults.colors(checkedColor = Green, checkmarkColor = MaterialTheme.colorScheme.onPrimary))
             }
           }
           }
         } }
       }
-      item { AppOutlinedButton({ picking = true }, Modifier.fillMaxWidth().height(52.dp)) {
+      item { AppOutlinedButton({ picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
         Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercise") } }
       if (kind != "program") item { TextButton({ saveAs = true }, Modifier.fillMaxWidth(), enabled = session.isNotEmpty()) { Text("Save as custom workout") } }
       item { AppButton({ scope.launch {
@@ -216,7 +216,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
         }
         finishing = false
         if (valid) showDone = true else snackbar.showSnackbar("Check the entries that could not be recorded.")
-      } }, Modifier.fillMaxWidth().height(56.dp), enabled = !finishing) { Text("Finish Workout") } }
+      } }, Modifier.fillMaxWidth().heightIn(min = 56.dp), enabled = !finishing) { Text("Finish Workout") } }
     }
     SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
   }
@@ -251,15 +251,15 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
   if (picking) ExercisePickerSheet(repo, null, items.map { it.exerciseId }.toSet(), { picking = false }, { picking = false; onCreate() }) { picked ->
     picked.forEach { items += BuilderItem(it.id, if (it.timedCardio) 1 else 3, if (it.timedCardio) "20" else "10-12", if (it.timedCardio) 0 else 90) }; picking = false }
 
-  LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
-    item { Text(if (editId == null) "Create custom workout" else "Edit custom workout", style = MaterialTheme.typography.headlineSmall) }
+  LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
+    item { ScreenTitle(if (editId == null) "Create custom workout" else "Edit custom workout", "Build your session from the exercise library.") }
     item { AppTextField(name, { name = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Workout name") }) }
     if (items.isEmpty()) item { Muted("No exercises yet. Add any exercise from the full library.") }
     itemsIndexed(items, key = { _, it -> it.key }) { i, it ->
       val ex = repo.exercise(it.exerciseId)
       AppCard { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-          Column(Modifier.weight(1f)) { Text("${i + 1}. ${ex?.name ?: repo.displayName(it.exerciseId)}", fontWeight = FontWeight.Bold)
+          Column(Modifier.weight(1f)) { Text("${i + 1}. ${ex?.name ?: repo.displayName(it.exerciseId)}", fontWeight = FontWeight.Medium)
             Muted(ex?.primaryMuscles?.joinToString() ?: "Unknown exercise") }
           IconButton({ if (i > 0) items.add(i - 1, items.removeAt(i)) }, enabled = i > 0) { Icon(Icons.Filled.KeyboardArrowUp, "Move up") }
           IconButton({ if (i < items.lastIndex) items.add(i + 1, items.removeAt(i)) }, enabled = i < items.lastIndex) { Icon(Icons.Filled.KeyboardArrowDown, "Move down") }
@@ -281,10 +281,10 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
         }
       } }
     }
-    item { AppOutlinedButton({ picking = true }, Modifier.fillMaxWidth().height(52.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercises") } }
-    item { AppButton({ scope.launch {
+    item { AppOutlinedButton({ picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercises") } }
+    item { AppButton({ scope.launch(Dispatchers.Main.immediate) {
         app.workouts.saveCustom(editId, name, items.map { TemplateItem(it.exerciseId, if (repo.exercise(it.exerciseId)?.timedCardio == true) 1 else it.sets, it.reps.ifBlank { "10" }, it.rest.toIntOrNull() ?: 90) })
         onSaved() } },
-      Modifier.fillMaxWidth().height(56.dp), enabled = loaded && name.isNotBlank() && items.isNotEmpty() && items.all { repo.exercise(it.exerciseId)?.timedCardio != true || cardioMinutes(it.reps) != null }) { Text("Save workout") } }
+      Modifier.fillMaxWidth().heightIn(min = 56.dp), enabled = loaded && name.isNotBlank() && items.isNotEmpty() && items.all { repo.exercise(it.exerciseId)?.timedCardio != true || cardioMinutes(it.reps) != null }) { Text("Save workout") } }
   }
 }

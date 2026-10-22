@@ -50,11 +50,10 @@ object Routes {
   CompositionLocalProvider(LocalTour provides tour.takeIf { touring }) {
   Scaffold { pad ->
     BoxWithConstraints(Modifier.fillMaxSize().padding(pad)) {
-      val headerHeight = maxOf(maxHeight / 6, 96.dp)   // header + music controls: one sixth of the screen on every page
-      Column(Modifier.fillMaxSize()) {
+      Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         AppHeader(app, showBack = route != null && route != "home", onBack = { nav.popBackStack() },
-          openMenu = { menuOpen = !menuOpen }, go = { menuOpen = false; nav.navigate(it) }, modifier = Modifier.fillMaxWidth().height(headerHeight))
-        Box(Modifier.weight(1f).fillMaxWidth()) {
+          openMenu = { menuOpen = !menuOpen }, go = { menuOpen = false; nav.navigate(it) }, modifier = Modifier.widthIn(max = 1040.dp).fillMaxWidth())
+        Box(Modifier.weight(1f).widthIn(max = 1040.dp).fillMaxWidth()) {
           NavHost(nav, "home") {
       composable("home") { Home(app, nav::navigate) }
       composable("muscles") { ListScreen("Choose a primary muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
@@ -91,7 +90,7 @@ object Routes {
           }
           if (menuVisible) {
             Box(Modifier.fillMaxSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menuOpen = false })
-            AppMenu(app, { menuOpen = false; nav.navigate(it) }, Modifier.align(Alignment.TopEnd).padding(end = 12.dp, top = 2.dp))
+            AppMenu(app, { menuOpen = false; nav.navigate(it) }, Modifier.align(Alignment.TopEnd).padding(end = 12.dp, top = 2.dp), selectedRoute = route)
           }
         }
       }

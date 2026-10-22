@@ -34,7 +34,7 @@ import com.gymclues.app.data.AppContainer
   val setup = app.catalog.setupFor(exerciseId, equipmentId)
   val usedBy = app.catalog.exercisesUsing(equipmentId)
 
-  LazyColumn(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+  LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
     item { Text(q.name, style = MaterialTheme.typography.headlineSmall)
       Muted(listOf(q.category, q.manufacturer).filter { it.isNotBlank() }.joinToString(" · ").ifBlank { "Equipment" }) }
     if (q.photo.isNotBlank()) item {
@@ -45,7 +45,7 @@ import com.gymclues.app.data.AppContainer
     if (ex != null) item {
       AppCard(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
         Column(Modifier.padding(16.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-          Text("Setup for ${ex.name}", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimaryContainer)
+          Text("Setup for ${ex.name}", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimaryContainer)
           if (setup == null) Text("No specific setup recorded yet for this exercise.", color = MaterialTheme.colorScheme.onPrimaryContainer)
           else {
             if (setup.angle.isNotBlank()) SetupLine(Icons.Filled.Straighten, "Angle", setup.angle)
@@ -81,7 +81,7 @@ import com.gymclues.app.data.AppContainer
     if (q.qrCode.isNotBlank()) item {
       AppCard { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Filled.QrCode2, null); Spacer(Modifier.width(8.dp))
-          Text("Planet Fitness tutorial (QR)", fontWeight = FontWeight.Bold) }
+          Text("Planet Fitness tutorial (QR)", fontWeight = FontWeight.Medium) }
         Muted("This tutorial lives in the PF App. GymClues opens it there; it can't be embedded.")
         if (q.qrCode.startsWith("http", true)) TextButton({ runCatching { ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(q.qrCode))) } }) {
           Text("Open tutorial") } else Muted("Code: ${q.qrCode}")
@@ -94,6 +94,6 @@ import com.gymclues.app.data.AppContainer
 @Composable private fun SetupLine(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, value: String) =
   Row(verticalAlignment = Alignment.CenterVertically) {
     Icon(icon, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer); Spacer(Modifier.width(8.dp))
-    Text("$label: ", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimaryContainer)
+    Text("$label: ", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimaryContainer)
     Text(value, color = MaterialTheme.colorScheme.onPrimaryContainer)
   }
