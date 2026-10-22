@@ -1,0 +1,60 @@
+[
+  {
+    "demo": "home",
+    "id": "demo-home",
+    "duration": 45,
+    "width": 1080,
+    "othersPaused": true,
+    "playback": "passed"
+  },
+  {
+    "demo": "assign",
+    "id": "demo-assign",
+    "duration": 45,
+    "width": 1080,
+    "othersPaused": true,
+    "playback": "passed"
+  },
+  {
+    "demo": "rest",
+    "id": "demo-rest",
+    "duration": 45,
+    "width": 1080,
+    "othersPaused": true,
+    "playback": "passed"
+  },
+  {
+    "demo": "themes",
+    "id": "demo-themes",
+    "duration": 16.448,
+    "width": 1080,
+    "othersPaused": true,
+    "playback": "passed"
+  },
+  {
+    "featureSelection": "eight original images loaded"
+  },
+  {
+    "keyboardSelection": "passed"
+  },
+  {
+    "overflowWidths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "result": "passed"
+  },
+  {
+    "websiteOnlyHosting": "passed",
+    "missingResources": [],
+    "consoleErrors": []
+  },
+  {
+    "fileUrlAndReducedMotion": "passed"
+  },
+  {
+    "noJavaScript": "all four videos and eight feature captures available"
+  }
+]

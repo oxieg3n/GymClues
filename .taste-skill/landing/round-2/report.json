@@ -1,0 +1,1805 @@
+{
+ "url": "F:/Projects/GymClues/Website/index.html",
+ "at": "2026-10-22T16:11:51.464Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.39,
+    0.63,
+    0.53,
+    0.21,
+    0.68,
+    0.66
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 26,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 4995,
+     "screens": 5.6,
+     "words": 424,
+     "img": 18,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 9,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "03-muscle-map.png",
+      "01-home.png",
+      "home-default-390.png",
+      "home-ocean-390.png",
+      "home-ember-390.png",
+      "home-rosewood-390.png",
+      "home-daylight-390.png",
+      "gymclues_logo.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Know your next move",
+     "words": 4,
+     "chars": 19,
+     "lines": 2,
+     "size": 66.2,
+     "vw": 4.6,
+     "font": "Inter",
+     "weight": 550,
+     "tracking": -0.05,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.28,
+     "top": 231,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Know your next move",
+     "words": 4,
+     "lines": 2,
+     "size": 66.2,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Know your next move",
+      "words": 4,
+      "chars": 19,
+      "lines": 2,
+      "size": 66.2,
+      "vw": 4.6,
+      "font": "Inter",
+      "weight": 550,
+      "tracking": -0.05,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 231,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "See it in action",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 50,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 919,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "A closer look",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 50,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 2031,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your workout, your colors",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 50,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 3500,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next workout starts here",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 50,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.27,
+      "top": 4456,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      50,
+      66
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 75,
+     "max": {
+      "size": 66.2,
+      "vw": 4.6,
+      "font": "Inter",
+      "text": "Know your"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101410",
+       "top": 1021,
+       "hsl": {
+        "h": 120,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#04f730",
+       "top": 4392,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f5ef",
+       "share": 0.56
+      },
+      {
+       "color": "#b4bfb4",
+       "share": 0.3
+      },
+      {
+       "color": "#000000",
+       "share": 0.09
+      },
+      {
+       "color": "#04f730",
+       "share": 0.03
+      },
+      {
+       "color": "#16341b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#101410",
+      "hsl": {
+       "h": 120,
+       "s": 0.11,
+       "l": 0.07
+      },
+      "fg": "#f2f5ef"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 12,
+     "inHero": 3,
+     "radius": 0,
+     "height": 72,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to product demos",
+      "Get the Android app ↓",
+      "Get GymClues free ↓"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 8,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1021
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.19
+     }
+    ],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 89,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 4995,
+    "margins": {
+     "left": 28,
+     "right": 42
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 89,
+      "height": 710,
+      "words": 52,
+      "media": 0,
+      "middle": 172,
+      "heading": {
+       "text": "Know your",
+       "size": 66,
+       "tag": "h1"
+      },
+      "left": 28,
+      "right": 42,
+      "textLeft": 28,
+      "textRight": 42,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#demos.section",
+      "tag": "section",
+      "top": 799,
+      "height": 1112,
+      "words": 124,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "See it in action",
+       "size": 50,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 226,
+      "textLeft": 28,
+      "textRight": 226,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "dl.feature-facts",
+      "tag": "dl",
+      "top": 2133,
+      "height": 181,
+      "words": 66,
+      "media": 0,
+      "middle": 78,
+      "heading": null,
+      "left": 60,
+      "right": 80,
+      "textLeft": 60,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.viewer-layout.screens-layout",
+      "tag": "div",
+      "top": 2354,
+      "height": 1026,
+      "words": 75,
+      "media": 1,
+      "middle": 263,
+      "heading": {
+       "text": "From planning to progress",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 28,
+      "right": 159,
+      "textLeft": 28,
+      "textRight": 160,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#themes.section",
+      "tag": "section",
+      "top": 3380,
+      "height": 891,
+      "words": 43,
+      "media": 5,
+      "middle": 24,
+      "heading": {
+       "text": "Your workout, your colors",
+       "size": 50,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 149,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.download",
+      "tag": "section",
+      "top": 4392,
+      "height": 452,
+      "words": 26,
+      "media": 1,
+      "middle": 508,
+      "heading": {
+       "text": "Your next workout starts here",
+       "size": 50,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 274,
+      "textLeft": 28,
+      "textRight": 942,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 4843,
+      "height": 152,
+      "words": 16,
+      "media": 0,
+      "middle": 639,
+      "heading": null,
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 28,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Know your next move",
+      "size": 66,
+      "top": 231,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 28,
+      "n": 12
+     },
+     {
+      "x": 744,
+      "n": 3
+     },
+     {
+      "x": 610,
+      "n": 2
+     },
+     {
+      "x": 1052,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 18,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.18,
+    "voidBox": {
+     "x": 900,
+     "y": 480,
+     "w": 540,
+     "h": 420
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.39,
+    0.59,
+    0.71,
+    0.45,
+    0.51,
+    0.58
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 26,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 5653,
+     "screens": 5.5,
+     "words": 424,
+     "img": 18,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 9,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "03-muscle-map.png",
+      "01-home.png",
+      "home-default-390.png",
+      "home-ocean-390.png",
+      "home-ember-390.png",
+      "home-rosewood-390.png",
+      "home-daylight-390.png",
+      "gymclues_logo.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Know your next move",
+     "words": 4,
+     "chars": 19,
+     "lines": 2,
+     "size": 40,
+     "vw": 5.2,
+     "font": "Inter",
+     "weight": 550,
+     "tracking": -0.05,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.27,
+     "top": 209,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Know your next move",
+     "words": 4,
+     "lines": 2,
+     "size": 40,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Know your next move",
+      "words": 4,
+      "chars": 19,
+      "lines": 2,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 550,
+      "tracking": -0.05,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.27,
+      "top": 209,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "See it in action",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 939,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "A closer look",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 2096,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your workout, your colors",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 3512,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next workout starts here",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.32,
+      "top": 5045,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      32,
+      40
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 75,
+     "max": {
+      "size": 40,
+      "vw": 5.2,
+      "font": "Inter",
+      "text": "Know your"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101410",
+       "top": 1021,
+       "hsl": {
+        "h": 120,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#04f730",
+       "top": 4981,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f5ef",
+       "share": 0.56
+      },
+      {
+       "color": "#b4bfb4",
+       "share": 0.3
+      },
+      {
+       "color": "#000000",
+       "share": 0.09
+      },
+      {
+       "color": "#04f730",
+       "share": 0.03
+      },
+      {
+       "color": "#16341b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#101410",
+      "hsl": {
+       "h": 120,
+       "s": 0.11,
+       "l": 0.07
+      },
+      "fg": "#f2f5ef"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 12,
+     "inHero": 3,
+     "radius": 0,
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to product demos",
+      "Get the Android app ↓",
+      "Get GymClues free ↓"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 8,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1021
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.12
+     }
+    ],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 89,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 5653,
+    "margins": {
+     "left": 28,
+     "right": 35
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 89,
+      "height": 690,
+      "words": 52,
+      "media": 1,
+      "middle": 64,
+      "heading": {
+       "text": "Know your",
+       "size": 40,
+       "tag": "h1"
+      },
+      "left": 28,
+      "right": 36,
+      "textLeft": 28,
+      "textRight": 36,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#demos.section",
+      "tag": "section",
+      "top": 779,
+      "height": 1157,
+      "words": 124,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "See it in action",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 58,
+      "textLeft": 28,
+      "textRight": 58,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#features.section",
+      "tag": "section",
+      "top": 1936,
+      "height": 1417,
+      "words": 162,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "A closer look",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 35,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#themes.section",
+      "tag": "section",
+      "top": 3353,
+      "height": 1508,
+      "words": 43,
+      "media": 5,
+      "middle": 0,
+      "heading": {
+       "text": "Your workout, your colors",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 44,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.download",
+      "tag": "section",
+      "top": 4981,
+      "height": 444,
+      "words": 26,
+      "media": 1,
+      "middle": 185,
+      "heading": {
+       "text": "Your next workout starts here",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 106,
+      "textLeft": 28,
+      "textRight": 451,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 5425,
+      "height": 229,
+      "words": 16,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 28,
+      "right": 334,
+      "textLeft": 28,
+      "textRight": 334,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Know your next move",
+      "size": 40,
+      "top": 209,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 28,
+      "n": 12
+     },
+     {
+      "x": 408,
+      "n": 3
+     },
+     {
+      "x": 330,
+      "n": 2
+     },
+     {
+      "x": 548,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 18,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    0.64,
+    0.64,
+    0.92,
+    0.64,
+    0.71,
+    0.85,
+    0.55,
+    0.52,
+    0.69,
+    0.68
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 26,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 4,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 7678,
+     "screens": 9.1,
+     "words": 419,
+     "img": 18,
+     "video": 4,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 8,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "03-muscle-map.png",
+      "01-home.png",
+      "home-default-390.png",
+      "home-ocean-390.png",
+      "home-ember-390.png",
+      "home-rosewood-390.png",
+      "home-daylight-390.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Know your next move",
+     "words": 4,
+     "chars": 19,
+     "lines": 2,
+     "size": 49.9,
+     "vw": 12.8,
+     "font": "Inter",
+     "weight": 550,
+     "tracking": -0.05,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 153,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Know your next move",
+     "words": 4,
+     "lines": 2,
+     "size": 49.9,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Know your next move",
+      "words": 4,
+      "chars": 19,
+      "lines": 2,
+      "size": 49.9,
+      "vw": 12.8,
+      "font": "Inter",
+      "weight": 550,
+      "tracking": -0.05,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 153,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "See it in action",
+      "words": 4,
+      "chars": 16,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1313,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "A closer look",
+      "words": 3,
+      "chars": 13,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2997,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your workout, your colors",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5225,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your next workout starts here",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6961,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      16,
+      20,
+      32,
+      50
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.1
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 49.9,
+      "vw": 12.8,
+      "font": "Inter",
+      "text": "Know your"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#000000",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101410",
+       "top": 578,
+       "hsl": {
+        "h": 120,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#000000",
+       "top": 1901,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0
+       }
+      },
+      {
+       "color": "#04f730",
+       "top": 6913,
+       "hsl": {
+        "h": 131,
+        "s": 0.97,
+        "l": 0.49
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f5ef",
+       "share": 0.57
+      },
+      {
+       "color": "#b4bfb4",
+       "share": 0.3
+      },
+      {
+       "color": "#000000",
+       "share": 0.08
+      },
+      {
+       "color": "#04f730",
+       "share": 0.03
+      },
+      {
+       "color": "#16341b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#101410",
+      "hsl": {
+       "h": 120,
+       "s": 0.11,
+       "l": 0.07
+      },
+      "fg": "#f2f5ef"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 11,
+     "inHero": 2,
+     "radius": 0,
+     "height": 64,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to product demos",
+      "Get GymClues free ↓"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 3,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.19
+     }
+    ],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 125,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 7678,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "header.masthead",
+      "tag": "header",
+      "top": 0,
+      "height": 125,
+      "words": 4,
+      "media": 0,
+      "middle": 86,
+      "heading": null,
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 125,
+      "height": 1100,
+      "words": 52,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Know your",
+       "size": 50,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 24,
+      "textLeft": 20,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.section-intro",
+      "tag": "div",
+      "top": 1313,
+      "height": 129,
+      "words": 16,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 22,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.viewer-layout",
+      "tag": "div",
+      "top": 1474,
+      "height": 1307,
+      "words": 75,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 25,
+      "textLeft": 20,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.section-intro",
+      "tag": "div",
+      "top": 2997,
+      "height": 129,
+      "words": 18,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 34,
+      "textLeft": 20,
+      "textRight": 34,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "dl.feature-facts",
+      "tag": "dl",
+      "top": 3158,
+      "height": 456,
+      "words": 66,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 44,
+      "right": 44,
+      "textLeft": 44,
+      "textRight": 44,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.viewer-layout.screens-layout",
+      "tag": "div",
+      "top": 3654,
+      "height": 1483,
+      "words": 75,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "From planning to progress",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.section-intro",
+      "tag": "div",
+      "top": 5225,
+      "height": 129,
+      "words": 15,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 54,
+      "textLeft": 20,
+      "textRight": 54,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.theme-lineup",
+      "tag": "div",
+      "top": 5386,
+      "height": 1439,
+      "words": 24,
+      "media": 5,
+      "middle": 20,
+      "heading": {
+       "text": "GymClues Default",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 53,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.download",
+      "tag": "section",
+      "top": 6913,
+      "height": 532,
+      "words": 26,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Your next workout starts here",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 22,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 7445,
+      "height": 233,
+      "words": 16,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 31,
+      "textLeft": 20,
+      "textRight": 31,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Know your next move",
+      "size": 50,
+      "top": 153,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 18
+     }
+    ],
+    "leftBlocks": 18,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\desktop-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\desktop-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\tablet-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\mobile-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\mobile-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\round-2\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

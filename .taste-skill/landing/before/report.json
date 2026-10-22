@@ -1,0 +1,2834 @@
+{
+ "url": "F:/Projects/GymClues/Website/index.html",
+ "at": "2026-10-22T16:01:25.703Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    1,
+    0.72,
+    0.83,
+    1,
+    0.52,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 6139,
+     "screens": 6.8,
+     "words": 632,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "gymclues_logo.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "💪",
+      "📚",
+      "📱",
+      "🔥",
+      "⚡",
+      "🦾",
+      "🏃",
+      "🔽",
+      "🦵",
+      "🎯"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "chars": 81,
+     "lines": 3,
+     "size": 48,
+     "vw": 3.3,
+     "font": "Segoe UI",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.81,
+     "top": 612,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "lines": 3,
+     "size": 48,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+      "words": 11,
+      "chars": 81,
+      "lines": 3,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 612,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Three Essential Pillars of Smart Training",
+      "words": 6,
+      "chars": 41,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 1146,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "💪",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.21,
+      "top": 1358,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "📚",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.21,
+      "top": 1358,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "📱",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.21,
+      "top": 1358,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Choose Your Training Style",
+      "words": 4,
+      "chars": 26,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 2178,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "🔥",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 2373,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⚡",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 2373,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦾",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 2373,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🏃",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 2820,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⬆️🔽",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 2820,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦵🎯",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 2820,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🔄",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 3242,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Safety First: Master Every Exercise",
+      "words": 5,
+      "chars": 35,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3870,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your Complete Training Ecosystem",
+      "words": 4,
+      "chars": 32,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.53,
+      "top": 4520,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Transform Your Gym Experience?",
+      "words": 6,
+      "chars": 39,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 5429,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 16,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      22,
+      24,
+      40,
+      48
+     ],
+     "sizeCount": 11,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 16,
+      "leading": 1.7,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 70,
+     "max": {
+      "size": 48,
+      "vw": 3.3,
+      "font": "Segoe UI",
+      "text": "Your Complete Gym Companion:Built-In Wor"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.9,
+     "smallText": 7
+    },
+    "eyebrows": [
+     {
+      "text": "Maximum Intensity",
+      "above": "🏃",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 12.8,
+      "top": 2733
+     },
+     {
+      "text": "Classic Training",
+      "above": "🦵🎯",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 12.8,
+      "top": 2733
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#1a1a1a",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0.1
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#1a1a1a",
+       "top": 1066,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#cccccc",
+       "share": 0.78
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.13
+      },
+      {
+       "color": "#00cc6a",
+       "share": 0.08
+      },
+      {
+       "color": "#666666",
+       "share": 0.01
+      },
+      {
+       "color": "#000000",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#00cc6a",
+      "hsl": {
+       "h": 151,
+       "s": 1,
+       "l": 0.4
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 0,
+     "radius": "pill",
+     "height": 65,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px",
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px"
+     ],
+     "gradients": 11,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.hero → linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(13, 13, 13) 100%)",
+      "section.workouts → linear-gradient(rgb(26, 26, 26) 0%, rgb(21, 32, 24) 100%)",
+      "div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)",
+      "div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "footer 1440px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 19,
+     "boxRadius": 16,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1317
+      },
+      {
+       "count": 7,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 2372
+      },
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 4063
+      },
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 4713
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.2
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 26,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 6139,
+    "margins": {
+     "left": 171,
+     "right": 176
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 1066,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 196,
+      "right": 196,
+      "textLeft": 196,
+      "textRight": 196,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.pillars",
+      "tag": "section",
+      "top": 1066,
+      "height": 1013,
+      "words": 181,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "💪",
+       "size": 48,
+       "tag": "span"
+      },
+      "left": 171,
+      "right": 176,
+      "textLeft": 171,
+      "textRight": 176,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.workouts",
+      "tag": "section",
+      "top": 2078,
+      "height": 1691,
+      "words": 207,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "🔥",
+       "size": 48,
+       "tag": "div"
+      },
+      "left": 165,
+      "right": 176,
+      "textLeft": 165,
+      "textRight": 176,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.education",
+      "tag": "section",
+      "top": 3770,
+      "height": 650,
+      "words": 106,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Safety First: Master Every Exercise",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 189,
+      "right": 177,
+      "textLeft": 189,
+      "textRight": 177,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.all-in-one",
+      "tag": "section",
+      "top": 4420,
+      "height": 889,
+      "words": 78,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Your Complete Training Ecosystem",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 366,
+      "right": 366,
+      "textLeft": 366,
+      "textRight": 366,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.cta-section",
+      "tag": "section",
+      "top": 5309,
+      "height": 651,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ready to Transform Your Gym Experience?",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 243,
+      "right": 243,
+      "textLeft": 243,
+      "textRight": 243,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer",
+      "tag": "footer",
+      "top": 5960,
+      "height": 179,
+      "words": 12,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 527,
+      "right": 527,
+      "textLeft": 527,
+      "textRight": 527,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 5124,
+      "height": 308
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Control",
+      "size": 48,
+      "top": 612,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.16,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 420,
+     "h": 480
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    1,
+    0.68,
+    0.81,
+    1,
+    1,
+    1,
+    0.71,
+    0.86,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 9193,
+     "screens": 9,
+     "words": 632,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "gymclues_logo.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "💪",
+      "📚",
+      "📱",
+      "🔥",
+      "⚡",
+      "🦾",
+      "🏃",
+      "🔽",
+      "🦵",
+      "🎯"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "chars": 81,
+     "lines": 3,
+     "size": 38.4,
+     "vw": 5,
+     "font": "Segoe UI",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.95,
+     "top": 632,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "lines": 3,
+     "size": 38.4,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+      "words": 11,
+      "chars": 81,
+      "lines": 3,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 632,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Three Essential Pillars of Smart Training",
+      "words": 6,
+      "chars": 41,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 1131,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "💪",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 1363,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "📚",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 1956,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "📱",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 2468,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Choose Your Training Style",
+      "words": 4,
+      "chars": 26,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 3065,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "🔥",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 3287,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⚡",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 3745,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦾",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 4203,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🏃",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 4661,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⬆️🔽",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 5118,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦵🎯",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 5552,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🔄",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 6010,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Safety First: Master Every Exercise",
+      "words": 5,
+      "chars": 35,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 6613,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Your Complete Training Ecosystem",
+      "words": 4,
+      "chars": 32,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 7538,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Transform Your Gym Experience?",
+      "words": 6,
+      "chars": 39,
+      "lines": 2,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 8437,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 16,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      22,
+      24,
+      38,
+      48
+     ],
+     "sizeCount": 11,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 16,
+      "leading": 1.7,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.5
+     },
+     "measureChars": 70,
+     "max": {
+      "size": 48,
+      "vw": 6.3,
+      "font": "Segoe UI",
+      "text": "💪"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.9,
+     "smallText": 7
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#1a1a1a",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0.1
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#1a1a1a",
+       "top": 1051,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.1
+       }
+      },
+      {
+       "color": "#252525",
+       "top": 1332,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.15
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#cccccc",
+       "share": 0.78
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.13
+      },
+      {
+       "color": "#00cc6a",
+       "share": 0.08
+      },
+      {
+       "color": "#666666",
+       "share": 0.01
+      },
+      {
+       "color": "#000000",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#00cc6a",
+      "hsl": {
+       "h": 151,
+       "s": 1,
+       "l": 0.4
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": "pill",
+     "height": 65,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Get GymClues Free"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px",
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px"
+     ],
+     "gradients": 12,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.hero → linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(13, 13, 13) 100%)",
+      "section.workouts → linear-gradient(rgb(26, 26, 26) 0%, rgb(21, 32, 24) 100%)",
+      "div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)",
+      "div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "footer 768px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 19,
+     "boxRadius": 16,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 7729
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.33
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 26,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 9193,
+    "margins": {
+     "left": 27,
+     "right": 27
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 1051,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 27,
+      "right": 27,
+      "textLeft": 27,
+      "textRight": 27,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.pillars",
+      "tag": "section",
+      "top": 1051,
+      "height": 1914,
+      "words": 181,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "💪",
+       "size": 48,
+       "tag": "span"
+      },
+      "left": 27,
+      "right": 27,
+      "textLeft": 27,
+      "textRight": 27,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.workouts",
+      "tag": "section",
+      "top": 2965,
+      "height": 3548,
+      "words": 207,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "🔥",
+       "size": 48,
+       "tag": "div"
+      },
+      "left": 30,
+      "right": 30,
+      "textLeft": 30,
+      "textRight": 30,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.education",
+      "tag": "section",
+      "top": 6513,
+      "height": 926,
+      "words": 106,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Safety First: Master Every Exercise",
+       "size": 38,
+       "tag": "h2"
+      },
+      "left": 23,
+      "right": 23,
+      "textLeft": 23,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.all-in-one",
+      "tag": "section",
+      "top": 7438,
+      "height": 879,
+      "words": 78,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Your Complete Training Ecosystem",
+       "size": 38,
+       "tag": "h2"
+      },
+      "left": 30,
+      "right": 30,
+      "textLeft": 30,
+      "textRight": 30,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.cta-section",
+      "tag": "section",
+      "top": 8317,
+      "height": 697,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ready to Transform Your Gym Experience?",
+       "size": 38,
+       "tag": "h2"
+      },
+      "left": 49,
+      "right": 49,
+      "textLeft": 49,
+      "textRight": 49,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer",
+      "tag": "footer",
+      "top": 9014,
+      "height": 179,
+      "words": 12,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 191,
+      "right": 191,
+      "textLeft": 191,
+      "textRight": 191,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 3628,
+      "height": 320
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Control",
+      "size": 38,
+      "top": 632,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    0.67,
+    0.86,
+    0.85,
+    0.93,
+    1,
+    1,
+    1,
+    0.86,
+    0.72,
+    0.92,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 11227,
+     "screens": 13.3,
+     "words": 632,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "gymclues_logo.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "💪",
+      "📚",
+      "📱",
+      "🔥",
+      "⚡",
+      "🦾",
+      "🏃",
+      "🔽",
+      "🦵",
+      "🎯"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "chars": 81,
+     "lines": 5,
+     "size": 32,
+     "vw": 8.2,
+     "font": "Segoe UI",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 632,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+     "words": 11,
+     "lines": 5,
+     "size": 32,
+     "font": "Segoe UI"
+    },
+    "headings": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Controls",
+      "words": 11,
+      "chars": 81,
+      "lines": 5,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 632,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Three Essential Pillars of Smart Training",
+      "words": 6,
+      "chars": 41,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1217,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "💪",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 1470,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "More Than 20 Complete Programs",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 1567,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "📚",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 2155,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Master Every Machine & Exercise",
+      "words": 5,
+      "chars": 31,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 2252,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "📱",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 2788,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Everything in One Powerful App",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 2884,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Choose Your Training Style",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3526,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "🔥",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 3798,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⚡",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 4304,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦾",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 4841,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🏃",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5348,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "⬆️🔽",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5854,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🦵🎯",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 6367,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "🔄",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 6873,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Safety First: Master Every Exercise",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7556,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "🎯 Muscle Mapping",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 7827,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "⚙️ Equipment Setup Guides",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 8067,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "⚠️ Safety & Common Mistakes",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 8308,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Your Complete Training Ecosystem",
+      "words": 4,
+      "chars": 32,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8730,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Transform Your Gym Experience?",
+      "words": 6,
+      "chars": 39,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Segoe UI",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10364,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 22,
+     "maxLines": 5,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 22,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Segoe UI",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      22,
+      24,
+      28,
+      32,
+      48
+     ],
+     "sizeCount": 12,
+     "notLoaded": [],
+     "body": {
+      "font": "Segoe UI",
+      "size": 16,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 48,
+      "vw": 12.3,
+      "font": "Segoe UI",
+      "text": "💪"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.9,
+     "smallText": 7
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#1a1a1a",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0.1
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#1a1a1a",
+       "top": 1137,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.1
+       }
+      },
+      {
+       "color": "#252525",
+       "top": 1439,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.15
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#cccccc",
+       "share": 0.78
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.13
+      },
+      {
+       "color": "#00cc6a",
+       "share": 0.08
+      },
+      {
+       "color": "#666666",
+       "share": 0.01
+      },
+      {
+       "color": "#000000",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#00cc6a",
+      "hsl": {
+       "h": 151,
+       "s": 1,
+       "l": 0.4
+      },
+      "fg": "#000000"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 0,
+     "radius": "pill",
+     "height": 65,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px",
+      "a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px"
+     ],
+     "gradients": 13,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.hero → linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(13, 13, 13) 100%)",
+      "a.hero-cta → linear-gradient(135deg, rgb(0, 204, 106), rgb(0, 163, 82))",
+      "section.workouts → linear-gradient(rgb(26, 26, 26) 0%, rgb(21, 32, 24) 100%)",
+      "div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "footer 390px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 19,
+     "boxRadius": 16,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1439
+      },
+      {
+       "count": 7,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 3767
+      },
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 7797
+      },
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 8962
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.61
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 81,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 11227,
+    "margins": {
+     "left": 22,
+     "right": 22
+    },
+    "sections": [
+     {
+      "sel": "section.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 1137,
+      "words": 43,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 21,
+      "right": 21,
+      "textLeft": 21,
+      "textRight": 21,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.pillars",
+      "tag": "section",
+      "top": 1137,
+      "height": 2289,
+      "words": 181,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "💪",
+       "size": 48,
+       "tag": "span"
+      },
+      "left": 21,
+      "right": 21,
+      "textLeft": 21,
+      "textRight": 21,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.workouts",
+      "tag": "section",
+      "top": 3426,
+      "height": 4030,
+      "words": 207,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "🔥",
+       "size": 48,
+       "tag": "div"
+      },
+      "left": 26,
+      "right": 26,
+      "textLeft": 26,
+      "textRight": 26,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.education",
+      "tag": "section",
+      "top": 7456,
+      "height": 1175,
+      "words": 106,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Safety First: Master Every Exercise",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 28,
+      "right": 28,
+      "textLeft": 28,
+      "textRight": 28,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.all-in-one",
+      "tag": "section",
+      "top": 8630,
+      "height": 1614,
+      "words": 78,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Your Complete Training Ecosystem",
+       "size": 28,
+       "tag": "h2"
+      },
+      "left": 22,
+      "right": 22,
+      "textLeft": 22,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section#download.cta-section",
+      "tag": "section",
+      "top": 10244,
+      "height": 749,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ready to Transform Your Gym Experience?",
+       "size": 32,
+       "tag": "h2"
+      },
+      "left": 23,
+      "right": 23,
+      "textLeft": 23,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer",
+      "tag": "footer",
+      "top": 10993,
+      "height": 235,
+      "words": 12,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 76,
+      "right": 76,
+      "textLeft": 76,
+      "textRight": 76,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 4184,
+      "height": 324
+     },
+     {
+      "top": 7292,
+      "height": 264
+     },
+     {
+      "top": 10064,
+      "height": 300
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Your Complete Gym Companion: Built-In Workouts, Equipment Guides & Media Control",
+      "size": 32,
+      "top": 632,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "1 headline(s) wrap past two lines at 1440px: \"Your Complete Gym Companion: Built-In Workouts, \" → 3 lines (11 words, 48px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "hero-words",
+   "width": 1440,
+   "message": "Hero headline is 11 words (\"Your Complete Gym Companion: Built-In Workouts, Equipment Gu\"). Gallery median is 5.",
+   "fix": "Say the one thing. Move the rest to the supporting line.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"Maximum Intensity\" (pill) above \"🏃\"; \"Classic Training\" (pill) above \"🦵🎯\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "width": 1440,
+   "message": "Emoji in the page: 💪 📚 📱 🔥 ⚡ 🦾 🏃 🔽 🦵 🎯",
+   "fix": "Remove. Use words or real imagery.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "11 gradient fill(s): section.hero → linear-gradient(135deg, rgb(26, 26, 26) 0%, rgb(13, 13, 13) 100%) | section.workouts → linear-gradient(rgb(26, 26, 26) 0%, rgb(21, 32, 24) 100%) | div.workout-image → linear-gradient(135deg, rgb(0, 204, 106) 0%, rgb(0, 163, 82) 100%)",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "2 box-shadow(s) on elements at rest: a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px | a.hero-cta → rgba(0, 255, 136, 0.4) 0px 4px 20px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with gradient fill and shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "hairline",
+   "width": 1440,
+   "message": "1 thin rule(s)/divider line(s): footer 1440px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "card-rows",
+   "width": 1440,
+   "message": "4 rows of identical boxed cards.",
+   "fix": "Vary the composition; not every section is a card grid.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "11 different font sizes (13, 14, 15, 16, 18, 19, 20, 22, 24, 40, 48).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "first-action",
+   "width": 1440,
+   "message": "No visible button in the first screen.",
+   "fix": "Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 1 picture(s) on the page (1 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "7 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "all-centred",
+   "width": 1440,
+   "message": "90% of the text is centre-aligned.",
+   "fix": "Centre one moment at most; anchor the rest to a shared left edge.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 48px (3.3vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 0 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "1 headline(s) wrap past two lines at 768px: \"Your Complete Gym Companion: Built-In Workouts, \" → 3 lines (11 words, 38.4px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "1 headline(s) wrap past two lines at 390px: \"Your Complete Gym Companion: Built-In Workouts, \" → 5 lines (11 words, 32px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\desktop-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\desktop-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\tablet-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\tablet-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\mobile-fold.jpg",
+   "pages": [
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\mobile-page-01.jpg",
+    "F:\\Projects\\GymClues\\.taste-skill\\landing\\before\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

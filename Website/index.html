@@ -1,753 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymClues - The Ultimate Gym Companion App</title>
-    <meta name="description" content="Stop wasting time at the gym figuring out machines. GymClues gives you equipment guides, tailored strength-training workouts that adapt to your available equipment, and progress tracking. Download free today.">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: block;
-            text-align: center;
-        }
-
-        /* Branding */
-        :root {
-            --primary-green: #00cc6a;
-            --secondary-green: #00a352;
-            --dark-bg: #1a1a1a;
-            --card-bg: #252525;
-            --text-white: #ffffff;
-            --text-gray: #cccccc;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            padding: 80px 0 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, rgba(0,255,136,0.03) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(0,255,136,0.03) 25%, transparent 25%);
-            background-size: 60px 60px;
-            pointer-events: none;
-        }
-
-        .logo {
-            width: 120px;
-            height: auto;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .logo img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            margin-bottom: 20px;
-            color: var(--text-white);
-            line-height: 1.2;
-        }
-
-        .hero-subheadline {
-            font-size: clamp(16px, 3vw, 20px);
-            color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: #000;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 20px rgba(0,255,136,0.4);
-        }
-
-        .hero-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(0,255,136,0.6);
-        }
-
-        /* Three Pillars Section (replaces Social Proof) */
-        .pillars {
-            background-color: var(--dark-bg);
-            padding: 80px 0;
-        }
-
-        .pillars h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .pillars-subheadline {
-            font-size: clamp(16px, 3vw, 18px);
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 60px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .pillar-card {
-            background: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 16px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid transparent;
-            text-align: center;
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,255,136,0.2);
-            border-color: var(--primary-green);
-        }
-
-        .pillar-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .pillar-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: var(--primary-green);
-        }
-
-        .pillar-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .pillar-features {
-            list-style: none;
-            text-align: left;
-        }
-
-        .pillar-features li {
-            padding: 0.5rem 0;
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pillar-features li::before {
-            content: '✓';
-            color: var(--primary-green);
-            font-weight: bold;
-        }
-
-        /* Workouts Section (Choose Your Training Style) */
-        .workouts {
-            padding: 100px 0;
-            background: linear-gradient(180deg, var(--dark-bg) 0%, #152018 100%);
-        }
-
-        .workouts h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .workouts-subheadline {
-            font-size: clamp(16px, 3vw, 18px);
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 50px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .workouts-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .workout-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .workout-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,255,136,0.2);
-            border-color: var(--primary-green);
-        }
-
-        .workout-image {
-            height: 180px;
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-
-        .workout-content {
-            padding: 24px;
-        }
-
-        .workout-content h4 {
-            color: var(--text-white);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
-
-        .workout-content p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-            line-height: 1.6;
-        }
-
-        .workout-badge {
-            display: inline-block;
-            background: rgba(0,255,136,0.15);
-            color: var(--primary-green);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .workout-card:last-child {
-            grid-column: 2;
-            max-width: 400px;
-            justify-self: center;
-        }
-
-        /* Equipment Education Section */
-        .education {
-            padding: 100px 0;
-            background-color: var(--dark-bg);
-        }
-
-        .education h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .education-subheadline {
-            font-size: clamp(16px, 3vw, 18px);
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 50px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .education-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            border-left: 4px solid var(--primary-green);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .education-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,255,136,0.15);
-        }
-
-        .education-card h3 {
-            color: var(--text-white);
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-        }
-
-        .education-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-            flex: 1;
-        }
-
-        /* All-In-One Section */
-        .all-in-one {
-            padding: 100px 0;
-            background: linear-gradient(180deg, #152018 0%, var(--dark-bg) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .all-in-one::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,255,136,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .all-in-one-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .all-in-one h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            color: var(--text-white);
-            margin-bottom: 15px;
-        }
-
-        .all-in-one p {
-            font-size: clamp(16px, 3vw, 20px);
-            color: var(--text-gray);
-            margin-bottom: 50px;
-        }
-
-        .features-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .feature-item {
-            background: var(--card-bg);
-            padding: 32px 24px;
-            border-radius: 16px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,255,136,0.15);
-            border-color: var(--primary-green);
-        }
-
-        .feature-item h4 {
-            color: var(--primary-green);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .feature-item p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-        }
-
-        /* Final CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #0d0d0d 0%, #1a2820 100%);
-            padding: 120px 0;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: clamp(32px, 5vw, 48px);
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            font-size: clamp(16px, 3vw, 20px);
-            color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
-        }
-
-        .cta-section .hero-cta {
-            background: linear-gradient(135deg, var(--secondary-green), #00b35c);
-            font-size: 20px;
-            padding: 22px 50px;
-        }
-
-        .risk-reversal {
-            margin-top: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--text-gray);
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .risk-reversal strong {
-            color: var(--primary-green);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #0f0f0f;
-            padding: 60px 0 30px;
-            border-top: 1px solid #2a2a2a;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-
-        .footer-link {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-link:hover {
-            color: var(--primary-green);
-        }
-
-        .copyright {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .pillars-grid,
-            .workouts-grid,
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .workout-card:last-child {
-                grid-column: auto;
-                max-width: 100%;
-            }
-
-            .pillar-card,
-            .education-card,
-            .workout-card,
-            .feature-item {
-                padding: 30px 20px;
-            }
-
-            .stats {
-                gap: 30px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan your workouts, understand each exercise and set up with confidence. Explore real GymClues demos and screenshots, then download free for Android.">
+  <meta name="theme-color" content="#000000">
+  <title>GymClues — Know your next move</title>
+  <link rel="icon" href="gymclues_logo.png" type="image/png">
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="logo"><img src="gymclues_logo.png" alt="GymClues Logo"></div>
-      <h1>Your Complete Gym Companion:<br>Built-In Workouts, Equipment Guides & Media Controls</h1>
-      <p class="hero-subheadline">Stop guessing at the gym. Access athlete-developed workout programs, master every exercise with detailed equipment guides, and control your music/podcasts—all in one powerful app.</p>
-      <a href="https://github.com/oxieg3n/GymClues/releases/download/v1/GymClues-V1.apk" class="hero-cta">Get GymClues Free</a>
-    </div>
-  </section>
-
-  <!-- Three Pillars Section -->
-  <section class="pillars">
-    <div class="container">
-      <h2>Three Essential Pillars of Smart Training</h2>
-      <p class="pillars-subheadline">GymClues combines everything you need to train safely, effectively, and enjoyably—all in one app.</p>
-      
-      <div class="pillars-grid">
-        <!-- Pillar 1: Workout Programs -->
-        <div class="pillar-card">
-          <span class="pillar-icon">💪</span>
-          <h3>More Than 20 Complete Programs</h3>
-          <p>Developed by real athletes and trainers, our workout library covers every training style you can imagine. Choose the program that fits your goals and preferred style.</p>
-          <ul class="pillar-features">
-            <li>BRO Split</li>
-            <li>Push-Pull-Legs</li>
-            <li>Arnold Split</li>
-            <li>Full Body</li>
-            <li>Upper + Lower</li>
-            <li>Torso / Limbs</li>
-            <li>PPL + Upper/Lower Hybrid</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 2: Equipment Education -->
-        <div class="pillar-card">
-          <span class="pillar-icon">📚</span>
-          <h3>Master Every Machine & Exercise</h3>
-          <p>Safety and effectiveness matter. Our detailed equipment guides teach you proper form, common mistakes to avoid, and how to maximize results from every exercise.</p>
-          <ul class="pillar-features">
-            <li>Muscle activation maps & targets</li>
-            <li>Step-by-step setup instructions</li>
-            <li>Safety tips and common mistakes</li>
-            <li>Equipment adjustment guides</li>
-            <li>Beginner-to-advanced progression paths</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 3: All-In-One App -->
-        <div class="pillar-card">
-          <span class="pillar-icon">📱</span>
-          <h3>Everything in One Powerful App</h3>
-          <p>Why juggle multiple apps when GymClues combines workout programs, exercise guides, equipment mastery, and media controls into one seamless experience.</p>
-          <ul class="pillar-features">
-            <li>Workout Programs - Designed by Professionals</li>
-            <li>Exercise Guides - Train Correctly</li>
-            <li>Equipment Guides - Master Every Machine</li>
-            <li>Media Controls - Access Your Personal Music/Podcast App Directly From GymCue</li>
-          </ul>
-        </div>
+<body id="top">
+  <a class="skip" href="#demos">Skip to product demos</a>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="GymClues home"><img src="gymclues_logo.png" width="44" height="44" alt="">GymClues</a>
+    <nav aria-label="Main navigation"><a href="#demos">Demos</a><a href="#features">Features</a><a href="#themes">Themes</a><a class="button" href="https://github.com/oxieg3n/GymClues/releases/download/v1.1.1/GymClues-V1.1.1.apk">Get the Android app ↓</a></nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title"><span><i>Know your</i></span> <span><i>next move</i></span></h1>
+      <div class="hero-reel">
+        <img class="reel-edge" src="media/screens/02-session-preview.png" width="1080" height="2400" alt="" aria-hidden="true">
+        <a href="media/screens/03-muscle-map.png" aria-label="Open the full-size Romanian deadlift muscle map"><img class="main-shot" src="media/screens/03-muscle-map.png" width="1080" height="2400" alt="GymClues Romanian deadlift muscle map with target, assisting and stabilizing muscles" fetchpriority="high"></a>
+        <img class="reel-edge" src="media/screens/08-treadmill-setup.png" width="1080" height="2400" alt="" aria-hidden="true">
       </div>
-    </div>
-  </section>
-
-  <!-- Detailed Workouts Section -->
-  <section class="workouts">
-    <div class="container">
-      <h2>Choose Your Training Style</h2>
-      <p class="workouts-subheadline">Whether you prefer body-part splits, full-body workouts, or strength-focused training, we have the perfect program for you.</p>
-      
-      <div class="workouts-grid">
-        <!-- BRO Split (8+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">🔥</div>
-          <div class="workout-content">
-            <h4>BRO Split - 8+ Programs</h4>
-            <p>Focus on one muscle group per day. Each program includes multiple chest/back/leg/arm variations with beginner to advanced progressions.</p>
-            <span class="workout-badge">Maximum Intensity</span>
-          </div>
-        </div>
-
-        <!-- Push-Pull-Legs (6+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">⚡</div>
-          <div class="workout-content">
-            <h4>Push-Pull-Legs - 6+ Programs</h4>
-            <p>Balance pushing and pulling muscles. Programs cover all combinations with accessory variations and equipment alternatives.</p>
-            <span class="workout-badge">Balanced Development</span>
-          </div>
-        </div>
-
-        <!-- Arnold Split (7+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">🦾</div>
-          <div class="workout-content">
-            <h4>Arnold Split - 7+ Programs</h4>
-            <p>Ambidextrous training: chest/triceps, back/biceps, shoulders. Full-range of motion programming for complete upper body development.</p>
-            <span class="workout-badge">Classic Training</span>
-          </div>
-        </div>
-
-        <!-- Full Body (6+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">🏃</div>
-          <div class="workout-content">
-            <h4>Full Body - 6+ Programs</h4>
-            <p>Hit every muscle group each session. Perfect for 3-day splits, busy schedules, and maximum weekly frequency.</p>
-            <span class="workout-badge">Efficient Training</span>
-          </div>
-        </div>
-
-        <!-- Upper + Lower (5+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">⬆️🔽</div>
-          <div class="workout-content">
-            <h4>Upper + Lower - 5+ Programs</h4>
-            <p>Split between upper and lower body. Ideal for 4-day splits with recovery days in between.</p>
-            <span class="workout-badge">Structured Split</span>
-          </div>
-        </div>
-
-        <!-- Torso / Limbs (5+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">🦵🎯</div>
-          <div class="workout-content">
-            <h4>Torso / Limbs - 5+ Programs</h4>
-            <p>Focus on core torso (chest/back/shoulders) separate from limbs (arms/legs). Advanced isolation approach.</p>
-            <span class="workout-badge">Advanced Split</span>
-          </div>
-        </div>
-
-        <!-- PPL + Upper/Lower Hybrid (3+ Programs) -->
-        <div class="workout-card">
-          <div class="workout-image">🔄</div>
-          <div class="workout-content">
-            <h4>PPL + Upper/Lower Hybrid - 3+ Programs</h4>
-            <p>Combine PPL flexibility with upper/lower structure. Customizable for your goals and available equipment.</p>
-            <span class="workout-badge">Flexible Training</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Equipment Education Section -->
-  <section class="education">
-    <div class="container">
-      <h2>Safety First: Master Every Exercise</h2>
-      <p class="education-subheadline">Proper form prevents injury and maximizes results. Learn everything about your equipment before you touch it.</p>
-      
-      <div class="education-grid">
-        <div class="education-card">
-          <h3>🎯 Muscle Mapping</h3>
-          <p>Visual diagrams show exactly which muscles you're targeting and which are acting as stabilizers. Optimize your exercises for balanced development.</p>
-        </div>
-
-        <div class="education-card">
-          <h3>⚙️ Equipment Setup Guides</h3>
-          <p>Learn how to adjust every machine, cable station, and free weight setup. Proper equipment configuration is critical for safety and effectiveness.</p>
-        </div>
-
-        <div class="education-card">
-          <h3>⚠️ Safety & Common Mistakes</h3>
-          <p>Every exercise guide includes safety tips, injury prevention strategies, and the most common form errors to avoid. Train smarter, not harder.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- All-In-One Section -->
-  <section class="all-in-one">
-    <div class="container all-in-one-content">
-      <h2>Your Complete Training Ecosystem</h2>
-      <p>GymClues isn't just another fitness app—it's your complete gym companion that combines everything you need into one powerful platform.</p>
-      
-      <div class="features-list">
-        <div class="feature-item">
-          <h4>🏋️ Workout Programs</h4>
-          <p>7+ built-in routines + custom builder</p>
-        </div>
-        <div class="feature-item">
-          <h4>📚 Equipment Guides</h4>
-          <p>Master every machine and exercise</p>
-        </div>
-        <div class="feature-item">
-          <h4>🎵 Music Control</h4>
-          <p>Play, pause, skip your playlists</p>
-        </div>
-        <div class="feature-item">
-          <h4>🎙️ Podcast Integration</h4>
-          <p>Listen to your favorite podcasts</p>
-        </div>
-        <div class="feature-item">
-          <h4>📈 Progress Tracking</h4>
-          <p>Log weights, reps, and see gains</p>
-        </div>
-        <div class="feature-item">
-          <h4>🔄 Seamless Integration</h4>
-          <p>All in one app. No switching needed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA Section -->
-  <section class="cta-section" id="download">
-    <div class="container">
-      <h2>Ready to Transform Your Gym Experience?</h2>
-      <p>Join thousands of lifters who've stopped guessing and started training with confidence. Download GymClues free today.</p>
-      <a href="https://github.com/oxieg3n/GymClues/releases/download/v1/GymClues-V1.apk" class="hero-cta">Get GymClues Free</a>
-
-      <div class="risk-reversal">
-        <strong>Try it risk-free.</strong> If you don't find GymClues helpful within your first few gym sessions, we'll help you get unstuck. We're confident you'll love having a knowledgeable gym companion in your pocket.
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <nav class="footer-links">
-        <a href="#" class="footer-link">App Store Download</a>
-        <a href="#" class="footer-link">Google Play Download</a>
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Terms of Service</a>
-        <a href="#" class="footer-link">Support/Contact</a>
-      </nav>
-      
-      <p class="copyright">&copy; 2026 GymClues. All rights reserved.</p>
-    </div>
-  </footer>
-
+      <div class="hero-copy"><p>GymClues brings workout programs, muscle maps and equipment guides to your Android phone.</p><div class="hero-actions"><a class="button" href="https://github.com/oxieg3n/GymClues/releases/download/v1.1.1/GymClues-V1.1.1.apk">Get GymClues free <span aria-hidden="true">↓</span></a><a class="text-link" href="#demos">Watch the demos ↗</a></div><div class="platform">Free Android APK · v1.1.1</div></div>
+      <div class="hero-caption"><p>Understand the movement.</p><p>See the muscles you're targeting, the muscles helping and the ones keeping you steady.</p><a class="text-link" href="#screen-muscles">Explore muscle mapping ↗</a></div>
+    </section>
+    <section class="section" id="demos" aria-labelledby="demos-title" data-viewer>
+      <div class="section-intro"><h2 id="demos-title" data-reveal>See it in action</h2><p data-reveal>Three guided walkthroughs, 45 seconds each. Follow the hand from your first program to your next rest day.</p></div>
+      <div class="viewer-layout">
+        <nav class="choices" aria-label="Choose a product demo">
+          <a href="#demo-home" data-choice aria-controls="demo-home" data-reveal><span>Home &amp; menu</span><small>Your dashboard and training tools · 45 sec</small></a>
+          <a href="#demo-assign" data-choice aria-controls="demo-assign" data-reveal><span>Assign a program</span><small>Pick a routine and a start date · 45 sec</small></a>
+          <a href="#demo-rest" data-choice aria-controls="demo-rest" data-reveal><span>Workout &amp; rest days</span><small>Open a session and plan time off · 45 sec</small></a>
+          <a href="#demo-themes" data-choice aria-controls="demo-themes" data-reveal><span>Five color themes</span><small>A quick look at every palette · 16 sec</small></a>
+        </nav>
+        <div><article class="panel" data-panel id="demo-home" aria-labelledby="demo-title-home">
+            <div class="video-stage"><video controls playsinline preload="none" poster="media/screens/tour-poster.png" aria-label="Narrated Home and menu walkthrough"><source src="media/videos/home-menu-tour-narrated.mp4" type="video/mp4"><a href="media/videos/home-menu-tour-narrated.mp4">Download Home and menu video</a></video></div>
+            <div class="panel-copy"><h3 id="demo-title-home">Home &amp; menu</h3><p>Find today's training, your streak and program progress. Open the menu to explore everything GymClues offers.</p><a href="media/videos/home-menu-tour-narrated.mp4" download>Download this video ↓</a></div>
+          </article>
+<article class="panel" data-panel id="demo-assign" aria-labelledby="demo-title-assign">
+            <div class="video-stage"><video controls playsinline preload="none" poster="media/screens/assign-program-poster.png" aria-label="Narrated workout program assignment walkthrough"><source src="media/videos/assign-program-narrated.mp4" type="video/mp4"><a href="media/videos/assign-program-narrated.mp4">Download program assignment video</a></video></div>
+            <div class="panel-copy"><h3 id="demo-title-assign">Assign a program</h3><p>Choose a training style, review a routine, pick your start date and confirm your assignment.</p><a href="media/videos/assign-program-narrated.mp4" download>Download this video ↓</a></div>
+          </article>
+<article class="panel" data-panel id="demo-rest" aria-labelledby="demo-title-rest">
+            <div class="video-stage"><video controls playsinline preload="none" poster="media/screens/workout-rest-days-poster.png" aria-label="Narrated daily workout and repeating rest days walkthrough"><source src="media/videos/workout-rest-days-narrated.mp4" type="video/mp4"><a href="media/videos/workout-rest-days-narrated.mp4">Download workout and rest days video</a></video></div>
+            <div class="panel-copy"><h3 id="demo-title-rest">Workout &amp; rest days</h3><p>Open today's assigned session from Home, start your workout, or take a rest day. Choose weekdays to repeat automatically.</p><a href="media/videos/workout-rest-days-narrated.mp4" download>Download this video ↓</a></div>
+          </article>
+<article class="panel" data-panel id="demo-themes" aria-labelledby="demo-title-themes">
+            <div class="video-stage"><video controls playsinline preload="none" poster="media/screens/09-themes.png" aria-label="Five color themes walkthrough"><source src="media/videos/themes.mp4" type="video/mp4"><a href="media/videos/themes.mp4">Download color themes video</a></video></div>
+            <div class="panel-copy"><h3 id="demo-title-themes">Five color themes</h3><p>See Ocean, Ember, Rosewood and Daylight, then return to GymClues Default. This walkthrough has no narration.</p><a href="media/videos/themes.mp4" download>Download this video ↓</a></div>
+          </article></div></div>
+      <p class="demo-note">Guided videos include a hand pointer, feature highlights and AI-generated English narration. The theme tour is silent. Use the player's fullscreen control for a closer look.</p>
+    </section>
+    <section class="section" id="features" aria-labelledby="features-title" data-viewer>
+      <div class="section-intro"><h2 id="features-title" data-reveal>A closer look</h2><p data-reveal>Explore the screens you'll use before, during and after a workout. Select a feature to see it in detail.</p></div>
+      <dl class="feature-facts">
+        <div data-reveal><dt>A plan that fits</dt><dd>Choose Bro, PPL, upper/lower, full body, Arnold, torso/limbs, hybrid or HIIT. You can build a custom workout, too.</dd></div>
+        <div data-reveal><dt>Guidance as you train</dt><dd>Review muscle maps, exercise instructions, safety tips and machine setup without leaving your session.</dd></div>
+        <div data-reveal><dt>Room for real life</dt><dd>Log weights and reps or cardio measurements, plan repeating rest days and keep music controls within reach.</dd></div>
+      </dl>
+      <div class="viewer-layout screens-layout">
+        <div><nav class="choices screen-choices" aria-label="Choose a feature screenshot"><a href="#screen-home" data-choice aria-controls="screen-home"><span>Home dashboard</span></a>
+<a href="#screen-session" data-choice aria-controls="screen-session"><span>Session preview</span></a>
+<a href="#screen-programs" data-choice aria-controls="screen-programs"><span>Workout programs</span></a>
+<a href="#screen-muscles" data-choice aria-controls="screen-muscles"><span>Muscle mapping</span></a>
+<a href="#screen-safety" data-choice aria-controls="screen-safety"><span>Safety &amp; form</span></a>
+<a href="#screen-exercise" data-choice aria-controls="screen-exercise"><span>Exercise guides</span></a>
+<a href="#screen-equipment" data-choice aria-controls="screen-equipment"><span>Equipment library</span></a>
+<a href="#screen-setup" data-choice aria-controls="screen-setup"><span>Machine setup</span></a></nav><div class="screen-info" data-reveal><h3>From planning to progress</h3><p>Your Home screen keeps today's workout and program progress together. Open a session, review the exercises and start when you're ready.</p><p>Every preview links to the original screenshot so you can inspect the details.</p></div></div><div class="screenshot-panels"><figure class="panel" id="screen-home" data-panel aria-labelledby="screen-title-home"><a href="media/screens/01-home.png" aria-label="Open original Home dashboard screenshot"><img src="media/screens/01-home.png" width="1080" height="2400" loading="lazy" alt="Home dashboard with today's training and program progress"></a><figcaption><h3 id="screen-title-home">Home dashboard</h3><p>Today's workout, training rhythm and your assigned program's progress, together.</p><a href="media/screens/01-home.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-session" data-panel aria-labelledby="screen-title-session"><a href="media/screens/02-session-preview.png" aria-label="Open original session preview screenshot"><img src="media/screens/02-session-preview.png" width="1080" height="2400" loading="lazy" alt="Back workout session preview"></a><figcaption><h3 id="screen-title-session">Session preview</h3><p>Review exercises, sets, reps and rest periods before you start.</p><a href="media/screens/02-session-preview.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-programs" data-panel aria-labelledby="screen-title-programs"><a href="media/screens/06-program-types.png" aria-label="Open original workout programs screenshot"><img src="media/screens/06-program-types.png" width="1080" height="2400" loading="lazy" alt="Workout program categories and custom workout button"></a><figcaption><h3 id="screen-title-programs">Workout programs</h3><p>Browse training styles and routines, or build your own workout.</p><a href="media/screens/06-program-types.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-muscles" data-panel aria-labelledby="screen-title-muscles"><a href="media/screens/03-muscle-map.png" aria-label="Open original muscle mapping screenshot"><img src="media/screens/03-muscle-map.png" width="1080" height="2400" loading="lazy" alt="Romanian deadlift muscle map showing targets, assisting movers and stabilizers"></a><figcaption><h3 id="screen-title-muscles">Muscle mapping</h3><p>Identify target muscles, assisting movers and stabilizers for each exercise.</p><a href="media/screens/03-muscle-map.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-safety" data-panel aria-labelledby="screen-title-safety"><a href="media/screens/04-safety-guide.png" aria-label="Open original safety guide screenshot"><img src="media/screens/04-safety-guide.png" width="1080" height="2400" loading="lazy" alt="Safety tips, injury prevention and common mistakes for Romanian deadlift"></a><figcaption><h3 id="screen-title-safety">Safety &amp; form</h3><p>Safety tips, injury prevention and common mistakes to avoid.</p><a href="media/screens/04-safety-guide.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-exercise" data-panel aria-labelledby="screen-title-exercise"><a href="media/screens/05-exercise-guide.png" aria-label="Open original exercise guide screenshot"><img src="media/screens/05-exercise-guide.png" width="1080" height="2400" loading="lazy" alt="Romanian deadlift equipment and step-by-step instructions"></a><figcaption><h3 id="screen-title-exercise">Exercise guides</h3><p>Equipment, setup and step-by-step movement instructions.</p><a href="media/screens/05-exercise-guide.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-equipment" data-panel aria-labelledby="screen-title-equipment"><a href="media/screens/07-equipment.png" aria-label="Open original equipment library screenshot"><img src="media/screens/07-equipment.png" width="1080" height="2400" loading="lazy" alt="Equipment library grouped by machine type"></a><figcaption><h3 id="screen-title-equipment">Equipment library</h3><p>Cardio and strength equipment, grouped by machine type.</p><a href="media/screens/07-equipment.png">Open full-size screenshot ↗</a></figcaption></figure>
+<figure class="panel" id="screen-setup" data-panel aria-labelledby="screen-title-setup"><a href="media/screens/08-treadmill-setup.png" aria-label="Open original treadmill setup screenshot"><img src="media/screens/08-treadmill-setup.png" width="1080" height="2400" loading="lazy" alt="Numbered treadmill setup diagram with adjustment instructions"></a><figcaption><h3 id="screen-title-setup">Machine setup</h3><p>Numbered controls, safe positioning and adjustment instructions.</p><a href="media/screens/08-treadmill-setup.png">Open full-size screenshot ↗</a></figcaption></figure></div></div>
+    </section>
+    <section class="section" id="themes" aria-labelledby="themes-title">
+      <div class="section-intro"><h2 id="themes-title" data-reveal>Your workout, your colors</h2><p data-reveal>Choose GymClues Default, Ocean, Ember, Rosewood or Daylight. Your choice stays saved in the app.</p></div>
+      <div class="theme-lineup"><figure data-reveal><figcaption><h3>GymClues Default</h3><p>Black &amp; logo green</p></figcaption><a href="media/themes/home-default-390.png" aria-label="Open full-size GymClues Default theme screenshot"><img src="media/themes/home-default-390.png" width="390" height="844" loading="lazy" alt="GymClues Home using the GymClues Default theme"></a></figure>
+<figure data-reveal><figcaption><h3>Ocean</h3><p>Deep teal &amp; aqua</p></figcaption><a href="media/themes/home-ocean-390.png" aria-label="Open full-size Ocean theme screenshot"><img src="media/themes/home-ocean-390.png" width="390" height="844" loading="lazy" alt="GymClues Home using the Ocean theme"></a></figure>
+<figure data-reveal><figcaption><h3>Ember</h3><p>Charcoal &amp; apricot</p></figcaption><a href="media/themes/home-ember-390.png" aria-label="Open full-size Ember theme screenshot"><img src="media/themes/home-ember-390.png" width="390" height="844" loading="lazy" alt="GymClues Home using the Ember theme"></a></figure>
+<figure data-reveal><figcaption><h3>Rosewood</h3><p>Burgundy &amp; blush</p></figcaption><a href="media/themes/home-rosewood-390.png" aria-label="Open full-size Rosewood theme screenshot"><img src="media/themes/home-rosewood-390.png" width="390" height="844" loading="lazy" alt="GymClues Home using the Rosewood theme"></a></figure>
+<figure data-reveal><figcaption><h3>Daylight</h3><p>Warm ivory &amp; pine</p></figcaption><a href="media/themes/home-daylight-390.png" aria-label="Open full-size Daylight theme screenshot"><img src="media/themes/home-daylight-390.png" width="390" height="844" loading="lazy" alt="GymClues Home using the Daylight theme"></a></figure></div></section>
+    <section class="download" id="download" aria-labelledby="download-title">
+      <div><h2 id="download-title" data-reveal>Your next workout starts here</h2><p data-reveal>Get GymClues free for Android. Workout programs, exercise guidance and room for rest.</p><a class="button" href="https://github.com/oxieg3n/GymClues/releases/download/v1.1.1/GymClues-V1.1.1.apk">Download v1.1.1 <span aria-hidden="true">↓</span></a><small>Direct APK download for Android.</small></div>
+      <img src="gymclues_logo.png" width="160" height="160" alt="GymClues logo" loading="lazy" data-reveal>
+    </section>
+  </main>
+  <footer class="footer"><div><a class="brand" href="#top">GymClues</a><p>Less guesswork. More time for your workout.</p></div><nav aria-label="Footer"><a href="#demos">Demos</a><a href="https://github.com/oxieg3n/GymClues">Source code</a><a href="https://github.com/oxieg3n/GymClues/issues">Support</a><a href="#top">Back to top ↑</a></nav></footer>
 </body>
 </html>
