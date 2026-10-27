@@ -19,12 +19,17 @@ class ShareCardTest {
     ShareCard("9-day streak", "12,300 lb", "moved in 22 sets", "c"),
     ShareCard("Workout complete", "Back day", "", "c", listOf("Lat Pulldown" to "", "Seated Cable Row" to "",
       "Barbell Row" to "", "Face Pull" to "", "Bicep Curl" to "")),
-    ShareCard("Workout complete", "Full body, week four of twelve", "", "c", (1..14).map { "Exercise number $it" to "" }))
+    ShareCard("Workout complete", "Full body, week four of twelve", "", "c", (1..14).map { "Exercise number $it" to "" }),
+    ShareCard("Workout complete", "Outlift Perfect BRO Split - Back", "10/24/2026 7:15 PM", "#GymClues Workout Completed:",
+      listOf("Treadmill walking" to "Entry 1: 10 min · 2.7 mph · 5% incline",
+        "Barbell curl" to "Set 1: 50 lb x 25\nSet 2: 60 lb x 15\nSet 3: 60 lb x 12",
+        "Skullcrusher" to "Set 1: 50 lb x 12\nSet 2: 60 lb x 10\nSet 3: 60 lb x 10")))
   @Test fun cardIsRenderedAtFullSizeAndSavedAsPng() {
     cards.forEachIndexed { i, c ->
       val f = saveShareCard(ctx, c)
       val b = android.graphics.BitmapFactory.decodeFile(f.path)
-      assertEquals(1080 to 1350, b.width to b.height)
+      assertEquals(1080, b.width)
+      assertTrue(b.height >= 1350)
       java.io.File(System.getProperty("shareOut") ?: return@forEachIndexed).let { d -> d.mkdirs(); f.copyTo(java.io.File(d, "card$i.png"), true) }
     }
   }

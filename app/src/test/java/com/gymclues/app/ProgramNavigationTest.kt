@@ -47,6 +47,19 @@ class ProgramNavigationTest {
     compose.setContent { GymCluesTheme { App(app) } }
   }
 
+  @Test fun leavingUnsavedLayoutAsksBeforeDiscarding() {
+    val app = app()
+    launch(app)
+    compose.onNodeWithText("Unlock Layout").performClick()
+    compose.waitForIdle()
+    assertTrue(app.layoutEditing)
+    compose.onNodeWithContentDescription("GymClues menu").performClick()
+    compose.onNodeWithText("Exercises").performClick()
+    compose.onNodeWithText("Discard layout changes?").assertExists()
+    compose.onNodeWithText("Keep editing").performClick()
+    compose.onNodeWithText("Cancel layout").assertExists()
+  }
+
   @Test fun assignmentCheckIncludesScheduledProgramsAndExcludesEndedOrDeletedOnes() {
     val today = LocalDate.of(2026, 10, 22)
     val active = ProgramAssignmentEntity(programId = "B1", startDate = today.minusDays(3).toString(), ownerId = "me")

@@ -128,9 +128,10 @@ import com.gymclues.app.media.NowPlaying
 /** Exercise picker sheet: suggestions that fit the workout, or the entire database. Supports multi-select. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable fun ExercisePickerSheet(catalog: CatalogRepository, suggested: List<Exercise>?, exclude: Set<String>,
-                                    onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, onPick: (List<Exercise>) -> Unit) {
+                                    onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, initialCardioOnly: Boolean = false,
+                                    onPick: (List<Exercise>) -> Unit) {
   var showAll by remember { mutableStateOf(suggested == null) }
-  var cardioOnly by remember { mutableStateOf(false) }
+  var cardioOnly by remember { mutableStateOf(initialCardioOnly) }
   var query by remember { mutableStateOf("") }
   var muscle by remember { mutableStateOf<String?>(null) }
   val picked = remember { mutableStateListOf<String>() }
@@ -143,7 +144,8 @@ import com.gymclues.app.media.NowPlaying
       if (suggested != null) Row(verticalAlignment = Alignment.CenterVertically) {
         FilterChip(!showAll, { showAll = false }, { Text("Fits this workout") }); Spacer(Modifier.width(8.dp))
         FilterChip(showAll, { showAll = true }, { Text("All exercises") }) }
-      FilterChip(cardioOnly, { cardioOnly = !cardioOnly; muscle = null }, { Text("Cardio") })
+      if (initialCardioOnly) Text("Cardio exercises")
+      else FilterChip(cardioOnly, { cardioOnly = !cardioOnly; muscle = null }, { Text("Cardio") })
       AppTextField(query, { query = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Search") },
         leadingIcon = { Icon(Icons.Filled.Search, null) })
       LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -152,7 +154,7 @@ import com.gymclues.app.media.NowPlaying
       }
       LazyColumn(Modifier.weight(1f)) {
         if (list.isEmpty()) item { Text("No matching exercises.", Modifier.padding(vertical = 12.dp)) }
-        if (onCreate != null) item { TextButton(onCreate) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text("Not listed? Add your own exercise") } }
+        if (onCreate != null) item { TextButton(onCreate) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(4.dp)); Text(if (cardioOnly) "Add Custom Cardio Exercise" else "Not listed? Add your own exercise") } }
         items(list, key = { it.id }) { e -> val on = e.id in picked
           AppListItem(headlineContent = { Text(e.name) },
             supportingContent = { Text("${e.primaryMuscles.joinToString()} · ${e.movement} · ${e.difficulty}") },

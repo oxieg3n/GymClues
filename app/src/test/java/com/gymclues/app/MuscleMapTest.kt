@@ -104,7 +104,7 @@ class MuscleMapTest {
     saveDialog("deadlift-popup.png")
     compose.onNodeWithContentDescription("Close muscle map").performClick()
     compose.onNodeWithText("Muscle mapping").assertDoesNotExist()
-    compose.onNodeWithText("Start workout").assertIsDisplayed()
+    compose.onNodeWithText("Start Workout").assertIsDisplayed()
   }
 
   @Test fun activeWorkoutMapPreservesEnteredSetValues() {

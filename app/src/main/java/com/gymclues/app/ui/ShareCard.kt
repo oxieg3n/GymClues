@@ -35,6 +35,7 @@ private const val GREEN = 0xFF00FF41.toInt()
 
 /** Draws [card] over res/drawable-nodpi/share_bg.jpg (1080x1350) and returns the bitmap. */
 fun renderShareCard(ctx: Context, card: ShareCard): Bitmap {
+  if (card.rows.isNotEmpty() && card.title == "Workout complete") return renderWorkoutCard(ctx, card)
   val bg = BitmapFactory.decodeResource(ctx.resources, R.drawable.share_bg)
   val bmp = bg.copy(Bitmap.Config.ARGB_8888, true)
   val c = Canvas(bmp); val w = bmp.width.toFloat(); val h = bmp.height.toFloat()
@@ -60,6 +61,51 @@ fun renderShareCard(ctx: Context, card: ShareCard): Bitmap {
   if (list) drawRows(c, card.rows, w, h, y + 30f * k)
   else draw(card.sub, paint(52f, Color.WHITE), y + 30f * k, 4)
   return bmp
+}
+
+private fun renderWorkoutCard(ctx: Context, card: ShareCard): Bitmap {
+  val width = 1080
+  val columns = if (card.rows.size > 6) 2 else 1
+  val gap = 20
+  val cardWidth = (900 - gap * (columns - 1)) / columns
+  fun ink(size: Float, bold: Boolean = false) = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+    color = Color.WHITE; textSize = size; typeface = Typeface.create("sans-serif", if (bold) Typeface.BOLD else Typeface.NORMAL)
+  }
+  fun layout(value: String, size: Float, bold: Boolean, available: Int, alignment: Layout.Alignment = Layout.Alignment.ALIGN_NORMAL) =
+    StaticLayout.Builder.obtain(value, 0, value.length, ink(size, bold), available).setAlignment(alignment).build()
+  val title = layout(card.big, 55f, true, 900, Layout.Alignment.ALIGN_CENTER)
+  val date = layout(card.sub, 34f, false, 900, Layout.Alignment.ALIGN_CENTER)
+  val blocks = card.rows.map { (name, details) ->
+    val available = cardWidth - 44
+    val heading = layout(name, if (columns == 2) 36f else 44f, true, available)
+    val entries = layout(details, if (columns == 2) 29f else 35f, false, available)
+    Triple(heading, entries, heading.height + entries.height + 58)
+  }
+  val rowHeights = blocks.chunked(columns).map { row -> row.maxOf { it.third } }
+  val start = 235 + title.height + date.height + 36
+  val height = maxOf(1350, start + rowHeights.sum() + gap * rowHeights.size + 90)
+  val out = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+  val canvas = Canvas(out)
+  val background = BitmapFactory.decodeResource(ctx.resources, R.drawable.share_bg)
+  canvas.drawBitmap(background, null, Rect(0, 0, width, height), Paint(Paint.FILTER_BITMAP_FLAG))
+  val logo = BitmapFactory.decodeResource(ctx.resources, R.drawable.gymclues_logo)
+  canvas.drawBitmap(logo, null, Rect(480, 28, 600, 148), Paint(Paint.FILTER_BITMAP_FLAG))
+  val brand = ink(48f, true).apply { textAlign = Paint.Align.CENTER }
+  canvas.drawText("GYMCLUES", 540f, 206f, brand)
+  canvas.save(); canvas.translate(90f, 225f); title.draw(canvas); canvas.restore()
+  canvas.save(); canvas.translate(90f, (235 + title.height).toFloat()); date.draw(canvas); canvas.restore()
+  val border = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = GREEN; style = Paint.Style.STROKE; strokeWidth = 4f }
+  var y = start.toFloat()
+  blocks.chunked(columns).forEachIndexed { index, row ->
+    row.forEachIndexed { column, (heading, entries, blockHeight) ->
+      val x = (90 + column * (cardWidth + gap)).toFloat()
+      canvas.drawRoundRect(x, y, x + cardWidth, y + blockHeight, 22f, 22f, border)
+      canvas.save(); canvas.translate(x + 22f, y + 22f); heading.draw(canvas)
+      canvas.translate(0f, heading.height + 12f); entries.draw(canvas); canvas.restore()
+    }
+    y += rowHeights[index] + gap
+  }
+  return out
 }
 
 /** Saves the card as PNG in cache/share and returns the file (exposed through FileProvider, see res/xml/file_paths.xml). */

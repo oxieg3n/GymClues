@@ -182,7 +182,7 @@ class ThemeTest {
     compose.onNodeWithText("Bro split").performClick()
     compose.onAllNodesWithText("Details")[0].performClick()
     compose.onNodeWithText("Day 1: Back").performScrollTo().performClick()
-    compose.onNodeWithText("Start workout").performClick()
+    compose.onNodeWithText("Start Workout").performClick()
     compose.waitUntil(10_000) { compose.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isNotEmpty() }
   }
 

@@ -147,13 +147,19 @@ private fun typeName(split: String) = TYPE_INFO[split]?.first ?: split
   val p = app.programs.find(planId.substringBeforeLast('_'))
   val d = p?.days?.firstOrNull { it.day == planId.substringAfterLast('_').toIntOrNull() }
   if (p == null || d == null) return NotFound("Workout not found.")
+  val sessions by app.workouts.sessions().collectAsState(emptyList())
+  val assignedDate = date?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+  val completed = assignedDate?.let { assignedCompleted(AssignedDay(p, d, it), sessions) } == true
   LazyColumn(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
     item { date?.let { Muted(LocalDate.parse(it).format(longFmt)) }
       Text(d.session, style = MaterialTheme.typography.headlineSmall); Muted("${p.name} · day ${d.day} of ${p.cycleLength}") }
     if (!d.training) item { Text("Rest day. No prescribed workout.") }
     else {
-      item { AppButton({ nav.navigate(Routes.runProgram(planId)) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
-        Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(6.dp)); Text("Start workout") } }
+      item { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        AppButton({ nav.navigate(Routes.runProgram(planId, date)) }, Modifier.fillMaxWidth().heightIn(min = 52.dp), enabled = !completed) {
+          Icon(if (completed) Icons.Filled.Check else Icons.Filled.PlayArrow, null); Spacer(Modifier.width(6.dp)); Text(if (completed) "Completed" else "Start Workout") }
+        if (completed) AppOutlinedButton({ nav.navigate("programs") }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Start a 2nd Workout") }
+      } }
       listOf("Warm-up", "Working", "Cool-down").forEach { phase -> val rows = d.items.filter { it.phase == phase }
         if (rows.isNotEmpty()) {
           item { SectionTitle(if (phase == "Working") "Workout" else phase) }

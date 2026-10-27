@@ -56,6 +56,7 @@ class CardioDraft(val tracking: String, initial: CardioMetrics? = null, seconds:
         }
       }
     }
+    if (draft.tracking == "locomotion") field(draft.distance, { draft.distance = it; draft.edited = true }, "Distance (${draft.distanceUnit})", Modifier.fillMaxWidth())
     if (draft.tracking in listOf("bike", "rower")) Muted("Use the machine's resistance setting; levels vary by model.")
     if (showErrors && draft.metrics() == null) Text("Enter a positive time and valid measurements. Optional fields may be blank; use nonnegative numbers (incline may be negative).", color = MaterialTheme.colorScheme.error)
   }

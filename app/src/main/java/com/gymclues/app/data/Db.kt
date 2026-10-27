@@ -77,14 +77,17 @@ class Converters {
 /** A workout the user finished (tapped Done). Its sets are the SetLog rows with the same sessionId. */
 @Entity(tableName = "completed_sessions", indices = [Index("ownerId")]) data class CompletedSessionEntity(
   @PrimaryKey val id: String, val ownerId: String, val name: String, val gymId: String = "", val completedAt: Long = now(),
-  val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
+  val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false,
+  @ColumnInfo(defaultValue = "") val workoutDate: String = "", @ColumnInfo(defaultValue = "") val planId: String = "",
+  @ColumnInfo(defaultValue = "") val programName: String = "", @ColumnInfo(defaultValue = "") val dayName: String = "")
 
 /** An exercise a user added. Private until the user shares it; merged into the catalog on this device. */
 @Entity(tableName = "custom_exercises", indices = [Index("ownerId")]) data class CustomExerciseEntity(
   @PrimaryKey val id: String = "ex_u_" + newId(), val name: String, val equipmentIds: List<String> = emptyList(),
   val primaryMuscles: List<String> = emptyList(), val movement: String = "", val steps: List<String> = emptyList(),
   val safety: String = "", val ownerId: String, val visibility: String = Visibility.PRIVATE, val status: String = ReviewStatus.DRAFT,
-  val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false)
+  val createdAt: Long = now(), val updatedAt: Long = now(), val syncState: String = SyncState.LOCAL, val deleted: Boolean = false,
+  @ColumnInfo(defaultValue = "'strength'") val tracking: String = "strength")
 
 @Entity(tableName = "users") data class UserEntity(
   @PrimaryKey val id: String = newId(), val displayName: String, val email: String = "",
@@ -104,7 +107,7 @@ class Converters {
   @Query("SELECT * FROM Unavailable") fun unavailable(): Flow<List<Unavailable>>
   @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun markUnavailable(u: Unavailable)
   @Delete suspend fun markAvailable(u: Unavailable)
-  @Insert suspend fun log(s: SetLog)
+  @Insert suspend fun log(s: SetLog): Long
   @Query("SELECT * FROM SetLog ORDER BY date DESC") fun history(): Flow<List<SetLog>>
 
   // workouts
@@ -115,6 +118,10 @@ class Converters {
   @Upsert suspend fun upsertWorkout(w: WorkoutEntity)
   @Query("DELETE FROM workout_items WHERE workoutId = :id") suspend fun clearItems(id: String)
   @Insert suspend fun insertItems(items: List<WorkoutItemEntity>)
+  @Transaction suspend fun saveWorkoutWithItems(workout: WorkoutEntity, items: List<WorkoutItemEntity>, operation: String) {
+    upsertWorkout(workout); clearItems(workout.id); insertItems(items)
+    enqueue(OutboxEntity(entityType = "workout", entityId = workout.id, op = operation))
+  }
   @Query("UPDATE workouts SET ownerId = :owner WHERE ownerId = '__local__'") suspend fun adoptOwner(owner: String)
 
   // gyms
@@ -166,14 +173,23 @@ class Converters {
   GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
   ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class, CompletedSessionEntity::class,
   FoodEntity::class, DiaryEntry::class, FoodBundle::class, BundleItem::class, NutritionGoal::class, WeightLog::class, WaterLog::class],
-  version = 7, exportSchema = true)
+  version = 8, exportSchema = true)
 @TypeConverters(Converters::class, NutritionConverters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
   abstract fun nutrition(): NutritionDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8).build().also { i = it } } }
+}
+
+val MIGRATION_7_8 = object : Migration(7, 8) {
+  override fun migrate(db: SupportSQLiteDatabase) {
+    listOf("workoutDate", "planId", "programName", "dayName").forEach {
+      db.execSQL("ALTER TABLE `completed_sessions` ADD COLUMN `$it` TEXT NOT NULL DEFAULT ''")
+    }
+    db.execSQL("ALTER TABLE `custom_exercises` ADD COLUMN `tracking` TEXT NOT NULL DEFAULT 'strength'")
+  }
 }
 
 /** v1 -> v3 app (db 1 -> 2): keeps workout history and any old CustomWorkout rows. */

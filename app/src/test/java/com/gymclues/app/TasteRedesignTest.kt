@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.gymclues.app.data.*
 import com.gymclues.app.ui.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import org.junit.After
 import org.junit.Before
 import org.junit.Assert.assertTrue
@@ -98,7 +99,7 @@ class TasteRedesignTest {
     shot("05-program-detail-390")
     compose.onNodeWithText("Day 1: Back").performScrollTo().performClick()
     shot("06-session-preview-390")
-    compose.onNodeWithText("Start workout").performClick()
+    compose.onNodeWithText("Start Workout").performClick()
     compose.waitUntil(10_000) { compose.onAllNodesWithContentDescription("Muscle map for Deadlift").fetchSemanticsNodes().isNotEmpty() }
     compose.onAllNodes(hasSetTextAction())[0].performTextInput("75")
     compose.onAllNodes(hasSetTextAction())[1].performTextInput("8")
@@ -152,11 +153,12 @@ class TasteRedesignTest {
         date = LocalDate.now().minusDays(day.toLong()).atTime(12, 0).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
         exerciseId = app.catalog.byName("Deadlift")!!.id, setNo = 1, reps = 8, weight = 75.0,
         sessionId = if (day == 0) "taste-preview" else "taste-preview-$day")) }
-      app.workouts.completeSession("taste-preview", "Back", "")
+      val assigned = scheduledDay(app.programs.programs, app.programs.assignments().first(), LocalDate.now(), RestRules.NONE)!!
+      app.workouts.completeSession("taste-preview", "Back", "", LocalDate.now().toString(), planId(assigned))
     }
     compose.waitUntil(10_000) { compose.onAllNodesWithText("Logged today").fetchSemanticsNodes().isNotEmpty() }
     shot("18-home-assigned-390")
-    compose.onNodeWithText("Rest Day", substring = false).performScrollTo().performClick()
+    compose.onNodeWithText("Rest Day", substring = false).performClick()
     shot("19-rest-dialog-390")
     compose.onNodeWithText("Set Today as Rest Day").performClick()
     compose.waitUntil(10_000) { compose.onAllNodesWithText("Recovery day").fetchSemanticsNodes().isNotEmpty() }

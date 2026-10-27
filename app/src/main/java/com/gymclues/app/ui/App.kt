@@ -1,5 +1,6 @@
 package com.gymclues.app.ui
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -25,7 +26,7 @@ object Routes {
   fun runTemplate(id: String) = "run/template/${Uri.encode(id)}"
   fun runCustom(id: String) = "run/custom/${Uri.encode(id)}"
   fun builder(id: String? = null) = "builder" + (id?.let { "?id=${Uri.encode(it)}" } ?: "")
-  fun runProgram(planId: String) = "run/program/${Uri.encode(planId)}"
+  fun runProgram(planId: String, date: String? = null) = "run/program/${Uri.encode(planId)}" + (date?.let { "?date=$it" } ?: "")
   fun programType(split: String) = "programs/${Uri.encode(split)}"
   fun program(id: String) = "program/${Uri.encode(id)}"
   fun programDay(planId: String, date: String?) = "pday/${Uri.encode(planId)}" + (date?.let { "?date=$it" } ?: "")
@@ -44,19 +45,26 @@ object Routes {
   val prefs = LocalContext.current.getSharedPreferences("ui", android.content.Context.MODE_PRIVATE)
   val tour = remember { TourState(if (prefs.getBoolean("tourDone", false)) -1 else 0) }
   var menuOpen by remember { mutableStateOf(false) }
+  var pendingNavigation by remember { mutableStateOf<(() -> Unit)?>(null) }
+  fun navigate(action: () -> Unit) { if (app.layoutEditing) pendingNavigation = action else action() }
+  BackHandler(app.layoutEditing && pendingNavigation == null) { pendingNavigation = { nav.popBackStack() } }
+  if (pendingNavigation != null) AlertDialog(onDismissRequest = { pendingNavigation = null },
+    title = { Text("Discard layout changes?") }, text = { Text("Unsaved changes on this screen will be discarded.") },
+    confirmButton = { TextButton({ val action = pendingNavigation; pendingNavigation = null; action?.invoke() }) { Text("Discard") } },
+    dismissButton = { TextButton({ pendingNavigation = null }) { Text("Keep editing") } })
   LaunchedEffect(Unit) { app.session.ensureUser(); app.workouts.adoptMigrated() }
   LaunchedEffect(tour.step) { if (tour.step < 0) prefs.edit().putBoolean("tourDone", true).apply() }
   val touring = tour.step >= 0 && route == "home"
   val menuVisible = if (touring) tour.target == "menu" else menuOpen
   CompositionLocalProvider(LocalTour provides tour.takeIf { touring }) {
   Scaffold { pad ->
-    BoxWithConstraints(Modifier.fillMaxSize().padding(pad)) {
+    Box(Modifier.fillMaxSize().padding(pad)) {
       Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        AppHeader(app, showBack = route != null && route != "home", onBack = { nav.popBackStack() },
-          openMenu = { menuOpen = !menuOpen }, go = { menuOpen = false; nav.navigate(it) }, modifier = Modifier.widthIn(max = 1040.dp).fillMaxWidth())
+        AppHeader(app, showBack = route != null && route != "home", onBack = { navigate { nav.popBackStack() } },
+          openMenu = { menuOpen = !menuOpen }, go = { destination -> menuOpen = false; navigate { nav.navigate(destination) } }, modifier = Modifier.widthIn(max = 1040.dp).fillMaxWidth())
         Box(Modifier.weight(1f).widthIn(max = 1040.dp).fillMaxWidth()) {
           NavHost(nav, "home") {
-      composable("home") { Home(app, nav::navigate) }
+      composable("home") { Home(app) { destination -> navigate { nav.navigate(destination) } } }
       composable("theme") { ThemeScreen() }
       nutritionRoutes(app, nav)
       composable("muscles") { ListScreen("Choose a primary muscle group", app.catalog.muscles, { nav.navigate(Routes.addExercise()) }) { nav.navigate(Routes.list(it)) } }
@@ -67,10 +75,10 @@ object Routes {
       composable("equip/{id}?ex={ex}", listOf(navArgument("ex") { type = NavType.StringType; nullable = true; defaultValue = null })) {
         EquipmentDetail(app, it.arguments?.getString("id").orEmpty(), it.arguments?.getString("ex"), nav) }
       composable("styles") { Workouts(app, nav) }
-      composable("run/{kind}/{id}") { ActiveWorkout(app, it.arguments?.getString("kind").orEmpty(), it.arguments?.getString("id").orEmpty(), offIds, nav) {
+      composable("run/{kind}/{id}?date={date}", listOf(navArgument("date") { type = NavType.StringType; nullable = true; defaultValue = null })) { ActiveWorkout(app, it.arguments?.getString("kind").orEmpty(), it.arguments?.getString("id").orEmpty(), offIds, nav, it.arguments?.getString("date"), navigate = { destination -> navigate { nav.navigate(destination) } }) {
         nav.popBackStack("home", false) } }
       composable("builder?id={id}", listOf(navArgument("id") { type = NavType.StringType; nullable = true; defaultValue = null })) {
-        WorkoutBuilder(app, it.arguments?.getString("id"), offIds, { nav.navigate(Routes.addExercise()) }) { nav.popBackStack() } }
+        WorkoutBuilder(app, it.arguments?.getString("id"), offIds, { navigate { nav.navigate(Routes.addExercise()) } }) { nav.popBackStack() } }
       composable("equipment") { EquipmentScreen(app, offIds, nav) }
       composable("sessions") { CompletedSessions(app, nav) }
       composable("session/{id}") { SessionDetail(app, it.arguments?.getString("id").orEmpty(), nav) }
@@ -93,7 +101,7 @@ object Routes {
           }
           if (menuVisible) {
             Box(Modifier.fillMaxSize().clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { menuOpen = false })
-            AppMenu(app, { menuOpen = false; nav.navigate(it) }, Modifier.align(Alignment.TopEnd).padding(end = 12.dp, top = 2.dp), selectedRoute = route)
+            AppMenu(app, { destination -> menuOpen = false; navigate { nav.navigate(destination) } }, Modifier.align(Alignment.TopEnd).padding(end = 12.dp, top = 2.dp), selectedRoute = route)
           }
         }
       }

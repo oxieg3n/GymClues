@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -28,7 +29,7 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
   val activeGymId by app.gyms.activeGymId.collectAsState()
   val gym by remember(activeGymId) { app.gyms.gymFlow(activeGymId) }.collectAsState(null)
   val cs = MaterialTheme.colorScheme
-  Column(modifier.padding(horizontal = 20.dp, vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+  Column(modifier.alpha(if (app.layoutEditing) 0.5f else 1f).padding(horizontal = 20.dp, vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     Row(Modifier.fillMaxWidth().heightIn(min = 56.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
       if (showBack) IconButton(onBack, Modifier.size(44.dp)) {
         Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back", Modifier.size(20.dp))
@@ -46,6 +47,7 @@ internal fun menuProgram(assignments: List<ProgramAssignmentEntity>, date: Local
       IconButton(openMenu, Modifier.size(48.dp).tourTarget("logo").semantics { contentDescription = "GymClues menu" }) {
         Icon(Icons.Filled.Menu, null, Modifier.size(24.dp), tint = cs.primary)
       }
+      if (app.layoutEditing) Icon(Icons.Filled.Lock, "Header locked", Modifier.size(20.dp))
     }
     NowPlayingBar(Modifier.fillMaxWidth().heightIn(min = 48.dp).tourTarget("media"))
   }

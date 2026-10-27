@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gymclues.app.data.*
 import java.time.LocalDate
+import java.time.Instant
+import java.time.ZoneId
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.time.temporal.TemporalAdjusters
@@ -30,6 +32,11 @@ import java.util.Locale
 
 private val dayFmt = java.time.format.DateTimeFormatter.ofPattern("EEE, MMM d")
 fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
+fun sessionDate(s: CompletedSessionEntity): LocalDate = s.workoutDate.takeIf { it.isNotBlank() }?.let(LocalDate::parse)
+  ?: Instant.ofEpochMilli(s.completedAt).atZone(ZoneId.systemDefault()).toLocalDate()
+fun assignedCompleted(a: AssignedDay, sessions: List<CompletedSessionEntity>): Boolean = sessions.any { s ->
+  sessionDate(s) == a.date && (s.planId == planId(a) || s.planId.isBlank() && s.name == programPlan(a.program, a.day).name)
+}
 
 /** The home lead owns today; this panel shows the next two calendar days. */
 @Composable fun CalendarCard(app: AppContainer, stats: WorkoutStats, go: (String) -> Unit) {
@@ -75,17 +82,21 @@ fun planId(a: AssignedDay) = "${a.program.id}_${a.day.day}"
   }
 }
 
-private data class CalData(val done: Set<LocalDate>, val assignments: List<ProgramAssignmentEntity>, val rest: RestRules)
+private data class CalData(val done: Set<LocalDate>, val assignments: List<ProgramAssignmentEntity>, val rest: RestRules,
+  val sessions: List<CompletedSessionEntity>)
+private fun dayCompleted(date: LocalDate, a: AssignedDay?, data: CalData) =
+  if (a?.day?.training == true) assignedCompleted(a, data.sessions) else date in data.done
 @Composable private fun useCalendarData(app: AppContainer): CalData {
-  val logs by app.workouts.history().collectAsState(emptyList())
+  val sessions by app.workouts.sessions().collectAsState(emptyList())
   val assignments by app.programs.assignments().collectAsState(emptyList())
-  val stats = remember(logs) { workoutStats(logs.map { it.date }) }
+  val done = remember(sessions) { sessions.mapTo(HashSet(), ::sessionDate) }
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
-  return CalData(stats.doneDays, assignments, rest)
+  return CalData(done, assignments, rest, sessions)
 }
 
 @Composable fun WeekCalendar(app: AppContainer, go: (String) -> Unit) {
-  val (done, assignments, rest) = useCalendarData(app)
+  val data = useCalendarData(app)
+  val (_, assignments, rest) = data
   var offset by rememberSaveable { mutableIntStateOf(0) }
   val today = LocalDate.now()
   val start = today.with(TemporalAdjusters.previousOrSame(WeekFields.of(Locale.getDefault()).firstDayOfWeek)).plusWeeks(offset.toLong())
@@ -115,7 +126,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
               else -> SessionLink(a, go)
             }
           }
-          if (d in done) Icon(Icons.Filled.CheckCircle, "Worked out", tint = MaterialTheme.colorScheme.primary) else Spacer(Modifier.size(24.dp))
+          if (dayCompleted(d, a, data)) Icon(Icons.Filled.CheckCircle, "Completed", tint = MaterialTheme.colorScheme.primary) else Spacer(Modifier.size(24.dp))
         }
       }
     }
@@ -123,7 +134,8 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
 }
 
 @Composable fun MonthCalendar(app: AppContainer, go: (String) -> Unit) {
-  val (done, assignments, rest) = useCalendarData(app)
+  val data = useCalendarData(app)
+  val (_, assignments, rest) = data
   var offset by rememberSaveable { mutableIntStateOf(0) }
   var picked by rememberSaveable { mutableStateOf<String?>(null) }
   val today = LocalDate.now()
@@ -153,7 +165,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
             Column(Modifier.padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
               Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("${d.dayOfMonth}", style = MaterialTheme.typography.labelLarge, color = if (d == today) cs.primary else cs.onSurface)
-                if (d in done) Icon(Icons.Filled.Check, "Worked out", Modifier.size(14.dp).padding(start = 2.dp), tint = cs.primary)
+                if (dayCompleted(d, a, data)) Icon(Icons.Filled.Check, "Completed", Modifier.size(14.dp).padding(start = 2.dp), tint = cs.primary)
               }
               if (a != null || rest.isRest(d)) Text(if (a?.userRest == true || a == null) "Off" else if (a.day.training) a.day.session else "Rest", fontSize = 10.sp, lineHeight = 11.sp, maxLines = 2, overflow = TextOverflow.Ellipsis,
                 color = if (a?.userRest == true || a == null) cs.error else if (a.day.training) cs.primary else cs.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
@@ -167,7 +179,7 @@ private data class CalData(val done: Set<LocalDate>, val assignments: List<Progr
       val a = scheduledDay(app.programs.programs, assignments, sel, rest)
       Surface(Modifier.fillMaxWidth().padding(top = 8.dp), shape = MaterialTheme.shapes.medium, color = cs.surfaceContainerHigh, border = informationBorder()) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-          Text(sel.format(dayFmt) + if (sel in done) "  (worked out)" else "", style = MaterialTheme.typography.titleMedium)
+          Text(sel.format(dayFmt) + if (dayCompleted(sel, a, data)) "  (Completed)" else "", style = MaterialTheme.typography.titleMedium)
           when {
             a != null && a.userRest || a == null && rest.isRest(sel) -> Text("Your rest day", color = cs.error)
             a == null -> Muted(if (assignments.isEmpty()) "No program assigned." else "Outside program dates.")

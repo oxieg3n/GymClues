@@ -109,10 +109,11 @@ class CardioTest {
     snapshot("cardio-entry.png")
     compose.onNodeWithText("Record cardio").performClick()
     compose.waitUntil(10_000) { runBlocking { app.workouts.history().first().size == 1 } }
-    compose.onNodeWithText("Recorded").assertIsNotEnabled()
+    compose.onNodeWithText("Save cardio changes").assertIsEnabled()
     val stored = runBlocking { app.workouts.history().first().single().cardio!! }
     assertEquals(15.0, stored.minutes, 0.0); assertEquals(3.5, stored.speed!!, 0.0); assertEquals(5.0, stored.incline!!, 0.0)
-    compose.onNodeWithText("Finish Workout").performScrollTo().performClick()
+    compose.onNode(hasScrollAction()).performScrollToNode(hasText("Finish Workout"))
+    compose.onNodeWithText("Finish Workout").performClick()
     compose.onNodeWithText("Done").performClick()
     compose.waitUntil(10_000) { runBlocking { app.workouts.sessions().first().size == 1 } }
     assertEquals(1, runBlocking { app.workouts.history().first().size })
@@ -122,7 +123,8 @@ class CardioTest {
     val app = app()
     val id = runBlocking { app.workouts.saveCustom(null, "Planned cardio", listOf(TemplateItem("ex_cardio_treadmill_walking", 1, "20", 0))) }
     compose.setContent { GymCluesTheme { ActiveWorkout(app, "custom", id, emptySet(), rememberNavController()) {} } }
-    compose.onNodeWithText("Finish Workout").performScrollTo().performClick()
+    compose.onNode(hasScrollAction()).performScrollToNode(hasText("Finish Workout"))
+    compose.onNodeWithText("Finish Workout").performClick()
     compose.onNodeWithText("Done").performClick()
     compose.waitUntil(10_000) { runBlocking { app.workouts.sessions().first().isNotEmpty() } }
     assertTrue(runBlocking { app.workouts.history().first().isEmpty() })

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -80,21 +81,30 @@ class ExerciseRepository(private val dao: GymDao, private val catalog: CatalogRe
   private fun norm(s: String) = s.lowercase().replace(Regex("[^a-z0-9]"), "")
   fun attach(scope: CoroutineScope) { scope.launch { dao.customExercises(session.userId).collect { l -> catalog.custom = l.map {
     catalog.trainingGuides.enrich(Exercise(it.id, it.name, it.equipmentIds, it.primaryMuscles,
-      movement = it.movement.ifBlank { "Custom" }, steps = it.steps, safety = it.safety)) } } } }
+      movement = it.movement.ifBlank { "Custom" }, steps = it.steps, safety = it.safety, tracking = it.tracking)) } } } }
   fun mine() = dao.customExercises(session.userId)
   /** Returns an error message, or null when saved. */
-  suspend fun save(id: String?, name: String, muscles: List<String>, equipmentIds: List<String>, movement: String, steps: List<String>, safety: String): String? {
+  suspend fun save(id: String?, name: String, muscles: List<String>, equipmentIds: List<String>, movement: String, steps: List<String>, safety: String, tracking: String = "strength"): String? {
     val n = name.trim()
     if (n.isEmpty()) return "Enter a name."
-    if (muscles.isEmpty()) return "Pick at least one muscle."
+    if (muscles.isEmpty() && tracking == "strength") return "Pick at least one muscle."
+    if (tracking !in listOf("strength", "locomotion", "stairs", "bike", "rower")) return "Choose a valid tracking type."
     if (catalog.exercises.any { norm(it.name) == norm(n) && it.id != id }) return "An exercise with this name already exists."
     val old = id?.let { dao.customExercise(it) }
+    if (id != null && old?.ownerId != session.userId) return "Exercise not found."
     val e = (old ?: CustomExerciseEntity(name = n, ownerId = session.userId)).copy(name = n, primaryMuscles = muscles, equipmentIds = equipmentIds,
-      movement = movement, steps = steps.filter { it.isNotBlank() }, safety = safety.trim(), updatedAt = now(), syncState = SyncState.PENDING)
+      movement = movement, steps = steps.filter { it.isNotBlank() }, safety = safety.trim(), tracking = tracking, updatedAt = now(), syncState = SyncState.PENDING)
     dao.upsertCustomExercise(e); dao.enqueue(OutboxEntity(entityType = "exercise", entityId = e.id, op = if (old == null) "create" else "update"))
     return null
   }
-  suspend fun delete(id: String) { dao.customExercise(id)?.let {
+  suspend fun createCardio(name: String, tracking: String): Pair<String?, Exercise?> {
+    val error = save(null, name, emptyList(), emptyList(), "Cardio", emptyList(), "", tracking)
+    if (error != null) return error to null
+    val saved = mine().first().first { norm(it.name) == norm(name) }
+    val exercise = Exercise(saved.id, saved.name, emptyList(), emptyList(), movement = "Cardio", tracking = saved.tracking)
+    return null to exercise
+  }
+  suspend fun delete(id: String) { dao.customExercise(id)?.takeIf { it.ownerId == session.userId }?.let {
     dao.upsertCustomExercise(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING))
     dao.enqueue(OutboxEntity(entityType = "exercise", entityId = id, op = "delete")) } }
 }
@@ -111,32 +121,31 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
   fun customWorkouts(): Flow<List<WorkoutEntity>> = dao.workouts(session.userId)
   /** v1 rows migrated with a placeholder owner are adopted by the current user on first launch. */
   suspend fun adoptMigrated() = dao.adoptOwner(session.userId)
-  suspend fun customWorkout(id: String) = dao.workout(id)
-  suspend fun customItems(id: String) = dao.workoutItems(id)
+  suspend fun customWorkout(id: String) = dao.workout(id)?.takeIf { it.ownerId == session.userId }
+  suspend fun customItems(id: String) = if (customWorkout(id) != null) dao.workoutItems(id) else emptyList()
 
   suspend fun plan(kind: String, id: String): WorkoutPlan? = when (kind) {
     "template" -> catalog.template(id)?.let { WorkoutPlan(it.id, it.name, it.items, false) }
-    else -> dao.workout(id)?.takeIf { !it.deleted }?.let { w ->
+    else -> dao.workout(id)?.takeIf { !it.deleted && it.ownerId == session.userId }?.let { w ->
       WorkoutPlan(w.id, w.name, dao.workoutItems(w.id).map { TemplateItem(it.exerciseId, it.sets, it.reps, it.restSec) }, true) }
   }
 
   suspend fun saveCustom(id: String?, name: String, items: List<TemplateItem>): String {
     val existing = id?.let { dao.workout(it) }
+    require(id == null || existing?.ownerId == session.userId) { "Workout not found" }
     val w = (existing ?: WorkoutEntity(name = name, ownerId = session.userId)).copy(name = name.trim(), updatedAt = now(),
       syncState = SyncState.PENDING)
-    dao.upsertWorkout(w); dao.clearItems(w.id)
-    dao.insertItems(items.mapIndexed { i, t -> WorkoutItemEntity(workoutId = w.id, position = i, exerciseId = t.exerciseId,
-      sets = t.sets, reps = t.reps, restSec = t.restSec) })
-    dao.enqueue(OutboxEntity(entityType = "workout", entityId = w.id, op = if (existing == null) "create" else "update"))
+    dao.saveWorkoutWithItems(w, items.mapIndexed { i, t -> WorkoutItemEntity(workoutId = w.id, position = i, exerciseId = t.exerciseId,
+      sets = t.sets, reps = t.reps, restSec = t.restSec) }, if (existing == null) "create" else "update")
     return w.id
   }
   suspend fun deleteCustom(id: String) { dao.workout(id)?.let {
     dao.upsertWorkout(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING))
     dao.enqueue(OutboxEntity(entityType = "workout", entityId = id, op = "delete")) } }
 
-  suspend fun logSet(s: SetLog) {
+  suspend fun logSet(s: SetLog): Long {
     require(s.cardio == null || s.cardio.valid()) { "Invalid cardio measurements" }
-    dao.log(s)
+    return dao.log(s)
   }
   fun history() = dao.history()
   fun sessions() = dao.sessions(session.userId)
@@ -151,8 +160,11 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
   /** Hides the session and removes its sets so streaks and totals update. */
   suspend fun deleteSession(id: String) { dao.session(id)?.let {
     dao.upsertSession(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING)); dao.deleteSets(id) } }
-  suspend fun completeSession(id: String, name: String, gymId: String) =
-    dao.upsertSession(CompletedSessionEntity(id = id, ownerId = session.userId, name = name.ifBlank { "Workout" }, gymId = gymId))
+  suspend fun completeSession(id: String, name: String, gymId: String, workoutDate: String = "", planId: String = "", programName: String = "", dayName: String = "") {
+    if (dao.session(id) == null) dao.upsertSession(CompletedSessionEntity(id = id, ownerId = session.userId,
+      name = name.ifBlank { "Workout" }, gymId = gymId, workoutDate = workoutDate, planId = planId,
+      programName = programName, dayName = dayName))
+  }
 }
 
 class GymRepository(private val ctx: Context, private val dao: GymDao, private val catalog: CatalogRepository,
@@ -244,6 +256,7 @@ data class MissingItem(val type: String, val id: String, val name: String, val m
 
 /** One object that owns every repository; created once in MainActivity. */
 class AppContainer(ctx: Context, foodProviders: List<com.gymclues.app.data.nutrition.FoodProvider>? = null) {
+  var layoutEditing by mutableStateOf(false)
   val db = GymDb.get(ctx); val dao = db.dao()
   val catalog = CatalogRepository(ctx)
   val session = UserSession(ctx, dao)

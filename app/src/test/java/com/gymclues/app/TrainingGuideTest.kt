@@ -188,7 +188,7 @@ class TrainingGuideTest {
     snapshot("rack-setup-popup.png")
     compose.onAllNodesWithContentDescription("Close training guide").onLast().performClick()
     compose.onNodeWithContentDescription("Close training guide").performClick()
-    compose.onNodeWithText("Start workout").assertIsDisplayed()
+    compose.onNodeWithText("Start Workout").assertIsDisplayed()
   }
 
   @Test fun safetyMovementChoicesUseDistinctGuides() {

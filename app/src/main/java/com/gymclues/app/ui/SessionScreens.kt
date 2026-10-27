@@ -29,6 +29,8 @@ private fun dateLabel(t: Long) = SimpleDateFormat("EEE, MMM d", Locale.US).forma
 
 /** Sets of one session in the order the exercises were done. */
 internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sessionId == id }.sortedWith(compareBy({ it.id }))
+internal fun completedExerciseGroups(logs: List<SetLog>): List<Pair<String, List<SetLog>>> =
+  logs.groupBy { it.exerciseId }.entries.sortedBy { e -> e.value.maxOf { it.id } }.map { it.key to it.value.sortedBy { s -> s.id } }
 
 /** Finished workouts as a grid. Tap one to see its sets and share it. */
 @Composable fun CompletedSessions(app: AppContainer, nav: NavHostController) {
@@ -104,7 +106,7 @@ internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sess
         }
       }
     }
-    items(sets.groupBy { it.exerciseId }.entries.toList(), key = { it.key }) { (ex, exSets) ->
+    items(completedExerciseGroups(sets), key = { it.first }) { (ex, exSets) ->
       AppCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(app.catalog.displayName(ex), fontWeight = FontWeight.Medium)
         exSets.forEachIndexed { i, set ->

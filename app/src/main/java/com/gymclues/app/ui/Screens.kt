@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -32,40 +33,62 @@ val SPLIT_HELP = mapOf(
   "Body-Part Split (Bro Split)" to "One or two muscle groups per day, e.g. Chest Day.")
 
 @Composable fun Home(app: AppContainer, go: (String) -> Unit) {
-  val logs by app.workouts.history().collectAsState(emptyList())
-  val stats = remember(logs) { workoutStats(logs.map { it.date }) }
+  val sessions by app.workouts.sessions().collectAsState(emptyList())
+  val stats = remember(sessions) { workoutStats(sessions.map { sessionDate(it).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli() }) }
   val assignments by app.programs.assignments().collectAsState(emptyList())
   val rest by app.programs.restRules().collectAsState(RestRules.NONE)
   val streak = remember(stats, assignments, rest) { programStreak(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   val progress = remember(stats, assignments, rest) { programProgress(stats.doneDays, app.programs.programs, assignments, rest, stats.today) }
   val today = scheduledDay(app.programs.programs, assignments, stats.today, rest)
+  val prefs = LocalContext.current.getSharedPreferences("ui", android.content.Context.MODE_PRIVATE)
+  val layoutKey = "home_layout_${app.session.userId}"
+  val defaults = listOf("training", "nutrition", "streak", "progress", "calendar")
+  var editing by remember { mutableStateOf(false) }
+  var message by remember { mutableStateOf<String?>(null) }
+  DisposableEffect(editing) { app.layoutEditing = editing; onDispose { app.layoutEditing = false } }
   BoxWithConstraints(Modifier.fillMaxSize()) {
-    val wide = maxWidth >= 700.dp
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+  val wide = maxWidth >= 700.dp
+  val initial = if (wide) listOf("training", "nutrition", "calendar", "streak", "progress") else defaults
+  val order = remember(layoutKey, wide) { mutableStateListOf<String>().apply {
+    val saved = prefs.getString(layoutKey, null)?.split(',').orEmpty().filter { it in defaults }.distinct()
+    addAll(saved + initial.filterNot(saved::contains))
+  } }
+  val homeScroll = rememberScrollState()
+  Box(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().verticalScroll(homeScroll).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+      Spacer(Modifier.height(4.dp))
       ScreenTitle("Today", stats.today.format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d")))
-      if (wide) {
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.Top) {
-          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
-            com.gymclues.app.ui.nutrition.HomeNutrition(app) { go("nutrition") }
-            Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
-          }
-          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
-            Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } }
-              ?: ProgramChoice() }
-            Box(Modifier.tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().heightIn(min = 48.dp)) }
-          }
+      TextButton({ if (editing) { val saved = prefs.getString(layoutKey, null)?.split(',').orEmpty().filter { it in defaults }.distinct()
+          order.clear(); order.addAll(saved + initial.filterNot(saved::contains)) }; editing = !editing }, Modifier.fillMaxWidth()) { Text(if (editing) "Cancel layout" else "Unlock Layout") }
+      message?.let { Text(it, color = MaterialTheme.colorScheme.primary) }
+      @Composable fun sectionCard(section: String) { key(section) {
+        if (editing) LayoutHandle(section,
+          { val at = order.indexOf(section); if (at > 0) order.add(at - 1, order.removeAt(at)) },
+          { val at = order.indexOf(section); if (at in 0 until order.lastIndex) order.add(at + 1, order.removeAt(at)) }, homeScroll)
+        when (section) {
+          "training" -> TodayTraining(today, rest.isRest(stats.today), today?.let { assignedCompleted(it, sessions) } == true, go)
+          "nutrition" -> com.gymclues.app.ui.nutrition.HomeNutrition(app) { go("nutrition") }
+          "streak" -> Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
+          "progress" -> Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } } ?: ProgramChoice() }
+          "calendar" -> Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
         }
-      } else {
-        TodayTraining(today, rest.isRest(stats.today), stats.today in stats.doneDays, go)
-        com.gymclues.app.ui.nutrition.HomeNutrition(app) { go("nutrition") }
-        Box(Modifier.tourTarget("streak")) { StreakPanel(stats.copy(streak = streak ?: stats.streak), streak != null) }
-        Box(Modifier.tourTarget("progress")) { progress?.let { ProgramProgressCard(it) { go("programs") } } ?: ProgramChoice() }
-        Box(Modifier.tourTarget("schedule")) { CalendarCard(app, stats, go) }
-        Box(Modifier.tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().heightIn(min = 48.dp)) }
+      } }
+      if (wide) Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.Top) {
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) { order.take(3).forEach { sectionCard(it) } }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) { order.drop(3).forEach { sectionCard(it) } }
+      } else order.forEach { sectionCard(it) }
+      Spacer(Modifier.height(100.dp))
+    }
+    Surface(Modifier.align(Alignment.BottomCenter).fillMaxWidth(), color = MaterialTheme.colorScheme.background) {
+      Row(Modifier.navigationBarsPadding().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Box(Modifier.weight(1f).tourTarget("rest")) { RestDayButton(app, go, Modifier.fillMaxWidth().heightIn(min = 56.dp)) }
+        if (editing) SaveLayoutButton({
+          if (prefs.edit().putString(layoutKey, order.joinToString(",")).commit()) { editing = false; message = "Layout saved" }
+          else message = "Could not save layout. Try again."
+        }, Modifier.weight(1f))
       }
     }
+  }
   }
 }
 
@@ -97,9 +120,10 @@ val SPLIT_HELP = mapOf(
           val seconds = a.day.items.sumOf { it.durationSec }
           Text(if (seconds > 0) "${a.day.items.size} timed blocks \u00b7 ${seconds / 60} min planned"
             else "${rows.size} exercises \u00b7 ${rows.sumOf { it.setCount }} working sets", style = MaterialTheme.typography.bodyMedium)
-          AppButton({ go(Routes.runProgram(planId(a))) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
-            Icon(Icons.Filled.PlayArrow, null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp)); Text("Start today's workout")
+          AppButton({ go(Routes.runProgram(planId(a), a.date.toString())) }, Modifier.fillMaxWidth().heightIn(min = 52.dp), enabled = !done) {
+            Icon(if (done) Icons.Filled.Check else Icons.Filled.PlayArrow, null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp)); Text(if (done) "Completed" else "Start today's workout")
           }
+          if (done) AppOutlinedButton({ go("programs") }, Modifier.fillMaxWidth()) { Text("Start a 2nd Workout") }
           TextButton({ go(Routes.programDay(planId(a), a.date.toString())) }, Modifier.fillMaxWidth()) { Text("Preview session") }
         }
         a != null || restDay -> {

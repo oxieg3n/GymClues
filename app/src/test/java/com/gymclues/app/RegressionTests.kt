@@ -68,6 +68,45 @@ class RegressionTests {
     compose.waitUntil(10_000) { compose.onAllNodesWithText("Set 1: 100 lb x 10").fetchSemanticsNodes().isNotEmpty() }
     compose.onNodeWithText("Share").performClick()
     compose.onNodeWithText("Share your workout").assertExists()
+    compose.onNodeWithText("Copy Post Text").performScrollTo().performClick()
+    val copied = (ctx.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).primaryClip
+      ?.getItemAt(0)?.coerceToText(ctx).toString()
+    assertTrue(copied!!.startsWith("#GymClues Workout Completed:"))
+  }
+
+  @Test fun savedAssignedWorkoutDisablesRestartAndOffersAnotherWorkout() {
+    val app = newApp()
+    val program = app.programs.programs.first { p -> p.days.any { it.training } }
+    val day = program.days.first { it.training }
+    val plan = "${program.id}_${day.day}"
+    val date = java.time.LocalDate.now().toString()
+    runBlocking { app.workouts.completeSession("first", "${program.name} - ${day.session}", "", date, plan, program.name, day.session) }
+    compose.setContent { val nav = androidx.navigation.compose.rememberNavController(); ProgramDayScreen(app, plan, date, nav) }
+    compose.waitUntil(10_000) { compose.onAllNodesWithText("Completed").fetchSemanticsNodes().isNotEmpty() }
+    compose.onNodeWithText("Completed").assertIsNotEnabled()
+    compose.onNodeWithText("Start a 2nd Workout").assertExists()
+  }
+
+  @Test fun customCardioIsPrivateAndReusable() = runBlocking {
+    val app = newApp()
+    val name = "Test cardio ${newId()}"
+    val (error, exercise) = app.exercises.createCardio(name, "bike")
+    assertNull(error)
+    assertEquals("bike", exercise?.tracking)
+    assertEquals(app.session.userId, app.exercises.mine().first().first { it.id == exercise!!.id }.ownerId)
+  }
+
+  @Test fun secondWorkoutKeepsFirstSessionAndItsCardio() = runBlocking {
+    val app = newApp()
+    val date = java.time.LocalDate.now().toString()
+    val first = newId(); val second = newId()
+    app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_bike", setNo = 1, reps = 0, weight = 0.0,
+      sessionId = first, cardio = CardioMetrics(10.0, distance = 2.0)))
+    app.workouts.completeSession(first, "Scheduled", "", date, "p_1")
+    app.workouts.logSet(SetLog(date = now(), exerciseId = "ex_leg_press", setNo = 1, reps = 10, weight = 50.0, sessionId = second))
+    app.workouts.completeSession(second, "Additional", "", date)
+    assertEquals(2, app.workouts.sessions().first().count { it.id == first || it.id == second })
+    assertEquals(1, app.workouts.history().first().count { it.sessionId == first && it.cardio?.distance == 2.0 })
   }
 
   /** v1 database (with history + an old custom workout) upgrades to v2 without losing data. */
