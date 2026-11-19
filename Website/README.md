@@ -1,11 +1,13 @@
-# GymClues landing page
+# GymClues site and interactive user guide
 
-Open `index.html` directly or serve this folder with any static web server. The existing Pages workflow publishes `Website/`; all featured media, the logo and the licensed Inter font are included here, so no parent directory or CDN is required.
+Open `Website/index.html` directly or serve `Website/` with any static web server. GitHub Pages publishes this folder to <https://oxieg3n.com/GymClues/>. Everything needed for the page is local; no accounts, third-party widgets, or network requests are required for the guide itself.
 
-The page includes four playable demos, an eight-feature screenshot explorer and five native theme previews. Selectors support keyboard links and URL fragments such as `#demo-assign` and `#screen-muscles`. Switching demos pauses the hidden players. Without JavaScript every video and feature image remains visible. Reduced-motion settings disable animation.
+The interactive guide uses actual screenshots from the `PublicReleasev1` Android APK (GymClues 4.5, build 20). Transparent guide buttons overlay controls on those screenshots. This is a guided preview, not a web port of GymClues, and does not save anything. The written walkthroughs also work without JavaScript. Keep each data entry's accessible step text and measured hotspot in sync with its screenshot. Preserve the source PNGs and exact APK provenance in the private capture handoff; the page ships only reduced WebP screenshots.
 
-Featured media copies come from `docs/demo/screens`, the four finished recordings in `docs/demo/videos`, and `docs/taste-redesign/themes/screens/home-*-390.png`. Keep these copies in sync when updating a recording or screenshot. The separate demo gallery retains scripts, audio masters and other production resources.
+The four original demos, older feature gallery and theme previews remain available. The video sources, fallback links, posters and download links were preserved. In the original demo player, switching demos pauses hidden players, URL fragments select their matching panel, and all videos remain usable without JavaScript. Reduced-motion settings disable animation.
 
-Every APK button points to the supplied v1.1.1 GitHub release asset. Store badges and placeholder legal links are omitted. The Source code and Support links lead to the repository and its Issues page.
+The three Android download buttons point to the exact public release asset. Video download links still point to the original MP4 files.
 
-Run `node Website/check-site.mjs` from the project root. Responsive inspection captures, the direction sheet and critique are in `.taste-skill/landing/`.
+Run from the repository root:
+- `node Website/check-site.mjs`
+- `node Website/check-guide.mjs`

@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const root = new URL('./', import.meta.url);
 const html = readFileSync(new URL('index.html', root), 'utf8');
-const apk = 'https://github.com/oxieg3n/GymClues/releases/download/v1.1.1/GymClues-V1.1.1.apk';
+const apk = 'https://github.com/oxieg3n/GymClues/releases/download/PublicReleasev1/GymClues-Latest-Nov14.apk';
 assert.equal(html.split(apk).length - 1, 3);
 assert(!/App Store|Google Play|releases\/download\/v1\//i.test(html));
 for (const [, path] of html.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
@@ -15,6 +15,14 @@ for (const [, path] of html.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
   }
 }
 assert.equal((html.match(/<video /g) || []).length, 4);
+assert.deepEqual([...new Set([...html.matchAll(/media\/videos\/[^" ]+\.mp4/g)].map(([path]) => path))].sort(), [
+  'media/videos/assign-program-narrated.mp4',
+  'media/videos/home-menu-tour-narrated.mp4',
+  'media/videos/themes.mp4',
+  'media/videos/workout-rest-days-narrated.mp4',
+]);
+assert.match(html, /<section class="gym-guide" id="guide"/);
+assert.match(html, /<link rel="canonical" href="https:\/\/oxieg3n.com\/GymClues\/">/);
 assert.equal((html.match(/<figure class="panel"/g) || []).length, 8);
 
 const handlers = [];
@@ -54,4 +62,4 @@ assert.equal(demos.panels[1].hidden, false, 'History navigation updates the sele
 assert.equal(screens.panels[7].hidden, false, 'The other viewer retains its selection');
 location.hash = '#themes'; handlers.forEach(handler => handler());
 assert.equal(demos.panels[1].hidden, false, 'Section links retain active media');
-console.log('Landing checks passed: self-contained assets, v1.1.1 links, four demos, eight screenshots, independent selection, history and video pausing.');
+console.log('Landing checks passed: self-contained assets, Nov 14 release links, four demos, eight screenshots, independent selection, history and video pausing.');

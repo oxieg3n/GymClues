@@ -1,0 +1,56 @@
+.gym-guide{padding:clamp(2rem,6vw,5.5rem) var(--gutter);margin:clamp(2rem,5vw,6rem) 0 0;background:radial-gradient(ellipse at 5% 0%,#1b3425 0%,transparent 47%),#0b110e;border-block:1px solid #27372d;color:#f4f8f3}
+.gg-wrap{max-width:1200px;margin:auto}
+.gg-intro{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin:0 0 1.7rem}
+.gg-intro h2{margin:.3rem 0 .75rem;max-width:19ch}
+.gg-kicker,.gg-count{color:#91f4a1;font-size:.79rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+.gg-note,.gg-description,.gg-help{color:#becac0}
+.gg-badge{flex:none;display:inline-block;border:1px solid #526657;border-radius:100vw;padding:.4em .8em;font-size:.8rem;color:#d9f2dd}
+.gg-lessonlist{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}
+.gg-btn,.gg-lesson,.gg-step{font:inherit;color:#f4f8f3;cursor:pointer;background:#14221a;border:1px solid #3d5244;border-radius:.55rem;min-height:44px}
+.gg-btn,.gg-lesson{padding:.5rem .8rem;font-weight:650}
+.gg-lesson[aria-pressed=true],.gg-primary{color:#092014;background:#a4f5ab;border-color:#a4f5ab}
+.gg-btn:hover:not(:disabled),.gg-step:hover,.gg-lesson:hover{filter:brightness(1.19)}
+.gg-btn:disabled{opacity:.5;cursor:not-allowed}
+.gg-btn:focus-visible,.gg-lesson:focus-visible,.gg-step:focus-visible,.gg-tap:focus-visible{outline:3px solid #f8df8b;outline-offset:3px}
+.gg-workspace{display:grid;grid-template-columns:minmax(17rem, .92fr) minmax(19rem, 1.08fr);gap:0;background:#101a15;border:1px solid #3b4c40;border-radius:.9rem;overflow:hidden}
+.gg-copy{padding:clamp(1rem,3.2vw,2.5rem);display:flex;flex-direction:column;gap:.85rem}
+.gg-copy h3{font-size:clamp(1.45rem,2.7vw,2.25rem);font-weight:720}
+.gg-nav{display:flex;gap:.55rem;flex-wrap:wrap;margin:.25rem 0 .15rem}
+.gg-nav button{flex:0 1 auto}
+.gg-steplist{margin:0;padding:0;list-style:none;display:grid;gap:.39rem}
+.gg-step{display:flex;width:100%;align-items:center;text-align:left;gap:.55rem;padding:.44rem .6rem}
+.gg-step[aria-current=step]{border-color:#a4f5ab;background:#233d2b;color:#effff0}
+.gg-num{display:inline-grid;flex:0 0 1.5rem;place-items:center;border-radius:50%;color:#c8f5cc;background:#2c4633;font-size:.72rem;font-weight:750}
+.gg-display{display:grid;justify-items:center;align-content:center;gap:.65rem;padding:1.1rem;background:radial-gradient(ellipse at center,#24392c,#0d1611 68%)}
+.gg-device{position:relative;isolation:isolate;width:min(100%, 278px);min-width:0;border-radius:1.15rem;box-shadow:0 0 0 5px #070d09,0 0 0 6px #46604c,0 16px 34px #000b;background:#020302}
+.gg-screen{width:100%;height:auto;border-radius:inherit}
+.gg-tap,.gg-marker{position:absolute;transform:translate(-50%,-50%);width:var(--tap-w);height:var(--tap-h);border-radius:.4rem}
+.gg-tap{z-index:2;min-width:44px;min-height:44px;border:0;background:transparent;cursor:pointer}
+.gg-marker{z-index:1;min-height:3px;border:2px solid #ffe29a;background:#ffe29a12;box-shadow:0 0 0 2px #0b170e,0 0 14px #ffdda571;pointer-events:none}
+.gg-marker::after{content:"↓";display:grid;place-items:center;position:absolute;left:50%;top:-1.95rem;transform:translateX(-50%);width:1.6rem;height:1.6rem;border-radius:50%;box-shadow:0 0 0 2px #07140d;font:850 1.3rem/1 Inter,sans-serif;background:#ffe29a;color:#102317}
+.gg-marker[data-pointer=below]::after{content:"↑";top:auto;bottom:-1.95rem}
+.gg-action-note{max-width:32ch;padding:.38rem .65rem;background:#253126;border:1px solid #576951;border-radius:.45rem;color:#f4ffe9;line-height:1.28;text-align:center;font-size:.84rem;font-weight:650}
+.gg-tap:hover{background:#ffe29a33}
+.gg-open{color:#c7f4ce;font-size:.82rem;padding:.35rem .2rem}
+.gg-capture-error{padding:2rem .8rem;text-align:center}
+.gg-end{font-size:.78rem;color:#b8ffc3}
+.gg-fallback{margin-top:1rem}
+.gg-fallback summary{min-height:44px;padding:.55rem 0;cursor:pointer}
+.gg-fallback p,.gg-fallback li{max-width:72ch}
+.gg-fallback ol{padding-inline-start:1.4rem}
+.gg-fallback li{margin:.6rem 0}
+@media(max-width:690px){
+  .gg-intro{display:block;margin-bottom:1rem}.gg-badge{margin-top:.7rem}
+  .gg-workspace{display:flex;flex-direction:column}.gg-copy{padding:1rem;gap:.55rem}
+  .gg-display{padding:1rem}.gg-device{width:min(100%, 235px)}
+  .gg-steplist{display:none}.gg-nav{margin:.25rem 0 0}
+  .gg-intro h2{max-width:none}.gg-lessonlist{gap:.33rem}.gg-lesson{font-size:.83rem}
+}
+@media(prefers-reduced-motion:reduce){.gym-guide *{animation:none!important;transition:none!important}.gym-guide{scroll-behavior:auto}}
+@media print{.gg-workspace,.gg-lessonlist{display:none!important}.gym-guide{background:white;color:black}.gg-fallback{display:block}}
+@media(max-width:390px){
+  .masthead nav{gap:.5rem}
+  .masthead nav a:not(.button){font-size:.86rem;min-height:44px}
+  .gg-device{width:min(100%, 218px)}
+  .gg-copy h3{font-size:1.3rem}
+}
