@@ -16,7 +16,7 @@ data class ShareCard(val title: String, val big: String, val sub: String, val ca
 /** "135 lb x 10", or "10 reps" for bodyweight. */
 fun setLabel(s: SetLog): String {
   s.cardio?.let { return it.summary() }
-  val w = if (s.weight % 1.0 == 0.0) s.weight.toLong().toString() else "%.1f".format(s.weight)
+  val w = s.weight.toString().removeSuffix(".0")
   return if (s.weight > 0) "$w ${s.units} x ${s.reps}" else "${s.reps} reps"
 }
 

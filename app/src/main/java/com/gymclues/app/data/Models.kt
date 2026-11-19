@@ -39,7 +39,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable data class TemplateItem(val exerciseId: String, val sets: Int, val reps: String, val restSec: Int,
   val setsText: String = "", val repsNote: String = "", val phase: String = "", val restText: String = "",
-  val notes: String = "", val substitution: String = "", val originalName: String = "", val durationSec: Int = 0)
+  val notes: String = "", val substitution: String = "", val originalName: String = "", val durationSec: Int = 0,
+  val superSetId: String = "", val sethStarts: List<Int> = emptyList())
 @Serializable data class WorkoutTemplate(val id: String, val name: String, val split: String,
   val description: String, val items: List<TemplateItem>)
 @Serializable data class Content(val equipment: List<Equipment>, val exercises: List<Exercise>, val templates: List<WorkoutTemplate> = emptyList())
@@ -59,4 +60,6 @@ object AccountStatus { const val ACTIVE = "ACTIVE"; const val SUSPENDED = "SUSPE
 data class WorkoutPlan(val id: String, val name: String, val items: List<TemplateItem>, val isCustom: Boolean, val description: String = "")
 
 fun newId(): String = java.util.UUID.randomUUID().toString()
+fun validSethStarts(starts: List<Int>, count: Int) = starts.distinct().size == starts.size &&
+  starts.all { count > 1 && it >= 0 && it < count - 1 } && starts.flatMap { listOf(it, it + 1) }.distinct().size == starts.size * 2
 fun now(): Long = System.currentTimeMillis()

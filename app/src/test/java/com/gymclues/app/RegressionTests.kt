@@ -159,7 +159,7 @@ class RegressionTests {
         ActiveWorkout(app, "template", "t_fullbody_1", emptySet(), nav) {} } } }
     compose.waitForIdle()
     // Set minus is disabled once only one set remains (template has 2)
-    compose.onAllNodesWithContentDescription("Remove set")[0].performClick()
+    compose.onAllNodesWithContentDescription("Remove set")[0].performScrollTo().performClick()
     compose.onAllNodesWithContentDescription("Remove set")[0].assertIsNotEnabled()
     compose.onAllNodesWithContentDescription("Add set")[0].performClick()
     repeat(3) { compose.onAllNodes(hasContentDescription("Remove ", substring = true) and hasClickAction() and !hasContentDescription("Remove set"))[0].performClick(); compose.waitForIdle() }

@@ -128,7 +128,7 @@ import com.gymclues.app.media.NowPlaying
 /** Exercise picker sheet: suggestions that fit the workout, or the entire database. Supports multi-select. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable fun ExercisePickerSheet(catalog: CatalogRepository, suggested: List<Exercise>?, exclude: Set<String>,
-                                    onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, initialCardioOnly: Boolean = false,
+                                    onDismiss: () -> Unit, onCreate: (() -> Unit)? = null, initialCardioOnly: Boolean = false, eligible: (Exercise) -> Boolean = { true }, maxPicks: Int = Int.MAX_VALUE,
                                     onPick: (List<Exercise>) -> Unit) {
   var showAll by remember { mutableStateOf(suggested == null) }
   var cardioOnly by remember { mutableStateOf(initialCardioOnly) }
@@ -136,7 +136,7 @@ import com.gymclues.app.media.NowPlaying
   var muscle by remember { mutableStateOf<String?>(null) }
   val picked = remember { mutableStateListOf<String>() }
   val base = if (cardioOnly || showAll || suggested == null) catalog.exercises else suggested
-  val list = base.filter { (!cardioOnly || it.movement == "Cardio") && it.id !in exclude && (muscle == null || muscle in it.primaryMuscles) &&
+  val list = base.filter { (!cardioOnly || it.movement == "Cardio") && (it.id !in exclude || it.movement == "Cardio") && eligible(it) && (muscle == null || muscle in it.primaryMuscles) &&
     (query.isBlank() || it.name.contains(query, true) || it.primaryMuscles.any { m -> m.contains(query, true) }) }
   ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
     Column(Modifier.padding(horizontal = 20.dp).fillMaxHeight(0.85f)) {
@@ -158,8 +158,8 @@ import com.gymclues.app.media.NowPlaying
         items(list, key = { it.id }) { e -> val on = e.id in picked
           AppListItem(headlineContent = { Text(e.name) },
             supportingContent = { Text("${e.primaryMuscles.joinToString()} · ${e.movement} · ${e.difficulty}") },
-            trailingContent = { Checkbox(on, { if (it) picked += e.id else picked -= e.id }) },
-            modifier = Modifier.clickable { if (on) picked -= e.id else picked += e.id })
+            trailingContent = { Checkbox(on, { if (it && picked.size < maxPicks) picked += e.id else picked -= e.id }) },
+            modifier = Modifier.clickable { if (on) picked -= e.id else if (picked.size < maxPicks) picked += e.id })
         }
       }
       AppButton({ onPick(picked.mapNotNull(catalog::exercise)) }, Modifier.fillMaxWidth().padding(vertical = 12.dp).heightIn(min = 52.dp),

@@ -1,5 +1,7 @@
 package com.gymclues.app.ui
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -69,6 +71,9 @@ class SetRow { var weight by mutableStateOf(""); var reps by mutableStateOf("");
 
 /** One exercise inside today's session. Editing the session never changes the saved workout/template. */
 class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps: String, val restSec: Int, sets: Int, val item: TemplateItem? = null, val tracking: String = "strength", val uid: String = newId()) {
+  var superSetId by mutableStateOf(item?.superSetId.orEmpty())
+  val sethStarts = mutableStateListOf<Int>().apply { addAll(item?.sethStarts.orEmpty()) }
+  val sethIds = mutableStateMapOf<Int, String>().apply { sethStarts.forEach { put(it, newId()) } }
   val cardio = if (tracking in listOf("locomotion", "stairs", "bike", "rower")) CardioDraft(tracking, seconds = item?.durationSec ?: 0) else null
   var cardioError by mutableStateOf(false)
   val sets = mutableStateListOf<SetRow>().apply { repeat(if (cardio != null) 1 else sets.coerceIn(MIN_SETS, MAX_SETS)) { add(SetRow()) } }
@@ -88,6 +93,10 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   val workoutDate = remember(draftKey) { savedDraft?.workoutDate ?: date ?: java.time.LocalDate.now().toString() }
   var editingLayout by remember { mutableStateOf(false) }
   var previousOrder by remember { mutableStateOf<List<String>>(emptyList()) }
+  var draftSaveError by remember { mutableStateOf(false) }
+  var draftRetry by remember { mutableIntStateOf(0) }
+  var draftGeneration by remember { mutableIntStateOf(0) }
+  var draftWriter by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
   val gymId by app.gyms.activeGymId.collectAsState()
   LaunchedEffect(kind, planId) {
     if (!loaded) {
@@ -105,10 +114,14 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       loaded = true
     }
   }
-  LaunchedEffect(loaded, draftKey) { if (loaded) snapshotFlow {
+  LaunchedEffect(loaded, draftKey, draftGeneration) { if (loaded) {
+    draftWriter = kotlinx.coroutines.currentCoroutineContext()[kotlinx.coroutines.Job]
+    snapshotFlow {
     val persistedOrder = if (editingLayout) previousOrder.mapNotNull { uid -> session.firstOrNull { it.uid == uid } } + session.filter { it.uid !in previousOrder } else session
-    ActiveDraft(sessionId, workoutDate, persistedOrder.map { it.draft() }) }
-    .collect { prefs.edit().putString(draftKey, Json.encodeToString(ActiveDraft.serializer(), it)).apply() } }
+    draftRetry to ActiveDraft(sessionId, workoutDate, persistedOrder.map { it.draft() }) }
+    .collect { (_, draft) -> draftSaveError = !kotlinx.coroutines.withContext(Dispatchers.IO) {
+      prefs.edit().putString(draftKey, Json.encodeToString(ActiveDraft.serializer(), draft)).commit()
+    } } } }
   val p = plan
   if (!loaded) { Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }; return }
   if (p == null) { NotFound("This workout no longer exists."); return }
@@ -126,19 +139,47 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
   var cardioTracking by remember { mutableStateOf("locomotion") }
   var cardioCreateError by remember { mutableStateOf<String?>(null) }
   var saveAs by remember { mutableStateOf(false) }
+  var technique by remember { mutableStateOf<Boolean?>(null) }
+  var changingSuper by remember { mutableStateOf("") }
+  if (technique != null) TechniqueSetup(repo, session.map { TechniqueChoice(it.uid, it.exerciseId, repo.displayName(it.exerciseId), it.superSetId.takeUnless { g -> g == changingSuper }.orEmpty()) }, technique!!,
+    { technique = null; changingSuper = "" }, initial = session.filter { changingSuper.isNotBlank() && it.superSetId == changingSuper }.map { it.uid }) { picked, first ->
+    val chosen = picked.map { c -> session.firstOrNull { it.uid == c.key } ?: SessionExercise(c.exerciseId, null, "10-12", 90, 3,
+      tracking = repo.exercise(c.exerciseId)?.tracking ?: "strength").also { session += it } }
+    if (technique == true) {
+      val e = chosen.single()
+      if (e.sethStarts.none { kotlin.math.abs(it - first) <= 1 }) {
+        while (e.sets.size < first + 2) e.sets += SetRow()
+        e.sethStarts += first
+        e.sethIds[first] = newId()
+      } else scope.launch { snackbar.showSnackbar("Those sets are already linked. Choose a non-overlapping pair.") }
+    } else {
+      session.filter { changingSuper.isNotBlank() && it.superSetId == changingSuper }.forEach { it.superSetId = "" }
+      val group = newId(); chosen.forEach { it.superSetId = group }
+      session.remove(chosen[1]); val at = session.indexOf(chosen.first()); session.add(at + 1, chosen[1])
+    }
+    technique = null
+    changingSuper = ""
+  }
 
   var finishing by remember { mutableStateOf(false) }
   suspend fun log(se: SessionExercise, idx: Int, row: SetRow): Boolean {
-    if (se.cardio == null && se.item?.phase == "Warm-up") return true
+    if (se.cardio == null && se.item?.phase == "Warm-up" && se.superSetId.isBlank() && se.sethStarts.isEmpty()) return true
     if (row.saving) return false
     val metrics = se.cardio?.metrics()
     if (se.cardio != null && metrics == null) { se.cardioError = true; return false }
+    if (se.cardio == null && (row.reps.toIntOrNull()?.let { it >= 0 } != true ||
+        (se.tracking != "reps" && row.weight.toDoubleOrNull()?.let { it.isFinite() && it >= 0 } != true))) {
+      snackbar.showSnackbar("Enter actual repetitions and a valid weight before recording."); return false
+    }
     row.saving = true
     return try {
       val entry = SetLog(id = row.logId, date = row.loggedAt.takeIf { it > 0 } ?: now(), exerciseId = se.exerciseId, setNo = idx + 1,
         reps = if (metrics != null) 0 else row.reps.toIntOrNull() ?: 0,
         weight = if (metrics != null || se.tracking == "reps") 0.0 else row.weight.toDoubleOrNull() ?: 0.0,
-        sessionId = sessionId, gymId = gymId, cardio = metrics)
+        sessionId = sessionId, gymId = gymId, cardio = metrics, instanceId = se.uid, superSetId = se.superSetId.takeIf { it.isNotBlank() }?.let { "$sessionId:$it" }.orEmpty(),
+        superSetPart = if (se.superSetId.isBlank()) 0 else session.filter { it.superSetId == se.superSetId }.indexOf(se) + 1,
+        sethRound = se.sethStarts.firstOrNull { idx == it || idx == it + 1 }?.let { se.sethIds.getOrPut(it) { newId() } }.orEmpty(),
+        sethPart = if (idx in se.sethStarts) 1 else if (idx - 1 in se.sethStarts) 2 else 0)
       if (row.logId > 0) app.workouts.updateSet(entry) else row.logId = app.workouts.logSet(entry)
       row.loggedAt = entry.date
       row.logged = true; row.done = true; true
@@ -146,6 +187,11 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       if (e is kotlinx.coroutines.CancellationException) throw e
       snackbar.showSnackbar("Could not save this entry. Please try again."); false
     } finally { row.saving = false }
+  }
+  fun restAfter(se: SessionExercise, index: Int): Int {
+    if (index in se.sethStarts) return 0
+    val pair = session.filter { se.superSetId.isNotBlank() && it.superSetId == se.superSetId }
+    return if (pair.size == 2 && !superRoundComplete(pair[0], pair[1], index)) 0 else se.restSec
   }
 
   var sharing by remember { mutableStateOf(false) }
@@ -155,7 +201,8 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       app.workouts.completeSession(sessionId, p.name, gymId, workoutDate,
         if (kind == "program") planId else "", if (kind == "program") app.programs.find(planId.substringBeforeLast('_'))?.name.orEmpty() else "",
         if (kind == "program") app.programs.find(planId.substringBeforeLast('_'))?.days?.firstOrNull { it.day == planId.substringAfterLast('_').toIntOrNull() }?.session.orEmpty() else "")
-      prefs.edit().remove(draftKey).commit()
+      draftWriter?.let { it.cancel(); it.join() }
+      check(prefs.edit().remove(draftKey).commit()) { "Could not clear completed draft" }
       if (share) sharing = true else onDone()
     } catch (e: Exception) {
       if (e is kotlinx.coroutines.CancellationException) throw e
@@ -189,8 +236,10 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
     } }, enabled = cardioName.isNotBlank()) { Text("Save and add") } },
     dismissButton = { TextButton({ customCardio = false }) { Text("Cancel") } })
   if (saveAs) NameDialog("Save as custom workout", p.name + " (my version)", { saveAs = false }) { name ->
-    scope.launch { app.workouts.saveCustom(null, name, session.map { TemplateItem(it.exerciseId, it.sets.size, it.cardio?.metrics()?.minutes?.toString() ?: it.reps, it.restSec) })
-      saveAs = false; snackbar.showSnackbar("Saved to Custom Workouts") } }
+    scope.launch { try {
+      app.workouts.saveCustom(null, name, session.map { TemplateItem(it.exerciseId, it.sets.size, it.cardio?.metrics()?.minutes?.toString() ?: it.reps, it.restSec, superSetId = it.superSetId, sethStarts = it.sethStarts.toList()) })
+      saveAs = false; snackbar.showSnackbar("Saved to Custom Workouts")
+    } catch (e: Exception) { if (e is kotlinx.coroutines.CancellationException) throw e; snackbar.showSnackbar("Could not save workout. Your session is still here; retry.") } } }
 
   val activeScroll = rememberLazyListState()
   Box(Modifier.fillMaxSize()) {
@@ -198,7 +247,15 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       state = activeScroll,
       contentPadding = PaddingValues(top = 20.dp, bottom = if (editingLayout) 100.dp else 28.dp)) {
       item { ScreenTitle(p.name, p.description)
+        if (draftSaveError) {
+          Text("Could not save the workout draft. Keep this screen open and retry.", color = MaterialTheme.colorScheme.error)
+          TextButton({ draftRetry++ }) { Text("Retry saving draft") }
+        }
         AppOutlinedButton({ pickingCardio = true; picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Add Cardio") }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+          AppOutlinedButton({ technique = false }, Modifier.weight(1f), enabled = !editingLayout) { Text("Super Set") }
+          AppOutlinedButton({ technique = true }, Modifier.weight(1f), enabled = !editingLayout) { Text("Seth Set") }
+        }
         TextButton({ if (editingLayout) { val byId = session.associateBy { it.uid }; val ordered = previousOrder.mapNotNull(byId::get) + session.filter { it.uid !in previousOrder }
             session.clear(); session.addAll(ordered) } else previousOrder = session.map { it.uid }
           editingLayout = !editingLayout }, Modifier.fillMaxWidth()) { Text(if (editingLayout) "Cancel layout" else "Unlock Layout") }
@@ -209,18 +266,30 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
         val ex = repo.exercise(se.exerciseId)
         val exerciseName = workoutMuscleMapName(se.item?.originalName,
           ex?.name ?: repo.displayName(se.exerciseId), se.swappedFrom != null)
-        AppCard { Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        val pair = session.filter { se.superSetId.isNotBlank() && it.superSetId == se.superSetId }
+        Column {
+        if (pair.size == 2 && pair.last() === se) {
+          TechniqueInfo("SUPER SET", superInstructions(repo.displayName(pair[0].exerciseId), repo.displayName(pair[1].exerciseId)),
+            (0 until maxOf(pair[0].sets.size, pair[1].sets.size)).joinToString { "Round ${it + 1}: " + if (superRoundComplete(pair[0], pair[1], it)) "complete" else "incomplete" })
+        }
+        AppCard(Modifier.then(if (pair.size == 2) Modifier.border(2.dp, Color(0xFF00FF41), MaterialTheme.shapes.medium) else Modifier)) { Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+          if (pair.size == 2) Row {
+            TextButton({ pair.forEach { it.superSetId = "" } }) { Text("Unlink Super Set") }
+            TextButton({ changingSuper = se.superSetId; technique = false }, enabled = !editingLayout) { Text("Change Super Set") }
+          }
           val it0 = se.item
           if (it0?.phase == "Warm-up") SectionTitle("Warm-up")
           Row(verticalAlignment = Alignment.CenterVertically) {
             if (editingLayout) LayoutHandle(exerciseName,
-              { val at = session.indexOf(se); if (at > 0) session.add(at - 1, session.removeAt(at)) },
-              { val at = session.indexOf(se); if (at in 0 until session.lastIndex) session.add(at + 1, session.removeAt(at)) }, activeScroll)
+              { moveWorkoutGroup(session, se, false) { it.superSetId } },
+              { moveWorkoutGroup(session, se, true) { it.superSetId } }, activeScroll)
             Text(exerciseName + (se.swappedFrom?.let { " (swap for ${repo.displayName(it)})" } ?: ""),
               fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f).clickable(enabled = ex != null) { navigate(Routes.exercise(se.exerciseId)) })
             MuscleMapButton(exerciseName)
             RemoveCircleButton("Remove ${ex?.name ?: repo.displayName(se.exerciseId)}") {
               val removed = session.removeAt(index)
+              session.filter { removed.superSetId.isNotBlank() && it.superSetId == removed.superSetId }.forEach { it.superSetId = "" }
+              removed.superSetId = ""
               scope.launch {
                 val r = snackbar.showSnackbar("Removed ${ex?.name ?: repo.displayName(se.exerciseId)}", actionLabel = "Undo", duration = SnackbarDuration.Short)
                 if (r == SnackbarResult.ActionPerformed) session.add(index.coerceAtMost(session.size), removed)
@@ -238,24 +307,38 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
             val row = se.sets.first()
             Muted("Record actual time and settings. Preset times are targets until recorded.")
             CardioInput(se.cardio, enabled = !row.saving, showErrors = se.cardioError)
-            AppTonalButton({ scope.launch { if (log(se, 0, row)) rest = se.restSec } },
+            AppTonalButton({ scope.launch { if (log(se, 0, row)) rest = restAfter(se, 0) } },
               enabled = !row.saving) { Text(if (row.logged) "Save cardio changes" else "Record cardio") }
           } else {
           Row(verticalAlignment = Alignment.CenterVertically) {
-            SetStepButton(add = false, enabled = se.sets.size > MIN_SETS) { if (se.sets.size > MIN_SETS) se.sets.removeAt(se.sets.lastIndex) }
+            SetStepButton(add = false, enabled = se.sets.size > MIN_SETS) { if (se.sets.size > MIN_SETS) se.sets.removeAt(se.sets.lastIndex).also { se.sethStarts.removeAll { it + 1 >= se.sets.size } } }
             Text("  ${se.sets.size} sets  ", style = MaterialTheme.typography.titleSmall)
             SetStepButton(add = true, enabled = se.sets.size < MAX_SETS) { if (se.sets.size < MAX_SETS) se.sets.add(SetRow()) }
           }
           HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
           se.sets.forEachIndexed { n, row ->
+            if (n - 1 in se.sethStarts) {
+              TechniqueInfo("SETH SET", sethInstructions(exerciseName), "Round ${se.sethStarts.sorted().indexOf(n - 1) + 1}: " + if (sethRoundComplete(se, n - 1)) "complete" else "incomplete")
+              val heavy = se.sets[n - 1]
+              if (heavy.logged) sethSuggestion(heavy.weight, heavy.reps)?.let { (w, r) ->
+                Muted("Suggested target: $w lb x $r reps. Enter actual values below.")
+              }
+              TextButton({ se.sethStarts.remove(n - 1); se.sethIds.remove(n - 1) }) { Text("Unlink Seth Set") }
+            }
+            val suggestion = if (n - 1 in se.sethStarts && se.sets[n - 1].logged) sethSuggestion(se.sets[n - 1].weight, se.sets[n - 1].reps) else null
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
               Text("${n + 1}".padStart(2, '0'), Modifier.width(24.dp).heightIn(min = 48.dp).wrapContentHeight(Alignment.CenterVertically).align(Alignment.Bottom), style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
               if (se.tracking != "reps") AppTextField(row.weight, { row.weight = it }, Modifier.weight(1f), label = { Text("lb") }, singleLine = true,
+                placeholder = { suggestion?.let { Text(it.first.toString()) } },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
               AppTextField(row.reps, { row.reps = it }, Modifier.weight(1f), label = { Text("reps") }, singleLine = true,
+                placeholder = { suggestion?.let { Text(it.second.toString()) } },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-              Checkbox(row.done, { c -> if (c) scope.launch { if (log(se, n, row)) rest = se.restSec } else row.done = false },
+              Checkbox(row.done, { c -> if (c) scope.launch { if (log(se, n, row)) rest = restAfter(se, n) } else scope.launch {
+                try { if (row.logId > 0) app.workouts.deleteSet(row.logId); row.done = false; row.logged = false; row.logId = 0; row.loggedAt = 0 }
+                catch (e: Exception) { if (e is kotlinx.coroutines.CancellationException) throw e; snackbar.showSnackbar("Could not update set. Try again.") }
+              } },
                 modifier = Modifier.align(Alignment.Bottom).semantics { contentDescription = "Complete set ${n + 1} of $exerciseName" }, enabled = !row.saving,
                 colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary, checkmarkColor = MaterialTheme.colorScheme.onPrimary))
               if (row.logged) TextButton({ scope.launch { log(se, n, row) } }) { Text("Save edit") }
@@ -263,6 +346,7 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
           }
           }
         } }
+        }
       }
       item { AppOutlinedButton({ pickingCardio = false; picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
         Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercise") } }
@@ -282,9 +366,13 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
       } }, Modifier.fillMaxWidth().heightIn(min = 56.dp), enabled = !finishing) { Text("Finish Workout") } }
     }
     if (editingLayout) SaveLayoutButton({
+      scope.launch {
+      draftWriter?.let { it.cancel(); it.join() }
       if (prefs.edit().putString(draftKey, Json.encodeToString(ActiveDraft.serializer(), ActiveDraft(sessionId, workoutDate, session.map { it.draft() }))).commit()) {
         editingLayout = false; scope.launch { snackbar.showSnackbar("Layout saved") }
       } else scope.launch { snackbar.showSnackbar("Could not save layout. Try again.") }
+      draftGeneration++
+      }
     },
       Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(12.dp))
     SnackbarHost(snackbar, Modifier.align(Alignment.TopCenter))
@@ -300,7 +388,9 @@ class SessionExercise(val exerciseId: String, val swappedFrom: String?, val reps
 }
 
 // ---------------- Custom workout builder ----------------
-class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
+class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int, superId: String = "", starts: List<Int> = emptyList()) {
+  var superSetId by mutableStateOf(superId)
+  val sethStarts = mutableStateListOf<Int>().apply { addAll(starts) }
   val key = newId(); var sets by mutableIntStateOf(sets); var reps by mutableStateOf(reps); var rest by mutableStateOf(rest.toString())
 }
 
@@ -313,47 +403,86 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
   var picking by remember { mutableStateOf(false) }
   var editingLayout by remember { mutableStateOf(false) }
   var saveError by remember { mutableStateOf<String?>(null) }
+  var technique by remember { mutableStateOf<Boolean?>(null) }
+  var changingSuper by remember { mutableStateOf("") }
+  var cardioPicking by remember { mutableStateOf(false) }
+  if (technique != null) TechniqueSetup(repo, items.map { TechniqueChoice(it.key, it.exerciseId, repo.displayName(it.exerciseId), it.superSetId.takeUnless { g -> g == changingSuper }.orEmpty()) }, technique!!,
+    { technique = null; changingSuper = "" }, initial = items.filter { changingSuper.isNotBlank() && it.superSetId == changingSuper }.map { it.key }) { picked, first ->
+    val chosen = picked.map { c -> items.firstOrNull { it.key == c.key } ?: run {
+      val timed = repo.exercise(c.exerciseId)?.timedCardio == true
+      BuilderItem(c.exerciseId, if (timed) 1 else 3, if (timed) "20" else "10-12", if (timed) 0 else 90).also { items += it }
+    } }
+    if (technique == true) {
+      val e = chosen.single()
+      if (e.sethStarts.none { kotlin.math.abs(it - first) <= 1 }) { e.sets = maxOf(e.sets, first + 2); e.sethStarts += first }
+      else saveError = "Those sets are already linked. Choose a non-overlapping pair."
+    } else {
+      items.filter { changingSuper.isNotBlank() && it.superSetId == changingSuper }.forEach { it.superSetId = "" }
+      val group = newId(); chosen.forEach { it.superSetId = group }
+      items.remove(chosen[1]); val at = items.indexOf(chosen.first()); items.add(at + 1, chosen[1])
+    }
+    technique = null
+    changingSuper = ""
+  }
   DisposableEffect(editingLayout) { app.layoutEditing = editingLayout; onDispose { app.layoutEditing = false } }
   val scope = rememberCoroutineScope()
   val canSave = loaded && name.isNotBlank() && items.isNotEmpty() && items.all { repo.exercise(it.exerciseId)?.timedCardio != true || cardioMinutes(it.reps) != null }
   fun save() { scope.launch {
     try { app.workouts.saveCustom(editId, name, items.map { TemplateItem(it.exerciseId,
-      if (repo.exercise(it.exerciseId)?.timedCardio == true) 1 else it.sets, it.reps.ifBlank { "10" }, it.rest.toIntOrNull() ?: 90) }) }
+      if (repo.exercise(it.exerciseId)?.timedCardio == true) 1 else it.sets, it.reps.ifBlank { "10" }, it.rest.toIntOrNull() ?: 90, superSetId = it.superSetId, sethStarts = it.sethStarts.toList()) }) }
     catch (e: Exception) { if (e is kotlinx.coroutines.CancellationException) throw e; saveError = "Could not save workout. Your edits are still here; retry."; return@launch }
     kotlinx.coroutines.withContext(Dispatchers.Main.immediate) { editingLayout = false; onSaved() }
   } }
   LaunchedEffect(editId) { if (editId != null && !loaded) {
     app.workouts.customWorkout(editId)?.let { name = it.name }
-    app.workouts.customItems(editId).forEach { items += BuilderItem(it.exerciseId, it.sets, it.reps, it.restSec) }
+    app.workouts.customItems(editId).forEach { items += BuilderItem(it.exerciseId, it.sets, it.reps, it.restSec, it.superSetId, it.sethStarts) }
     loaded = true } }
 
-  if (picking) ExercisePickerSheet(repo, null, items.map { it.exerciseId }.toSet(), { picking = false }, { picking = false; onCreate() }) { picked ->
+  if (picking) ExercisePickerSheet(repo, null, items.map { it.exerciseId }.toSet(), { picking = false }, { picking = false; onCreate() }, initialCardioOnly = cardioPicking) { picked ->
     picked.forEach { items += BuilderItem(it.id, if (it.timedCardio) 1 else 3, if (it.timedCardio) "20" else "10-12", if (it.timedCardio) 0 else 90) }; picking = false }
 
   val builderScroll = rememberLazyListState()
   Box(Modifier.fillMaxSize()) {
   LazyColumn(Modifier.padding(horizontal = 20.dp), state = builderScroll, verticalArrangement = Arrangement.spacedBy(10.dp), contentPadding = PaddingValues(top = 20.dp, bottom = if (editingLayout) 100.dp else 20.dp)) {
     item { ScreenTitle(if (editId == null) "Create custom workout" else "Edit custom workout", "Build your session from the exercise library.")
+      Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        AppOutlinedButton({ technique = false }, Modifier.weight(1f), enabled = !editingLayout) { Text("Super Set") }
+        AppOutlinedButton({ technique = true }, Modifier.weight(1f), enabled = !editingLayout) { Text("Seth Set") }
+      }
+      AppOutlinedButton({ cardioPicking = true; picking = true }) { Text("Add Cardio") }
       TextButton({ editingLayout = !editingLayout }, Modifier.fillMaxWidth()) { Text(if (editingLayout) "Cancel layout" else "Unlock Layout") }
       saveError?.let { Text(it, color = MaterialTheme.colorScheme.error) } }
     item { AppTextField(name, { name = it }, Modifier.fillMaxWidth(), singleLine = true, label = { Text("Workout name") }) }
     if (items.isEmpty()) item { Muted("No exercises yet. Add any exercise from the full library.") }
     itemsIndexed(items, key = { _, it -> it.key }) { i, it ->
       val ex = repo.exercise(it.exerciseId)
-      AppCard { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+      val pair = items.filter { e -> it.superSetId.isNotBlank() && e.superSetId == it.superSetId }
+      Column {
+      if (pair.size == 2 && pair.last() === it) TechniqueInfo("SUPER SET", superInstructions(repo.displayName(pair[0].exerciseId), repo.displayName(pair[1].exerciseId)))
+      AppCard(Modifier.then(if (pair.size == 2) Modifier.border(2.dp, Color(0xFF00FF41), MaterialTheme.shapes.medium) else Modifier)) { Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
           Column(Modifier.weight(1f)) { Text("${i + 1}. ${ex?.name ?: repo.displayName(it.exerciseId)}", fontWeight = FontWeight.Medium)
             Muted(ex?.primaryMuscles?.joinToString() ?: "Unknown exercise") }
           if (editingLayout) LayoutHandle(ex?.name ?: "exercise",
-            { val at = items.indexOf(it); if (at > 0) items.add(at - 1, items.removeAt(at)) },
-            { val at = items.indexOf(it); if (at in 0 until items.lastIndex) items.add(at + 1, items.removeAt(at)) }, builderScroll)
-          RemoveCircleButton("Remove ${ex?.name ?: "exercise"}") { items.removeAt(i) }
+            { moveWorkoutGroup(items, it, false) { e -> e.superSetId } },
+            { moveWorkoutGroup(items, it, true) { e -> e.superSetId } }, builderScroll)
+          RemoveCircleButton("Remove ${ex?.name ?: "exercise"}") { items.removeAt(i); pair.forEach { e -> e.superSetId = "" } }
+        }
+        if (pair.size == 2) Row {
+          TextButton({ pair.forEach { e -> e.superSetId = "" } }) { Text("Unlink Super Set") }
+          TextButton({ changingSuper = it.superSetId; technique = false }, enabled = !editingLayout) { Text("Change Super Set") }
+        }
+        it.sethStarts.toList().sorted().forEach { first ->
+          Muted("Set ${first + 1}")
+          TechniqueInfo("SETH SET", sethInstructions(ex?.name ?: repo.displayName(it.exerciseId)), "sets ${first + 1} + ${first + 2}")
+          Muted("Set ${first + 2}")
+          TextButton({ it.sethStarts.remove(first) }) { Text("Unlink Seth Set") }
         }
         if (ex?.timedCardio == true) {
           AppTextField(it.reps, { v -> it.reps = v }, Modifier.fillMaxWidth(), label = { Text("Minutes (decimal or m:ss)") }, singleLine = true)
         } else FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            SetStepButton(false, it.sets > MIN_SETS) { if (it.sets > MIN_SETS) it.sets-- }
+            SetStepButton(false, it.sets > MIN_SETS) { if (it.sets > MIN_SETS) { it.sets--; it.sethStarts.removeAll { first -> first + 1 >= it.sets } } }
             Text("${it.sets} sets", style = MaterialTheme.typography.titleMedium)
             SetStepButton(true, it.sets < MAX_SETS) { if (it.sets < MAX_SETS) it.sets++ }
           }
@@ -364,8 +493,9 @@ class BuilderItem(val exerciseId: String, sets: Int, reps: String, rest: Int) {
           }
         }
       } }
+      }
     }
-    item { AppOutlinedButton({ picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercises") } }
+    item { AppOutlinedButton({ cardioPicking = false; picking = true }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Icon(Icons.Filled.Add, null); Spacer(Modifier.width(6.dp)); Text("Add exercises") } }
     if (!editingLayout) item { AppButton(::save, Modifier.fillMaxWidth().heightIn(min = 56.dp), enabled = canSave) { Text("Save workout") } }
   }
   if (editingLayout) SaveLayoutButton(::save, Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(12.dp), enabled = canSave)

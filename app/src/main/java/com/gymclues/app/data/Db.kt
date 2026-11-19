@@ -18,6 +18,8 @@ import kotlinx.serialization.json.Json
 
 class Converters {
   private val json = Json
+  @TypeConverter fun fromInts(v: List<Int>): String = json.encodeToString(v)
+  @TypeConverter fun toInts(v: String): List<Int> = json.decodeFromString(v)
   @TypeConverter fun fromCardio(v: CardioMetrics?): String? = v?.let { json.encodeToString(it) }
   @TypeConverter fun toCardio(v: String?): CardioMetrics? = v?.let { json.decodeFromString<CardioMetrics>(it) }
   @TypeConverter fun fromList(v: List<String>): String = json.encodeToString(v)
@@ -29,7 +31,13 @@ class Converters {
 @Entity data class SetLog(@PrimaryKey(autoGenerate = true) val id: Long = 0, val date: Long,
   val exerciseId: String, val setNo: Int, val reps: Int, val weight: Double, val units: String = "lb", val notes: String = "",
   @ColumnInfo(defaultValue = "") val sessionId: String = "",
-  @ColumnInfo(defaultValue = "") val gymId: String = "", val cardio: CardioMetrics? = null)
+  @ColumnInfo(defaultValue = "") val gymId: String = "", val cardio: CardioMetrics? = null,
+  @ColumnInfo(defaultValue = "''") val instanceId: String = "",
+  @ColumnInfo(defaultValue = "''") val superSetId: String = "",
+  @ColumnInfo(defaultValue = "0") val superSetPart: Int = 0,
+  @ColumnInfo(defaultValue = "''") val sethRound: String = "",
+  @ColumnInfo(defaultValue = "0") val sethPart: Int = 0,
+  @ColumnInfo(defaultValue = "''") val ownerId: String = "")
 
 @Entity(tableName = "workouts") data class WorkoutEntity(
   @PrimaryKey val id: String = newId(), val name: String, val description: String = "", val split: String = "Custom",
@@ -38,7 +46,9 @@ class Converters {
 
 @Entity(tableName = "workout_items", indices = [Index("workoutId")]) data class WorkoutItemEntity(
   @PrimaryKey val id: String = newId(), val workoutId: String, val position: Int,
-  val exerciseId: String, val sets: Int = 3, val reps: String = "10-12", val restSec: Int = 90)
+  val exerciseId: String, val sets: Int = 3, val reps: String = "10-12", val restSec: Int = 90,
+  @ColumnInfo(defaultValue = "''") val superSetId: String = "",
+  @ColumnInfo(defaultValue = "'[]'") val sethStarts: List<Int> = emptyList())
 
 @Entity(tableName = "gyms", indices = [Index(value = ["provider", "providerPlaceId"], unique = true)]) data class GymEntity(
   @PrimaryKey val id: String = newId(),
@@ -108,6 +118,7 @@ class Converters {
   @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun markUnavailable(u: Unavailable)
   @Delete suspend fun markAvailable(u: Unavailable)
   @Insert suspend fun log(s: SetLog): Long
+  @Query("SELECT * FROM SetLog WHERE id = :id") suspend fun set(id: Long): SetLog?
   @Query("SELECT * FROM SetLog ORDER BY date DESC") fun history(): Flow<List<SetLog>>
 
   // workouts
@@ -173,14 +184,26 @@ class Converters {
   GymEntity::class, GymEquipmentEntity::class, UserEntity::class, AuditEntity::class, OutboxEntity::class,
   ProgramAssignmentEntity::class, CustomExerciseEntity::class, RestDayEntity::class, CompletedSessionEntity::class,
   FoodEntity::class, DiaryEntry::class, FoodBundle::class, BundleItem::class, NutritionGoal::class, WeightLog::class, WaterLog::class],
-  version = 8, exportSchema = true)
+  version = 9, exportSchema = true)
 @TypeConverters(Converters::class, NutritionConverters::class)
 abstract class GymDb : RoomDatabase() {
   abstract fun dao(): GymDao
   abstract fun nutrition(): NutritionDao
   companion object { @Volatile private var i: GymDb? = null
     fun get(c: Context) = i ?: synchronized(this) {
-      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8).build().also { i = it } } }
+      i ?: Room.databaseBuilder(c, GymDb::class.java, "gym.db").addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9).build().also { i = it } } }
+}
+
+val MIGRATION_8_9 = object : Migration(8, 9) {
+  override fun migrate(db: SupportSQLiteDatabase) {
+    listOf("instanceId", "superSetId", "sethRound", "ownerId").forEach {
+      db.execSQL("ALTER TABLE `SetLog` ADD COLUMN `$it` TEXT NOT NULL DEFAULT ''")
+    }
+    db.execSQL("ALTER TABLE `SetLog` ADD COLUMN `sethPart` INTEGER NOT NULL DEFAULT 0")
+    db.execSQL("ALTER TABLE `SetLog` ADD COLUMN `superSetPart` INTEGER NOT NULL DEFAULT 0")
+    db.execSQL("ALTER TABLE `workout_items` ADD COLUMN `superSetId` TEXT NOT NULL DEFAULT ''")
+    db.execSQL("ALTER TABLE `workout_items` ADD COLUMN `sethStarts` TEXT NOT NULL DEFAULT '[]'")
+  }
 }
 
 val MIGRATION_7_8 = object : Migration(7, 8) {

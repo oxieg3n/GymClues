@@ -48,8 +48,10 @@ fun workoutShareText(session: CompletedSessionEntity, entries: List<SetLog>, nam
   if (session.programName.isBlank() && session.dayName.isBlank()) append("\n\n").append(session.name)
   completedExerciseGroups(entries).forEach { (id, sets) ->
     append("\n\n").append(name(id))
-    sets.forEachIndexed { index, set -> append('\n').append(if (set.cardio != null) "Entry " else "Set ")
-      .append(index + 1).append(" - ").append(setLabel(set)) }
+    sets.forEach { set ->
+      if (techniqueMarker(set).isNotBlank()) append('\n').append(techniqueMarker(set))
+      append('\n').append(if (set.cardio != null) "Entry " else "Set ")
+        .append(set.setNo).append(" - ").append(setLabel(set)) }
   }
 }
 
@@ -58,7 +60,9 @@ fun workoutShareCard(session: CompletedSessionEntity, entries: List<SetLog>, nam
     sessionDate(session).format(DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.US)) + " " +
       DateTimeFormatter.ofPattern("h:mm a", Locale.US).format(Instant.ofEpochMilli(session.completedAt).atZone(ZoneId.systemDefault())),
     workoutShareText(session, entries, name), completedExerciseGroups(entries).map { (id, sets) ->
-      name(id) to sets.mapIndexed { i, set -> "${if (set.cardio != null) "Entry" else "Set"} ${i + 1}: ${setLabel(set)}" }.joinToString("\n") })
+      name(id) to sets.joinToString("\n") { set ->
+        (techniqueMarker(set).takeIf { it.isNotBlank() }?.plus("\n") ?: "") +
+          "${if (set.cardio != null) "Entry" else "Set"} ${set.setNo}: ${setLabel(set)}" } })
 
 /** Sets and total weight moved on the given days (a streak). Individual exercises are not included. */
 fun streakTotals(logs: List<SetLog>, days: Set<LocalDate>, zone: ZoneId = ZoneId.systemDefault()): Pair<Int, Double> {
@@ -126,6 +130,7 @@ private enum class Kind(val label: String) { DAY("This workout"), STREAK("Workou
         Text(k.label + if (k == Kind.MILESTONE && isNew) " (new)" else "", Modifier.weight(1f)) } }
       if (preview != null) Image(preview, "Workout share image preview", Modifier.fillMaxWidth().heightIn(max = 300.dp).clip(MaterialTheme.shapes.medium), contentScale = ContentScale.Fit)
       else Text("Could not render the complete image on this device. The post text can still be copied.", color = MaterialTheme.colorScheme.error)
+      if (card.caption.codePointCount(0, card.caption.length) > 280) Text("This complete log exceeds X's standard 280-character limit. Use Copy Post Text to keep every entry; X may require a longer-post account or separate posts.")
       Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         AppButton({ if (shareToFacebook(ctx, card)) shared() else copyMessage = "Could not open sharing. Try again." }, Modifier.weight(1f), enabled = preview != null, contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Facebook") }
         AppButton({ if (shareToX(ctx, card)) shared() else copyMessage = "Could not open sharing. Try again." }, Modifier.weight(1f), enabled = preview != null, contentPadding = PaddingValues(horizontal = 8.dp)) { Text("X") }

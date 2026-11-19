@@ -127,16 +127,24 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
   suspend fun plan(kind: String, id: String): WorkoutPlan? = when (kind) {
     "template" -> catalog.template(id)?.let { WorkoutPlan(it.id, it.name, it.items, false) }
     else -> dao.workout(id)?.takeIf { !it.deleted && it.ownerId == session.userId }?.let { w ->
-      WorkoutPlan(w.id, w.name, dao.workoutItems(w.id).map { TemplateItem(it.exerciseId, it.sets, it.reps, it.restSec) }, true) }
+      WorkoutPlan(w.id, w.name, dao.workoutItems(w.id).map { TemplateItem(it.exerciseId, it.sets, it.reps, it.restSec, superSetId = it.superSetId, sethStarts = it.sethStarts) }, true) }
   }
 
   suspend fun saveCustom(id: String?, name: String, items: List<TemplateItem>): String {
+    items.filter { it.superSetId.isNotBlank() }.groupBy { it.superSetId }.values.forEach { pair ->
+      require(pair.size == 2 && pair.map { it.exerciseId }.distinct().size == 2) { "A Super Set needs two different exercises" }
+      require(items.indexOf(pair[1]) == items.indexOf(pair[0]) + 1) { "Super Set exercises must stay adjacent" }
+    }
+    items.forEach { t ->
+      require(validSethStarts(t.sethStarts, t.sets)) { "Invalid Seth Set pairs" }
+      require(t.sethStarts.isEmpty() || catalog.exercise(t.exerciseId)?.tracking == "strength") { "Seth Sets require a strength exercise" }
+    }
     val existing = id?.let { dao.workout(it) }
     require(id == null || existing?.ownerId == session.userId) { "Workout not found" }
     val w = (existing ?: WorkoutEntity(name = name, ownerId = session.userId)).copy(name = name.trim(), updatedAt = now(),
       syncState = SyncState.PENDING)
     dao.saveWorkoutWithItems(w, items.mapIndexed { i, t -> WorkoutItemEntity(workoutId = w.id, position = i, exerciseId = t.exerciseId,
-      sets = t.sets, reps = t.reps, restSec = t.restSec) }, if (existing == null) "create" else "update")
+      sets = t.sets, reps = t.reps, restSec = t.restSec, superSetId = t.superSetId, sethStarts = t.sethStarts) }, if (existing == null) "create" else "update")
     return w.id
   }
   suspend fun deleteCustom(id: String) { dao.workout(id)?.let {
@@ -145,18 +153,31 @@ class WorkoutRepository(private val dao: GymDao, private val catalog: CatalogRep
 
   suspend fun logSet(s: SetLog): Long {
     require(s.cardio == null || s.cardio.valid()) { "Invalid cardio measurements" }
-    return dao.log(s)
+    require(s.sethPart in 0..2 && (s.sethRound.isBlank() == (s.sethPart == 0))) { "Invalid Seth Set relationship" }
+    require(s.sethRound.isBlank() || s.instanceId.isNotBlank()) { "Seth Set needs an exercise instance" }
+    require(s.superSetPart in 0..2 && (s.superSetId.isBlank() == (s.superSetPart == 0))) { "Invalid Super Set relationship" }
+    require(s.superSetId.isBlank() || s.instanceId.isNotBlank()) { "Super Set needs an exercise instance" }
+    require(s.ownerId.isBlank() || s.ownerId == session.userId)
+    return dao.log(s.copy(ownerId = session.userId))
   }
-  fun history() = dao.history()
+  fun history() = dao.history().map { logs -> logs.filter { it.ownerId.isBlank() || it.ownerId == session.userId } }
   fun sessions() = dao.sessions(session.userId)
   /** Saves a finished workout under Completed Sessions. Safe to call twice for the same session. */
   suspend fun renameSession(id: String, name: String) { dao.session(id)?.let {
     dao.upsertSession(it.copy(name = name.trim().ifBlank { it.name }, updatedAt = now(), syncState = SyncState.PENDING)) } }
   suspend fun updateSet(s: SetLog) {
     require(s.cardio == null || s.cardio.valid()) { "Invalid cardio measurements" }
-    dao.updateSet(s)
+    val old = dao.set(s.id) ?: error("Entry no longer exists")
+    require(old.ownerId.isBlank() || old.ownerId == session.userId) { "Entry not found" }
+    // A logged relationship is a historical snapshot; later unlinking only changes the active workout.
+    dao.updateSet(s.copy(units = old.units, instanceId = old.instanceId, superSetId = old.superSetId, superSetPart = old.superSetPart, sethRound = old.sethRound,
+      sethPart = old.sethPart, ownerId = old.ownerId))
   }
-  suspend fun deleteSet(id: Long) = dao.deleteSet(id)
+  suspend fun deleteSet(id: Long) {
+    val old = dao.set(id) ?: return
+    require(old.ownerId.isBlank() || old.ownerId == session.userId) { "Entry not found" }
+    dao.deleteSet(id)
+  }
   /** Hides the session and removes its sets so streaks and totals update. */
   suspend fun deleteSession(id: String) { dao.session(id)?.let {
     dao.upsertSession(it.copy(deleted = true, updatedAt = now(), syncState = SyncState.PENDING)); dao.deleteSets(id) } }

@@ -29,8 +29,22 @@ private fun dateLabel(t: Long) = SimpleDateFormat("EEE, MMM d", Locale.US).forma
 
 /** Sets of one session in the order the exercises were done. */
 internal fun sessionSets(logs: List<SetLog>, id: String) = logs.filter { it.sessionId == id }.sortedWith(compareBy({ it.id }))
-internal fun completedExerciseGroups(logs: List<SetLog>): List<Pair<String, List<SetLog>>> =
-  logs.groupBy { it.exerciseId }.entries.sortedBy { e -> e.value.maxOf { it.id } }.map { it.key to it.value.sortedBy { s -> s.id } }
+internal fun completedExerciseGroups(logs: List<SetLog>): List<Pair<String, List<SetLog>>> {
+  val groups = mutableListOf<Pair<String, MutableList<SetLog>>>()
+  logs.sortedWith(compareBy({ it.date }, { it.id })).forEach { entry ->
+    val previous = groups.lastOrNull()?.second?.lastOrNull()
+    val same = previous != null && previous.exerciseId == entry.exerciseId &&
+      if (entry.instanceId.isNotBlank()) previous.instanceId == entry.instanceId
+      else previous.instanceId.isBlank() && entry.cardio == null && previous.cardio == null
+    if (same) groups.last().second += entry else groups += entry.exerciseId to mutableListOf(entry)
+  }
+  return groups
+}
+
+internal fun techniqueMarker(set: SetLog) = listOfNotNull(
+  "SUPER SET".takeIf { set.superSetId.isNotBlank() },
+  "SETH SET · Part ${set.sethPart}".takeIf { set.sethRound.isNotBlank() }
+).joinToString(" · ")
 
 /** Finished workouts as a grid. Tap one to see its sets and share it. */
 @Composable fun CompletedSessions(app: AppContainer, nav: NavHostController) {
@@ -57,7 +71,7 @@ internal fun completedExerciseGroups(logs: List<SetLog>): List<Pair<String, List
             Icon(Icons.Filled.FitnessCenter, null, Modifier.padding(bottom = 8.dp).size(22.dp), tint = MaterialTheme.colorScheme.primary)
             Text(s.name, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Muted(dateLabel(s.completedAt))
-            val exercises = sets.map { it.exerciseId }.distinct().size
+            val exercises = sets.map { it.instanceId.ifBlank { it.exerciseId } }.distinct().size
             Muted("$exercises exercise${if (exercises == 1) "" else "s"}, ${sets.size} ${if (sets.size == 1) "entry" else "entries"}")
           }
         }
@@ -106,21 +120,22 @@ internal fun completedExerciseGroups(logs: List<SetLog>): List<Pair<String, List
         }
       }
     }
-    items(completedExerciseGroups(sets), key = { it.first }) { (ex, exSets) ->
+    items(completedExerciseGroups(sets), key = { it.second.first().id }) { (ex, exSets) ->
       AppCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(app.catalog.displayName(ex), fontWeight = FontWeight.Medium)
         exSets.forEachIndexed { i, set ->
-          if (!editing) Text("${if (set.cardio != null) "Entry" else "Set"} ${i + 1}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
+          if (techniqueMarker(set).isNotBlank()) Text(techniqueMarker(set), color = MaterialTheme.colorScheme.primary)
+          if (!editing) Text("${if (set.cardio != null) "Entry" else "Set"} ${set.setNo}: ${setLabel(set)}", style = MaterialTheme.typography.bodyMedium)
           else if (set.cardio != null) {
             CardioInput(cardioDrafts.getValue(set.id), showErrors = true)
-            TextButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Text("Delete cardio entry ${i + 1}") }
+            TextButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Text("Delete cardio entry ${set.setNo}") }
           } else {
             val (w, r) = drafts[set.id] ?: (setLabel1(set.weight) to set.reps.toString())
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-              Text("Set ${i + 1}", Modifier.width(48.dp))
+              Text("Set ${set.setNo}", Modifier.width(48.dp))
               if (app.catalog.exercise(ex)?.tracking != "reps") AppTextField(w, { drafts[set.id] = it to r }, Modifier.weight(1f), label = { Text(set.units) }, singleLine = true)
               AppTextField(r, { drafts[set.id] = w to it }, Modifier.weight(1f), label = { Text("Reps") }, singleLine = true)
-              IconButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Icon(Icons.Filled.Delete, "Delete set ${i + 1}") }
+              IconButton({ scope.launch { app.workouts.deleteSet(set.id) } }) { Icon(Icons.Filled.Delete, "Delete set ${set.setNo}") }
             }
           }
         }
