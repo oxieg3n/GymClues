@@ -6,17 +6,46 @@
   const get = (id) => root.querySelector("[data-gg=" + id + "]");
   const [chooser, workspace, shots, scene, full, tap, title, body, count, help, previous, next, steps, reset, broken, annotation, marker] =
     ["chooser","workspace","shot","scene","full","tap","title","body","count","help","prev","next","steps","reset","broken","annotation","marker"].map(get);
+  const catalog = root.querySelector("[data-catalog]");
+  const currentLabel = root.querySelector("[data-current-lesson]");
+  const catalogSummary = catalog?.querySelector("summary");
+  const groups = [
+    ["Getting started", [0, 7, 6, 17]],
+    ["Planning and logging workouts", [1, 8, 11, 14, 15, 5, 12, 9, 10]],
+    ["Exercises and equipment", [2, 3, 18]],
+    ["Food and nutrition", [4, 13, 16]]
+  ];
   let lesson = 0, current = 0;
-  const lessonButtons = [];
-  data.forEach((entry, i) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "gg-lesson";
-    b.textContent = entry.name;
-    b.addEventListener("click", () => {lesson = i; current = 0; draw();});
-    chooser.append(b);
-    lessonButtons.push(b);
+  const lessonButtons = data.map((entry, i) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "gg-lesson";
+    button.textContent = entry.name;
+    button.addEventListener("click", () => {
+      lesson = i;
+      current = 0;
+      draw();
+      if (catalog) catalog.open = false;
+      catalogSummary?.focus();
+    });
+    return button;
   });
+  if (catalog) {
+    const listed = new Set();
+    for (const [heading, indexes] of groups) {
+      const group = document.createElement("div");
+      group.className = "gg-group";
+      const title = document.createElement("h3");
+      title.textContent = heading;
+      group.append(title);
+      for (const i of indexes) {
+        if (lessonButtons[i] && !listed.has(i)) { group.append(lessonButtons[i]); listed.add(i); }
+      }
+      chooser.append(group);
+    }
+    lessonButtons.forEach((button, i) => { if (!listed.has(i)) chooser.append(button); });
+    catalog.hidden = false;
+  } else chooser.append(...lessonButtons);
   function show(index) {
     current = Math.max(0, Math.min(data[lesson].steps.length - 1, index));
     draw();
@@ -86,6 +115,7 @@
     scene.setAttribute("aria-label", item.title + " screenshot");
   }
   function lessonsState() {
+    if (currentLabel) currentLabel.textContent = data[lesson].name;
     lessonButtons.forEach((b, i) => b.setAttribute("aria-pressed", String(i === lesson)));
   }
   shots.addEventListener("error", () => {

@@ -1,3 +1,14 @@
+// Preserve old gallery deep links when the galleries are collapsed by default.
+if (typeof document.getElementById === 'function') {
+  const gallery = document.getElementById('explore-more');
+  const revealGallery = () => {
+    if (!gallery || !/^#(?:screen-|features$|themes$)/.test(location.hash)) return;
+    gallery.open = true;
+    window.requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+  };
+  revealGallery();
+  window.addEventListener('hashchange', revealGallery);
+}
 document.querySelectorAll('[data-viewer]').forEach(viewer => {
   const panels = [...viewer.querySelectorAll('[data-panel]')];
   const choices = [...viewer.querySelectorAll('[data-choice]')];
@@ -20,14 +31,3 @@ document.querySelectorAll('[data-viewer]').forEach(viewer => {
   viewer.dataset.ready = '';
 });
 
-if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('arrived');
-        observer.unobserve(entry.target);
-      }
-    }
-  }, { threshold: .1 });
-  document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
-}
